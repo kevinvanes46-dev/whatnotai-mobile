@@ -380,7 +380,103 @@
       "set": "EX DELTA SPECIES",
       "language": "EN",
       "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Delta-Species/Espeon-Delta-Species-DS4"
+    },
+    {
+      "key": "en|neo genesis|9|lugia",
+      "name": "Lugia",
+      "number": "9",
+      "set": "NEO GENESIS",
+      "language": "EN",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Lugia-NG9"
+    },
+    {
+      "key": "jp|neo genesis|249|lugia",
+      "name": "Lugia",
+      "number": "249",
+      "set": "NEO GENESIS",
+      "language": "JP",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gold-Silver-to-a-New-World/Lugia-GSNW"
+    },
+    {
+      "key": "en|neo revelation|65|shining gyarados",
+      "name": "Shining Gyarados",
+      "number": "65",
+      "set": "NEO REVELATION",
+      "language": "EN",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Shining-Gyarados-NR65"
+    },
+    {
+      "key": "jp|neo revelation|130|shining gyarados",
+      "name": "Shining Gyarados",
+      "number": "130",
+      "set": "NEO REVELATION",
+      "language": "JP",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Awakening-Legends/Shining-Gyarados-AL"
+    },
+    {
+      "key": "en|neo revelation|66|shining magikarp",
+      "name": "Shining Magikarp",
+      "number": "66",
+      "set": "NEO REVELATION",
+      "language": "EN",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Shining-Magikarp-NR66"
+    },
+    {
+      "key": "jp|neo revelation|129|shining magikarp",
+      "name": "Shining Magikarp",
+      "number": "129",
+      "set": "NEO REVELATION",
+      "language": "JP",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Awakening-Legends/Shining-Magikarp-AL"
+    },
+    {
+      "key": "en|neo destiny|107|shining charizard",
+      "name": "Shining Charizard",
+      "number": "107",
+      "set": "NEO DESTINY",
+      "language": "EN",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Charizard-NDE107"
+    },
+    {
+      "key": "jp|neo destiny|006|shining charizard",
+      "name": "Shining Charizard",
+      "number": "006",
+      "set": "NEO DESTINY",
+      "language": "JP",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Darkness-and-to-Light/Shining-Charizard-DL"
+    },
+    {
+      "key": "en|neo destiny|106|shining celebi",
+      "name": "Shining Celebi",
+      "number": "106",
+      "set": "NEO DESTINY",
+      "language": "EN",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Celebi-NDE106"
+    },
+    {
+      "key": "en|neo destiny|108|shining kabutops",
+      "name": "Shining Kabutops",
+      "number": "108",
+      "set": "NEO DESTINY",
+      "language": "EN",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Kabutops-NDE108"
+    },
+    {
+      "key": "en|neo destiny|111|shining raichu",
+      "name": "Shining Raichu",
+      "number": "111",
+      "set": "NEO DESTINY",
+      "language": "EN",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Raichu-NDE111"
+    },
+    {
+      "key": "en|neo destiny|113|shining tyranitar",
+      "name": "Shining Tyranitar",
+      "number": "113",
+      "set": "NEO DESTINY",
+      "language": "EN",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Tyranitar-NDE113"
     }
   ],
-  "version": "v39"
+  "version": "v40"
 }

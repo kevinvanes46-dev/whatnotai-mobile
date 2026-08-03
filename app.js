@@ -212,7 +212,7 @@ function buildUrl(){
     return {url:searchUrl(name, number, lang, cond), exact:false, note:'Geen set gekozen: zoekpagina.'};
   }
 
-  // v39 special correction: "delta charizard 4" is EX Crystal Guardians CG4, not EX Delta Species DS4.
+  // v40 special correction: "delta charizard 4" is EX Crystal Guardians CG4, not EX Delta Species DS4.
   if(lang === 'EN' && (set === 'EX DELTA SPECIES' || set === 'EX CRYSTAL GUARDIANS') && cleanNumber(number) === '4' && normalizeName(name) === 'charizard'){
     const url = withFilters('https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Crystal-Guardians/Charizard-Delta-Species-CG4', lang, cond);
     return {url, exact:true, note:'Special: Delta Charizard #4 = EX Crystal Guardians / CG4'};
