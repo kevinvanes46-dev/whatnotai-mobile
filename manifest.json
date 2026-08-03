@@ -1,0 +1,9 @@
+{
+  "name": "WhatnotAI Mobile",
+  "short_name": "WhatnotAI",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#07111f",
+  "description": "Gratis Cardmarket helper voor Pokémon Whatnot streams."
+}

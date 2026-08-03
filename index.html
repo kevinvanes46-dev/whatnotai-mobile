@@ -3,9 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0b0f14" />
+  <meta name="theme-color" content="#07111f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="WhatnotAI" />
   <title>WhatnotAI Mobile</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
 </head>
 <body>
   <main class="app">
@@ -17,43 +20,49 @@
       <span class="pill">FREE</span>
     </header>
 
-    <section class="card panel">
+    <section class="panel quickPanel">
       <label class="label" for="quickInput">Snelinvoer</label>
-      <input id="quickInput" class="quick" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="jp base 002 ivysaur nm" />
-      <div class="examples">
+      <div class="quickWrap">
+        <input id="quickInput" class="quick" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="jp base 002 ivysaur nm" />
+        <button id="quickGo" class="quickGo" title="Maak link">↵</button>
+      </div>
+      <div class="examples" id="exampleChips">
         <button data-fill="jp base 002 ivysaur nm">JP Base Ivysaur</button>
         <button data-fill="jp fossil 094 gengar nm">JP Fossil Gengar</button>
-        <button data-fill="en neo revelation 57 swinub nm">EN Swinub</button>
+        <button data-fill="jp neo revelation 220 swinub nm">JP Neo Swinub</button>
+        <button data-fill="en delta charizard 4 nm">EN Delta Charizard</button>
       </div>
     </section>
 
-    <section class="grid2 panel">
-      <div>
-        <label class="label" for="numberInput">Nummer</label>
-        <input id="numberInput" autocomplete="off" placeholder="57 / 002" />
+    <section class="panel formPanel">
+      <div class="row two">
+        <div>
+          <label class="label" for="numberInput">Nummer</label>
+          <input id="numberInput" autocomplete="off" placeholder="57 / 002" />
+        </div>
+        <div>
+          <label class="label" for="nameInput">Naam</label>
+          <input id="nameInput" autocomplete="off" placeholder="Swinub" />
+        </div>
       </div>
-      <div>
-        <label class="label" for="nameInput">Naam</label>
-        <input id="nameInput" autocomplete="off" placeholder="Swinub" />
-      </div>
-      <div>
-        <label class="label" for="setSelect">Set</label>
-        <select id="setSelect">
-          <option>AUTO</option>
-          <option>BASE</option>
-          <option>JUNGLE</option>
-          <option>FOSSIL</option>
-          <option>ROCKET</option>
-          <option>GYM HEROES</option>
-          <option>GYM CHALLENGE</option>
-          <option>NEO GENESIS</option>
-          <option>NEO DISCOVERY</option>
-          <option>NEO REVELATION</option>
-          <option>NEO DESTINY</option>
-          <option>EX DELTA SPECIES</option>
-        </select>
-      </div>
-      <div class="minirow">
+      <div class="row three">
+        <div>
+          <label class="label" for="setSelect">Set</label>
+          <select id="setSelect">
+            <option>AUTO</option>
+            <option>BASE</option>
+            <option>JUNGLE</option>
+            <option>FOSSIL</option>
+            <option>ROCKET</option>
+            <option>GYM HEROES</option>
+            <option>GYM CHALLENGE</option>
+            <option>NEO GENESIS</option>
+            <option>NEO DISCOVERY</option>
+            <option>NEO REVELATION</option>
+            <option>NEO DESTINY</option>
+            <option>EX DELTA SPECIES</option>
+          </select>
+        </div>
         <div>
           <label class="label" for="langSelect">Taal</label>
           <select id="langSelect">
@@ -74,20 +83,39 @@
     </section>
 
     <section class="actions">
-      <button id="makeBtn" class="primary">Maak link</button>
-      <a id="openBtn" class="open disabled" href="#" target="_blank" rel="noopener">Open Cardmarket op deze telefoon</a>
-      <button id="copyBtn" class="secondary">Kopieer link</button>
+      <button id="makeBtn" class="primary">Maak + kopieer</button>
+      <a id="openBtn" class="open disabled" href="#" target="_blank" rel="noopener">Open CM</a>
+      <button id="favoriteBtn" class="secondary">⭐ Favoriet</button>
       <button id="clearBtn" class="ghost">Leeg</button>
     </section>
 
     <section class="panel resultPanel">
-      <div id="status" class="status">Klaar.</div>
+      <div class="statusLine">
+        <div id="status" class="status">Klaar.</div>
+        <button id="copyBtn" class="tinyBtn">Kopieer</button>
+      </div>
       <textarea id="urlBox" readonly placeholder="Cardmarket URL komt hier"></textarea>
       <div id="matchBox" class="matchBox"></div>
     </section>
 
+    <section class="panel savedPanel">
+      <div class="sectionHeader">
+        <h2>Recent</h2>
+        <button id="clearRecentBtn" class="tinyBtn danger">Wis</button>
+      </div>
+      <div id="recentList" class="savedList empty">Nog geen recente zoekopdrachten.</div>
+    </section>
+
+    <section class="panel savedPanel">
+      <div class="sectionHeader">
+        <h2>Favorieten</h2>
+        <button id="clearFavBtn" class="tinyBtn danger">Wis</button>
+      </div>
+      <div id="favoriteList" class="savedList empty">Nog geen favorieten.</div>
+    </section>
+
     <section class="panel note">
-      <b>Tip:</b> JP vintage gebruikt aparte Cardmarket-pagina’s. Dus <code>jp base 002 ivysaur nm</code> opent Expansion Pack / Ivysaur, niet Engelse Base Set #2.
+      <b>Tip:</b> Enter maakt/kopieert alleen een link. Tik daarna zelf op <b>Open CM</b>. Dat voorkomt Cardmarket rate-limits.
     </section>
   </main>
   <script src="app.js"></script>
