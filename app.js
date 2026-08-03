@@ -2,7 +2,7 @@
 
 let DATA = { pokedex: {}, knownCards: [] };
 let lastBuilt = null;
-const APP_VERSION = 'v57';
+const APP_VERSION = 'v58';
 
 const $ = (id) => document.getElementById(id);
 const quickInput = $('quickInput');
@@ -137,15 +137,39 @@ function removeSetWords(text){
   return out.trim();
 }
 
+function inferLanguageFromKnown(set, number, name, currentLang){
+  const n = cleanNumber(number);
+  const nm = normalizeName(name);
+  if(!n || !nm) return currentLang;
+
+  let matches = (DATA.knownCards || []).filter(c =>
+    normalizeName(c.name) === nm &&
+    (cleanNumber(c.number) === n || pad3(c.number) === pad3(n))
+  );
+  if(set && set !== 'AUTO'){
+    matches = matches.filter(c => c.set === set);
+  }
+
+  const languages = [...new Set(matches.map(c => c.language).filter(Boolean))];
+  return languages.length === 1 ? languages[0] : currentLang;
+}
+
 function parseQuick(){
   const text = quickInput.value.trim();
   if(!text) return false;
+
   const lower = text.toLowerCase();
   const langExplicit = /\b(jp|jpn|japanese|japans|en|eng|english)\b/.test(lower);
-  let lang = /\b(jp|jpn|japanese|japans)\b/.test(lower) ? 'JP' : (/\b(en|eng|english)\b/.test(lower) ? 'EN' : langSelect.value);
+  let lang = /\b(jp|jpn|japanese|japans)\b/.test(lower)
+    ? 'JP'
+    : (/\b(en|eng|english)\b/.test(lower) ? 'EN' : langSelect.value);
+
   let cond = condSelect.value || 'NM';
-  const cm = lower.match(/\b(nm|gd|pl)\b|\bex\b(?!\s*delta)/);
-  if(cm) cond = cm[1].toUpperCase();
+  if(/\bnm\b/.test(lower)) cond = 'NM';
+  else if(/\bgd\b/.test(lower)) cond = 'GD';
+  else if(/\bpl\b/.test(lower)) cond = 'PL';
+  else if(/\bex\b(?!\s*delta)/.test(lower)) cond = 'EX';
+
   const set = detectSet(text);
   if(set === 'EX DELTA SPECIES' && !langExplicit) lang = 'EN';
 
@@ -154,18 +178,27 @@ function parseQuick(){
     .replace(/\b(1st|first\s+edition|holo|holorare|holo\s+rare)\b/gi,' ')
     .replace(/\s+/g,' ')
     .trim();
+
   const tokens = cleaned.split(' ').filter(Boolean);
   let number = '';
   const nameParts = [];
+
   for (const t of tokens){
     if(!number && /^\d{1,3}(\/\d{1,3})?$/.test(t)) number = cleanNumber(t);
     else nameParts.push(t);
   }
+
   let name = nameParts.join(' ').trim();
+
+  if(!langExplicit){
+    lang = inferLanguageFromKnown(set, number, name, lang);
+  }
+
   if(!name && lang === 'JP' && number){
     const dex = DATA.pokedex[pad3(number)];
     if(dex) name = dex;
   }
+
   numberInput.value = number;
   nameInput.value = titleCasePokemon(name);
   setSelect.value = set;
@@ -249,21 +282,32 @@ function autoValueDirect(lang, number, name, cond){
   };
 }
 
-function knownLookup(lang,set,number,name){
-  const n = cleanNumber(number);
-  const nm = normalizeName(name);
-  const keyNum = lang === 'JP' ? pad3(n) : n;
-  const key = `${lang.toLowerCase()}|${set.toLowerCase()}|${keyNum}|${nm}`;
-  return (DATA.knownCards || []).find(c => c.key === key);
-}
-function findAutoKnown(lang, number, name){
+function matchingKnownCards(set, number, name){
   const n = cleanNumber(number);
   const nm = normalizeName(name);
   return (DATA.knownCards || []).filter(c =>
     normalizeName(c.name) === nm &&
-    c.language === lang &&
-    (cleanNumber(c.number) === n || pad3(c.number) === pad3(n))
+    (cleanNumber(c.number) === n || pad3(c.number) === pad3(n)) &&
+    (!set || set === 'AUTO' || c.set === set)
   );
+}
+
+function knownLookup(lang,set,number,name){
+  const matches = matchingKnownCards(set, number, name);
+  const selectedLanguage = matches.find(c => c.language === lang);
+  if(selectedLanguage) return selectedLanguage;
+
+  const languages = [...new Set(matches.map(c => c.language).filter(Boolean))];
+  return languages.length === 1 && matches.length === 1 ? matches[0] : null;
+}
+
+function findAutoKnown(lang, number, name){
+  const matches = matchingKnownCards('AUTO', number, name);
+  const selectedLanguageMatches = matches.filter(c => c.language === lang);
+  if(selectedLanguageMatches.length) return selectedLanguageMatches;
+
+  const languages = [...new Set(matches.map(c => c.language).filter(Boolean))];
+  return languages.length === 1 ? matches : [];
 }
 function withFilters(url, lang, cond){
   const params = [];
@@ -310,12 +354,20 @@ function buildUrl(){
     if(matches.length === 1){
       const exact = matches[0];
       setSelect.value = exact.set;
+      langSelect.value = exact.language || lang;
       updateCustomSelects();
-      return {url:withFilters(exact.url, lang, cond), exact:true, note:`Direct: ${exact.set} · ${exact.rarity || 'kaart'} · ${exact.name}`};
+      return {
+        url: withFilters(exact.url, langSelect.value, cond),
+        exact: true,
+        note: `Direct: ${exact.set} · ${exact.rarity || 'kaart'} · ${exact.name}`
+      };
     }
     if(matches.length > 1){
+      const candidateLanguage = [...new Set(matches.map(c => c.language).filter(Boolean))];
+      if(candidateLanguage.length === 1) langSelect.value = candidateLanguage[0];
+      updateCustomSelects();
       return {
-        url: searchUrl(name, number, lang, cond),
+        url: searchUrl(name, number, langSelect.value, cond),
         exact: false,
         candidates: matches,
         note: `Meerdere matches voor ${name} #${number}. Kies hieronder de juiste set.`
@@ -341,7 +393,15 @@ function buildUrl(){
   }
 
   const known = knownLookup(lang,set,number,name);
-  if(known) return {url:withFilters(known.url, lang, cond), exact:true, note:`Geverifieerde directe match: ${known.set} / ${known.name}`};
+  if(known){
+    langSelect.value = known.language || lang;
+    updateCustomSelects();
+    return {
+      url: withFilters(known.url, langSelect.value, cond),
+      exact: true,
+      note: `Direct: ${known.set} · ${known.rarity || 'kaart'} · ${known.name}`
+    };
+  }
 
   // v56: nooit meer een product-URL gokken.
   // Cardmarket gebruikt per kaart soms V1/V2/V3 of afwijkende setcodes.
@@ -420,6 +480,7 @@ function bindCandidateButtons(candidates){
       const c = candidates[Number(btn.dataset.candidate)];
       if(!c) return;
       setSelect.value = c.set;
+      langSelect.value = c.language || langSelect.value;
       nameInput.value = c.name;
       numberInput.value = c.number;
       updateCustomSelects();
@@ -601,7 +662,7 @@ initCustomSelects();
 bind();
 renderSaved();
 setStatus('Data laden...', 'warn');
-fetch('data/cards.json?v=57')
+fetch('data/cards.json?v=58')
   .then(r => r.json())
   .then(j => { DATA = j; setStatus('Klaar.', ''); renderSaved(); })
   .catch(() => { setStatus('Data niet geladen; basis werkt nog wel.', 'warn'); renderSaved(); });

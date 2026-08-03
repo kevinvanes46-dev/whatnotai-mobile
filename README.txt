@@ -47,3 +47,6 @@ v56 SAFE BUILD: alle gegokte directe Cardmarket-routes verwijderd. Alleen geveri
 
 
 v57: EN Base Set holo 1-16, Jungle holo 1-16 en Fossil holo 1-15 toegevoegd. Bij dubbele naam+nummer-combinaties toont de app een setkeuze.
+
+
+v58: taal wordt automatisch uit de exacte kaartmatch gehaald. Voorbeeld: Jungle Vaporeon #12 schakelt automatisch naar EN. NM/EX/GD/PL wordt altijd op de directe Cardmarket-link gezet.
