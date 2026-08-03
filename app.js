@@ -2,7 +2,7 @@
 
 let DATA = { pokedex: {}, knownCards: [] };
 let lastBuilt = null;
-const APP_VERSION = 'v54';
+const APP_VERSION = 'v55';
 
 const $ = (id) => document.getElementById(id);
 const quickInput = $('quickInput');
@@ -151,6 +151,7 @@ function parseQuick(){
 
   const cleaned = removeSetWords(text)
     .replace(/\b(jp|jpn|japanese|japans|en|eng|english|nm|ex|gd|pl)\b/gi,' ')
+    .replace(/\b(1st|first\s+edition|holo|holorare|holo\s+rare)\b/gi,' ')
     .replace(/\s+/g,' ')
     .trim();
   const tokens = cleaned.split(' ').filter(Boolean);
@@ -209,6 +210,28 @@ function legendaryCollectionDirect(lang, number, name, cond){
     return {url:withFilters(url, lang, cond), exact:true, note, autoSet:'LEGENDARY COLLECTION', autoName:'Charizard'};
   }
   return null;
+}
+
+
+function baseHitmonchanDirect(lang, number, name, cond){
+  if(lang !== 'EN') return null;
+  const n = cleanNumber(number);
+  const nm = normalizeName(name).replace(/\b(1st|first edition|holo|holorare|holo rare)\b/g,' ').replace(/\s+/g,' ').trim();
+  if(nm !== 'hitmonchan' || n !== '7') return null;
+
+  const typed = normalizeName(quickInput.value + ' ' + nameInput.value);
+  const firstEdition = /\b(1st|first edition)\b/.test(typed);
+  const base = firstEdition
+    ? 'https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Hitmonchan-V2-BS7'
+    : 'https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Hitmonchan-V1-BS7';
+
+  return {
+    url: withFilters(base, lang, cond),
+    exact: true,
+    note: firstEdition ? 'Base Set Hitmonchan #7 · 1st Edition route' : 'Base Set Hitmonchan #7 · Holo route',
+    autoSet: 'BASE',
+    autoName: 'Hitmonchan'
+  };
 }
 
 function autoValueDirect(lang, number, name, cond){
@@ -293,6 +316,11 @@ function buildUrl(){
   if(set === 'LEGENDARY COLLECTION'){
     const lcDirect = legendaryCollectionDirect(lang, number, name, cond);
     if(lcDirect) return lcDirect;
+  }
+
+  if(set === 'BASE'){
+    const hitmonchanDirect = baseHitmonchanDirect(lang, number, name, cond);
+    if(hitmonchanDirect) return hitmonchanDirect;
   }
 
   const known = knownLookup(lang,set,number,name);
@@ -523,7 +551,7 @@ initCustomSelects();
 bind();
 renderSaved();
 setStatus('Data laden...', 'warn');
-fetch('data/cards.json?v=54')
+fetch('data/cards.json?v=55')
   .then(r => r.json())
   .then(j => { DATA = j; setStatus('Klaar.', ''); renderSaved(); })
   .catch(() => { setStatus('Data niet geladen; basis werkt nog wel.', 'warn'); renderSaved(); });

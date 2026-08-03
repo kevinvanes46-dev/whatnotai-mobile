@@ -254,6 +254,14 @@
   },
   "knownCards": [
     {
+      "key": "en|base|7|hitmonchan",
+      "name": "Hitmonchan",
+      "number": "7",
+      "set": "BASE",
+      "language": "EN",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Hitmonchan-V1-BS7"
+    },
+    {
       "key": "en|jungle|51|eevee",
       "name": "Eevee",
       "number": "51",
@@ -486,5 +494,5 @@
       "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Tyranitar-NDE113"
     }
   ],
-  "version": "v54"
+  "version": "v55"
 }
