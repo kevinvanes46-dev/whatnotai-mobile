@@ -1,12 +1,12 @@
-WhatnotAI Mobile Standalone v37
+WhatnotAI Mobile Standalone v38
 
-Fixes:
-- Favorietenknop werkt nu betrouwbaar.
-- Recent wordt direct bijgewerkt na link maken.
-- Oude service-worker/cache wordt automatisch verwijderd.
-- app.js en style.css hebben cache-buster ?v=37.
+Nieuw:
+- Favorieten/recent blijven werken.
+- Meer set-aliases: Rocket, Southern Islands, WOTC Promo, Expedition, Aquapolis, Skyridge.
+- EX Delta Species quick input gefixt: "ex delta" wordt niet meer als conditie EX gelezen.
+- Extra bekende value cards in data/cards.json.
 
-Upload/vervang in GitHub root:
+Upload naar GitHub:
 - index.html
 - style.css
 - app.js
@@ -15,8 +15,7 @@ Upload/vervang in GitHub root:
 - data/cards.json
 - README.txt
 
-Na commit:
-Open de site een keer met ?v=37 achter de URL:
-https://kevinvanes46-dev.github.io/whatnotai-mobile/?v=37
+Open daarna met ?v=38 om cache te verversen.
 
-Als favorieten nog leeg blijven: sluit browser/tab en open opnieuw met ?v=37.
+
+v39: Delta Charizard shortcut fixed. "delta charizard 4" opens EX Crystal Guardians CG4.

@@ -24,8 +24,8 @@ const matchBox = $('matchBox');
 const recentList = $('recentList');
 const favoriteList = $('favoriteList');
 
-const STORAGE_RECENT = 'whatnotai_mobile_recent_v37';
-const STORAGE_FAV = 'whatnotai_mobile_favorites_v37';
+const STORAGE_RECENT = 'whatnotai_mobile_recent_v37'; // keep v37 key so saved items stay
+const STORAGE_FAV = 'whatnotai_mobile_favorites_v37'; // keep v37 key so favorites stay
 const MAX_RECENT = 10;
 const MAX_FAV = 40;
 
@@ -33,14 +33,20 @@ const CONDITION_IDS = { NM: '2', EX: '3', GD: '4', PL: '6' };
 const LANGUAGE_IDS = { EN: '1', JP: '7' };
 
 const SET_ALIASES = [
-  ['EX DELTA SPECIES', ['ex delta species','delta species','delta','ds']],
+  ['EX CRYSTAL GUARDIANS', ['ex crystal guardians','crystal guardians','crystal','cg']],
+  ['EX DELTA SPECIES', ['ex delta species','delta species','ex delta','delta','ds']],
   ['GYM CHALLENGE', ['gym challenge','challenge']],
   ['GYM HEROES', ['gym heroes','heroes']],
   ['NEO REVELATION', ['neo revelation','neo rev','revelation','neo 3']],
   ['NEO DISCOVERY', ['neo discovery','neo disc','discovery','neo 2']],
   ['NEO GENESIS', ['neo genesis','genesis','neo 1']],
   ['NEO DESTINY', ['neo destiny','destiny','neo 4']],
-  ['ROCKET', ['team rocket','rocket','tr']],
+  ['ROCKET', ['team rocket','rocket','rocket gang','tr']],
+  ['SOUTHERN ISLANDS', ['southern islands','southern','si']],
+  ['WOTC PROMO', ['wotc promo','wizards black star','black star','promo','basep']],
+  ['EXPEDITION', ['expedition','ecard','ecard1']],
+  ['AQUAPOLIS', ['aquapolis','ecard2']],
+  ['SKYRIDGE', ['skyridge','ecard3']],
   ['JUNGLE', ['jungle','ju']],
   ['FOSSIL', ['fossil','fossile','fo']],
   ['BASE', ['base set','base','expansion pack','expansion']],
@@ -57,7 +63,13 @@ const WESTERN = {
   'NEO DISCOVERY': {dir:'Neo-Discovery', code:'N2'},
   'NEO REVELATION': {dir:'Neo-Revelation', code:'NR'},
   'NEO DESTINY': {dir:'Neo-Destiny', code:'N4'},
+  'SOUTHERN ISLANDS': {dir:'Southern-Islands', code:'SI'},
+  'WOTC PROMO': {dir:'Wizards-Black-Star-Promos', code:'WP'},
+  'EXPEDITION': {dir:'Expedition-Base-Set', code:'EX'},
+  'AQUAPOLIS': {dir:'Aquapolis', code:'AQ'},
+  'SKYRIDGE': {dir:'Skyridge', code:'SK'},
   'EX DELTA SPECIES': {dir:'EX-Delta-Species', code:'DS'},
+  'EX CRYSTAL GUARDIANS': {dir:'EX-Crystal-Guardians', code:'CG'},
 };
 
 const JAPANESE = {
@@ -70,6 +82,7 @@ const JAPANESE = {
   'NEO DISCOVERY': {dir:'Crossing-the-Ruins', suffix:''},
   'NEO REVELATION': {dir:'Awakening-Legends', suffix:'AL'},
   'NEO DESTINY': {dir:'Darkness-and-to-Light', suffix:''},
+  'SOUTHERN ISLANDS': {dir:'Southern-Islands-JP', suffix:''},
 };
 
 function setStatus(text, type=''){
@@ -128,7 +141,7 @@ function parseQuick(){
   const langExplicit = /\b(jp|jpn|japanese|japans|en|eng|english)\b/.test(lower);
   let lang = /\b(jp|jpn|japanese|japans)\b/.test(lower) ? 'JP' : (/\b(en|eng|english)\b/.test(lower) ? 'EN' : langSelect.value);
   let cond = condSelect.value || 'NM';
-  const cm = lower.match(/\b(nm|ex|gd|pl)\b/);
+  const cm = lower.match(/\b(nm|gd|pl)\b|\bex\b(?!\s*delta)/);
   if(cm) cond = cm[1].toUpperCase();
   const set = detectSet(text);
   if(set === 'EX DELTA SPECIES' && !langExplicit) lang = 'EN';
@@ -197,6 +210,12 @@ function buildUrl(){
     const exact = findAutoKnown(lang, number, name);
     if(exact) return {url:withFilters(exact.url, lang, cond), exact:true, note:`Exact via database: ${exact.set} / ${exact.name}`};
     return {url:searchUrl(name, number, lang, cond), exact:false, note:'Geen set gekozen: zoekpagina.'};
+  }
+
+  // v39 special correction: "delta charizard 4" is EX Crystal Guardians CG4, not EX Delta Species DS4.
+  if(lang === 'EN' && (set === 'EX DELTA SPECIES' || set === 'EX CRYSTAL GUARDIANS') && cleanNumber(number) === '4' && normalizeName(name) === 'charizard'){
+    const url = withFilters('https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Crystal-Guardians/Charizard-Delta-Species-CG4', lang, cond);
+    return {url, exact:true, note:'Special: Delta Charizard #4 = EX Crystal Guardians / CG4'};
   }
 
   const known = knownLookup(lang,set,number,name);
@@ -359,7 +378,7 @@ async function unregisterOldServiceWorkers(){
 bind();
 renderSaved();
 setStatus('Data laden...', 'warn');
-fetch('data/cards.json?v=37')
+fetch('data/cards.json?v=39')
   .then(r => r.json())
   .then(j => { DATA = j; setStatus('Klaar.', ''); renderSaved(); })
   .catch(() => { setStatus('Data niet geladen; basis werkt nog wel.', 'warn'); renderSaved(); });

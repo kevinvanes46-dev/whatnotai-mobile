@@ -316,6 +316,71 @@
       "set": "NEO REVELATION",
       "language": "EN",
       "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Swinub-NR57"
+    },
+    {
+      "key": "en|base|4|charizard",
+      "name": "Charizard",
+      "number": "4",
+      "set": "BASE",
+      "language": "EN",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Charizard-BS4"
+    },
+    {
+      "key": "en|base|2|blastoise",
+      "name": "Blastoise",
+      "number": "2",
+      "set": "BASE",
+      "language": "EN",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Blastoise-BS2"
+    },
+    {
+      "key": "en|base|15|venusaur",
+      "name": "Venusaur",
+      "number": "15",
+      "set": "BASE",
+      "language": "EN",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Venusaur-BS15"
+    },
+    {
+      "key": "en|fossil|5|gengar",
+      "name": "Gengar",
+      "number": "5",
+      "set": "FOSSIL",
+      "language": "EN",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Gengar-FO5"
+    },
+    {
+      "key": "en|fossil|4|dragonite",
+      "name": "Dragonite",
+      "number": "4",
+      "set": "FOSSIL",
+      "language": "EN",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Dragonite-FO4"
+    },
+    {
+      "key": "en|rocket|4|dark charizard",
+      "name": "Dark Charizard",
+      "number": "4",
+      "set": "ROCKET",
+      "language": "EN",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Team-Rocket/Dark-Charizard-TR4"
+    },
+    {
+      "key": "en|ex crystal guardians|4|charizard",
+      "name": "Charizard",
+      "number": "4",
+      "set": "EX CRYSTAL GUARDIANS",
+      "language": "EN",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Crystal-Guardians/Charizard-Delta-Species-CG4"
+    },
+    {
+      "key": "en|ex delta species|4|espeon",
+      "name": "Espeon",
+      "number": "4",
+      "set": "EX DELTA SPECIES",
+      "language": "EN",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Delta-Species/Espeon-Delta-Species-DS4"
     }
-  ]
+  ],
+  "version": "v39"
 }
