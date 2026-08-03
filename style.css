@@ -57,7 +57,7 @@ h2{font-size:14px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em;
 @media(max-width:420px){.app{padding-left:10px;padding-right:10px}.hero{grid-template-columns:46px 1fr auto}.brandMark{width:46px;height:46px;border-radius:16px}.brandText h1{font-size:25px}.row.two{grid-template-columns:1fr 1fr}.row.three{grid-template-columns:1fr 1fr}.row.three>div:first-child{grid-column:1/-1}.quick{font-size:16px}.actions{grid-template-columns:1fr 1fr}button,.open{font-size:14px;padding:13px 9px}.card{padding:12px}}
 
 
-/* v49 custom select fix: no native white dropdowns */
+/* v50 custom select fix: no native white dropdowns */
 .nativeSelectHidden{display:none!important}
 .customSelect{position:relative;width:100%;z-index:5}
 .customSelectBtn{
@@ -78,14 +78,14 @@ h2{font-size:14px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em;
 .customSelectOption:hover,.customSelectOption.active{background:#1e7cff;color:#fff}
 .customSelectOption + .customSelectOption{margin-top:2px}
 
-/* v49 subtle TCG-style background: no official art, just premium card silhouettes */
+/* v50 subtle TCG-style background: no official art, just premium card silhouettes */
 body .tcgBg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:.55}
 .tcgCardShape{position:absolute;width:92px;height:128px;border-radius:12px;border:1px solid rgba(120,170,255,.18);background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.015));box-shadow:0 20px 70px rgba(0,0,0,.35);transform:rotate(var(--rot));filter:blur(.1px)}
 .tcgCardShape::before{content:'';position:absolute;inset:11px;border-radius:8px;border:1px solid rgba(255,255,255,.10);background:radial-gradient(circle at 50% 35%,rgba(80,180,255,.18),transparent 34%),linear-gradient(180deg,transparent 0 58%,rgba(255,255,255,.06) 58% 62%,transparent 62%)}
 .tcgCardShape.a{left:7%;top:18%;--rot:-13deg}.tcgCardShape.b{right:7%;top:28%;--rot:12deg}.tcgCardShape.c{left:10%;bottom:9%;--rot:9deg}.tcgCardShape.d{right:11%;bottom:12%;--rot:-10deg}
 @media(max-width:700px){.tcgCardShape{opacity:.35}.tcgCardShape.a{left:-26px}.tcgCardShape.b{right:-30px}.tcgCardShape.c,.tcgCardShape.d{display:none}}
 
-/* v49 mobile dropdown fix */
+/* v50 mobile dropdown fix */
 .formPanel, .row, .row > div { overflow: visible !important; }
 .customSelectMenu { -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
 .customSelectOption { cursor: pointer; touch-action: manipulation; }
@@ -96,13 +96,13 @@ body .tcgBg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden
   .actions{position:relative;z-index:1}
 }
 
-/* v49 CardScout brand polish */
+/* v50 CardScout brand polish */
 .hero{position:relative}
 .hero::after{content:"";position:absolute;right:54px;top:2px;width:88px;height:50px;background:radial-gradient(circle at 20% 50%,rgba(255,205,46,.14),transparent 34%),radial-gradient(circle at 70% 35%,rgba(65,169,255,.14),transparent 40%);filter:blur(10px);pointer-events:none}
 body::before{opacity:.16}
 body::after{opacity:.12}
 
-/* v49 iPhone-safe choice sheet. Geen native witte dropdowns meer. */
+/* v50 iPhone-safe choice sheet. Geen native witte dropdowns meer. */
 .nativeSelectHidden{
   position:absolute!important;
   opacity:0!important;
@@ -214,7 +214,7 @@ body::after{opacity:.12}
 }
 .choiceOption:last-child{margin-bottom:0}
 
-/* v49 iOS scroll fix for choice sheet */
+/* v50 iOS scroll fix for choice sheet */
 html.sheetOpen,
 body.sheetOpen{
   overflow:hidden!important;
@@ -245,7 +245,7 @@ body.sheetOpen{
   user-select:none;
 }
 
-/* v49 FINAL mobile fix: no dropdowns. Set/Taal/Staat are chip bars, same as the working quick chips. */
+/* v50 FINAL mobile fix: no dropdowns. Set/Taal/Staat are chip bars, same as the working quick chips. */
 .choiceOverlay,
 .choiceSheet,
 .choiceOptions,
@@ -334,4 +334,71 @@ body.sheetOpen{
 @media(min-width:520px){
   .row.three{grid-template-columns:1fr 1fr 1fr}
   .setChipBar{max-width:100%}
+}
+
+/* v50 final control fix: no horizontal hold-scroll. Everything wraps and is tappable. */
+.formPanel{
+  overflow:visible!important;
+}
+.row.three{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:14px!important;
+}
+.selectChipBar{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:8px!important;
+  overflow:visible!important;
+  overflow-x:visible!important;
+  overflow-y:visible!important;
+  padding:0!important;
+  margin:0!important;
+  -webkit-overflow-scrolling:auto!important;
+  scrollbar-width:none!important;
+  overscroll-behavior:auto!important;
+  touch-action:manipulation!important;
+  scroll-snap-type:none!important;
+}
+.selectChipBar::-webkit-scrollbar{display:none!important}
+.selectChipBar::after{display:none!important}
+.selectChip{
+  flex:0 0 auto!important;
+  min-height:42px!important;
+  border:1px solid #314867!important;
+  background:linear-gradient(180deg,#121f33,#0d1828)!important;
+  color:#dcecff!important;
+  border-radius:999px!important;
+  padding:10px 13px!important;
+  font-size:13px!important;
+  font-weight:1000!important;
+  white-space:nowrap!important;
+  touch-action:manipulation!important;
+  cursor:pointer!important;
+}
+.selectChip.active{
+  border-color:#70b8ff!important;
+  background:linear-gradient(135deg,#1e7cff,#46a3ff)!important;
+  color:#fff!important;
+  box-shadow:0 10px 22px rgba(47,125,246,.22)!important;
+}
+.smallChipBar{
+  display:grid!important;
+  grid-template-columns:repeat(4,1fr)!important;
+  gap:7px!important;
+}
+#langSelect + .selectChipBar{
+  grid-template-columns:repeat(2,1fr)!important;
+}
+.smallChipBar .selectChip{
+  width:100%!important;
+  text-align:center!important;
+  padding:10px 8px!important;
+}
+.setChipBar .selectChip:first-child{
+  min-width:76px!important;
+}
+.note::after{
+  content:" v50";
+  color:#8fa1b8;
 }

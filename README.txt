@@ -26,3 +26,6 @@ Voorbeelden:
 
 
 v49: definitieve mobiele fix: Set/Taal/Staat zijn chip-balken i.p.v. dropdowns/popups.
+
+
+v50: Set/Taal/Staat zijn vaste wrap-knoppen. Geen dropdown, geen horizontale hold-scroll.

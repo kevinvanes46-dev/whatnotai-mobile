@@ -2,7 +2,7 @@
 
 let DATA = { pokedex: {}, knownCards: [] };
 let lastBuilt = null;
-const APP_VERSION = 'v49';
+const APP_VERSION = 'v50';
 
 const $ = (id) => document.getElementById(id);
 const quickInput = $('quickInput');
@@ -419,11 +419,7 @@ function updateCustomSelects(){
 }
 
 function scrollActiveChipIntoView(select){
-  if(!select._chipBar) return;
-  const active = select._chipBar.querySelector('.selectChip.active');
-  if(active && active.scrollIntoView){
-    active.scrollIntoView({inline:'center', block:'nearest', behavior:'smooth'});
-  }
+  // v50: no automatic scroll. All choices wrap on screen.
 }
 
 function initCustomSelects(){
@@ -494,7 +490,7 @@ initCustomSelects();
 bind();
 renderSaved();
 setStatus('Data laden...', 'warn');
-fetch('data/cards.json?v=49')
+fetch('data/cards.json?v=50')
   .then(r => r.json())
   .then(j => { DATA = j; setStatus('Klaar.', ''); renderSaved(); })
   .catch(() => { setStatus('Data niet geladen; basis werkt nog wel.', 'warn'); renderSaved(); });
