@@ -1,4 +1,4 @@
-CardScout Mobile v48
+CardScout Mobile v49
 
 Standalone mobiele TCG/Cardmarket helper.
 
@@ -10,7 +10,7 @@ Upload naar GitHub Pages:
 - sw.js
 - data/cards.json
 
-Nieuw in v48:
+Nieuw in v49:
 - Nieuwe naam: CardScout
 - Professionele minimalistische achtergrond
 - Strakkere mobiele layout
@@ -23,3 +23,6 @@ Voorbeelden:
 - jp neo revelation 220 swinub nm
 - shining gyarados 65 nm
 - en delta charizard 4 nm
+
+
+v49: definitieve mobiele fix: Set/Taal/Staat zijn chip-balken i.p.v. dropdowns/popups.

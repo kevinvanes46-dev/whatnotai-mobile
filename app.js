@@ -2,7 +2,7 @@
 
 let DATA = { pokedex: {}, knownCards: [] };
 let lastBuilt = null;
-const APP_VERSION = 'v48';
+const APP_VERSION = 'v49';
 
 const $ = (id) => document.getElementById(id);
 const quickInput = $('quickInput');
@@ -385,12 +385,14 @@ function renderSaved(){ renderList(recentList, STORAGE_RECENT); renderList(favor
 function clearAll(){
   quickInput.value=''; numberInput.value=''; nameInput.value=''; setSelect.value='AUTO'; langSelect.value='JP'; condSelect.value='NM';
   updateCustomSelects();
+  document.querySelectorAll('select').forEach(scrollActiveChipIntoView);
   urlBox.value=''; openBtn.href='#'; openBtn.classList.add('disabled'); matchBox.innerHTML=''; lastBuilt=null;
   setStatus('Klaar.',''); quickInput.focus();
 }
 function processQuick(){
   if(quickInput.value.trim()) parseQuick();
   updateCustomSelects();
+  document.querySelectorAll('select').forEach(scrollActiveChipIntoView);
   makeLink(true);
 }
 
@@ -403,120 +405,65 @@ function choiceTitle(select){
 }
 
 function closeCustomSelects(){
-  const overlay = document.getElementById('choiceOverlay');
-  if(overlay) overlay.classList.remove('show');
-  document.documentElement.classList.remove('sheetOpen');
-  document.body.classList.remove('sheetOpen');
+  // v49: no popups/dropdowns anymore. We use always-visible chip bars.
 }
 
 function updateCustomSelects(){
   document.querySelectorAll('select').forEach(select => {
-    if(select._customButton) {
-      select._customButton.textContent = select.value || (select.options[select.selectedIndex]?.textContent || '');
+    if(select._chipBar){
+      select._chipBar.querySelectorAll('.selectChip').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.value === select.value);
+      });
     }
   });
 }
 
-function openChoiceSheet(select){
-  let overlay = document.getElementById('choiceOverlay');
-  if(!overlay) return;
-
-  const title = overlay.querySelector('.choiceTitle');
-  const options = overlay.querySelector('.choiceOptions');
-
-  title.textContent = choiceTitle(select);
-  options.innerHTML = '';
-
-  let startX = 0;
-  let startY = 0;
-  let didScroll = false;
-
-  Array.from(select.options).forEach(opt => {
-    const value = opt.value || opt.textContent;
-    const item = document.createElement('button');
-    item.type = 'button';
-    item.className = 'choiceOption' + (value === select.value ? ' active' : '');
-    item.textContent = opt.textContent;
-
-    item.addEventListener('touchstart', (ev) => {
-      const t = ev.touches && ev.touches[0];
-      if(!t) return;
-      startX = t.clientX;
-      startY = t.clientY;
-      didScroll = false;
-    }, {passive:true});
-
-    item.addEventListener('touchmove', (ev) => {
-      const t = ev.touches && ev.touches[0];
-      if(!t) return;
-      if(Math.abs(t.clientY - startY) > 9 || Math.abs(t.clientX - startX) > 9) {
-        didScroll = true;
-      }
-    }, {passive:true});
-
-    item.addEventListener('click', (ev) => {
-      ev.preventDefault();
-      ev.stopPropagation();
-      if(didScroll) return;
-      select.value = value;
-      updateCustomSelects();
-      closeCustomSelects();
-      select.dispatchEvent(new Event('change', {bubbles:true}));
-    });
-    options.appendChild(item);
-  });
-
-  document.documentElement.classList.add('sheetOpen');
-  document.body.classList.add('sheetOpen');
-  overlay.classList.add('show');
+function scrollActiveChipIntoView(select){
+  if(!select._chipBar) return;
+  const active = select._chipBar.querySelector('.selectChip.active');
+  if(active && active.scrollIntoView){
+    active.scrollIntoView({inline:'center', block:'nearest', behavior:'smooth'});
+  }
 }
 
 function initCustomSelects(){
-  if(!document.getElementById('choiceOverlay')){
-    const overlay = document.createElement('div');
-    overlay.id = 'choiceOverlay';
-    overlay.className = 'choiceOverlay';
-    overlay.innerHTML = `
-      <div class="choiceSheet" role="dialog" aria-modal="true">
-        <div class="choiceHeader">
-          <strong class="choiceTitle">Kiezen</strong>
-          <button type="button" class="choiceClose" aria-label="Sluiten">×</button>
-        </div>
-        <div class="choiceOptions"></div>
-      </div>
-    `;
-    document.body.appendChild(overlay);
-    overlay.addEventListener('touchmove', (ev) => {
-      if(!ev.target.closest('.choiceOptions')) ev.preventDefault();
-    }, {passive:false});
-
-    overlay.addEventListener('click', (ev) => {
-      if(ev.target === overlay) closeCustomSelects();
-    });
-    overlay.querySelector('.choiceClose').addEventListener('click', closeCustomSelects);
-    document.addEventListener('keydown', ev => { if(ev.key === 'Escape') closeCustomSelects(); });
-  }
-
+  // v49: iPhone-safe replacement. No native select, no popup, no bottom sheet.
+  // Set/Taal/Staat become horizontal chip bars, same interaction style as the working example chips.
   document.querySelectorAll('select').forEach(select => {
     if(select._customReady) return;
     select._customReady = true;
     select.classList.add('nativeSelectHidden');
 
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'customSelectBtn sheetSelectBtn';
-    btn.textContent = select.value || (select.options[select.selectedIndex]?.textContent || '');
-    btn.addEventListener('click', (ev) => {
-      ev.preventDefault();
-      ev.stopPropagation();
-      openChoiceSheet(select);
+    const bar = document.createElement('div');
+    bar.className = 'selectChipBar';
+    if(select.id === 'setSelect') bar.classList.add('setChipBar');
+    if(select.id === 'langSelect') bar.classList.add('smallChipBar');
+    if(select.id === 'condSelect') bar.classList.add('smallChipBar');
+
+    Array.from(select.options).forEach(opt => {
+      const value = opt.value || opt.textContent;
+      const item = document.createElement('button');
+      item.type = 'button';
+      item.className = 'selectChip';
+      item.dataset.value = value;
+      item.textContent = opt.textContent;
+      item.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        select.value = value;
+        updateCustomSelects();
+        scrollActiveChipIntoView(select);
+        select.dispatchEvent(new Event('change', {bubbles:true}));
+      });
+      bar.appendChild(item);
     });
 
-    select.insertAdjacentElement('afterend', btn);
-    select._customButton = btn;
+    select.insertAdjacentElement('afterend', bar);
+    select._chipBar = bar;
   });
 
   updateCustomSelects();
+  setTimeout(() => document.querySelectorAll('select').forEach(scrollActiveChipIntoView), 50);
 }
 
 function bind(){
@@ -547,7 +494,7 @@ initCustomSelects();
 bind();
 renderSaved();
 setStatus('Data laden...', 'warn');
-fetch('data/cards.json?v=48')
+fetch('data/cards.json?v=49')
   .then(r => r.json())
   .then(j => { DATA = j; setStatus('Klaar.', ''); renderSaved(); })
   .catch(() => { setStatus('Data niet geladen; basis werkt nog wel.', 'warn'); renderSaved(); });
