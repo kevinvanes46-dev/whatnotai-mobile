@@ -2,7 +2,7 @@
 
 let DATA = { pokedex: {}, knownCards: [] };
 let lastBuilt = null;
-const APP_VERSION = 'v50';
+const APP_VERSION = 'v51';
 
 const $ = (id) => document.getElementById(id);
 const quickInput = $('quickInput');
@@ -34,6 +34,7 @@ const CONDITION_IDS = { NM: '2', EX: '3', GD: '4', PL: '6' };
 const LANGUAGE_IDS = { EN: '1', JP: '7' };
 
 const SET_ALIASES = [
+  ['LEGENDARY COLLECTION', ['legendary collection','legendary','lc','l collection']],
   ['EX CRYSTAL GUARDIANS', ['ex crystal guardians','crystal guardians','crystal','cg']],
   ['EX DELTA SPECIES', ['ex delta species','delta species','ex delta','delta','ds']],
   ['GYM CHALLENGE', ['gym challenge','challenge']],
@@ -64,6 +65,7 @@ const WESTERN = {
   'NEO DISCOVERY': {dir:'Neo-Discovery', code:'N2'},
   'NEO REVELATION': {dir:'Neo-Revelation', code:'NR'},
   'NEO DESTINY': {dir:'Neo-Destiny', code:'N4'},
+  'LEGENDARY COLLECTION': {dir:'Legendary-Collection', code:'LC'},
   'SOUTHERN ISLANDS': {dir:'Southern-Islands', code:'SI'},
   'WOTC PROMO': {dir:'Wizards-Black-Star-Promos', code:'WP'},
   'EXPEDITION': {dir:'Expedition-Base-Set', code:'EX'},
@@ -188,6 +190,27 @@ const AUTO_VALUE_DIRECTS = {
   'JP|shining charizard|6': {url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/Darkness-and-to-Light/Shining-Charizard-DL', set:'NEO DESTINY', name:'Shining Charizard', note:'JP AUTO shortcut: Darkness and to Light'},
 };
 
+
+function legendaryCollectionDirect(lang, number, name, cond){
+  if(lang !== 'EN') return null;
+  const n = cleanNumber(number);
+  const nm = normalizeName(name);
+  if(nm === 'charizard' && n === '3'){
+    const q = normalizeName(quickInput.value);
+    let url = 'https://www.cardmarket.com/en/Pokemon/Products/Singles/Legendary-Collection/Charizard-V1-LC3';
+    let note = 'Legendary Collection Charizard holo: V1 / LC3';
+    if(q.includes('reverse') || q.includes('rev') || q.includes('rh')){
+      url = 'https://www.cardmarket.com/en/Pokemon/Products/Singles/Legendary-Collection/Charizard-V2-LC3';
+      note = 'Legendary Collection Charizard reverse holo: V2 / LC3';
+    } else if(q.includes('non holo') || q.includes('nonholo') || q.includes('no holo')){
+      url = 'https://www.cardmarket.com/en/Pokemon/Products/Singles/Legendary-Collection/Charizard-V3-LC3';
+      note = 'Legendary Collection Charizard non-holo: V3 / LC3';
+    }
+    return {url:withFilters(url, lang, cond), exact:true, note, autoSet:'LEGENDARY COLLECTION', autoName:'Charizard'};
+  }
+  return null;
+}
+
 function autoValueDirect(lang, number, name, cond){
   const n = cleanNumber(number);
   const nm = normalizeName(name);
@@ -240,6 +263,13 @@ function buildUrl(){
   if(!name) return {url:'', exact:false, note:'Geen naam ingevuld.'};
 
   if(set === 'AUTO'){
+    const lcDirect = legendaryCollectionDirect(lang, number, name, cond);
+    if(lcDirect){
+      if(lcDirect.autoSet) setSelect.value = lcDirect.autoSet;
+      if(lcDirect.autoName) nameInput.value = lcDirect.autoName;
+      updateCustomSelects();
+      return lcDirect;
+    }
     const autoDirect = autoValueDirect(lang, number, name, cond);
     if(autoDirect){
       if(autoDirect.autoSet) setSelect.value = autoDirect.autoSet;
@@ -256,6 +286,11 @@ function buildUrl(){
   if(lang === 'EN' && (set === 'EX DELTA SPECIES' || set === 'EX CRYSTAL GUARDIANS') && cleanNumber(number) === '4' && normalizeName(name) === 'charizard'){
     const url = withFilters('https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Crystal-Guardians/Charizard-Delta-Species-CG4', lang, cond);
     return {url, exact:true, note:'Special: Delta Charizard #4 = EX Crystal Guardians / CG4'};
+  }
+
+  if(set === 'LEGENDARY COLLECTION'){
+    const lcDirect = legendaryCollectionDirect(lang, number, name, cond);
+    if(lcDirect) return lcDirect;
   }
 
   const known = knownLookup(lang,set,number,name);
@@ -385,81 +420,65 @@ function renderSaved(){ renderList(recentList, STORAGE_RECENT); renderList(favor
 function clearAll(){
   quickInput.value=''; numberInput.value=''; nameInput.value=''; setSelect.value='AUTO'; langSelect.value='JP'; condSelect.value='NM';
   updateCustomSelects();
-  document.querySelectorAll('select').forEach(scrollActiveChipIntoView);
   urlBox.value=''; openBtn.href='#'; openBtn.classList.add('disabled'); matchBox.innerHTML=''; lastBuilt=null;
   setStatus('Klaar.',''); quickInput.focus();
 }
 function processQuick(){
   if(quickInput.value.trim()) parseQuick();
   updateCustomSelects();
-  document.querySelectorAll('select').forEach(scrollActiveChipIntoView);
   makeLink(true);
 }
 
 
-function choiceTitle(select){
-  if(select.id === 'setSelect') return 'Set kiezen';
-  if(select.id === 'langSelect') return 'Taal kiezen';
-  if(select.id === 'condSelect') return 'Staat kiezen';
-  return 'Kiezen';
-}
 
 function closeCustomSelects(){
-  // v49: no popups/dropdowns anymore. We use always-visible chip bars.
+  // v51: geen dropdowns. Set blijft AUTO/detected; taal/staat zijn vaste knoppen.
 }
 
 function updateCustomSelects(){
-  document.querySelectorAll('select').forEach(select => {
-    if(select._chipBar){
-      select._chipBar.querySelectorAll('.selectChip').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.value === select.value);
-      });
+  const setInfo = document.getElementById('setInfo');
+  if(setInfo){
+    const set = setSelect.value || 'AUTO';
+    if(set === 'AUTO'){
+      setInfo.innerHTML = 'Set: <b>AUTO</b> · typ set in snel zoeken, bv. <b>base</b>, <b>jungle</b>, <b>lc</b>, <b>neo revelation</b>';
+    } else {
+      setInfo.innerHTML = 'Set gedetecteerd: <b>' + set + '</b> · wijzig door de set in snel zoeken te typen.';
     }
+  }
+  document.querySelectorAll('[data-choice-target]').forEach(bar => {
+    const target = document.getElementById(bar.dataset.choiceTarget);
+    if(!target) return;
+    bar.querySelectorAll('.choiceBtn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.value === target.value);
+    });
   });
 }
 
 function scrollActiveChipIntoView(select){
-  // v50: no automatic scroll. All choices wrap on screen.
+  // v51: niet nodig.
 }
 
 function initCustomSelects(){
-  // v49: iPhone-safe replacement. No native select, no popup, no bottom sheet.
-  // Set/Taal/Staat become horizontal chip bars, same interaction style as the working example chips.
-  document.querySelectorAll('select').forEach(select => {
-    if(select._customReady) return;
-    select._customReady = true;
-    select.classList.add('nativeSelectHidden');
+  document.querySelectorAll('.hiddenSelect, select').forEach(sel => {
+    sel.classList.add('hiddenSelect');
+  });
 
-    const bar = document.createElement('div');
-    bar.className = 'selectChipBar';
-    if(select.id === 'setSelect') bar.classList.add('setChipBar');
-    if(select.id === 'langSelect') bar.classList.add('smallChipBar');
-    if(select.id === 'condSelect') bar.classList.add('smallChipBar');
-
-    Array.from(select.options).forEach(opt => {
-      const value = opt.value || opt.textContent;
-      const item = document.createElement('button');
-      item.type = 'button';
-      item.className = 'selectChip';
-      item.dataset.value = value;
-      item.textContent = opt.textContent;
-      item.addEventListener('click', (ev) => {
-        ev.preventDefault();
-        ev.stopPropagation();
-        select.value = value;
-        updateCustomSelects();
-        scrollActiveChipIntoView(select);
-        select.dispatchEvent(new Event('change', {bubbles:true}));
-      });
-      bar.appendChild(item);
+  document.querySelectorAll('[data-choice-target] .choiceBtn').forEach(btn => {
+    if(btn._ready) return;
+    btn._ready = true;
+    btn.addEventListener('click', ev => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      const bar = btn.closest('[data-choice-target]');
+      const target = document.getElementById(bar.dataset.choiceTarget);
+      if(!target) return;
+      target.value = btn.dataset.value;
+      updateCustomSelects();
+      target.dispatchEvent(new Event('change', {bubbles:true}));
     });
-
-    select.insertAdjacentElement('afterend', bar);
-    select._chipBar = bar;
   });
 
   updateCustomSelects();
-  setTimeout(() => document.querySelectorAll('select').forEach(scrollActiveChipIntoView), 50);
 }
 
 function bind(){
@@ -490,7 +509,7 @@ initCustomSelects();
 bind();
 renderSaved();
 setStatus('Data laden...', 'warn');
-fetch('data/cards.json?v=50')
+fetch('data/cards.json?v=51')
   .then(r => r.json())
   .then(j => { DATA = j; setStatus('Klaar.', ''); renderSaved(); })
   .catch(() => { setStatus('Data niet geladen; basis werkt nog wel.', 'warn'); renderSaved(); });

@@ -7,8 +7,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="CardScout" />
   <title>CardScout · TCG Helper</title>
-  <link rel="stylesheet" href="style.css?v=50" />
-  <link rel="manifest" href="manifest.json?v=50" />
+  <link rel="stylesheet" href="style.css?v=51" />
+  <link rel="manifest" href="manifest.json?v=51" />
 </head>
 <body>
   <div class="tcgBg" aria-hidden="true"><span class="tcgCardShape a"></span><span class="tcgCardShape b"></span><span class="tcgCardShape c"></span><span class="tcgCardShape d"></span></div>
@@ -38,7 +38,7 @@
       </div>
       <div class="brandText">
         <h1>CardScout</h1>
-        <p>TCG price scout · v50</p>
+        <p>TCG price scout · v51</p>
       </div>
       <span class="pill">FREE</span>
     </header>
@@ -54,11 +54,13 @@
         <button type="button" data-fill="jp fossil 094 gengar nm">JP Fossil Gengar</button>
         <button type="button" data-fill="jp neo revelation 220 swinub nm">JP Neo Swinub</button>
         <button type="button" data-fill="shining gyarados 65 nm">Shining Gyarados</button>
+        <button type="button" data-fill="legendary collection charizard 3 nm">LC Charizard</button>
+        <button type="button" data-fill="lc charizard 3 reverse nm">LC Charizard Reverse</button>
         <button type="button" data-fill="en delta charizard 4 nm">Delta Charizard</button>
       </div>
     </section>
 
-    <section class="card formPanel">
+    <section class="card formPanel stablePanel">
       <div class="row two">
         <div>
           <label class="label" for="numberInput">Nummer</label>
@@ -69,45 +71,59 @@
           <input id="nameInput" autocomplete="off" placeholder="Swinub" />
         </div>
       </div>
-      <div class="row three">
+
+      <div class="autoSetLine" id="setInfo">
+        Set: AUTO · typ set in snel zoeken, bv. <b>base</b>, <b>jungle</b>, <b>lc</b>, <b>neo revelation</b>
+      </div>
+
+      <select id="setSelect" class="hiddenSelect" aria-hidden="true">
+        <option>AUTO</option>
+        <option>BASE</option>
+        <option>JUNGLE</option>
+        <option>FOSSIL</option>
+        <option>ROCKET</option>
+        <option>GYM HEROES</option>
+        <option>GYM CHALLENGE</option>
+        <option>NEO GENESIS</option>
+        <option>NEO DISCOVERY</option>
+        <option>NEO REVELATION</option>
+        <option>NEO DESTINY</option>
+        <option>LEGENDARY COLLECTION</option>
+        <option>SOUTHERN ISLANDS</option>
+        <option>WOTC PROMO</option>
+        <option>EXPEDITION</option>
+        <option>AQUAPOLIS</option>
+        <option>SKYRIDGE</option>
+        <option>EX DELTA SPECIES</option>
+        <option>EX CRYSTAL GUARDIANS</option>
+      </select>
+      <select id="langSelect" class="hiddenSelect" aria-hidden="true">
+        <option>JP</option>
+        <option>EN</option>
+      </select>
+      <select id="condSelect" class="hiddenSelect" aria-hidden="true">
+        <option>NM</option>
+        <option>EX</option>
+        <option>GD</option>
+        <option>PL</option>
+      </select>
+
+      <div class="fixedControls">
         <div>
-          <label class="label" for="setSelect">Set</label>
-          <select id="setSelect">
-            <option>AUTO</option>
-            <option>BASE</option>
-            <option>JUNGLE</option>
-            <option>FOSSIL</option>
-            <option>ROCKET</option>
-            <option>GYM HEROES</option>
-            <option>GYM CHALLENGE</option>
-            <option>NEO GENESIS</option>
-            <option>NEO DISCOVERY</option>
-            <option>NEO REVELATION</option>
-            <option>NEO DESTINY</option>
-            <option>SOUTHERN ISLANDS</option>
-            <option>WOTC PROMO</option>
-            <option>EXPEDITION</option>
-            <option>AQUAPOLIS</option>
-            <option>SKYRIDGE</option>
-            <option>EX DELTA SPECIES</option>
-            <option>EX CRYSTAL GUARDIANS</option>
-          </select>
+          <label class="label">Taal</label>
+          <div class="choiceGrid twoChoices" data-choice-target="langSelect">
+            <button type="button" class="choiceBtn" data-value="JP">JP</button>
+            <button type="button" class="choiceBtn" data-value="EN">EN</button>
+          </div>
         </div>
         <div>
-          <label class="label" for="langSelect">Taal</label>
-          <select id="langSelect">
-            <option>JP</option>
-            <option>EN</option>
-          </select>
-        </div>
-        <div>
-          <label class="label" for="condSelect">Staat</label>
-          <select id="condSelect">
-            <option>NM</option>
-            <option>EX</option>
-            <option>GD</option>
-            <option>PL</option>
-          </select>
+          <label class="label">Staat</label>
+          <div class="choiceGrid fourChoices" data-choice-target="condSelect">
+            <button type="button" class="choiceBtn" data-value="NM">NM</button>
+            <button type="button" class="choiceBtn" data-value="EX">EX</button>
+            <button type="button" class="choiceBtn" data-value="GD">GD</button>
+            <button type="button" class="choiceBtn" data-value="PL">PL</button>
+          </div>
         </div>
       </div>
     </section>
@@ -148,6 +164,6 @@
       Enter maakt en kopieert alleen een link. Open Cardmarket pas wanneer nodig, zodat je minder snel rate-limits krijgt.
     </section>
   </main>
-  <script src="app.js?v=50"></script>
+  <script src="app.js?v=51"></script>
 </body>
 </html>

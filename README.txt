@@ -28,4 +28,4 @@ Voorbeelden:
 v49: definitieve mobiele fix: Set/Taal/Staat zijn chip-balken i.p.v. dropdowns/popups.
 
 
-v50: Set/Taal/Staat zijn vaste wrap-knoppen. Geen dropdown, geen horizontale hold-scroll.
+v51: Set/taal/staat mobiel gefixt. Set blijft AUTO/detected; taal/staat zijn vaste knoppen. Legendary Collection Charizard holo/reverse/non-holo shortcuts toegevoegd.
