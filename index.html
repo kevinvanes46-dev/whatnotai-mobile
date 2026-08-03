@@ -7,15 +7,15 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="WhatnotAI" />
   <title>WhatnotAI Mobile</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css?v=37" />
+  <link rel="manifest" href="manifest.json?v=37" />
 </head>
 <body>
   <main class="app">
     <header class="topbar">
       <div>
         <h1>WhatnotAI</h1>
-        <p>Mobile Cardmarket helper</p>
+        <p>Mobile Cardmarket helper · v37</p>
       </div>
       <span class="pill">FREE</span>
     </header>
@@ -24,13 +24,13 @@
       <label class="label" for="quickInput">Snelinvoer</label>
       <div class="quickWrap">
         <input id="quickInput" class="quick" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="jp base 002 ivysaur nm" />
-        <button id="quickGo" class="quickGo" title="Maak link">↵</button>
+        <button id="quickGo" class="quickGo" type="button" title="Maak link">↵</button>
       </div>
       <div class="examples" id="exampleChips">
-        <button data-fill="jp base 002 ivysaur nm">JP Base Ivysaur</button>
-        <button data-fill="jp fossil 094 gengar nm">JP Fossil Gengar</button>
-        <button data-fill="jp neo revelation 220 swinub nm">JP Neo Swinub</button>
-        <button data-fill="en delta charizard 4 nm">EN Delta Charizard</button>
+        <button type="button" data-fill="jp base 002 ivysaur nm">JP Base Ivysaur</button>
+        <button type="button" data-fill="jp fossil 094 gengar nm">JP Fossil Gengar</button>
+        <button type="button" data-fill="jp neo revelation 220 swinub nm">JP Neo Swinub</button>
+        <button type="button" data-fill="en delta charizard 4 nm">EN Delta Charizard</button>
       </div>
     </section>
 
@@ -83,16 +83,16 @@
     </section>
 
     <section class="actions">
-      <button id="makeBtn" class="primary">Maak + kopieer</button>
+      <button id="makeBtn" type="button" class="primary">Maak + kopieer</button>
       <a id="openBtn" class="open disabled" href="#" target="_blank" rel="noopener">Open CM</a>
-      <button id="favoriteBtn" class="secondary">⭐ Favoriet</button>
-      <button id="clearBtn" class="ghost">Leeg</button>
+      <button id="favoriteBtn" type="button" class="secondary">⭐ Favoriet</button>
+      <button id="clearBtn" type="button" class="ghost">Leeg</button>
     </section>
 
     <section class="panel resultPanel">
       <div class="statusLine">
         <div id="status" class="status">Klaar.</div>
-        <button id="copyBtn" class="tinyBtn">Kopieer</button>
+        <button id="copyBtn" type="button" class="tinyBtn">Kopieer</button>
       </div>
       <textarea id="urlBox" readonly placeholder="Cardmarket URL komt hier"></textarea>
       <div id="matchBox" class="matchBox"></div>
@@ -101,7 +101,7 @@
     <section class="panel savedPanel">
       <div class="sectionHeader">
         <h2>Recent</h2>
-        <button id="clearRecentBtn" class="tinyBtn danger">Wis</button>
+        <button id="clearRecentBtn" type="button" class="tinyBtn danger">Wis</button>
       </div>
       <div id="recentList" class="savedList empty">Nog geen recente zoekopdrachten.</div>
     </section>
@@ -109,15 +109,15 @@
     <section class="panel savedPanel">
       <div class="sectionHeader">
         <h2>Favorieten</h2>
-        <button id="clearFavBtn" class="tinyBtn danger">Wis</button>
+        <button id="clearFavBtn" type="button" class="tinyBtn danger">Wis</button>
       </div>
       <div id="favoriteList" class="savedList empty">Nog geen favorieten.</div>
     </section>
 
     <section class="panel note">
-      <b>Tip:</b> Enter maakt/kopieert alleen een link. Tik daarna zelf op <b>Open CM</b>. Dat voorkomt Cardmarket rate-limits.
+      <b>Tip:</b> Enter maakt/kopieert alleen een link. Tik daarna zelf op <b>Open CM</b>. Favorieten en recent blijven op dit toestel staan.
     </section>
   </main>
-  <script src="app.js"></script>
+  <script src="app.js?v=37"></script>
 </body>
 </html>

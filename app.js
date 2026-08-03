@@ -1,3 +1,5 @@
+'use strict';
+
 let DATA = { pokedex: {}, knownCards: [] };
 let lastBuilt = null;
 
@@ -22,10 +24,10 @@ const matchBox = $('matchBox');
 const recentList = $('recentList');
 const favoriteList = $('favoriteList');
 
-const STORAGE_RECENT = 'whatnotai_mobile_recent_v36';
-const STORAGE_FAV = 'whatnotai_mobile_favorites_v36';
+const STORAGE_RECENT = 'whatnotai_mobile_recent_v37';
+const STORAGE_FAV = 'whatnotai_mobile_favorites_v37';
 const MAX_RECENT = 10;
-const MAX_FAV = 30;
+const MAX_FAV = 40;
 
 const CONDITION_IDS = { NM: '2', EX: '3', GD: '4', PL: '6' };
 const LANGUAGE_IDS = { EN: '1', JP: '7' };
@@ -40,16 +42,21 @@ const SET_ALIASES = [
   ['NEO DESTINY', ['neo destiny','destiny','neo 4']],
   ['ROCKET', ['team rocket','rocket','tr']],
   ['JUNGLE', ['jungle','ju']],
-  ['FOSSIL', ['fossil','fo','fossile']],
+  ['FOSSIL', ['fossil','fossile','fo']],
   ['BASE', ['base set','base','expansion pack','expansion']],
 ];
 
 const WESTERN = {
-  'BASE': {dir:'Base-Set', code:'BS'}, 'JUNGLE': {dir:'Jungle', code:'JU'},
-  'FOSSIL': {dir:'Fossil', code:'FO'}, 'ROCKET': {dir:'Team-Rocket', code:'TR'},
-  'GYM HEROES': {dir:'Gym-Heroes', code:'G1'}, 'GYM CHALLENGE': {dir:'Gym-Challenge', code:'G2'},
-  'NEO GENESIS': {dir:'Neo-Genesis', code:'N1'}, 'NEO DISCOVERY': {dir:'Neo-Discovery', code:'N2'},
-  'NEO REVELATION': {dir:'Neo-Revelation', code:'NR'}, 'NEO DESTINY': {dir:'Neo-Destiny', code:'N4'},
+  'BASE': {dir:'Base-Set', code:'BS'},
+  'JUNGLE': {dir:'Jungle', code:'JU'},
+  'FOSSIL': {dir:'Fossil', code:'FO'},
+  'ROCKET': {dir:'Team-Rocket', code:'TR'},
+  'GYM HEROES': {dir:'Gym-Heroes', code:'G1'},
+  'GYM CHALLENGE': {dir:'Gym-Challenge', code:'G2'},
+  'NEO GENESIS': {dir:'Neo-Genesis', code:'N1'},
+  'NEO DISCOVERY': {dir:'Neo-Discovery', code:'N2'},
+  'NEO REVELATION': {dir:'Neo-Revelation', code:'NR'},
+  'NEO DESTINY': {dir:'Neo-Destiny', code:'N4'},
   'EX DELTA SPECIES': {dir:'EX-Delta-Species', code:'DS'},
 };
 
@@ -65,54 +72,83 @@ const JAPANESE = {
   'NEO DESTINY': {dir:'Darkness-and-to-Light', suffix:''},
 };
 
-function slugifyName(name){
-  return (name || '').trim().replace(/[’']/g,'').replace(/♀/g,'Female').replace(/♂/g,'Male')
-    .replace(/\./g,'').replace(/\s*:\s*/g,'-').replace(/\s+/g,'-').replace(/[^A-Za-z0-9\-]/g,'').replace(/-+/g,'-');
+function setStatus(text, type=''){
+  statusBox.textContent = text;
+  statusBox.className = 'status ' + (type || '');
 }
-function cleanNumber(raw){
-  const s = (raw || '').trim(); if(!s) return '';
-  const m = s.match(/(\d{1,3})\s*(?:\/\s*\d{1,3})?/);
-  return m ? String(parseInt(m[1],10)) : s;
-}
-function pad3(n){ const x = cleanNumber(n); return x ? x.padStart(3,'0') : ''; }
-function normalizeName(s){ return (s || '').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim(); }
-function setStatus(text, kind=''){ statusBox.className = 'status' + (kind ? ' '+kind : ''); statusBox.textContent = text; }
-function readStore(key){ try{return JSON.parse(localStorage.getItem(key) || '[]')}catch{return []} }
-function writeStore(key, arr){ localStorage.setItem(key, JSON.stringify(arr)); }
-
-function detectSet(text){
-  let lower = ' ' + text.toLowerCase().replace(/\s+/g,' ') + ' ';
-  for (const [set, aliases] of SET_ALIASES){ for (const a of aliases){ if (lower.includes(' '+a+' ')) return set; } }
-  return 'AUTO';
-}
-function removeSetWords(text){
-  let out = ' ' + text.toLowerCase().replace(/\s+/g,' ') + ' ';
-  for (const [, aliases] of SET_ALIASES){ [...aliases].sort((a,b)=>b.length-a.length).forEach(a => { out = out.replaceAll(' '+a+' ', ' '); }); }
-  return out.trim();
+function cleanNumber(n){ return String(n || '').trim().replace(/^0+(?=\d)/,'').split('/')[0]; }
+function pad3(n){ const raw = String(n || '').trim().split('/')[0]; return raw.padStart(3,'0'); }
+function normalizeName(s){ return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim(); }
+function slugifyName(s){
+  return String(s || '').trim()
+    .replace(/&/g,'and')
+    .replace(/[’']/g,'')
+    .replace(/[^A-Za-z0-9]+/g,'-')
+    .replace(/^-+|-+$/g,'')
+    .replace(/-+/g,'-');
 }
 function titleCasePokemon(s){
   if(!s) return '';
-  const specials = {'mr mime':'Mr. Mime','farfetchd':"Farfetch'd",'nidoran female':'Nidoran Female','nidoran male':'Nidoran Male','ho oh':'Ho-Oh','porygon z':'Porygon-Z'};
-  const key = normalizeName(s); if (specials[key]) return specials[key];
-  return s.split(' ').map(w => w ? w[0].toUpperCase()+w.slice(1).toLowerCase() : '').join(' ').replace(/\bEx\b/g,'ex').replace(/\bLv\b/g,'LV');
+  const specials = {
+    'mr mime':'Mr. Mime', 'farfetchd':"Farfetch'd", 'nidoran female':'Nidoran Female',
+    'nidoran male':'Nidoran Male', 'ho oh':'Ho-Oh', 'porygon z':'Porygon-Z'
+  };
+  const key = normalizeName(s);
+  if(specials[key]) return specials[key];
+  return String(s).split(' ').map(w => w ? w[0].toUpperCase()+w.slice(1).toLowerCase() : '').join(' ').replace(/\bEx\b/g,'ex');
+}
+
+function readStore(key){
+  try { return JSON.parse(localStorage.getItem(key) || '[]'); }
+  catch(e) { return []; }
+}
+function writeStore(key, arr){
+  try { localStorage.setItem(key, JSON.stringify(arr)); return true; }
+  catch(e) { setStatus('Opslaan lokaal geblokkeerd door browser.', 'warn'); return false; }
+}
+
+function detectSet(text){
+  const lower = ' ' + String(text).toLowerCase().replace(/\s+/g,' ') + ' ';
+  for (const [set, aliases] of SET_ALIASES){
+    for (const a of aliases){ if (lower.includes(' '+a+' ')) return set; }
+  }
+  return 'AUTO';
+}
+function removeSetWords(text){
+  let out = ' ' + String(text).toLowerCase().replace(/\s+/g,' ') + ' ';
+  const aliases = SET_ALIASES.flatMap(([, arr]) => arr).sort((a,b)=>b.length-a.length);
+  for (const a of aliases){ out = out.replaceAll(' '+a+' ', ' '); }
+  return out.trim();
 }
 
 function parseQuick(){
-  let text = quickInput.value.trim(); if(!text) return false;
-  let lower = text.toLowerCase();
-  const langExplicit = lower.match(/\b(jp|jpn|japanese|japans|en|eng|english)\b/);
-  let lang = lower.match(/\b(jp|jpn|japanese|japans)\b/) ? 'JP' : (lower.match(/\b(en|eng|english)\b/) ? 'EN' : langSelect.value);
+  const text = quickInput.value.trim();
+  if(!text) return false;
+  const lower = text.toLowerCase();
+  const langExplicit = /\b(jp|jpn|japanese|japans|en|eng|english)\b/.test(lower);
+  let lang = /\b(jp|jpn|japanese|japans)\b/.test(lower) ? 'JP' : (/\b(en|eng|english)\b/.test(lower) ? 'EN' : langSelect.value);
   let cond = condSelect.value || 'NM';
-  const cm = lower.match(/\b(nm|ex|gd|pl)\b/); if(cm) cond = cm[1].toUpperCase();
-  let set = detectSet(text);
-  if (set === 'EX DELTA SPECIES' && !langExplicit) lang = 'EN';
+  const cm = lower.match(/\b(nm|ex|gd|pl)\b/);
+  if(cm) cond = cm[1].toUpperCase();
+  const set = detectSet(text);
+  if(set === 'EX DELTA SPECIES' && !langExplicit) lang = 'EN';
 
-  let cleaned = removeSetWords(text).replace(/\b(jp|jpn|japanese|japans|en|eng|english|nm|ex|gd|pl)\b/gi,' ').replace(/\s+/g,' ').trim();
+  const cleaned = removeSetWords(text)
+    .replace(/\b(jp|jpn|japanese|japans|en|eng|english|nm|ex|gd|pl)\b/gi,' ')
+    .replace(/\s+/g,' ')
+    .trim();
   const tokens = cleaned.split(' ').filter(Boolean);
-  let number = ''; let nameParts = [];
-  for (const t of tokens){ if(!number && /^\d{1,3}(\/\d{1,3})?$/.test(t)) number = cleanNumber(t); else nameParts.push(t); }
+  let number = '';
+  const nameParts = [];
+  for (const t of tokens){
+    if(!number && /^\d{1,3}(\/\d{1,3})?$/.test(t)) number = cleanNumber(t);
+    else nameParts.push(t);
+  }
   let name = nameParts.join(' ').trim();
-  if(!name && lang === 'JP' && number){ const dex = DATA.pokedex[pad3(number)]; if(dex) name = dex; }
+  if(!name && lang === 'JP' && number){
+    const dex = DATA.pokedex[pad3(number)];
+    if(dex) name = dex;
+  }
   numberInput.value = number;
   nameInput.value = titleCasePokemon(name);
   setSelect.value = set;
@@ -122,65 +158,134 @@ function parseQuick(){
 }
 
 function knownLookup(lang,set,number,name){
-  const n = cleanNumber(number); const nm = normalizeName(name);
-  const key = `${lang.toLowerCase()}|${set.toLowerCase()}|${lang === 'JP' ? pad3(n) : n}|${nm}`;
-  return DATA.knownCards.find(c => c.key === key);
+  const n = cleanNumber(number);
+  const nm = normalizeName(name);
+  const keyNum = lang === 'JP' ? pad3(n) : n;
+  const key = `${lang.toLowerCase()}|${set.toLowerCase()}|${keyNum}|${nm}`;
+  return (DATA.knownCards || []).find(c => c.key === key);
 }
-function searchUrl(name, number, lang, cond){
-  const parts = [name, number].filter(Boolean).join(' ');
-  const q = encodeURIComponent(parts || 'pokemon');
-  return withFilters(`https://www.cardmarket.com/en/Pokemon/Products/Search?searchString=${q}`, lang, cond);
+function findAutoKnown(lang, number, name){
+  const n = cleanNumber(number);
+  const nm = normalizeName(name);
+  return (DATA.knownCards || []).find(c => normalizeName(c.name) === nm && c.language === lang && (cleanNumber(c.number) === n || pad3(c.number) === pad3(n)));
 }
 function withFilters(url, lang, cond){
-  const sep = url.includes('?') ? '&' : '?'; const params = [];
+  const params = [];
   if(CONDITION_IDS[cond]) params.push(`minCondition=${CONDITION_IDS[cond]}`);
   if(LANGUAGE_IDS[lang]) params.push(`language=${LANGUAGE_IDS[lang]}`);
-  return params.length ? url + sep + params.join('&') : url;
+  if(!params.length) return url;
+  return url + (url.includes('?') ? '&' : '?') + params.join('&');
 }
+function searchUrl(name, number, lang, cond){
+  const q = encodeURIComponent([name, number].filter(Boolean).join(' ') || 'pokemon');
+  return withFilters(`https://www.cardmarket.com/en/Pokemon/Products/Search?searchString=${q}`, lang, cond);
+}
+
 function buildUrl(){
-  let lang = langSelect.value; let set = setSelect.value; let number = cleanNumber(numberInput.value); let name = nameInput.value.trim(); let cond = condSelect.value;
-  if(!name && lang === 'JP' && number){ const dex = DATA.pokedex[pad3(number)]; if(dex){name = dex; nameInput.value = dex;} }
+  const lang = langSelect.value;
+  const set = setSelect.value;
+  const number = cleanNumber(numberInput.value);
+  let name = nameInput.value.trim();
+  const cond = condSelect.value;
+  if(!name && lang === 'JP' && number){
+    const dex = DATA.pokedex[pad3(number)];
+    if(dex){ name = dex; nameInput.value = dex; }
+  }
   if(!name) return {url:'', exact:false, note:'Geen naam ingevuld.'};
+
   if(set === 'AUTO'){
-    const exact = DATA.knownCards.find(c => normalizeName(c.name) === normalizeName(name) && (cleanNumber(c.number) === number || pad3(c.number) === pad3(number)) && c.language === lang);
+    const exact = findAutoKnown(lang, number, name);
     if(exact) return {url:withFilters(exact.url, lang, cond), exact:true, note:`Exact via database: ${exact.set} / ${exact.name}`};
     return {url:searchUrl(name, number, lang, cond), exact:false, note:'Geen set gekozen: zoekpagina.'};
   }
+
   const known = knownLookup(lang,set,number,name);
   if(known) return {url:withFilters(known.url, lang, cond), exact:true, note:`Exacte match: ${known.set} / ${known.name}`};
+
   const slugName = slugifyName(name);
-  if(lang === 'JP' && JAPANESE[set]){ const info = JAPANESE[set]; const suffix = info.suffix ? '-' + info.suffix : ''; return {url:withFilters(`https://www.cardmarket.com/en/Pokemon/Products/Singles/${info.dir}/${slugName}${suffix}`, lang, cond), exact:true, note:`JP route: ${info.dir}`}; }
-  if(WESTERN[set]){ const info = WESTERN[set]; const n = number ? cleanNumber(number) : ''; const ending = n ? '-' + info.code + n : ''; return {url:withFilters(`https://www.cardmarket.com/en/Pokemon/Products/Singles/${info.dir}/${slugName}${ending}`, lang, cond), exact:true, note:`EN route: ${info.dir}`}; }
+  if(lang === 'JP' && JAPANESE[set]){
+    const info = JAPANESE[set];
+    const suffix = info.suffix ? '-' + info.suffix : '';
+    return {url:withFilters(`https://www.cardmarket.com/en/Pokemon/Products/Singles/${info.dir}/${slugName}${suffix}`, lang, cond), exact:true, note:`JP route: ${info.dir}`};
+  }
+  if(WESTERN[set]){
+    const info = WESTERN[set];
+    const ending = number ? '-' + info.code + number : '';
+    return {url:withFilters(`https://www.cardmarket.com/en/Pokemon/Products/Singles/${info.dir}/${slugName}${ending}`, lang, cond), exact:true, note:`EN route: ${info.dir}`};
+  }
   return {url:searchUrl(name, number, lang, cond), exact:false, note:'Fallback zoekpagina.'};
 }
+
 async function copyToClipboard(text){
-  try{ await navigator.clipboard.writeText(text); return true; }
-  catch(e){ urlBox.focus(); urlBox.select(); return false; }
+  try { await navigator.clipboard.writeText(text); return true; }
+  catch(e) { urlBox.focus(); urlBox.select(); return false; }
+}
+
+function currentQuickText(){
+  const typed = quickInput.value.trim();
+  if(typed) return typed;
+  return `${langSelect.value.toLowerCase()} ${setSelect.value.toLowerCase()} ${numberInput.value} ${nameInput.value} ${condSelect.value.toLowerCase()}`.replace(/\s+/g,' ').trim();
 }
 function itemFromCurrent(url, result){
-  const quick = quickInput.value.trim() || `${langSelect.value.toLowerCase()} ${setSelect.value.toLowerCase()} ${numberInput.value} ${nameInput.value} ${condSelect.value.toLowerCase()}`.replace(/\s+/g,' ').trim();
-  return { id: Date.now(), quick, url, name:nameInput.value.trim(), number:numberInput.value.trim(), set:setSelect.value, lang:langSelect.value, cond:condSelect.value, exact:!!result.exact, note:result.note };
+  return {
+    id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    quick: currentQuickText(),
+    url,
+    name: nameInput.value.trim(),
+    number: numberInput.value.trim(),
+    set: setSelect.value,
+    lang: langSelect.value,
+    cond: condSelect.value,
+    exact: !!result.exact,
+    note: result.note || ''
+  };
+}
+function sameItem(a,b){
+  return (a.quick || '').toLowerCase() === (b.quick || '').toLowerCase() || (a.url && b.url && a.url === b.url);
 }
 function addRecent(item){
-  let arr = readStore(STORAGE_RECENT).filter(x => x.quick.toLowerCase() !== item.quick.toLowerCase());
-  arr.unshift(item); arr = arr.slice(0, MAX_RECENT); writeStore(STORAGE_RECENT, arr); renderSaved();
+  let arr = readStore(STORAGE_RECENT).filter(x => !sameItem(x,item));
+  arr.unshift(item);
+  arr = arr.slice(0, MAX_RECENT);
+  writeStore(STORAGE_RECENT, arr);
+  renderSaved();
 }
 function addFavorite(){
   if(!lastBuilt || !lastBuilt.url){ setStatus('Maak eerst een link.', 'warn'); return; }
-  let item = itemFromCurrent(lastBuilt.url, lastBuilt.result);
-  let arr = readStore(STORAGE_FAV).filter(x => x.quick.toLowerCase() !== item.quick.toLowerCase());
-  arr.unshift(item); arr = arr.slice(0, MAX_FAV); writeStore(STORAGE_FAV, arr); renderSaved(); setStatus('Favoriet opgeslagen.', 'ok');
+  const item = itemFromCurrent(lastBuilt.url, lastBuilt.result);
+  let arr = readStore(STORAGE_FAV).filter(x => !sameItem(x,item));
+  arr.unshift(item);
+  arr = arr.slice(0, MAX_FAV);
+  writeStore(STORAGE_FAV, arr);
+  renderSaved();
+  setStatus('Favoriet opgeslagen ✅', 'ok');
 }
+
 async function makeLink(autoCopy=true){
   const r = buildUrl();
-  if(!r.url){ urlBox.value=''; openBtn.href='#'; openBtn.classList.add('disabled'); setStatus(r.note || 'Geen link.', 'warn'); matchBox.innerHTML=''; lastBuilt=null; return; }
-  urlBox.value = r.url; openBtn.href = r.url; openBtn.classList.remove('disabled');
+  if(!r.url){
+    urlBox.value = '';
+    openBtn.href = '#';
+    openBtn.classList.add('disabled');
+    matchBox.innerHTML = '';
+    lastBuilt = null;
+    setStatus(r.note || 'Geen link.', 'warn');
+    return;
+  }
+  urlBox.value = r.url;
+  openBtn.href = r.url;
+  openBtn.classList.remove('disabled');
   matchBox.innerHTML = `<b>${r.exact ? 'Directe kaartpagina' : 'Zoekpagina'}</b><br>${r.note}<br>${nameInput.value || '-'} · ${numberInput.value || '-'} · ${setSelect.value} · ${langSelect.value}/${condSelect.value}`;
   lastBuilt = {url:r.url, result:r};
   addRecent(itemFromCurrent(r.url, r));
-  if(autoCopy){ const ok = await copyToClipboard(r.url); setStatus(ok ? 'Link gemaakt en gekopieerd.' : 'Link gemaakt. Kopieer handmatig.', ok ? 'ok' : 'warn'); }
-  else setStatus('Link gemaakt.', 'ok');
+  if(autoCopy){
+    const ok = await copyToClipboard(r.url);
+    setStatus(ok ? 'Link gemaakt en gekopieerd.' : 'Link gemaakt. Kopieer handmatig.', ok ? 'ok' : 'warn');
+  } else {
+    setStatus('Link gemaakt.', 'ok');
+  }
 }
+
 function applyItem(item, make=true){
   quickInput.value = item.quick || '';
   numberInput.value = item.number || '';
@@ -191,42 +296,71 @@ function applyItem(item, make=true){
   if(make) makeLink(true);
 }
 function deleteItem(key, id){
-  let arr = readStore(key).filter(x => x.id !== id); writeStore(key, arr); renderSaved();
+  const arr = readStore(key).filter(x => x.id !== id);
+  writeStore(key, arr);
+  renderSaved();
 }
 function renderList(el, key){
   const arr = readStore(key);
-  if(!arr.length){ el.className='savedList empty'; el.textContent = key === STORAGE_RECENT ? 'Nog geen recente zoekopdrachten.' : 'Nog geen favorieten.'; return; }
-  el.className='savedList'; el.innerHTML='';
+  if(!arr.length){
+    el.className = 'savedList empty';
+    el.textContent = key === STORAGE_RECENT ? 'Nog geen recente zoekopdrachten.' : 'Nog geen favorieten.';
+    return;
+  }
+  el.className = 'savedList';
+  el.innerHTML = '';
   arr.forEach(item => {
-    const div = document.createElement('div'); div.className='item';
-    const title = `${item.name || '-'} ${item.number ? '('+item.number+')' : ''}`;
-    div.innerHTML = `<div class="itemMain"><div class="itemTitle"></div><div class="itemMeta"></div></div><div class="itemActions"><button class="useBtn">Gebruik</button><a class="openMini" target="_blank" rel="noopener">Open</a><button class="delBtn">×</button></div>`;
-    div.querySelector('.itemTitle').textContent = title;
+    const div = document.createElement('div');
+    div.className = 'item';
+    div.innerHTML = `<div class="itemMain"><div class="itemTitle"></div><div class="itemMeta"></div></div><div class="itemActions"><button type="button" class="useBtn">Gebruik</button><a class="openMini" target="_blank" rel="noopener">Open</a><button type="button" class="delBtn">×</button></div>`;
+    div.querySelector('.itemTitle').textContent = `${item.name || '-'} ${item.number ? '('+item.number+')' : ''}`;
     div.querySelector('.itemMeta').textContent = `${item.set || 'AUTO'} · ${item.lang}/${item.cond} · ${item.exact ? 'direct' : 'search'}`;
     div.querySelector('.useBtn').addEventListener('click', () => applyItem(item, true));
-    div.querySelector('.openMini').href = item.url;
+    div.querySelector('.openMini').href = item.url || '#';
     div.querySelector('.delBtn').addEventListener('click', () => deleteItem(key, item.id));
     el.appendChild(div);
   });
 }
 function renderSaved(){ renderList(recentList, STORAGE_RECENT); renderList(favoriteList, STORAGE_FAV); }
-function clearAll(){ quickInput.value=''; numberInput.value=''; nameInput.value=''; setSelect.value='AUTO'; langSelect.value='JP'; condSelect.value='NM'; urlBox.value=''; openBtn.href='#'; openBtn.classList.add('disabled'); matchBox.innerHTML=''; lastBuilt=null; setStatus('Klaar.',''); quickInput.focus(); }
+function clearAll(){
+  quickInput.value=''; numberInput.value=''; nameInput.value=''; setSelect.value='AUTO'; langSelect.value='JP'; condSelect.value='NM';
+  urlBox.value=''; openBtn.href='#'; openBtn.classList.add('disabled'); matchBox.innerHTML=''; lastBuilt=null;
+  setStatus('Klaar.',''); quickInput.focus();
+}
+function processQuick(){
+  if(quickInput.value.trim()) parseQuick();
+  makeLink(true);
+}
 
-function processQuick(){ if(quickInput.value.trim()) parseQuick(); makeLink(true); }
+function bind(){
+  document.querySelectorAll('[data-fill]').forEach(b => b.addEventListener('click', () => { quickInput.value = b.dataset.fill; processQuick(); }));
+  quickInput.addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); processQuick(); }});
+  quickGo.addEventListener('click', processQuick);
+  makeBtn.addEventListener('click', processQuick);
+  copyBtn.addEventListener('click', () => makeLink(true));
+  favoriteBtn.addEventListener('click', addFavorite);
+  clearBtn.addEventListener('click', clearAll);
+  clearRecentBtn.addEventListener('click', () => { writeStore(STORAGE_RECENT, []); renderSaved(); setStatus('Recent gewist.', ''); });
+  clearFavBtn.addEventListener('click', () => { writeStore(STORAGE_FAV, []); renderSaved(); setStatus('Favorieten gewist.', ''); });
+  [numberInput,nameInput].forEach(el => el.addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); makeLink(true); }}));
+  [setSelect,langSelect,condSelect].forEach(el => el.addEventListener('change', () => makeLink(true)));
+}
 
-document.querySelectorAll('[data-fill]').forEach(b => b.addEventListener('click', () => { quickInput.value = b.dataset.fill; processQuick(); }));
-quickInput.addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); processQuick(); }});
-quickGo.addEventListener('click', processQuick);
-[numberInput,nameInput,setSelect,langSelect,condSelect].forEach(el => el.addEventListener('change', () => makeLink(true)));
-nameInput.addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); makeLink(true); }});
-numberInput.addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); makeLink(true); }});
-makeBtn.addEventListener('click', processQuick);
-copyBtn.addEventListener('click', () => makeLink(true));
-favoriteBtn.addEventListener('click', addFavorite);
-clearBtn.addEventListener('click', clearAll);
-clearRecentBtn.addEventListener('click', () => { writeStore(STORAGE_RECENT, []); renderSaved(); });
-clearFavBtn.addEventListener('click', () => { writeStore(STORAGE_FAV, []); renderSaved(); });
+async function unregisterOldServiceWorkers(){
+  if(!('serviceWorker' in navigator)) return;
+  try {
+    const regs = await navigator.serviceWorker.getRegistrations();
+    await Promise.all(regs.map(r => r.unregister()));
+    const keys = await caches.keys();
+    await Promise.all(keys.filter(k => k.startsWith('whatnotai-mobile')).map(k => caches.delete(k)));
+  } catch(e) {}
+}
 
-fetch('data/cards.json').then(r=>r.json()).then(j => { DATA=j; setStatus('Klaar.',''); renderSaved(); }).catch(() => { setStatus('Data niet geladen; basis werkt nog wel.', 'warn'); renderSaved(); });
-
-if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
+bind();
+renderSaved();
+setStatus('Data laden...', 'warn');
+fetch('data/cards.json?v=37')
+  .then(r => r.json())
+  .then(j => { DATA = j; setStatus('Klaar.', ''); renderSaved(); })
+  .catch(() => { setStatus('Data niet geladen; basis werkt nog wel.', 'warn'); renderSaved(); });
+unregisterOldServiceWorkers();

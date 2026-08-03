@@ -1,14 +1,12 @@
-WhatnotAI Mobile Standalone v36
+WhatnotAI Mobile Standalone v37
 
-Nieuwe functies:
-- Recente zoekopdrachten worden lokaal op je telefoon opgeslagen.
-- Favorieten opslaan en later opnieuw openen.
-- Grotere knoppen en strakkere mobiele layout.
-- Enter maakt/kopieert alleen de Cardmarket-link; openen doe je zelf met Open CM.
-- Werkt zonder pc-server als GitHub Pages site.
+Fixes:
+- Favorietenknop werkt nu betrouwbaar.
+- Recent wordt direct bijgewerkt na link maken.
+- Oude service-worker/cache wordt automatisch verwijderd.
+- app.js en style.css hebben cache-buster ?v=37.
 
-Upload naar GitHub:
-Vervang/upload deze bestanden in de root van je repository:
+Upload/vervang in GitHub root:
 - index.html
 - style.css
 - app.js
@@ -17,6 +15,8 @@ Vervang/upload deze bestanden in de root van je repository:
 - data/cards.json
 - README.txt
 
-Let op:
-Favorieten en recent worden opgeslagen in de browser/localStorage van je telefoon.
-Ze worden niet gedeeld met GitHub of je pc.
+Na commit:
+Open de site een keer met ?v=37 achter de URL:
+https://kevinvanes46-dev.github.io/whatnotai-mobile/?v=37
+
+Als favorieten nog leeg blijven: sluit browser/tab en open opnieuw met ?v=37.
