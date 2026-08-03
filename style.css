@@ -53,3 +53,32 @@ input::placeholder,textarea::placeholder{color:#72839a}input:focus,select:focus,
 .statusLine,.sectionHeader{display:flex;align-items:center;justify-content:space-between;gap:10px}.status{font-weight:1000;margin-bottom:9px;color:#cfe3ff}.status.ok{color:#86f5b8}.status.warn{color:#ffd078}.status.err{color:#ff9a9a}textarea{height:66px;font-size:11.5px;resize:none;line-height:1.35}.matchBox{margin-top:9px;color:#c7d5ea;font-size:13px;line-height:1.45}.matchBox b{color:white}
 h2{font-size:14px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em;color:#d9e7ff}.sectionHeader h2{margin:0}.savedList{display:grid;gap:8px}.savedList.empty{display:block;color:var(--muted);font-size:13px}.item{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;background:#101c2f;border:1px solid #2d3f59;border-radius:16px;padding:10px}.itemMain{min-width:0}.itemTitle{font-weight:1000;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.itemMeta{font-size:12px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.itemActions{display:flex;gap:6px}.itemActions button,.itemActions a{padding:8px 9px;border-radius:10px;font-size:12px;font-weight:1000;text-decoration:none;border:1px solid #334963;background:#223047;color:#eaf2ff}.itemActions a{background:var(--green);color:#04100a;border:0}.note{font-size:12.5px;color:#9fb0c7;line-height:1.45;margin:2px 4px 0;text-align:center}
 @media(max-width:420px){.app{padding-left:10px;padding-right:10px}.hero{grid-template-columns:46px 1fr auto}.brandMark{width:46px;height:46px;border-radius:16px}.brandText h1{font-size:25px}.row.two{grid-template-columns:1fr 1fr}.row.three{grid-template-columns:1fr 1fr}.row.three>div:first-child{grid-column:1/-1}.quick{font-size:16px}.actions{grid-template-columns:1fr 1fr}button,.open{font-size:14px;padding:13px 9px}.card{padding:12px}}
+
+
+/* v44 custom select fix: no native white dropdowns */
+.nativeSelectHidden{display:none!important}
+.customSelect{position:relative;width:100%}
+.customSelectBtn{
+  width:100%;min-height:48px;border:1px solid var(--line2);
+  background:linear-gradient(180deg,#122037,#0f1a2b);color:var(--text);
+  border-radius:15px;padding:12px 40px 12px 13px;font-size:16px;font-weight:850;
+  text-align:left;box-shadow:inset 0 1px 0 rgba(255,255,255,.035);position:relative;
+}
+.customSelectBtn::after{content:'⌄';position:absolute;right:14px;top:50%;transform:translateY(-55%);color:#9eb6d4;font-size:18px}
+.customSelect.open .customSelectBtn{border-color:#55b7ff;box-shadow:0 0 0 3px rgba(47,125,246,.22),inset 0 1px 0 rgba(255,255,255,.04)}
+.customSelectMenu{
+  display:none;position:absolute;z-index:9999;left:0;right:0;top:calc(100% + 6px);
+  max-height:260px;overflow:auto;padding:6px;background:#081221;border:1px solid #365171;border-radius:15px;
+  box-shadow:0 22px 50px rgba(0,0,0,.55);scrollbar-width:thin;scrollbar-color:#395678 #081221;
+}
+.customSelect.open .customSelectMenu{display:block}
+.customSelectOption{display:block;width:100%;border:0;background:transparent;color:#edf7ff;text-align:left;border-radius:11px;padding:10px 11px;font-size:14px;font-weight:900}
+.customSelectOption:hover,.customSelectOption.active{background:#1e7cff;color:#fff}
+.customSelectOption + .customSelectOption{margin-top:2px}
+
+/* v44 subtle TCG-style background: no official art, just premium card silhouettes */
+body .tcgBg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:.55}
+.tcgCardShape{position:absolute;width:92px;height:128px;border-radius:12px;border:1px solid rgba(120,170,255,.18);background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.015));box-shadow:0 20px 70px rgba(0,0,0,.35);transform:rotate(var(--rot));filter:blur(.1px)}
+.tcgCardShape::before{content:'';position:absolute;inset:11px;border-radius:8px;border:1px solid rgba(255,255,255,.10);background:radial-gradient(circle at 50% 35%,rgba(80,180,255,.18),transparent 34%),linear-gradient(180deg,transparent 0 58%,rgba(255,255,255,.06) 58% 62%,transparent 62%)}
+.tcgCardShape.a{left:7%;top:18%;--rot:-13deg}.tcgCardShape.b{right:7%;top:28%;--rot:12deg}.tcgCardShape.c{left:10%;bottom:9%;--rot:9deg}.tcgCardShape.d{right:11%;bottom:12%;--rot:-10deg}
+@media(max-width:700px){.tcgCardShape{opacity:.35}.tcgCardShape.a{left:-26px}.tcgCardShape.b{right:-30px}.tcgCardShape.c,.tcgCardShape.d{display:none}}

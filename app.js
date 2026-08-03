@@ -2,7 +2,7 @@
 
 let DATA = { pokedex: {}, knownCards: [] };
 let lastBuilt = null;
-const APP_VERSION = 'v42';
+const APP_VERSION = 'v44';
 
 const $ = (id) => document.getElementById(id);
 const quickInput = $('quickInput');
@@ -168,6 +168,7 @@ function parseQuick(){
   setSelect.value = set;
   langSelect.value = lang;
   condSelect.value = cond;
+  updateCustomSelects();
   return true;
 }
 
@@ -243,6 +244,7 @@ function buildUrl(){
     if(autoDirect){
       if(autoDirect.autoSet) setSelect.value = autoDirect.autoSet;
       if(autoDirect.autoName) nameInput.value = autoDirect.autoName;
+      updateCustomSelects();
       return autoDirect;
     }
     const exact = findAutoKnown(lang, number, name);
@@ -350,6 +352,7 @@ function applyItem(item, make=true){
   setSelect.value = item.set || 'AUTO';
   langSelect.value = item.lang || 'JP';
   condSelect.value = item.cond || 'NM';
+  updateCustomSelects();
   if(make) makeLink(true);
 }
 function deleteItem(key, id){
@@ -381,12 +384,68 @@ function renderList(el, key){
 function renderSaved(){ renderList(recentList, STORAGE_RECENT); renderList(favoriteList, STORAGE_FAV); }
 function clearAll(){
   quickInput.value=''; numberInput.value=''; nameInput.value=''; setSelect.value='AUTO'; langSelect.value='JP'; condSelect.value='NM';
+  updateCustomSelects();
   urlBox.value=''; openBtn.href='#'; openBtn.classList.add('disabled'); matchBox.innerHTML=''; lastBuilt=null;
   setStatus('Klaar.',''); quickInput.focus();
 }
 function processQuick(){
   if(quickInput.value.trim()) parseQuick();
+  updateCustomSelects();
   makeLink(true);
+}
+
+
+function closeCustomSelects(except=null){
+  document.querySelectorAll('.customSelect.open').forEach(el => { if(el !== except) el.classList.remove('open'); });
+}
+function updateCustomSelects(){
+  document.querySelectorAll('select').forEach(select => {
+    if(select._customButton) select._customButton.textContent = select.value || (select.options[select.selectedIndex]?.textContent || '');
+    if(select._customMenu){
+      select._customMenu.querySelectorAll('.customSelectOption').forEach(btn => btn.classList.toggle('active', btn.dataset.value === select.value));
+    }
+  });
+}
+function initCustomSelects(){
+  document.querySelectorAll('select').forEach(select => {
+    if(select._customReady) return;
+    select._customReady = true;
+    select.classList.add('nativeSelectHidden');
+    const wrap = document.createElement('div');
+    wrap.className = 'customSelect';
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'customSelectBtn';
+    btn.textContent = select.value || (select.options[select.selectedIndex]?.textContent || '');
+    const menu = document.createElement('div');
+    menu.className = 'customSelectMenu';
+    Array.from(select.options).forEach(opt => {
+      const item = document.createElement('button');
+      item.type = 'button';
+      item.className = 'customSelectOption';
+      item.dataset.value = opt.value || opt.textContent;
+      item.textContent = opt.textContent;
+      item.addEventListener('click', () => {
+        select.value = item.dataset.value;
+        updateCustomSelects();
+        closeCustomSelects();
+        select.dispatchEvent(new Event('change', {bubbles:true}));
+      });
+      menu.appendChild(item);
+    });
+    btn.addEventListener('click', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      const isOpen = wrap.classList.contains('open');
+      closeCustomSelects();
+      if(!isOpen) wrap.classList.add('open');
+    });
+    wrap.appendChild(btn); wrap.appendChild(menu);
+    select.insertAdjacentElement('afterend', wrap);
+    select._customButton = btn; select._customMenu = menu;
+  });
+  document.addEventListener('click', () => closeCustomSelects(), {capture:false});
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeCustomSelects(); });
+  updateCustomSelects();
 }
 
 function bind(){
@@ -413,6 +472,7 @@ async function unregisterOldServiceWorkers(){
   } catch(e) {}
 }
 
+initCustomSelects();
 bind();
 renderSaved();
 setStatus('Data laden...', 'warn');
