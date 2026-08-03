@@ -29,3 +29,6 @@ v49: definitieve mobiele fix: Set/Taal/Staat zijn chip-balken i.p.v. dropdowns/p
 
 
 v51: Set/taal/staat mobiel gefixt. Set blijft AUTO/detected; taal/staat zijn vaste knoppen. Legendary Collection Charizard holo/reverse/non-holo shortcuts toegevoegd.
+
+
+v52: Manual fast mode. Als je nummer/naam handmatig invult, reset set naar AUTO zodat oude sets niet foute productpagina's openen. AUTO zoekt veilig op naam als set onbekend is.

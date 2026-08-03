@@ -2,7 +2,7 @@
 
 let DATA = { pokedex: {}, knownCards: [] };
 let lastBuilt = null;
-const APP_VERSION = 'v51';
+const APP_VERSION = 'v52';
 
 const $ = (id) => document.getElementById(id);
 const quickInput = $('quickInput');
@@ -246,7 +246,9 @@ function withFilters(url, lang, cond){
   return url + (url.includes('?') ? '&' : '?') + params.join('&');
 }
 function searchUrl(name, number, lang, cond){
-  const q = encodeURIComponent([name, number].filter(Boolean).join(' ') || 'pokemon');
+  // Cardmarket search werkt betrouwbaarder op naam dan op naam + kaartnummer.
+  // Het kaartnummer tonen we in de app zodat je handmatig de juiste variant pakt.
+  const q = encodeURIComponent(String(name || '').trim() || 'pokemon');
   return withFilters(`https://www.cardmarket.com/en/Pokemon/Products/Search?searchString=${q}`, lang, cond);
 }
 
@@ -279,7 +281,7 @@ function buildUrl(){
     }
     const exact = findAutoKnown(lang, number, name);
     if(exact) return {url:withFilters(exact.url, lang, cond), exact:true, note:`Exact via database: ${exact.set} / ${exact.name}`};
-    return {url:searchUrl(name, number, lang, cond), exact:false, note:'Geen set gekozen: zoekpagina.'};
+    return {url:searchUrl(name, number, lang, cond), exact:false, note:number ? `AUTO veilig: set onbekend. Zoek op naam, check nummer ${number} op Cardmarket.` : 'AUTO veilig: set onbekend. Zoek op naam.'};
   }
 
   // v41 special correction: "delta charizard 4" is EX Crystal Guardians CG4, not EX Delta Species DS4.
@@ -440,7 +442,7 @@ function updateCustomSelects(){
   if(setInfo){
     const set = setSelect.value || 'AUTO';
     if(set === 'AUTO'){
-      setInfo.innerHTML = 'Set: <b>AUTO</b> · typ set in snel zoeken, bv. <b>base</b>, <b>jungle</b>, <b>lc</b>, <b>neo revelation</b>';
+      setInfo.innerHTML = 'Set: <b>AUTO</b> · vul alleen <b>nummer + naam</b>. Ik open veilig zoeken als de set niet exact bekend is.';
     } else {
       setInfo.innerHTML = 'Set gedetecteerd: <b>' + set + '</b> · wijzig door de set in snel zoeken te typen.';
     }
@@ -481,6 +483,13 @@ function initCustomSelects(){
   updateCustomSelects();
 }
 
+function manualFieldChanged(){
+  // Als je snel alleen nummer + naam invult, mag een oude set uit snelzoeken nooit blijven hangen.
+  quickInput.value = '';
+  setSelect.value = 'AUTO';
+  updateCustomSelects();
+}
+
 function bind(){
   document.querySelectorAll('[data-fill]').forEach(b => b.addEventListener('click', () => { quickInput.value = b.dataset.fill; processQuick(); }));
   quickInput.addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); processQuick(); }});
@@ -491,7 +500,12 @@ function bind(){
   clearBtn.addEventListener('click', clearAll);
   clearRecentBtn.addEventListener('click', () => { writeStore(STORAGE_RECENT, []); renderSaved(); setStatus('Recent gewist.', ''); });
   clearFavBtn.addEventListener('click', () => { writeStore(STORAGE_FAV, []); renderSaved(); setStatus('Favorieten gewist.', ''); });
-  [numberInput,nameInput].forEach(el => el.addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); makeLink(true); }}));
+
+  [numberInput,nameInput].forEach(el => {
+    el.addEventListener('input', manualFieldChanged);
+    el.addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); makeLink(true); }});
+  });
+
   [setSelect,langSelect,condSelect].forEach(el => el.addEventListener('change', () => makeLink(true)));
 }
 
@@ -509,7 +523,7 @@ initCustomSelects();
 bind();
 renderSaved();
 setStatus('Data laden...', 'warn');
-fetch('data/cards.json?v=51')
+fetch('data/cards.json?v=52')
   .then(r => r.json())
   .then(j => { DATA = j; setStatus('Klaar.', ''); renderSaved(); })
   .catch(() => { setStatus('Data niet geladen; basis werkt nog wel.', 'warn'); renderSaved(); });
