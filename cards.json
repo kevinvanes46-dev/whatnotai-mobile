@@ -254,6 +254,14 @@
   },
   "knownCards": [
     {
+      "key": "en|jungle|51|eevee",
+      "name": "Eevee",
+      "number": "51",
+      "set": "JUNGLE",
+      "language": "EN",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Eevee-JU51"
+    },
+    {
       "key": "jp|base|002|ivysaur",
       "name": "Ivysaur",
       "number": "002",
@@ -478,5 +486,5 @@
       "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Tyranitar-NDE113"
     }
   ],
-  "version": "v41"
+  "version": "v54"
 }
