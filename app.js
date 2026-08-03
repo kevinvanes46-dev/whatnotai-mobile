@@ -2,7 +2,7 @@
 
 let DATA = { pokedex: {}, knownCards: [] };
 let lastBuilt = null;
-const APP_VERSION = 'v41';
+const APP_VERSION = 'v42';
 
 const $ = (id) => document.getElementById(id);
 const quickInput = $('quickInput');
@@ -416,7 +416,7 @@ async function unregisterOldServiceWorkers(){
 bind();
 renderSaved();
 setStatus('Data laden...', 'warn');
-fetch('data/cards.json?v=39')
+fetch('data/cards.json?v=42')
   .then(r => r.json())
   .then(j => { DATA = j; setStatus('Klaar.', ''); renderSaved(); })
   .catch(() => { setStatus('Data niet geladen; basis werkt nog wel.', 'warn'); renderSaved(); });

@@ -3,25 +3,28 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#07111f" />
+  <meta name="theme-color" content="#08111f" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-title" content="WhatnotAI" />
-  <title>WhatnotAI Mobile</title>
-  <link rel="stylesheet" href="style.css?v=38" />
-  <link rel="manifest" href="manifest.json?v=38" />
+  <meta name="apple-mobile-web-app-title" content="MintScope" />
+  <title>MintScope · TCG Helper</title>
+  <link rel="stylesheet" href="style.css?v=42" />
+  <link rel="manifest" href="manifest.json?v=42" />
 </head>
 <body>
+  <div class="bgGlow bgOne"></div>
+  <div class="bgGlow bgTwo"></div>
   <main class="app">
-    <header class="topbar">
-      <div>
-        <h1>WhatnotAI</h1>
-        <p>Mobile Cardmarket helper · v38</p>
+    <header class="hero">
+      <div class="brandMark">MS</div>
+      <div class="brandText">
+        <h1>MintScope</h1>
+        <p>TCG price helper · v42</p>
       </div>
       <span class="pill">FREE</span>
     </header>
 
-    <section class="panel quickPanel">
-      <label class="label" for="quickInput">Snelinvoer</label>
+    <section class="card quickPanel">
+      <label class="label" for="quickInput">Snel zoeken</label>
       <div class="quickWrap">
         <input id="quickInput" class="quick" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="jp base 002 ivysaur nm" />
         <button id="quickGo" class="quickGo" type="button" title="Maak link">↵</button>
@@ -30,12 +33,12 @@
         <button type="button" data-fill="jp base 002 ivysaur nm">JP Base Ivysaur</button>
         <button type="button" data-fill="jp fossil 094 gengar nm">JP Fossil Gengar</button>
         <button type="button" data-fill="jp neo revelation 220 swinub nm">JP Neo Swinub</button>
-        <button type="button" data-fill="en delta charizard 4 nm">EN Delta Charizard</button>
-        <button type="button" data-fill="en rocket dark charizard 4 nm">EN Rocket Dark Charizard</button>
+        <button type="button" data-fill="shining gyarados 65 nm">Shining Gyarados</button>
+        <button type="button" data-fill="en delta charizard 4 nm">Delta Charizard</button>
       </div>
     </section>
 
-    <section class="panel formPanel">
+    <section class="card formPanel">
       <div class="row two">
         <div>
           <label class="label" for="numberInput">Nummer</label>
@@ -90,22 +93,22 @@
     </section>
 
     <section class="actions">
-      <button id="makeBtn" type="button" class="primary">Maak + kopieer</button>
+      <button id="makeBtn" type="button" class="primary">Maak link</button>
       <a id="openBtn" class="open disabled" href="#" target="_blank" rel="noopener">Open CM</a>
       <button id="favoriteBtn" type="button" class="secondary">⭐ Favoriet</button>
       <button id="clearBtn" type="button" class="ghost">Leeg</button>
     </section>
 
-    <section class="panel resultPanel">
+    <section class="card resultPanel">
       <div class="statusLine">
         <div id="status" class="status">Klaar.</div>
         <button id="copyBtn" type="button" class="tinyBtn">Kopieer</button>
       </div>
-      <textarea id="urlBox" readonly placeholder="Cardmarket URL komt hier"></textarea>
+      <textarea id="urlBox" readonly placeholder="Cardmarket-link komt hier"></textarea>
       <div id="matchBox" class="matchBox"></div>
     </section>
 
-    <section class="panel savedPanel">
+    <section class="card savedPanel">
       <div class="sectionHeader">
         <h2>Recent</h2>
         <button id="clearRecentBtn" type="button" class="tinyBtn danger">Wis</button>
@@ -113,7 +116,7 @@
       <div id="recentList" class="savedList empty">Nog geen recente zoekopdrachten.</div>
     </section>
 
-    <section class="panel savedPanel">
+    <section class="card savedPanel">
       <div class="sectionHeader">
         <h2>Favorieten</h2>
         <button id="clearFavBtn" type="button" class="tinyBtn danger">Wis</button>
@@ -121,10 +124,10 @@
       <div id="favoriteList" class="savedList empty">Nog geen favorieten.</div>
     </section>
 
-    <section class="panel note">
-      <b>Tip:</b> Enter maakt/kopieert alleen een link. Tik daarna zelf op <b>Open CM</b>. Favorieten en recent blijven op dit toestel staan.
+    <section class="note">
+      Enter maakt en kopieert alleen een link. Open Cardmarket pas wanneer nodig, zodat je minder snel rate-limits krijgt.
     </section>
   </main>
-  <script src="app.js?v=38"></script>
+  <script src="app.js?v=42"></script>
 </body>
 </html>

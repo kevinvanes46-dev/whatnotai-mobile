@@ -1,9 +1,10 @@
 {
-  "name": "WhatnotAI Mobile",
-  "short_name": "WhatnotAI",
-  "start_url": "./index.html",
+  "name": "MintScope TCG Helper",
+  "short_name": "MintScope",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#07111f",
-  "theme_color": "#07111f",
-  "description": "Gratis Cardmarket helper voor Pokémon Whatnot streams."
+  "background_color": "#030711",
+  "theme_color": "#08111f",
+  "description": "Gratis TCG Cardmarket link helper voor vintage Pokémon kaarten."
 }

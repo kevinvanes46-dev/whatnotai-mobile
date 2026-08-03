@@ -1,24 +1,25 @@
-WhatnotAI Mobile Standalone v38
+MintScope Mobile v42
 
-Nieuw:
-- Favorieten/recent blijven werken.
-- Meer set-aliases: Rocket, Southern Islands, WOTC Promo, Expedition, Aquapolis, Skyridge.
-- EX Delta Species quick input gefixt: "ex delta" wordt niet meer als conditie EX gelezen.
-- Extra bekende value cards in data/cards.json.
+Standalone mobiele TCG/Cardmarket helper.
 
-Upload naar GitHub:
+Upload naar GitHub Pages:
 - index.html
 - style.css
 - app.js
 - manifest.json
 - sw.js
 - data/cards.json
-- README.txt
 
-Open daarna met ?v=38 om cache te verversen.
+Nieuw in v42:
+- Nieuwe naam: MintScope
+- Professionele minimalistische achtergrond
+- Strakkere mobiele layout
+- Favorieten/recent blijven werken
+- Geen server, geen OpenAI, geen OCR, gratis
 
-
-v41: Delta Charizard shortcut fixed. "delta charizard 4" opens EX Crystal Guardians CG4.
-
-
-v41: extra value-card shortcuts voor Lugia en Shining kaarten.
+Voorbeelden:
+- jp base 002 ivysaur nm
+- jp fossil 094 gengar nm
+- jp neo revelation 220 swinub nm
+- shining gyarados 65 nm
+- en delta charizard 4 nm
