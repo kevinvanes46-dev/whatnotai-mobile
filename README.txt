@@ -50,3 +50,6 @@ v57: EN Base Set holo 1-16, Jungle holo 1-16 en Fossil holo 1-15 toegevoegd. Bij
 
 
 v58: taal wordt automatisch uit de exacte kaartmatch gehaald. Voorbeeld: Jungle Vaporeon #12 schakelt automatisch naar EN. NM/EX/GD/PL wordt altijd op de directe Cardmarket-link gezet.
+
+
+v59: database van 57 kaarten zit rechtstreeks in app.js. Geen fetch/data-cache meer. Vaporeon Jungle #12, Hitmonchan Base #7, Gengar Fossil #5 en Dragonite Fossil #4 hebben extra gegarandeerde directe routes.
