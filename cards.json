@@ -254,12 +254,427 @@
   },
   "knownCards": [
     {
+      "key": "en|base|1|alakazam",
+      "name": "Alakazam",
+      "number": "1",
+      "set": "BASE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Alakazam-V1-BS1"
+    },
+    {
+      "key": "en|base|2|blastoise",
+      "name": "Blastoise",
+      "number": "2",
+      "set": "BASE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Blastoise-V1-BS2"
+    },
+    {
+      "key": "en|base|3|chansey",
+      "name": "Chansey",
+      "number": "3",
+      "set": "BASE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Chansey-V1-BS3"
+    },
+    {
+      "key": "en|base|4|charizard",
+      "name": "Charizard",
+      "number": "4",
+      "set": "BASE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Charizard-V1-BS4"
+    },
+    {
+      "key": "en|base|5|clefairy",
+      "name": "Clefairy",
+      "number": "5",
+      "set": "BASE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Clefairy-V1-BS5"
+    },
+    {
+      "key": "en|base|6|gyarados",
+      "name": "Gyarados",
+      "number": "6",
+      "set": "BASE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Gyarados-V1-BS6"
+    },
+    {
       "key": "en|base|7|hitmonchan",
       "name": "Hitmonchan",
       "number": "7",
       "set": "BASE",
       "language": "EN",
+      "rarity": "Holo Rare",
       "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Hitmonchan-V1-BS7"
+    },
+    {
+      "key": "en|base|8|machamp",
+      "name": "Machamp",
+      "number": "8",
+      "set": "BASE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Machamp-V1-BS8"
+    },
+    {
+      "key": "en|base|9|magneton",
+      "name": "Magneton",
+      "number": "9",
+      "set": "BASE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Magneton-V1-BS9"
+    },
+    {
+      "key": "en|base|10|mewtwo",
+      "name": "Mewtwo",
+      "number": "10",
+      "set": "BASE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Mewtwo-V1-BS10"
+    },
+    {
+      "key": "en|base|11|nidoking",
+      "name": "Nidoking",
+      "number": "11",
+      "set": "BASE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Nidoking-V1-BS11"
+    },
+    {
+      "key": "en|base|12|ninetales",
+      "name": "Ninetales",
+      "number": "12",
+      "set": "BASE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Ninetales-V1-BS12"
+    },
+    {
+      "key": "en|base|13|poliwrath",
+      "name": "Poliwrath",
+      "number": "13",
+      "set": "BASE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Poliwrath-V1-BS13"
+    },
+    {
+      "key": "en|base|14|raichu",
+      "name": "Raichu",
+      "number": "14",
+      "set": "BASE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Raichu-V1-BS14"
+    },
+    {
+      "key": "en|base|15|venusaur",
+      "name": "Venusaur",
+      "number": "15",
+      "set": "BASE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Venusaur-V1-BS15"
+    },
+    {
+      "key": "en|base|16|zapdos",
+      "name": "Zapdos",
+      "number": "16",
+      "set": "BASE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Zapdos-V1-BS16"
+    },
+    {
+      "key": "en|jungle|1|clefable",
+      "name": "Clefable",
+      "number": "1",
+      "set": "JUNGLE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Clefable-V1-JU1"
+    },
+    {
+      "key": "en|jungle|2|electrode",
+      "name": "Electrode",
+      "number": "2",
+      "set": "JUNGLE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Electrode-V1-JU2"
+    },
+    {
+      "key": "en|jungle|3|flareon",
+      "name": "Flareon",
+      "number": "3",
+      "set": "JUNGLE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Flareon-V1-JU3"
+    },
+    {
+      "key": "en|jungle|4|jolteon",
+      "name": "Jolteon",
+      "number": "4",
+      "set": "JUNGLE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Jolteon-V1-JU4"
+    },
+    {
+      "key": "en|jungle|5|kangaskhan",
+      "name": "Kangaskhan",
+      "number": "5",
+      "set": "JUNGLE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Kangaskhan-V1-JU5"
+    },
+    {
+      "key": "en|jungle|6|mr. mime",
+      "name": "Mr. Mime",
+      "number": "6",
+      "set": "JUNGLE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Mr-Mime-V1-JU6"
+    },
+    {
+      "key": "en|jungle|7|nidoqueen",
+      "name": "Nidoqueen",
+      "number": "7",
+      "set": "JUNGLE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Nidoqueen-V1-JU7"
+    },
+    {
+      "key": "en|jungle|8|pidgeot",
+      "name": "Pidgeot",
+      "number": "8",
+      "set": "JUNGLE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Pidgeot-V1-JU8"
+    },
+    {
+      "key": "en|jungle|9|pinsir",
+      "name": "Pinsir",
+      "number": "9",
+      "set": "JUNGLE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Pinsir-V1-JU9"
+    },
+    {
+      "key": "en|jungle|10|scyther",
+      "name": "Scyther",
+      "number": "10",
+      "set": "JUNGLE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Scyther-V1-JU10"
+    },
+    {
+      "key": "en|jungle|11|snorlax",
+      "name": "Snorlax",
+      "number": "11",
+      "set": "JUNGLE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Snorlax-V1-JU11"
+    },
+    {
+      "key": "en|jungle|12|vaporeon",
+      "name": "Vaporeon",
+      "number": "12",
+      "set": "JUNGLE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Vaporeon-V1-JU12"
+    },
+    {
+      "key": "en|jungle|13|venomoth",
+      "name": "Venomoth",
+      "number": "13",
+      "set": "JUNGLE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Venomoth-V1-JU13"
+    },
+    {
+      "key": "en|jungle|14|victreebel",
+      "name": "Victreebel",
+      "number": "14",
+      "set": "JUNGLE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Victreebel-V1-JU14"
+    },
+    {
+      "key": "en|jungle|15|vileplume",
+      "name": "Vileplume",
+      "number": "15",
+      "set": "JUNGLE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Vileplume-V1-JU15"
+    },
+    {
+      "key": "en|jungle|16|wigglytuff",
+      "name": "Wigglytuff",
+      "number": "16",
+      "set": "JUNGLE",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Wigglytuff-V1-JU16"
+    },
+    {
+      "key": "en|fossil|1|aerodactyl",
+      "name": "Aerodactyl",
+      "number": "1",
+      "set": "FOSSIL",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Aerodactyl-V1-FO1"
+    },
+    {
+      "key": "en|fossil|2|articuno",
+      "name": "Articuno",
+      "number": "2",
+      "set": "FOSSIL",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Articuno-V1-FO2"
+    },
+    {
+      "key": "en|fossil|3|ditto",
+      "name": "Ditto",
+      "number": "3",
+      "set": "FOSSIL",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Ditto-V1-FO3"
+    },
+    {
+      "key": "en|fossil|4|dragonite",
+      "name": "Dragonite",
+      "number": "4",
+      "set": "FOSSIL",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Dragonite-V1-FO4"
+    },
+    {
+      "key": "en|fossil|5|gengar",
+      "name": "Gengar",
+      "number": "5",
+      "set": "FOSSIL",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Gengar-V1-FO5"
+    },
+    {
+      "key": "en|fossil|6|haunter",
+      "name": "Haunter",
+      "number": "6",
+      "set": "FOSSIL",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Haunter-V1-FO6"
+    },
+    {
+      "key": "en|fossil|7|hitmonlee",
+      "name": "Hitmonlee",
+      "number": "7",
+      "set": "FOSSIL",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Hitmonlee-V1-FO7"
+    },
+    {
+      "key": "en|fossil|8|hypno",
+      "name": "Hypno",
+      "number": "8",
+      "set": "FOSSIL",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Hypno-V1-FO8"
+    },
+    {
+      "key": "en|fossil|9|kabutops",
+      "name": "Kabutops",
+      "number": "9",
+      "set": "FOSSIL",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Kabutops-V1-FO9"
+    },
+    {
+      "key": "en|fossil|10|lapras",
+      "name": "Lapras",
+      "number": "10",
+      "set": "FOSSIL",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Lapras-V1-FO10"
+    },
+    {
+      "key": "en|fossil|11|magneton",
+      "name": "Magneton",
+      "number": "11",
+      "set": "FOSSIL",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Magneton-V1-FO11"
+    },
+    {
+      "key": "en|fossil|12|moltres",
+      "name": "Moltres",
+      "number": "12",
+      "set": "FOSSIL",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Moltres-V1-FO12"
+    },
+    {
+      "key": "en|fossil|13|muk",
+      "name": "Muk",
+      "number": "13",
+      "set": "FOSSIL",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Muk-V1-FO13"
+    },
+    {
+      "key": "en|fossil|14|raichu",
+      "name": "Raichu",
+      "number": "14",
+      "set": "FOSSIL",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Raichu-V1-FO14"
+    },
+    {
+      "key": "en|fossil|15|zapdos",
+      "name": "Zapdos",
+      "number": "15",
+      "set": "FOSSIL",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Zapdos-V1-FO15"
     },
     {
       "key": "en|jungle|51|eevee",
@@ -267,7 +682,62 @@
       "number": "51",
       "set": "JUNGLE",
       "language": "EN",
+      "rarity": "Common",
       "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Eevee-JU51"
+    },
+    {
+      "key": "en|rocket|4|dark charizard",
+      "name": "Dark Charizard",
+      "number": "4",
+      "set": "ROCKET",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Team-Rocket/Dark-Charizard-TR4"
+    },
+    {
+      "key": "en|neo genesis|9|lugia",
+      "name": "Lugia",
+      "number": "9",
+      "set": "NEO GENESIS",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Lugia-NG9"
+    },
+    {
+      "key": "en|neo revelation|65|shining gyarados",
+      "name": "Shining Gyarados",
+      "number": "65",
+      "set": "NEO REVELATION",
+      "language": "EN",
+      "rarity": "Shining",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Shining-Gyarados-NR65"
+    },
+    {
+      "key": "en|neo revelation|66|shining magikarp",
+      "name": "Shining Magikarp",
+      "number": "66",
+      "set": "NEO REVELATION",
+      "language": "EN",
+      "rarity": "Shining",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Shining-Magikarp-NR66"
+    },
+    {
+      "key": "en|neo destiny|107|shining charizard",
+      "name": "Shining Charizard",
+      "number": "107",
+      "set": "NEO DESTINY",
+      "language": "EN",
+      "rarity": "Shining",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Charizard-NDE107"
+    },
+    {
+      "key": "en|ex crystal guardians|4|charizard",
+      "name": "Charizard",
+      "number": "4",
+      "set": "EX CRYSTAL GUARDIANS",
+      "language": "EN",
+      "rarity": "Holo Rare",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Crystal-Guardians/Charizard-Delta-Species-CG4"
     },
     {
       "key": "jp|base|002|ivysaur",
@@ -275,39 +745,8 @@
       "number": "002",
       "set": "BASE",
       "language": "JP",
+      "rarity": "",
       "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Expansion-Pack/Ivysaur"
-    },
-    {
-      "key": "jp|base|006|charizard",
-      "name": "Charizard",
-      "number": "006",
-      "set": "BASE",
-      "language": "JP",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Expansion-Pack/Charizard"
-    },
-    {
-      "key": "jp|base|003|venusaur",
-      "name": "Venusaur",
-      "number": "003",
-      "set": "BASE",
-      "language": "JP",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Expansion-Pack/Venusaur"
-    },
-    {
-      "key": "jp|base|009|blastoise",
-      "name": "Blastoise",
-      "number": "009",
-      "set": "BASE",
-      "language": "JP",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Expansion-Pack/Blastoise"
-    },
-    {
-      "key": "jp|jungle|133|eevee",
-      "name": "Eevee",
-      "number": "133",
-      "set": "JUNGLE",
-      "language": "JP",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Pokemon-Jungle/Eevee"
     },
     {
       "key": "jp|fossil|094|gengar",
@@ -315,6 +754,7 @@
       "number": "094",
       "set": "FOSSIL",
       "language": "JP",
+      "rarity": "Holo Rare",
       "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Mystery-of-the-Fossils/Gengar"
     },
     {
@@ -323,176 +763,9 @@
       "number": "220",
       "set": "NEO REVELATION",
       "language": "JP",
+      "rarity": "",
       "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Awakening-Legends/Swinub-AL"
-    },
-    {
-      "key": "en|neo revelation|57|swinub",
-      "name": "Swinub",
-      "number": "57",
-      "set": "NEO REVELATION",
-      "language": "EN",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Swinub-NR57"
-    },
-    {
-      "key": "en|base|4|charizard",
-      "name": "Charizard",
-      "number": "4",
-      "set": "BASE",
-      "language": "EN",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Charizard-BS4"
-    },
-    {
-      "key": "en|base|2|blastoise",
-      "name": "Blastoise",
-      "number": "2",
-      "set": "BASE",
-      "language": "EN",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Blastoise-BS2"
-    },
-    {
-      "key": "en|base|15|venusaur",
-      "name": "Venusaur",
-      "number": "15",
-      "set": "BASE",
-      "language": "EN",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Venusaur-BS15"
-    },
-    {
-      "key": "en|fossil|5|gengar",
-      "name": "Gengar",
-      "number": "5",
-      "set": "FOSSIL",
-      "language": "EN",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Gengar-FO5"
-    },
-    {
-      "key": "en|fossil|4|dragonite",
-      "name": "Dragonite",
-      "number": "4",
-      "set": "FOSSIL",
-      "language": "EN",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Dragonite-FO4"
-    },
-    {
-      "key": "en|rocket|4|dark charizard",
-      "name": "Dark Charizard",
-      "number": "4",
-      "set": "ROCKET",
-      "language": "EN",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Team-Rocket/Dark-Charizard-TR4"
-    },
-    {
-      "key": "en|ex crystal guardians|4|charizard",
-      "name": "Charizard",
-      "number": "4",
-      "set": "EX CRYSTAL GUARDIANS",
-      "language": "EN",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Crystal-Guardians/Charizard-Delta-Species-CG4"
-    },
-    {
-      "key": "en|ex delta species|4|espeon",
-      "name": "Espeon",
-      "number": "4",
-      "set": "EX DELTA SPECIES",
-      "language": "EN",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Delta-Species/Espeon-Delta-Species-DS4"
-    },
-    {
-      "key": "en|neo genesis|9|lugia",
-      "name": "Lugia",
-      "number": "9",
-      "set": "NEO GENESIS",
-      "language": "EN",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Lugia-NG9"
-    },
-    {
-      "key": "jp|neo genesis|249|lugia",
-      "name": "Lugia",
-      "number": "249",
-      "set": "NEO GENESIS",
-      "language": "JP",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gold-Silver-to-a-New-World/Lugia-GSNW"
-    },
-    {
-      "key": "en|neo revelation|65|shining gyarados",
-      "name": "Shining Gyarados",
-      "number": "65",
-      "set": "NEO REVELATION",
-      "language": "EN",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Shining-Gyarados-NR65"
-    },
-    {
-      "key": "jp|neo revelation|130|shining gyarados",
-      "name": "Shining Gyarados",
-      "number": "130",
-      "set": "NEO REVELATION",
-      "language": "JP",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Awakening-Legends/Shining-Gyarados-AL"
-    },
-    {
-      "key": "en|neo revelation|66|shining magikarp",
-      "name": "Shining Magikarp",
-      "number": "66",
-      "set": "NEO REVELATION",
-      "language": "EN",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Shining-Magikarp-NR66"
-    },
-    {
-      "key": "jp|neo revelation|129|shining magikarp",
-      "name": "Shining Magikarp",
-      "number": "129",
-      "set": "NEO REVELATION",
-      "language": "JP",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Awakening-Legends/Shining-Magikarp-AL"
-    },
-    {
-      "key": "en|neo destiny|107|shining charizard",
-      "name": "Shining Charizard",
-      "number": "107",
-      "set": "NEO DESTINY",
-      "language": "EN",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Charizard-NDE107"
-    },
-    {
-      "key": "jp|neo destiny|006|shining charizard",
-      "name": "Shining Charizard",
-      "number": "006",
-      "set": "NEO DESTINY",
-      "language": "JP",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Darkness-and-to-Light/Shining-Charizard-DL"
-    },
-    {
-      "key": "en|neo destiny|106|shining celebi",
-      "name": "Shining Celebi",
-      "number": "106",
-      "set": "NEO DESTINY",
-      "language": "EN",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Celebi-NDE106"
-    },
-    {
-      "key": "en|neo destiny|108|shining kabutops",
-      "name": "Shining Kabutops",
-      "number": "108",
-      "set": "NEO DESTINY",
-      "language": "EN",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Kabutops-NDE108"
-    },
-    {
-      "key": "en|neo destiny|111|shining raichu",
-      "name": "Shining Raichu",
-      "number": "111",
-      "set": "NEO DESTINY",
-      "language": "EN",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Raichu-NDE111"
-    },
-    {
-      "key": "en|neo destiny|113|shining tyranitar",
-      "name": "Shining Tyranitar",
-      "number": "113",
-      "set": "NEO DESTINY",
-      "language": "EN",
-      "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Tyranitar-NDE113"
     }
   ],
-  "version": "v55"
+  "version": "v57"
 }

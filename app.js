@@ -2,7 +2,7 @@
 
 let DATA = { pokedex: {}, knownCards: [] };
 let lastBuilt = null;
-const APP_VERSION = 'v55';
+const APP_VERSION = 'v57';
 
 const $ = (id) => document.getElementById(id);
 const quickInput = $('quickInput');
@@ -259,7 +259,11 @@ function knownLookup(lang,set,number,name){
 function findAutoKnown(lang, number, name){
   const n = cleanNumber(number);
   const nm = normalizeName(name);
-  return (DATA.knownCards || []).find(c => normalizeName(c.name) === nm && c.language === lang && (cleanNumber(c.number) === n || pad3(c.number) === pad3(n)));
+  return (DATA.knownCards || []).filter(c =>
+    normalizeName(c.name) === nm &&
+    c.language === lang &&
+    (cleanNumber(c.number) === n || pad3(c.number) === pad3(n))
+  );
 }
 function withFilters(url, lang, cond){
   const params = [];
@@ -302,9 +306,22 @@ function buildUrl(){
       updateCustomSelects();
       return autoDirect;
     }
-    const exact = findAutoKnown(lang, number, name);
-    if(exact) return {url:withFilters(exact.url, lang, cond), exact:true, note:`Exact via database: ${exact.set} / ${exact.name}`};
-    return {url:searchUrl(name, number, lang, cond), exact:false, note:number ? `AUTO veilig: set onbekend. Zoek op naam, check nummer ${number} op Cardmarket.` : 'AUTO veilig: set onbekend. Zoek op naam.'};
+    const matches = findAutoKnown(lang, number, name);
+    if(matches.length === 1){
+      const exact = matches[0];
+      setSelect.value = exact.set;
+      updateCustomSelects();
+      return {url:withFilters(exact.url, lang, cond), exact:true, note:`Direct: ${exact.set} · ${exact.rarity || 'kaart'} · ${exact.name}`};
+    }
+    if(matches.length > 1){
+      return {
+        url: searchUrl(name, number, lang, cond),
+        exact: false,
+        candidates: matches,
+        note: `Meerdere matches voor ${name} #${number}. Kies hieronder de juiste set.`
+      };
+    }
+    return {url:searchUrl(name, number, lang, cond), exact:false, note:number ? `Nog niet direct in database. Zoek op naam en check nummer ${number}.` : 'Nog niet direct in database.'};
   }
 
   // v41 special correction: "delta charizard 4" is EX Crystal Guardians CG4, not EX Delta Species DS4.
@@ -324,20 +341,18 @@ function buildUrl(){
   }
 
   const known = knownLookup(lang,set,number,name);
-  if(known) return {url:withFilters(known.url, lang, cond), exact:true, note:`Exacte match: ${known.set} / ${known.name}`};
+  if(known) return {url:withFilters(known.url, lang, cond), exact:true, note:`Geverifieerde directe match: ${known.set} / ${known.name}`};
 
-  const slugName = slugifyName(name);
-  if(lang === 'JP' && JAPANESE[set]){
-    const info = JAPANESE[set];
-    const suffix = info.suffix ? '-' + info.suffix : '';
-    return {url:withFilters(`https://www.cardmarket.com/en/Pokemon/Products/Singles/${info.dir}/${slugName}${suffix}`, lang, cond), exact:true, note:`JP route: ${info.dir}`};
-  }
-  if(WESTERN[set]){
-    const info = WESTERN[set];
-    const ending = number ? '-' + info.code + number : '';
-    return {url:withFilters(`https://www.cardmarket.com/en/Pokemon/Products/Singles/${info.dir}/${slugName}${ending}`, lang, cond), exact:true, note:`EN route: ${info.dir}`};
-  }
-  return {url:searchUrl(name, number, lang, cond), exact:false, note:'Fallback zoekpagina.'};
+  // v56: nooit meer een product-URL gokken.
+  // Cardmarket gebruikt per kaart soms V1/V2/V3 of afwijkende setcodes.
+  // Alleen geverifieerde database-URL's openen direct; de rest opent veilig zoeken.
+  return {
+    url: searchUrl(name, number, lang, cond),
+    exact: false,
+    note: set && set !== 'AUTO'
+      ? `Veilige zoekpagina: ${set}. Controleer kaartnummer ${number || '-'}.`
+      : `Veilige zoekpagina. Controleer kaartnummer ${number || '-'}.`
+  };
 }
 
 async function copyToClipboard(text){
@@ -385,6 +400,40 @@ function addFavorite(){
   setStatus('Favoriet opgeslagen ✅', 'ok');
 }
 
+
+function candidateButtonsHtml(candidates, cond){
+  if(!candidates || !candidates.length) return '';
+  return `<div class="candidateList">
+    ${candidates.map((c, i) => `
+      <button type="button" class="candidateBtn" data-candidate="${i}">
+        <span>${c.set}</span>
+        <small>${c.name} #${c.number}${c.rarity ? ' · ' + c.rarity : ''}</small>
+      </button>
+    `).join('')}
+  </div>`;
+}
+
+function bindCandidateButtons(candidates){
+  if(!candidates || !candidates.length) return;
+  matchBox.querySelectorAll('[data-candidate]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const c = candidates[Number(btn.dataset.candidate)];
+      if(!c) return;
+      setSelect.value = c.set;
+      nameInput.value = c.name;
+      numberInput.value = c.number;
+      updateCustomSelects();
+      const url = withFilters(c.url, langSelect.value, condSelect.value);
+      urlBox.value = url;
+      openBtn.href = url;
+      openBtn.classList.remove('disabled');
+      lastBuilt = {url, result:{exact:true, note:`Gekozen: ${c.set} / ${c.name}`}};
+      const ok = await copyToClipboard(url);
+      setStatus(ok ? `${c.set} gekozen en link gekopieerd.` : `${c.set} gekozen.`, ok ? 'ok' : 'warn');
+    });
+  });
+}
+
 async function makeLink(autoCopy=true){
   const r = buildUrl();
   if(!r.url){
@@ -399,7 +448,8 @@ async function makeLink(autoCopy=true){
   urlBox.value = r.url;
   openBtn.href = r.url;
   openBtn.classList.remove('disabled');
-  matchBox.innerHTML = `<b>${r.exact ? 'Directe kaartpagina' : 'Zoekpagina'}</b><br>${r.note}<br>${nameInput.value || '-'} · ${numberInput.value || '-'} · ${setSelect.value} · ${langSelect.value}/${condSelect.value}`;
+  matchBox.innerHTML = `<b>${r.exact ? 'Directe kaartpagina' : (r.candidates ? 'Kies de juiste set' : 'Zoekpagina')}</b><br>${r.note}<br>${nameInput.value || '-'} · ${numberInput.value || '-'} · ${setSelect.value} · ${langSelect.value}/${condSelect.value}${candidateButtonsHtml(r.candidates, condSelect.value)}`;
+  bindCandidateButtons(r.candidates);
   lastBuilt = {url:r.url, result:r};
   addRecent(itemFromCurrent(r.url, r));
   if(autoCopy){
@@ -551,7 +601,7 @@ initCustomSelects();
 bind();
 renderSaved();
 setStatus('Data laden...', 'warn');
-fetch('data/cards.json?v=55')
+fetch('data/cards.json?v=57')
   .then(r => r.json())
   .then(j => { DATA = j; setStatus('Klaar.', ''); renderSaved(); })
   .catch(() => { setStatus('Data niet geladen; basis werkt nog wel.', 'warn'); renderSaved(); });

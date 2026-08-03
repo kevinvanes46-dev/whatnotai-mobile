@@ -41,3 +41,9 @@ v55: Eevee gecorrigeerd naar Jungle #51. AUTO direct toegevoegd: EN Jungle Eevee
 
 
 v55: Base Set Hitmonchan #7 exact route toegevoegd. 1st/holo woorden worden niet meer onderdeel van de kaartnaam/URL.
+
+
+v56 SAFE BUILD: alle gegokte directe Cardmarket-routes verwijderd. Alleen geverifieerde database-links openen direct; alle andere kaarten openen een veilige zoekpagina.
+
+
+v57: EN Base Set holo 1-16, Jungle holo 1-16 en Fossil holo 1-15 toegevoegd. Bij dubbele naam+nummer-combinaties toont de app een setkeuze.
