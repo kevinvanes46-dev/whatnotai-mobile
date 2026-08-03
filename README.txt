@@ -1,4 +1,4 @@
-MintScope Mobile v44
+CardScout Mobile v46
 
 Standalone mobiele TCG/Cardmarket helper.
 
@@ -10,8 +10,8 @@ Upload naar GitHub Pages:
 - sw.js
 - data/cards.json
 
-Nieuw in v44:
-- Nieuwe naam: MintScope
+Nieuw in v46:
+- Nieuwe naam: CardScout
 - Professionele minimalistische achtergrond
 - Strakkere mobiele layout
 - Favorieten/recent blijven werken

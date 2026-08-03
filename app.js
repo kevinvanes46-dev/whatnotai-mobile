@@ -2,7 +2,7 @@
 
 let DATA = { pokedex: {}, knownCards: [] };
 let lastBuilt = null;
-const APP_VERSION = 'v44';
+const APP_VERSION = 'v46';
 
 const $ = (id) => document.getElementById(id);
 const quickInput = $('quickInput');
@@ -425,20 +425,27 @@ function initCustomSelects(){
       item.className = 'customSelectOption';
       item.dataset.value = opt.value || opt.textContent;
       item.textContent = opt.textContent;
-      item.addEventListener('click', () => {
+      const chooseItem = (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
         select.value = item.dataset.value;
         updateCustomSelects();
         closeCustomSelects();
         select.dispatchEvent(new Event('change', {bubbles:true}));
-      });
+      };
+      item.addEventListener('pointerdown', chooseItem);
+      item.addEventListener('click', chooseItem);
       menu.appendChild(item);
     });
-    btn.addEventListener('click', (e) => {
-      e.preventDefault(); e.stopPropagation();
+    const toggleMenu = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       const isOpen = wrap.classList.contains('open');
       closeCustomSelects();
       if(!isOpen) wrap.classList.add('open');
-    });
+    };
+    btn.addEventListener('pointerdown', toggleMenu);
+    btn.addEventListener('click', toggleMenu);
     wrap.appendChild(btn); wrap.appendChild(menu);
     select.insertAdjacentElement('afterend', wrap);
     select._customButton = btn; select._customMenu = menu;

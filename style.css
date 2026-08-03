@@ -31,14 +31,16 @@ body{
 body::before,body::after{content:"";position:fixed;inset:auto;pointer-events:none;z-index:0;opacity:.12;filter:blur(0)}
 body::before{width:280px;height:280px;left:-90px;top:140px;background:radial-gradient(circle at center,rgba(88,132,255,.25),transparent 68%);border-radius:50%}
 body::after{width:320px;height:320px;right:-110px;bottom:120px;background:radial-gradient(circle at center,rgba(32,214,133,.18),transparent 68%);border-radius:50%}
-.quickPanel,.formPanel,.resultPanel,.savedPanel{position:relative;overflow:hidden}
+.quickPanel,.resultPanel,.savedPanel{position:relative;overflow:hidden}
+.formPanel{position:relative;overflow:visible;z-index:30}
 .quickPanel::after,.formPanel::after{content:"";position:absolute;inset:auto -40px -40px auto;width:120px;height:120px;background:radial-gradient(circle at center,rgba(74,149,255,.13),transparent 65%);pointer-events:none}
 .bgGlow{position:fixed;inset:auto;pointer-events:none;filter:blur(45px);opacity:.55;border-radius:999px;z-index:0}
 .bgOne{width:220px;height:220px;right:-80px;top:120px;background:#2f7df6}.bgTwo{width:180px;height:180px;left:-60px;bottom:80px;background:#16c784}
 .app{position:relative;z-index:1;width:min(520px,100%);margin:0 auto;padding:16px 14px 28px;padding-top:max(16px,env(safe-area-inset-top));padding-bottom:max(28px,env(safe-area-inset-bottom))}
 .hero{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;margin:6px 2px 16px}
-.brandMark{width:52px;height:52px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(145deg,#223656,#101b2d);border:1px solid #385070;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 12px 35px rgba(0,0,0,.35);font-weight:1000;letter-spacing:-.08em;color:#dff6ff}
-.brandText h1{font-size:29px;line-height:1;margin:0;font-weight:1000;letter-spacing:-.8px}.brandText p{margin:5px 0 0;color:var(--muted);font-size:13px;font-weight:700}.pill{align-self:start;font-size:11px;font-weight:1000;color:#06130c;background:linear-gradient(135deg,#55f7a8,#16c784);padding:7px 10px;border-radius:999px;box-shadow:0 10px 22px rgba(22,199,132,.20)}
+.brandMark{width:56px;height:56px;border-radius:19px;display:grid;place-items:center;background:linear-gradient(145deg,#203656,#0b1424);border:1px solid #426286;box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 14px 35px rgba(0,0,0,.38)}
+.brandIcon{width:46px;height:46px;display:block;filter:drop-shadow(0 8px 14px rgba(0,0,0,.35))}
+.brandText h1{font-size:28px;line-height:1;margin:0;font-weight:1000;letter-spacing:-.8px}.brandText p{margin:5px 0 0;color:var(--muted);font-size:13px;font-weight:700}.pill{align-self:start;font-size:11px;font-weight:1000;color:#06130c;background:linear-gradient(135deg,#55f7a8,#16c784);padding:7px 10px;border-radius:999px;box-shadow:0 10px 22px rgba(22,199,132,.20)}
 .card{background:linear-gradient(180deg,rgba(15,26,43,.88),rgba(8,15,27,.88));border:1px solid rgba(72,100,139,.55);border-radius:var(--radius);padding:13px;margin-bottom:11px;box-shadow:var(--shadow);backdrop-filter:blur(14px)}
 .label{display:block;color:#91a5bf;font-size:10.5px;font-weight:1000;margin:0 0 7px;text-transform:uppercase;letter-spacing:.12em}
 input,select,textarea{width:100%;border:1px solid var(--line2);background:linear-gradient(180deg,#122037,#0f1a2b);color:var(--text);border-radius:15px;padding:12px 13px;font-size:16px;outline:none;appearance:none;-webkit-appearance:none;min-height:48px;box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}
@@ -57,7 +59,7 @@ h2{font-size:14px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em;
 
 /* v44 custom select fix: no native white dropdowns */
 .nativeSelectHidden{display:none!important}
-.customSelect{position:relative;width:100%}
+.customSelect{position:relative;width:100%;z-index:5}
 .customSelectBtn{
   width:100%;min-height:48px;border:1px solid var(--line2);
   background:linear-gradient(180deg,#122037,#0f1a2b);color:var(--text);
@@ -65,9 +67,9 @@ h2{font-size:14px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em;
   text-align:left;box-shadow:inset 0 1px 0 rgba(255,255,255,.035);position:relative;
 }
 .customSelectBtn::after{content:'⌄';position:absolute;right:14px;top:50%;transform:translateY(-55%);color:#9eb6d4;font-size:18px}
-.customSelect.open .customSelectBtn{border-color:#55b7ff;box-shadow:0 0 0 3px rgba(47,125,246,.22),inset 0 1px 0 rgba(255,255,255,.04)}
+.customSelect.open{z-index:9999}.customSelect.open .customSelectBtn{border-color:#55b7ff;box-shadow:0 0 0 3px rgba(47,125,246,.22),inset 0 1px 0 rgba(255,255,255,.04)}
 .customSelectMenu{
-  display:none;position:absolute;z-index:9999;left:0;right:0;top:calc(100% + 6px);
+  display:none;position:absolute;z-index:100000;left:0;right:0;top:calc(100% + 6px);
   max-height:260px;overflow:auto;padding:6px;background:#081221;border:1px solid #365171;border-radius:15px;
   box-shadow:0 22px 50px rgba(0,0,0,.55);scrollbar-width:thin;scrollbar-color:#395678 #081221;
 }
@@ -82,3 +84,20 @@ body .tcgBg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden
 .tcgCardShape::before{content:'';position:absolute;inset:11px;border-radius:8px;border:1px solid rgba(255,255,255,.10);background:radial-gradient(circle at 50% 35%,rgba(80,180,255,.18),transparent 34%),linear-gradient(180deg,transparent 0 58%,rgba(255,255,255,.06) 58% 62%,transparent 62%)}
 .tcgCardShape.a{left:7%;top:18%;--rot:-13deg}.tcgCardShape.b{right:7%;top:28%;--rot:12deg}.tcgCardShape.c{left:10%;bottom:9%;--rot:9deg}.tcgCardShape.d{right:11%;bottom:12%;--rot:-10deg}
 @media(max-width:700px){.tcgCardShape{opacity:.35}.tcgCardShape.a{left:-26px}.tcgCardShape.b{right:-30px}.tcgCardShape.c,.tcgCardShape.d{display:none}}
+
+/* v45 mobile dropdown fix */
+.formPanel, .row, .row > div { overflow: visible !important; }
+.customSelectMenu { -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+.customSelectOption { cursor: pointer; touch-action: manipulation; }
+.customSelectBtn { touch-action: manipulation; cursor: pointer; }
+@media(max-width:700px){
+  .customSelectMenu{max-height:220px}
+  .row.three{position:relative;z-index:20}
+  .actions{position:relative;z-index:1}
+}
+
+/* v46 CardScout brand polish */
+.hero{position:relative}
+.hero::after{content:"";position:absolute;right:54px;top:2px;width:88px;height:50px;background:radial-gradient(circle at 20% 50%,rgba(255,205,46,.14),transparent 34%),radial-gradient(circle at 70% 35%,rgba(65,169,255,.14),transparent 40%);filter:blur(10px);pointer-events:none}
+body::before{opacity:.16}
+body::after{opacity:.12}

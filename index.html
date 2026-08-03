@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#08111f" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-title" content="MintScope" />
-  <title>MintScope · TCG Helper</title>
+  <meta name="apple-mobile-web-app-title" content="CardScout" />
+  <title>CardScout · TCG Helper</title>
   <link rel="stylesheet" href="style.css?v=42" />
   <link rel="manifest" href="manifest.json?v=42" />
 </head>
@@ -16,10 +16,29 @@
   <div class="bgGlow bgTwo"></div>
   <main class="app">
     <header class="hero">
-      <div class="brandMark">MS</div>
+      <div class="brandMark" aria-label="CardScout logo">
+        <svg class="brandIcon" viewBox="0 0 96 96" role="img" aria-hidden="true">
+          <defs>
+            <linearGradient id="boltGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#fff36b"/>
+              <stop offset="55%" stop-color="#ffcc2e"/>
+              <stop offset="100%" stop-color="#ff8a00"/>
+            </linearGradient>
+            <linearGradient id="cardGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#203a63"/>
+              <stop offset="100%" stop-color="#0b1527"/>
+            </linearGradient>
+          </defs>
+          <rect x="18" y="10" width="60" height="76" rx="15" fill="url(#cardGrad)" stroke="#5c7dab" stroke-width="3"/>
+          <circle cx="38" cy="35" r="7" fill="#67d7ff" opacity=".95"/>
+          <circle cx="58" cy="35" r="7" fill="#67d7ff" opacity=".95"/>
+          <path d="M52 9 28 52h19l-7 35 29-48H50l2-30Z" fill="url(#boltGrad)" stroke="#fff4a2" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M31 64c9 7 25 7 34 0" fill="none" stroke="#dff7ff" stroke-width="4" stroke-linecap="round" opacity=".9"/>
+        </svg>
+      </div>
       <div class="brandText">
-        <h1>MintScope</h1>
-        <p>TCG price helper · v44</p>
+        <h1>CardScout</h1>
+        <p>TCG price scout · v46</p>
       </div>
       <span class="pill">FREE</span>
     </header>
