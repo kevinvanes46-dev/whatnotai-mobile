@@ -53,3 +53,6 @@ v58: taal wordt automatisch uit de exacte kaartmatch gehaald. Voorbeeld: Jungle 
 
 
 v59: database van 57 kaarten zit rechtstreeks in app.js. Geen fetch/data-cache meer. Vaporeon Jungle #12, Hitmonchan Base #7, Gengar Fossil #5 en Dragonite Fossil #4 hebben extra gegarandeerde directe routes.
+
+
+v60: vaste geheugensteun onder snel zoeken: nummer + naam + set + staat.

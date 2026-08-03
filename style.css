@@ -57,7 +57,7 @@ h2{font-size:14px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em;
 @media(max-width:420px){.app{padding-left:10px;padding-right:10px}.hero{grid-template-columns:46px 1fr auto}.brandMark{width:46px;height:46px;border-radius:16px}.brandText h1{font-size:25px}.row.two{grid-template-columns:1fr 1fr}.row.three{grid-template-columns:1fr 1fr}.row.three>div:first-child{grid-column:1/-1}.quick{font-size:16px}.actions{grid-template-columns:1fr 1fr}button,.open{font-size:14px;padding:13px 9px}.card{padding:12px}}
 
 
-/* v59 custom select fix: no native white dropdowns */
+/* v60 custom select fix: no native white dropdowns */
 .nativeSelectHidden{display:none!important}
 .customSelect{position:relative;width:100%;z-index:5}
 .customSelectBtn{
@@ -78,14 +78,14 @@ h2{font-size:14px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em;
 .customSelectOption:hover,.customSelectOption.active{background:#1e7cff;color:#fff}
 .customSelectOption + .customSelectOption{margin-top:2px}
 
-/* v59 subtle TCG-style background: no official art, just premium card silhouettes */
+/* v60 subtle TCG-style background: no official art, just premium card silhouettes */
 body .tcgBg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:.55}
 .tcgCardShape{position:absolute;width:92px;height:128px;border-radius:12px;border:1px solid rgba(120,170,255,.18);background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.015));box-shadow:0 20px 70px rgba(0,0,0,.35);transform:rotate(var(--rot));filter:blur(.1px)}
 .tcgCardShape::before{content:'';position:absolute;inset:11px;border-radius:8px;border:1px solid rgba(255,255,255,.10);background:radial-gradient(circle at 50% 35%,rgba(80,180,255,.18),transparent 34%),linear-gradient(180deg,transparent 0 58%,rgba(255,255,255,.06) 58% 62%,transparent 62%)}
 .tcgCardShape.a{left:7%;top:18%;--rot:-13deg}.tcgCardShape.b{right:7%;top:28%;--rot:12deg}.tcgCardShape.c{left:10%;bottom:9%;--rot:9deg}.tcgCardShape.d{right:11%;bottom:12%;--rot:-10deg}
 @media(max-width:700px){.tcgCardShape{opacity:.35}.tcgCardShape.a{left:-26px}.tcgCardShape.b{right:-30px}.tcgCardShape.c,.tcgCardShape.d{display:none}}
 
-/* v59 mobile dropdown fix */
+/* v60 mobile dropdown fix */
 .formPanel, .row, .row > div { overflow: visible !important; }
 .customSelectMenu { -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
 .customSelectOption { cursor: pointer; touch-action: manipulation; }
@@ -96,13 +96,13 @@ body .tcgBg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden
   .actions{position:relative;z-index:1}
 }
 
-/* v59 CardScout brand polish */
+/* v60 CardScout brand polish */
 .hero{position:relative}
 .hero::after{content:"";position:absolute;right:54px;top:2px;width:88px;height:50px;background:radial-gradient(circle at 20% 50%,rgba(255,205,46,.14),transparent 34%),radial-gradient(circle at 70% 35%,rgba(65,169,255,.14),transparent 40%);filter:blur(10px);pointer-events:none}
 body::before{opacity:.16}
 body::after{opacity:.12}
 
-/* v59 iPhone-safe choice sheet. Geen native witte dropdowns meer. */
+/* v60 iPhone-safe choice sheet. Geen native witte dropdowns meer. */
 .nativeSelectHidden{
   position:absolute!important;
   opacity:0!important;
@@ -214,7 +214,7 @@ body::after{opacity:.12}
 }
 .choiceOption:last-child{margin-bottom:0}
 
-/* v59 iOS scroll fix for choice sheet */
+/* v60 iOS scroll fix for choice sheet */
 html.sheetOpen,
 body.sheetOpen{
   overflow:hidden!important;
@@ -245,7 +245,7 @@ body.sheetOpen{
   user-select:none;
 }
 
-/* v59 FINAL mobile fix: no dropdowns. Set/Taal/Staat are chip bars, same as the working quick chips. */
+/* v60 FINAL mobile fix: no dropdowns. Set/Taal/Staat are chip bars, same as the working quick chips. */
 .choiceOverlay,
 .choiceSheet,
 .choiceOptions,
@@ -336,7 +336,7 @@ body.sheetOpen{
   .setChipBar{max-width:100%}
 }
 
-/* v59 stable mobile controls: no dropdown, no set scroll. */
+/* v60 stable mobile controls: no dropdown, no set scroll. */
 html,body{max-width:100%;overflow-x:hidden!important}
 .app{width:min(520px,100%)!important}
 .stablePanel{overflow:hidden!important}
@@ -392,12 +392,12 @@ html,body{max-width:100%;overflow-x:hidden!important}
 
 .selectChipBar,.customSelect,.choiceOverlay{display:none!important}
 
-/* v59: safer manual number+name mode */
+/* v60: safer manual number+name mode */
 .autoSetLine{
   border-color:rgba(82,125,180,.55)!important;
 }
 
-/* v59: always-visible quick shortcut helper */
+/* v60: always-visible quick shortcut helper */
 .quickHelp{
   margin-top:10px;
   display:flex;
@@ -437,7 +437,7 @@ html,body{max-width:100%;overflow-x:hidden!important}
   .quickHelp code{font-size:10.8px}
 }
 
-/* v59 candidate chooser for duplicate name+number matches */
+/* v60 candidate chooser for duplicate name+number matches */
 .candidateList{
   display:grid;
   grid-template-columns:1fr;
@@ -474,7 +474,7 @@ html,body{max-width:100%;overflow-x:hidden!important}
   background:linear-gradient(135deg,#1e7cff,#46a3ff);
 }
 
-/* v59 database badge */
+/* v60 database badge */
 .headerBadges{
   display:flex;
   align-items:flex-start;
@@ -489,4 +489,51 @@ html,body{max-width:100%;overflow-x:hidden!important}
   padding:7px 9px;
   border-radius:999px;
   white-space:nowrap;
+}
+
+/* v60 permanent search-order memory aid */
+.searchFormula{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:6px;
+  margin-top:10px;
+  padding:10px 11px;
+  border:1px solid rgba(76,111,154,.58);
+  border-radius:14px;
+  background:linear-gradient(180deg,rgba(18,34,57,.85),rgba(9,18,31,.85));
+  color:#9fb3ce;
+  font-size:11.5px;
+  line-height:1.2;
+}
+.searchFormula .formulaLabel{
+  width:100%;
+  color:#dcecff;
+  font-size:10px;
+  font-weight:1000;
+  text-transform:uppercase;
+  letter-spacing:.11em;
+}
+.searchFormula strong{
+  color:#f3f8ff;
+  font-weight:1000;
+}
+.searchFormula i{
+  color:#5f82ad;
+  font-style:normal;
+  font-weight:1000;
+}
+.searchFormula code{
+  margin-left:auto;
+  color:#8ef0bc;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:11px;
+  font-weight:900;
+}
+@media(max-width:430px){
+  .searchFormula code{
+    width:100%;
+    margin-left:0;
+    margin-top:2px;
+  }
 }

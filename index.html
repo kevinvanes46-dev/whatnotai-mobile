@@ -7,8 +7,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="CardScout" />
   <title>CardScout · TCG Helper</title>
-  <link rel="stylesheet" href="style.css?v=59" />
-  <link rel="manifest" href="manifest.json?v=59" />
+  <link rel="stylesheet" href="style.css?v=60" />
+  <link rel="manifest" href="manifest.json?v=60" />
 </head>
 <body>
   <div class="tcgBg" aria-hidden="true"><span class="tcgCardShape a"></span><span class="tcgCardShape b"></span><span class="tcgCardShape c"></span><span class="tcgCardShape d"></span></div>
@@ -38,7 +38,7 @@
       </div>
       <div class="brandText">
         <h1>CardScout</h1>
-        <p>TCG price scout · v59</p>
+        <p>TCG price scout · v60</p>
       </div>
       <div class="headerBadges"><span class="dbPill">DB 57</span><span class="pill">FREE</span></div>
     </header>
@@ -46,8 +46,13 @@
     <section class="card quickPanel">
       <label class="label" for="quickInput">Snel zoeken</label>
       <div class="quickWrap">
-        <input id="quickInput" class="quick" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="typ hier: nummer + naam of volledige shortcut" />
+        <input id="quickInput" class="quick" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="bijv. 12 vaporeon jungle nm" />
         <button id="quickGo" class="quickGo" type="button" title="Maak link">↵</button>
+      </div>
+      <div class="searchFormula" aria-label="Zoekvolgorde">
+        <span class="formulaLabel">Typvolgorde</span>
+        <strong>nummer</strong><i>+</i><strong>naam</strong><i>+</i><strong>set</strong><i>+</i><strong>staat</strong>
+        <code>12 vaporeon jungle nm</code>
       </div>
       <div class="quickHelp">
         <b>Shortcuts</b>
@@ -171,6 +176,6 @@
       Enter maakt en kopieert alleen een link. Open Cardmarket pas wanneer nodig, zodat je minder snel rate-limits krijgt.
     </section>
   </main>
-  <script src="app.js?v=59"></script>
+  <script src="app.js?v=60"></script>
 </body>
 </html>
