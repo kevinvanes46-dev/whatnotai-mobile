@@ -101,3 +101,115 @@ body .tcgBg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden
 .hero::after{content:"";position:absolute;right:54px;top:2px;width:88px;height:50px;background:radial-gradient(circle at 20% 50%,rgba(255,205,46,.14),transparent 34%),radial-gradient(circle at 70% 35%,rgba(65,169,255,.14),transparent 40%);filter:blur(10px);pointer-events:none}
 body::before{opacity:.16}
 body::after{opacity:.12}
+
+/* v47 iPhone-safe choice sheet. Geen native witte dropdowns meer. */
+.nativeSelectHidden{
+  position:absolute!important;
+  opacity:0!important;
+  width:1px!important;
+  height:1px!important;
+  pointer-events:none!important;
+}
+.sheetSelectBtn{
+  width:100%;
+  min-height:48px;
+  border:1px solid var(--line2);
+  background:linear-gradient(180deg,#122037,#0f1a2b);
+  color:var(--text);
+  border-radius:15px;
+  padding:12px 40px 12px 13px;
+  font-size:16px;
+  font-weight:850;
+  text-align:left;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  position:relative;
+  cursor:pointer;
+  touch-action:manipulation;
+}
+.sheetSelectBtn::after{
+  content:'⌄';
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-55%);
+  color:#9eb6d4;
+  font-size:18px;
+}
+.sheetSelectBtn:focus{
+  outline:none;
+  border-color:#55b7ff;
+  box-shadow:0 0 0 3px rgba(47,125,246,.22),inset 0 1px 0 rgba(255,255,255,.04);
+}
+.choiceOverlay{
+  position:fixed;
+  inset:0;
+  z-index:2147483000;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  padding:18px;
+  padding-bottom:max(18px,env(safe-area-inset-bottom));
+  background:rgba(0,0,0,.54);
+  backdrop-filter:blur(8px);
+}
+.choiceOverlay.show{display:flex}
+.choiceSheet{
+  width:min(520px,100%);
+  max-height:min(72vh,560px);
+  overflow:hidden;
+  background:linear-gradient(180deg,#101d30,#07101d);
+  border:1px solid #3a5578;
+  border-radius:24px;
+  box-shadow:0 30px 90px rgba(0,0,0,.65);
+}
+.choiceHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 16px;
+  border-bottom:1px solid rgba(92,125,171,.35);
+}
+.choiceTitle{
+  font-size:15px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#dcecff;
+}
+.choiceClose{
+  width:40px;
+  height:40px;
+  border-radius:14px;
+  border:1px solid #334963;
+  background:#17263c;
+  color:#fff;
+  font-size:22px;
+  font-weight:900;
+}
+.choiceOptions{
+  max-height:calc(min(72vh,560px) - 70px);
+  overflow:auto;
+  padding:8px;
+  -webkit-overflow-scrolling:touch;
+}
+.choiceOption{
+  display:block;
+  width:100%;
+  min-height:48px;
+  margin:0 0 6px;
+  padding:12px 14px;
+  border-radius:15px;
+  border:1px solid #253a56;
+  background:#111e31;
+  color:#eef7ff;
+  text-align:left;
+  font-size:16px;
+  font-weight:900;
+  touch-action:manipulation;
+}
+.choiceOption.active{
+  background:linear-gradient(135deg,#1e7cff,#46a3ff);
+  color:#fff;
+  border-color:#70b8ff;
+}
+.choiceOption:last-child{margin-bottom:0}

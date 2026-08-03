@@ -2,7 +2,7 @@
 
 let DATA = { pokedex: {}, knownCards: [] };
 let lastBuilt = null;
-const APP_VERSION = 'v46';
+const APP_VERSION = 'v47';
 
 const $ = (id) => document.getElementById(id);
 const quickInput = $('quickInput');
@@ -395,63 +395,98 @@ function processQuick(){
 }
 
 
-function closeCustomSelects(except=null){
-  document.querySelectorAll('.customSelect.open').forEach(el => { if(el !== except) el.classList.remove('open'); });
+function choiceTitle(select){
+  if(select.id === 'setSelect') return 'Set kiezen';
+  if(select.id === 'langSelect') return 'Taal kiezen';
+  if(select.id === 'condSelect') return 'Staat kiezen';
+  return 'Kiezen';
 }
+
+function closeCustomSelects(){
+  const overlay = document.getElementById('choiceOverlay');
+  if(overlay) overlay.classList.remove('show');
+}
+
 function updateCustomSelects(){
   document.querySelectorAll('select').forEach(select => {
-    if(select._customButton) select._customButton.textContent = select.value || (select.options[select.selectedIndex]?.textContent || '');
-    if(select._customMenu){
-      select._customMenu.querySelectorAll('.customSelectOption').forEach(btn => btn.classList.toggle('active', btn.dataset.value === select.value));
+    if(select._customButton) {
+      select._customButton.textContent = select.value || (select.options[select.selectedIndex]?.textContent || '');
     }
   });
 }
+
+function openChoiceSheet(select){
+  let overlay = document.getElementById('choiceOverlay');
+  if(!overlay) return;
+
+  const title = overlay.querySelector('.choiceTitle');
+  const options = overlay.querySelector('.choiceOptions');
+
+  title.textContent = choiceTitle(select);
+  options.innerHTML = '';
+
+  Array.from(select.options).forEach(opt => {
+    const value = opt.value || opt.textContent;
+    const item = document.createElement('button');
+    item.type = 'button';
+    item.className = 'choiceOption' + (value === select.value ? ' active' : '');
+    item.textContent = opt.textContent;
+    item.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      select.value = value;
+      updateCustomSelects();
+      closeCustomSelects();
+      select.dispatchEvent(new Event('change', {bubbles:true}));
+    });
+    options.appendChild(item);
+  });
+
+  overlay.classList.add('show');
+}
+
 function initCustomSelects(){
+  if(!document.getElementById('choiceOverlay')){
+    const overlay = document.createElement('div');
+    overlay.id = 'choiceOverlay';
+    overlay.className = 'choiceOverlay';
+    overlay.innerHTML = `
+      <div class="choiceSheet" role="dialog" aria-modal="true">
+        <div class="choiceHeader">
+          <strong class="choiceTitle">Kiezen</strong>
+          <button type="button" class="choiceClose" aria-label="Sluiten">×</button>
+        </div>
+        <div class="choiceOptions"></div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener('click', (ev) => {
+      if(ev.target === overlay) closeCustomSelects();
+    });
+    overlay.querySelector('.choiceClose').addEventListener('click', closeCustomSelects);
+    document.addEventListener('keydown', ev => { if(ev.key === 'Escape') closeCustomSelects(); });
+  }
+
   document.querySelectorAll('select').forEach(select => {
     if(select._customReady) return;
     select._customReady = true;
     select.classList.add('nativeSelectHidden');
-    const wrap = document.createElement('div');
-    wrap.className = 'customSelect';
+
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'customSelectBtn';
+    btn.className = 'customSelectBtn sheetSelectBtn';
     btn.textContent = select.value || (select.options[select.selectedIndex]?.textContent || '');
-    const menu = document.createElement('div');
-    menu.className = 'customSelectMenu';
-    Array.from(select.options).forEach(opt => {
-      const item = document.createElement('button');
-      item.type = 'button';
-      item.className = 'customSelectOption';
-      item.dataset.value = opt.value || opt.textContent;
-      item.textContent = opt.textContent;
-      const chooseItem = (ev) => {
-        ev.preventDefault();
-        ev.stopPropagation();
-        select.value = item.dataset.value;
-        updateCustomSelects();
-        closeCustomSelects();
-        select.dispatchEvent(new Event('change', {bubbles:true}));
-      };
-      item.addEventListener('pointerdown', chooseItem);
-      item.addEventListener('click', chooseItem);
-      menu.appendChild(item);
+    btn.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      openChoiceSheet(select);
     });
-    const toggleMenu = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const isOpen = wrap.classList.contains('open');
-      closeCustomSelects();
-      if(!isOpen) wrap.classList.add('open');
-    };
-    btn.addEventListener('pointerdown', toggleMenu);
-    btn.addEventListener('click', toggleMenu);
-    wrap.appendChild(btn); wrap.appendChild(menu);
-    select.insertAdjacentElement('afterend', wrap);
-    select._customButton = btn; select._customMenu = menu;
+
+    select.insertAdjacentElement('afterend', btn);
+    select._customButton = btn;
   });
-  document.addEventListener('click', () => closeCustomSelects(), {capture:false});
-  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeCustomSelects(); });
+
   updateCustomSelects();
 }
 
@@ -483,7 +518,7 @@ initCustomSelects();
 bind();
 renderSaved();
 setStatus('Data laden...', 'warn');
-fetch('data/cards.json?v=42')
+fetch('data/cards.json?v=47')
   .then(r => r.json())
   .then(j => { DATA = j; setStatus('Klaar.', ''); renderSaved(); })
   .catch(() => { setStatus('Data niet geladen; basis werkt nog wel.', 'warn'); renderSaved(); });
