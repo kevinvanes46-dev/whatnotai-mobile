@@ -32,3 +32,6 @@ v51: Set/taal/staat mobiel gefixt. Set blijft AUTO/detected; taal/staat zijn vas
 
 
 v52: Manual fast mode. Als je nummer/naam handmatig invult, reset set naar AUTO zodat oude sets niet foute productpagina's openen. AUTO zoekt veilig op naam als set onbekend is.
+
+
+v53: Shortcuts blijven zichtbaar onder snel zoeken, ook wanneer je begint te typen.

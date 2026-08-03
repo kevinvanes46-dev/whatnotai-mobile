@@ -7,8 +7,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="CardScout" />
   <title>CardScout · TCG Helper</title>
-  <link rel="stylesheet" href="style.css?v=52" />
-  <link rel="manifest" href="manifest.json?v=52" />
+  <link rel="stylesheet" href="style.css?v=53" />
+  <link rel="manifest" href="manifest.json?v=53" />
 </head>
 <body>
   <div class="tcgBg" aria-hidden="true"><span class="tcgCardShape a"></span><span class="tcgCardShape b"></span><span class="tcgCardShape c"></span><span class="tcgCardShape d"></span></div>
@@ -38,7 +38,7 @@
       </div>
       <div class="brandText">
         <h1>CardScout</h1>
-        <p>TCG price scout · v52</p>
+        <p>TCG price scout · v53</p>
       </div>
       <span class="pill">FREE</span>
     </header>
@@ -46,8 +46,15 @@
     <section class="card quickPanel">
       <label class="label" for="quickInput">Snel zoeken</label>
       <div class="quickWrap">
-        <input id="quickInput" class="quick" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="jp base 002 ivysaur nm" />
+        <input id="quickInput" class="quick" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="typ hier: nummer + naam of volledige shortcut" />
         <button id="quickGo" class="quickGo" type="button" title="Maak link">↵</button>
+      </div>
+      <div class="quickHelp">
+        <b>Shortcuts</b>
+        <span><code>57 eevee</code></span>
+        <span><code>jp base 002 ivysaur</code></span>
+        <span><code>lc charizard 3 reverse</code></span>
+        <span><code>shining gyarados 65</code></span>
       </div>
       <div class="examples" id="exampleChips">
         <button type="button" data-fill="jp base 002 ivysaur nm">JP Base Ivysaur</button>
@@ -164,6 +171,6 @@
       Enter maakt en kopieert alleen een link. Open Cardmarket pas wanneer nodig, zodat je minder snel rate-limits krijgt.
     </section>
   </main>
-  <script src="app.js?v=52"></script>
+  <script src="app.js?v=53"></script>
 </body>
 </html>
