@@ -2,7 +2,7 @@
 
 let DATA = { pokedex: {}, knownCards: [] };
 let lastBuilt = null;
-const APP_VERSION = 'v47';
+const APP_VERSION = 'v48';
 
 const $ = (id) => document.getElementById(id);
 const quickInput = $('quickInput');
@@ -405,6 +405,8 @@ function choiceTitle(select){
 function closeCustomSelects(){
   const overlay = document.getElementById('choiceOverlay');
   if(overlay) overlay.classList.remove('show');
+  document.documentElement.classList.remove('sheetOpen');
+  document.body.classList.remove('sheetOpen');
 }
 
 function updateCustomSelects(){
@@ -425,15 +427,37 @@ function openChoiceSheet(select){
   title.textContent = choiceTitle(select);
   options.innerHTML = '';
 
+  let startX = 0;
+  let startY = 0;
+  let didScroll = false;
+
   Array.from(select.options).forEach(opt => {
     const value = opt.value || opt.textContent;
     const item = document.createElement('button');
     item.type = 'button';
     item.className = 'choiceOption' + (value === select.value ? ' active' : '');
     item.textContent = opt.textContent;
+
+    item.addEventListener('touchstart', (ev) => {
+      const t = ev.touches && ev.touches[0];
+      if(!t) return;
+      startX = t.clientX;
+      startY = t.clientY;
+      didScroll = false;
+    }, {passive:true});
+
+    item.addEventListener('touchmove', (ev) => {
+      const t = ev.touches && ev.touches[0];
+      if(!t) return;
+      if(Math.abs(t.clientY - startY) > 9 || Math.abs(t.clientX - startX) > 9) {
+        didScroll = true;
+      }
+    }, {passive:true});
+
     item.addEventListener('click', (ev) => {
       ev.preventDefault();
       ev.stopPropagation();
+      if(didScroll) return;
       select.value = value;
       updateCustomSelects();
       closeCustomSelects();
@@ -442,6 +466,8 @@ function openChoiceSheet(select){
     options.appendChild(item);
   });
 
+  document.documentElement.classList.add('sheetOpen');
+  document.body.classList.add('sheetOpen');
   overlay.classList.add('show');
 }
 
@@ -460,6 +486,9 @@ function initCustomSelects(){
       </div>
     `;
     document.body.appendChild(overlay);
+    overlay.addEventListener('touchmove', (ev) => {
+      if(!ev.target.closest('.choiceOptions')) ev.preventDefault();
+    }, {passive:false});
 
     overlay.addEventListener('click', (ev) => {
       if(ev.target === overlay) closeCustomSelects();
@@ -518,7 +547,7 @@ initCustomSelects();
 bind();
 renderSaved();
 setStatus('Data laden...', 'warn');
-fetch('data/cards.json?v=47')
+fetch('data/cards.json?v=48')
   .then(r => r.json())
   .then(j => { DATA = j; setStatus('Klaar.', ''); renderSaved(); })
   .catch(() => { setStatus('Data niet geladen; basis werkt nog wel.', 'warn'); renderSaved(); });

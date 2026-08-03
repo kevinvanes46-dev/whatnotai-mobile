@@ -1,4 +1,4 @@
-CardScout Mobile v47
+CardScout Mobile v48
 
 Standalone mobiele TCG/Cardmarket helper.
 
@@ -10,7 +10,7 @@ Upload naar GitHub Pages:
 - sw.js
 - data/cards.json
 
-Nieuw in v47:
+Nieuw in v48:
 - Nieuwe naam: CardScout
 - Professionele minimalistische achtergrond
 - Strakkere mobiele layout

@@ -57,7 +57,7 @@ h2{font-size:14px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em;
 @media(max-width:420px){.app{padding-left:10px;padding-right:10px}.hero{grid-template-columns:46px 1fr auto}.brandMark{width:46px;height:46px;border-radius:16px}.brandText h1{font-size:25px}.row.two{grid-template-columns:1fr 1fr}.row.three{grid-template-columns:1fr 1fr}.row.three>div:first-child{grid-column:1/-1}.quick{font-size:16px}.actions{grid-template-columns:1fr 1fr}button,.open{font-size:14px;padding:13px 9px}.card{padding:12px}}
 
 
-/* v44 custom select fix: no native white dropdowns */
+/* v48 custom select fix: no native white dropdowns */
 .nativeSelectHidden{display:none!important}
 .customSelect{position:relative;width:100%;z-index:5}
 .customSelectBtn{
@@ -78,14 +78,14 @@ h2{font-size:14px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em;
 .customSelectOption:hover,.customSelectOption.active{background:#1e7cff;color:#fff}
 .customSelectOption + .customSelectOption{margin-top:2px}
 
-/* v44 subtle TCG-style background: no official art, just premium card silhouettes */
+/* v48 subtle TCG-style background: no official art, just premium card silhouettes */
 body .tcgBg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:.55}
 .tcgCardShape{position:absolute;width:92px;height:128px;border-radius:12px;border:1px solid rgba(120,170,255,.18);background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.015));box-shadow:0 20px 70px rgba(0,0,0,.35);transform:rotate(var(--rot));filter:blur(.1px)}
 .tcgCardShape::before{content:'';position:absolute;inset:11px;border-radius:8px;border:1px solid rgba(255,255,255,.10);background:radial-gradient(circle at 50% 35%,rgba(80,180,255,.18),transparent 34%),linear-gradient(180deg,transparent 0 58%,rgba(255,255,255,.06) 58% 62%,transparent 62%)}
 .tcgCardShape.a{left:7%;top:18%;--rot:-13deg}.tcgCardShape.b{right:7%;top:28%;--rot:12deg}.tcgCardShape.c{left:10%;bottom:9%;--rot:9deg}.tcgCardShape.d{right:11%;bottom:12%;--rot:-10deg}
 @media(max-width:700px){.tcgCardShape{opacity:.35}.tcgCardShape.a{left:-26px}.tcgCardShape.b{right:-30px}.tcgCardShape.c,.tcgCardShape.d{display:none}}
 
-/* v45 mobile dropdown fix */
+/* v48 mobile dropdown fix */
 .formPanel, .row, .row > div { overflow: visible !important; }
 .customSelectMenu { -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
 .customSelectOption { cursor: pointer; touch-action: manipulation; }
@@ -96,13 +96,13 @@ body .tcgBg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden
   .actions{position:relative;z-index:1}
 }
 
-/* v46 CardScout brand polish */
+/* v48 CardScout brand polish */
 .hero{position:relative}
 .hero::after{content:"";position:absolute;right:54px;top:2px;width:88px;height:50px;background:radial-gradient(circle at 20% 50%,rgba(255,205,46,.14),transparent 34%),radial-gradient(circle at 70% 35%,rgba(65,169,255,.14),transparent 40%);filter:blur(10px);pointer-events:none}
 body::before{opacity:.16}
 body::after{opacity:.12}
 
-/* v47 iPhone-safe choice sheet. Geen native witte dropdowns meer. */
+/* v48 iPhone-safe choice sheet. Geen native witte dropdowns meer. */
 .nativeSelectHidden{
   position:absolute!important;
   opacity:0!important;
@@ -213,3 +213,34 @@ body::after{opacity:.12}
   border-color:#70b8ff;
 }
 .choiceOption:last-child{margin-bottom:0}
+
+/* v48 iOS scroll fix for choice sheet */
+html.sheetOpen,
+body.sheetOpen{
+  overflow:hidden!important;
+  overscroll-behavior:none!important;
+}
+body.sheetOpen{
+  touch-action:none;
+}
+.choiceOverlay{
+  align-items:center!important;
+  padding:18px!important;
+  overscroll-behavior:none;
+}
+.choiceSheet{
+  max-height:min(78vh,620px)!important;
+  transform:translateZ(0);
+}
+.choiceOptions{
+  max-height:calc(min(78vh,620px) - 72px)!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  -webkit-overflow-scrolling:touch!important;
+  touch-action:pan-y!important;
+  overscroll-behavior:contain!important;
+}
+.choiceOption{
+  -webkit-user-select:none;
+  user-select:none;
+}
