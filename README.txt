@@ -18,7 +18,7 @@ Upload naar GitHub:
 Open daarna met ?v=38 om cache te verversen.
 
 
-v40: Delta Charizard shortcut fixed. "delta charizard 4" opens EX Crystal Guardians CG4.
+v41: Delta Charizard shortcut fixed. "delta charizard 4" opens EX Crystal Guardians CG4.
 
 
-v40: extra value-card shortcuts voor Lugia en Shining kaarten.
+v41: extra value-card shortcuts voor Lugia en Shining kaarten.

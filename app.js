@@ -2,6 +2,7 @@
 
 let DATA = { pokedex: {}, knownCards: [] };
 let lastBuilt = null;
+const APP_VERSION = 'v41';
 
 const $ = (id) => document.getElementById(id);
 const quickInput = $('quickInput');
@@ -170,6 +171,37 @@ function parseQuick(){
   return true;
 }
 
+
+const AUTO_VALUE_DIRECTS = {
+  'EN|shining gyarados|65': {url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Shining-Gyarados-NR65', set:'NEO REVELATION', name:'Shining Gyarados', note:'AUTO shortcut: Neo Revelation NR65'},
+  'EN|shining magikarp|66': {url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Shining-Magikarp-NR66', set:'NEO REVELATION', name:'Shining Magikarp', note:'AUTO shortcut: Neo Revelation NR66'},
+  'EN|lugia|9': {url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Lugia-NG9', set:'NEO GENESIS', name:'Lugia', note:'AUTO shortcut: Neo Genesis NG9'},
+  'EN|shining charizard|107': {url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Charizard-NDE107', set:'NEO DESTINY', name:'Shining Charizard', note:'AUTO shortcut: Neo Destiny NDE107'},
+  'EN|shining celebi|106': {url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Celebi-NDE106', set:'NEO DESTINY', name:'Shining Celebi', note:'AUTO shortcut: Neo Destiny NDE106'},
+  'EN|shining kabutops|108': {url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Kabutops-NDE108', set:'NEO DESTINY', name:'Shining Kabutops', note:'AUTO shortcut: Neo Destiny NDE108'},
+  'EN|shining raichu|111': {url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Raichu-NDE111', set:'NEO DESTINY', name:'Shining Raichu', note:'AUTO shortcut: Neo Destiny NDE111'},
+  'EN|shining tyranitar|113': {url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Tyranitar-NDE113', set:'NEO DESTINY', name:'Shining Tyranitar', note:'AUTO shortcut: Neo Destiny NDE113'},
+  'JP|lugia|249': {url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/Gold-Silver-to-a-New-World/Lugia-GSNW', set:'NEO GENESIS', name:'Lugia', note:'JP AUTO shortcut: Gold/Silver/New World'},
+  'JP|shining gyarados|130': {url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/Awakening-Legends/Shining-Gyarados-AL', set:'NEO REVELATION', name:'Shining Gyarados', note:'JP AUTO shortcut: Awakening Legends'},
+  'JP|shining magikarp|129': {url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/Awakening-Legends/Shining-Magikarp-AL', set:'NEO REVELATION', name:'Shining Magikarp', note:'JP AUTO shortcut: Awakening Legends'},
+  'JP|shining charizard|6': {url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/Darkness-and-to-Light/Shining-Charizard-DL', set:'NEO DESTINY', name:'Shining Charizard', note:'JP AUTO shortcut: Darkness and to Light'},
+};
+
+function autoValueDirect(lang, number, name, cond){
+  const n = cleanNumber(number);
+  const nm = normalizeName(name);
+  const key = `${lang}|${nm}|${n}`;
+  const item = AUTO_VALUE_DIRECTS[key];
+  if(!item) return null;
+  return {
+    url: withFilters(item.url, lang, cond),
+    exact: true,
+    note: item.note,
+    autoSet: item.set,
+    autoName: item.name
+  };
+}
+
 function knownLookup(lang,set,number,name){
   const n = cleanNumber(number);
   const nm = normalizeName(name);
@@ -207,12 +239,18 @@ function buildUrl(){
   if(!name) return {url:'', exact:false, note:'Geen naam ingevuld.'};
 
   if(set === 'AUTO'){
+    const autoDirect = autoValueDirect(lang, number, name, cond);
+    if(autoDirect){
+      if(autoDirect.autoSet) setSelect.value = autoDirect.autoSet;
+      if(autoDirect.autoName) nameInput.value = autoDirect.autoName;
+      return autoDirect;
+    }
     const exact = findAutoKnown(lang, number, name);
     if(exact) return {url:withFilters(exact.url, lang, cond), exact:true, note:`Exact via database: ${exact.set} / ${exact.name}`};
     return {url:searchUrl(name, number, lang, cond), exact:false, note:'Geen set gekozen: zoekpagina.'};
   }
 
-  // v40 special correction: "delta charizard 4" is EX Crystal Guardians CG4, not EX Delta Species DS4.
+  // v41 special correction: "delta charizard 4" is EX Crystal Guardians CG4, not EX Delta Species DS4.
   if(lang === 'EN' && (set === 'EX DELTA SPECIES' || set === 'EX CRYSTAL GUARDIANS') && cleanNumber(number) === '4' && normalizeName(name) === 'charizard'){
     const url = withFilters('https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Crystal-Guardians/Charizard-Delta-Species-CG4', lang, cond);
     return {url, exact:true, note:'Special: Delta Charizard #4 = EX Crystal Guardians / CG4'};
