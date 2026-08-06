@@ -1,0 +1,23 @@
+CardScout Mobile v63 hard-cache fix
+
+1. Verwijder in de GitHub repository eerst:
+   - index.html
+   - app.js
+   - style.css
+   - app-v63.js
+   - style-v63.css
+   - manifest.json
+   - sw.js
+   - data/cards.json
+
+2. Upload daarna ALLE bestanden uit deze ZIP naar de root van de repository.
+
+3. Wacht tot GitHub Pages deployment groen is.
+
+4. Open:
+   https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=63
+
+5. Bovenaan moet staan:
+   v63
+   DB 243
+   BUILD 63

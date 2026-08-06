@@ -1,7 +1,11 @@
-self.addEventListener('install', event => { self.skipWaiting(); });
+self.addEventListener('install', event => {
+  self.skipWaiting();
+});
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys => Promise.all(keys.filter(k => k.startsWith('whatnotai-mobile')).map(k => caches.delete(k))))
+    caches.keys()
+      .then(keys => Promise.all(keys.map(key => caches.delete(key))))
       .then(() => self.registration.unregister())
+      .then(() => self.clients.claim())
   );
 });
