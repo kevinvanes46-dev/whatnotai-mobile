@@ -1,0 +1,20 @@
+CardScout v62 hotfix
+
+FIXED
+1. Desktop:
+   - Open CM button no longer turns into a permanent hourglass.
+   - Button stays labeled "Open CM".
+   - 60-second rate-limit protection still works internally.
+
+2. Mobile + desktop:
+   - JP/EN selection is now authoritative.
+   - Selecting JP always keeps language=7.
+   - An English database match can no longer switch JP back to EN.
+
+REGRESSION TEST
+- JP + Jungle Vaporeon #12 + NM => Cardmarket search with language=7 and minCondition=2.
+- EN + Jungle Vaporeon #12 + NM => direct English product page with language=1 and minCondition=2.
+
+3. Japanese safe search:
+   - Unknown JP cards search by Pokémon name only with language=7.
+   - English set codes such as JU12 are no longer used for JP fallback searches.

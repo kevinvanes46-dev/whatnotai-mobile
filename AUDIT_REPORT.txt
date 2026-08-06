@@ -78,3 +78,9 @@ Cardmarket can rename or split product variants later. No external app can hones
 permanent 10000% match against future Cardmarket changes without using Cardmarket's current product
 catalog/IDs at runtime. v61 is therefore fail-safe: it never guesses a direct product page for
 variant-sensitive or unknown records; it falls back to the official collector-code search.
+
+v62 regression fixes:
+- Desktop Open CM button no longer changes into a permanent hourglass.
+- Cooldown protection remains active internally.
+- JP selection is authoritative on desktop and mobile.
+- JP search regression test added.
