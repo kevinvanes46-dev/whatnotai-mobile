@@ -1,11 +1,11 @@
 {
-  "name": "CardScout Photo Beta v64",
+  "name": "CardScout",
   "short_name": "CardScout",
-  "start_url": "./?build=64",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#030711",
   "theme_color": "#08111f",
-  "description": "Cardmarket helper met 243 vintage/value kaarten en 33 setcodes.",
-  "id": "./cardscout-v64-photo-beta"
+  "description": "Cardmarket helper met lokale fotovoorbeeldfunctie en 243 vintage/value kaarten.",
+  "id": "./"
 }

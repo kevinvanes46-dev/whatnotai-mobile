@@ -1,0 +1,15 @@
+CARDSCOUT MOBILE v65 – GITHUB UPLOAD
+
+1. Pak deze ZIP uit.
+2. Upload alle bestanden uit de uitgepakte map naar de root van kevinvanes46-dev/whatnotai-mobile.
+3. Overschrijf index.html, manifest.json, cards.json en sw.js.
+4. Upload ook app-v65.js en style-v65.css.
+5. Oude v63/v64-bestanden mogen blijven staan; index.html gebruikt alleen v65.
+6. Wacht tot GitHub Pages klaar is.
+7. Open:
+   https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=65
+
+BOVENAAN MOET STAAN
+v65 ALIGNMENT FIX
+DB 243
+BUILD 65

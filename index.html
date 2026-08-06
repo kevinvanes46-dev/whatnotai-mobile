@@ -10,8 +10,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="CardScout" />
   <title>CardScout · TCG Helper</title>
-  <link rel="stylesheet" href="style-v64.css?build=64" />
-  <link rel="manifest" href="manifest.json?build=64" />
+  <link rel="stylesheet" href="style-v65.css?build=65" />
+  <link rel="manifest" href="manifest.json?build=65" />
 </head>
 <body>
   <div class="tcgBg" aria-hidden="true"><span class="tcgCardShape a"></span><span class="tcgCardShape b"></span><span class="tcgCardShape c"></span><span class="tcgCardShape d"></span></div>
@@ -41,9 +41,9 @@
       </div>
       <div class="brandText">
         <h1>CardScout</h1>
-        <p>TCG price scout · v64 PHOTO BETA</p>
+        <p>TCG price scout · v65 ALIGNMENT FIX</p>
       </div>
-      <div class="headerBadges"><span class="dbPill">DB 243</span><span class="dbPill">BUILD 64</span><span class="pill">FREE</span></div>
+      <div class="headerBadges"><span class="dbPill">DB 243</span><span class="dbPill">BUILD 65</span><span class="pill">FREE</span></div>
     </header>
 
 
@@ -52,7 +52,7 @@
         <div>
           <span class="betaTag">NIEUW · BETA</span>
           <h2>Kaartfoto gebruiken</h2>
-          <p>Maak een scherpe foto of kies een bestaande foto. De foto blijft lokaal op je telefoon.</p>
+          <p>Maak een scherpe foto of kies een bestaande foto. De volledige foto blijft lokaal op je telefoon.</p>
         </div>
       </div>
 
@@ -70,7 +70,7 @@
           <b>Nog geen kaartfoto</b>
           <small>Leg de kaart vlak neer en vermijd reflectie.</small>
         </div>
-        <canvas id="photoCanvas" aria-label="Voorbeeld kaartfoto"></canvas>
+        <canvas id="photoCanvas" role="img" aria-label="Voorbeeld van de gekozen kaartfoto"></canvas>
         <div class="cardGuide" aria-hidden="true"></div>
       </div>
 
@@ -80,10 +80,10 @@
         <button type="button" id="clearPhotoBtn">✕ Wissen</button>
       </div>
 
-      <div class="photoTips">
+      <div class="photoTips" id="photoTips">
         <b>Beste resultaat</b>
-        <span>• Hele kaart in beeld</span>
-        <span>• Foto recht van boven</span>
+        <span>• Houd de hele kaart in beeld</span>
+        <span>• Gebruik het kader als richtlijn</span>
         <span>• Geen flits op sleeve of toploader</span>
         <span>• Naam en kaartnummer leesbaar</span>
       </div>
@@ -97,7 +97,7 @@
     <section class="card quickPanel" id="quickPanel">
       <label class="label" for="quickInput">Snel zoeken</label>
       <div class="quickWrap">
-        <input id="quickInput" class="quick" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="bijv. 12 vaporeon jungle nm" />
+        <input id="quickInput" class="quick" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="bijv. 12 vaporeon jungle nm" />
         <button id="quickGo" class="quickGo" type="button" title="Maak link">↵</button>
       </div>
       <div class="searchFormula" aria-label="Zoekvolgorde">
@@ -129,11 +129,11 @@
       <div class="row two">
         <div>
           <label class="label" for="numberInput">Nummer</label>
-          <input id="numberInput" autocomplete="off" placeholder="57 / 002" />
+          <input id="numberInput" autocomplete="off" inputmode="numeric" enterkeyhint="next" placeholder="57 / 002" />
         </div>
         <div>
           <label class="label" for="nameInput">Naam</label>
-          <input id="nameInput" autocomplete="off" placeholder="Swinub" />
+          <input id="nameInput" autocomplete="off" enterkeyhint="search" placeholder="Swinub" />
         </div>
       </div>
 
@@ -192,17 +192,17 @@
         <div>
           <label class="label">Taal</label>
           <div class="choiceGrid twoChoices" data-choice-target="langSelect">
-            <button type="button" class="choiceBtn" data-value="JP">JP</button>
-            <button type="button" class="choiceBtn" data-value="EN">EN</button>
+            <button type="button" class="choiceBtn" aria-pressed="false" data-value="JP">JP</button>
+            <button type="button" class="choiceBtn" aria-pressed="false" data-value="EN">EN</button>
           </div>
         </div>
         <div>
           <label class="label">Staat</label>
           <div class="choiceGrid fourChoices" data-choice-target="condSelect">
-            <button type="button" class="choiceBtn" data-value="NM">NM</button>
-            <button type="button" class="choiceBtn" data-value="EX">EX</button>
-            <button type="button" class="choiceBtn" data-value="GD">GD</button>
-            <button type="button" class="choiceBtn" data-value="PL">PL</button>
+            <button type="button" class="choiceBtn" aria-pressed="false" data-value="NM">NM</button>
+            <button type="button" class="choiceBtn" aria-pressed="false" data-value="EX">EX</button>
+            <button type="button" class="choiceBtn" aria-pressed="false" data-value="GD">GD</button>
+            <button type="button" class="choiceBtn" aria-pressed="false" data-value="PL">PL</button>
           </div>
         </div>
       </div>
@@ -217,7 +217,7 @@
 
     <section class="card resultPanel">
       <div class="statusLine">
-        <div id="status" class="status">Klaar.</div>
+        <div id="status" class="status" role="status" aria-live="polite">Klaar.</div>
         <button id="copyBtn" type="button" class="tinyBtn">Kopieer</button>
       </div>
       <textarea id="urlBox" readonly placeholder="Cardmarket-link komt hier"></textarea>
@@ -244,6 +244,6 @@
       Enter maakt en kopieert alleen een link. Open Cardmarket pas wanneer nodig, zodat je minder snel rate-limits krijgt.
     </section>
   </main>
-  <script src="app-v64.js?build=64"></script>
+  <script src="app-v65.js?build=65"></script>
 </body>
 </html>

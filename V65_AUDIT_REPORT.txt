@@ -1,0 +1,44 @@
+CardScout Mobile v65 – volledige controle
+
+DIRECT OPGELOST
+1. Foto-uitlijning: het hidden-attribuut werd door display:flex/grid overschreven. Daardoor bleef “Nog geen kaartfoto” zichtbaar en werd het canvas naar beneden gedrukt.
+2. Canvas staat nu absoluut over de volledige preview en kan geen extra grid-rij meer maken.
+3. Kaartkader gebruikt nu de echte kaartverhouding 63:88 en staat exact gecentreerd.
+4. Grote foto’s worden via een tijdelijke object-URL geladen in plaats van een DataURL. Dit gebruikt minder geheugen op iPhone.
+5. Foto’s boven 25 MB geven een duidelijke melding.
+6. EX-setnamen worden niet meer per ongeluk als conditie EX gelezen.
+7. “lc charizard 3 reverse” houdt reverse als variant-signaal, maar niet als onderdeel van de kaartnaam.
+8. Resultaat-HTML is ontsmet tegen ongewenste HTML-invoer.
+9. Taal- en conditieknoppen krijgen aria-pressed; statusmeldingen zijn toegankelijker.
+10. Dubbele renderSaved-aanroep verwijderd.
+11. Kleine foto-instructies zijn beter leesbaar en fotoknoppen hebben grotere aanraakvlakken.
+12. Bestands- en buildversies gelijkgetrokken naar v65.
+13. Service-worker-opruiming is beperkt tot CardScout en raakt geen andere GitHub Pages-projecten meer.
+14. PWA-identiteit is stabiel gemaakt, zodat een nieuwe build niet als een nieuwe app wordt gezien.
+15. Kaartnamen met “ex” blijven intact wanneer de conditie apart achteraan staat.
+
+GETEST
+- JavaScript-syntax
+- JSON-syntax
+- iPhone 430 px, iPhone SE 375 px en Android 360 px layout via headless browser
+- Placeholder verdwijnt na fotokeuze
+- Canvas vult exact de preview
+- Geen horizontale pagina-overflow
+- Foto links/rechts draaien en wissen
+- EN/JP en NM/EX/GD/PL filters
+- EX Deoxys zonder onbedoelde EX-conditie
+- Legendary Collection reverse-route
+
+BEWUST NOG NIET GEBOUWD
+- Automatische kaartdetectie/OCR
+- Bijsnijden, slepen en zoomen
+- Nederlands/Engels appmenu
+- Tabs en collectiebeheer
+- App Store/Play Store verpakking
+- Automatische conditiebeoordeling
+
+AANBEVOLEN VOLGORDE NA V65
+1. V65 op echte iPhone testen.
+2. Daarna foto bijsnijden/rechtzetten.
+3. Dan lokale naam- en nummerherkenning als losse experimentele module.
+4. Pas daarna professioneel tabontwerp en tweetaligheid.

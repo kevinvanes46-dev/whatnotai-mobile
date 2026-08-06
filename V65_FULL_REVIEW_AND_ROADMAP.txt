@@ -1,0 +1,85 @@
+CardScout Mobile – volledige technische en UX-review na v64
+Reviewdatum: 6 augustus 2026
+Nieuwe build: v65 ALIGNMENT FIX
+
+SAMENVATTING
+De fout op de iPhone was geen verkeerde object-fit. Het HTML-attribuut hidden werd door eigen CSS met display:flex en display:grid overschreven. Daardoor bleef de placeholder “Nog geen kaartfoto” technisch zichtbaar en maakte het canvas een tweede gridrij. De foto werd hierdoor naar beneden gedrukt. Dit is in v65 structureel opgelost.
+
+A. DIRECT OPGELOST IN V65
+1. Placeholder verdwijnt nu echt na het kiezen van een foto.
+2. Fotocanvas vult exact de preview en wordt niet meer naar beneden gedrukt.
+3. Canvas en placeholder zijn absoluut gepositioneerd, waardoor ze nooit extra layout-rijen maken.
+4. Kaartkader staat exact gecentreerd en gebruikt de echte kaartverhouding 63:88.
+5. De volledige foto wordt met contain getoond; er wordt niets afgesneden.
+6. Draaien links/rechts en wissen blijven werken.
+7. Grote foto’s worden geheugenveiliger geladen via een tijdelijke object-URL, niet als zware DataURL.
+8. Foto’s boven 25 MB krijgen een duidelijke melding.
+9. EX-setnamen zoals EX Deoxys veranderen de conditie niet meer per ongeluk naar EX.
+10. Kaartnamen zoals Rayquaza ex blijven behouden wanneer de conditie achteraan staat.
+11. Legendary Collection reverse/non-holo variantwoorden worden niet meer onderdeel van de kaartnaam.
+12. Handmatige HTML-invoer wordt veilig weergegeven in het resultaatvak.
+13. Statusmeldingen en keuze-knoppen zijn toegankelijker gemaakt.
+14. Kleine fototeksten en fotoknoppen zijn beter leesbaar/aanraakbaar.
+15. Dubbele renderSaved-aanroep verwijderd.
+16. App-, database- en bestandsversies gelijkgetrokken naar v65.
+17. Service-worker-opruiming raakt alleen CardScout en niet andere projecten op hetzelfde GitHub Pages-domein.
+18. De PWA-identiteit blijft voortaan stabiel bij nieuwe versies.
+19. Oude, niet-gebruikte v63/v64 deploymentbestanden zijn niet in de nieuwe ZIP opgenomen.
+
+B. TECHNISCHE CONTROLES
+- app-v65.js: geldige JavaScript-syntax.
+- cards.json en manifest.json: geldige JSON.
+- Alle 33 JavaScript DOM-verwijzingen bestaan in index.html.
+- Geen horizontale pagina-overflow bij 430 px, 375 px en 360 px breedte.
+- Placeholder na foto: display none.
+- Canvaspositie: gelijk aan de fotopreview.
+- Draaien, wissen en opnieuw kiezen getest.
+- HTML-injectie in de kaartnaam getest en geblokkeerd.
+- EN/JP en NM/EX/GD/PL regressietests uitgevoerd.
+
+C. DATABASECONTROLE
+- 243 unieke kaartrecords.
+- 0 dubbele keys.
+- 0 dubbele directe URL’s.
+- 227 records met directe URL.
+- 16 search-only records; deze zitten allemaal in Team Rocket.
+- 234 EN-records en 9 JP-records.
+- 33 herkenbare setdefinities, maar slechts 25 sets hebben momenteel eigen kaartrecords.
+- Acht sets worden wel als set herkend maar hebben nog geen eigen kaartrecords:
+  Southern Islands, WOTC Promo, EX Ruby & Sapphire, EX Sandstorm, EX Dragon,
+  EX Team Magma vs Team Aqua, EX Hidden Legends en EX Delta Species.
+- De tekst “33 ondersteunde sets” moet commercieel daarom later worden uitgelegd als
+  “33 herkenbare sets”; directe kaartdekking is nog niet voor alle 33 sets gelijk.
+
+D. BELANGRIJKE VERBETERPUNTEN DIE BEWUST NOG NIET ZIJN GEBOUWD
+1. Foto bijsnijden, slepen, zoomen en automatisch rechtzetten.
+2. Lokale kaartdetectie en lokale OCR.
+3. Veel grotere Japanse directe database; negen JP-records is te weinig voor een commercieel product.
+4. Kaartrecords toevoegen voor de acht sets die nu alleen als zoekterm bestaan.
+5. CSS opschonen: er staat nog oude, verborgen dropdown-code in het stylesheet. Dit werkt nu,
+   maar moet vóór een echte productrelease worden verwijderd om onderhoud eenvoudiger te maken.
+6. JavaScript opsplitsen: database, zoeklogica, foto en opslag zitten nu in één groot bestand.
+7. Nederlands/Engels appmenu en vertaalstructuur.
+8. Tabs: eerst Scan en Snel zoeken; later Geschiedenis, Favorieten, Collectie en Instellingen.
+9. PWA-iconen voor beginscherm en installatiemelding.
+10. Offline modus; de huidige build verwijdert oude caches bewust om cacheproblemen te voorkomen.
+11. Privacytekst, voorwaarden, Cardmarket-disclaimer en commerciële merkcontrole.
+12. Export/back-up van favorieten en geschiedenis.
+13. Feedbackknop voor testers met screenshot en zoekopdracht.
+14. Foutregistratie zonder persoonlijke kaartfoto’s te uploaden.
+
+E. AANBEVOLEN ONTWIKKELVOLGORDE
+Stap 1: v65 op echte iPhone en Android testen.
+Stap 2: fotobijsnijden/rechtzetten bouwen zonder OCR.
+Stap 3: experimentele lokale naam- en nummerherkenning achter een aparte beta-knop.
+Stap 4: Japanse database uitbreiden en setdekking eerlijk in de UI tonen.
+Stap 5: professionele twee-tab-basis maken: Scan en Snel zoeken.
+Stap 6: Nederlands/Engels toevoegen.
+Stap 7: Geschiedenis, Favorieten, Collectie en Instellingen.
+Stap 8: pas daarna verdienmodel en betaalmuur testen.
+
+F. BELANGRIJKE BEPERKING VAN DEZE CONTROLE
+Alle URL’s zijn gecontroleerd op lokale dataconsistentie, uniekheid, HTTPS en verwachte
+Cardmarket-URLstructuur. De 227 directe Cardmarket-pagina’s zijn niet allemaal live één voor één
+opgevraagd, om blokkades/rate-limits te voorkomen. De bestaande geverifieerde routes zijn inhoudelijk
+ongewijzigd gebleven; v65 heeft geen nieuwe product-URL’s gegokt.

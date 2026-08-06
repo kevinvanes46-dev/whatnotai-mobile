@@ -1,0 +1,21 @@
+CardScout v65 testresultaat
+
+PASS JavaScript syntax
+PASS JSON syntax
+PASS database totals: 243 / 227 direct / 16 search-only / 33 setdefinities
+PASS geen dubbele kaartkeys
+PASS geen dubbele directe URL's
+PASS alle JS DOM-id's aanwezig
+PASS iPhone 430 x 932 layout
+PASS iPhone SE 375 x 667 layout
+PASS Android 360 x 800 layout
+PASS geen horizontale overflow
+PASS placeholder verdwijnt na fotokeuze
+PASS canvas vult fotopreview
+PASS draaien links/rechts
+PASS foto wissen
+PASS EX Deoxys blijft conditie NM wanneer geen conditie is getypt
+PASS Rayquaza ex blijft als kaartnaam behouden
+PASS Legendary Collection Charizard reverse opent V2-route
+PASS Japanse Swinub houdt language=7
+PASS resultaatveld ontsmet HTML-invoer
