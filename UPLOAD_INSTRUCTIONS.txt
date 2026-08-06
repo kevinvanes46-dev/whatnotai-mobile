@@ -1,23 +1,22 @@
-CardScout Mobile v63 hard-cache fix
+CardScout Mobile v64 Photo Beta
 
-1. Verwijder in de GitHub repository eerst:
-   - index.html
-   - app.js
-   - style.css
-   - app-v63.js
-   - style-v63.css
-   - manifest.json
-   - sw.js
-   - data/cards.json
+Upload ALLE bestanden uit deze ZIP naar de root van de GitHub repository.
+Verwijder daarbij de oude app-v63.js en style-v63.css.
 
-2. Upload daarna ALLE bestanden uit deze ZIP naar de root van de repository.
+Open daarna:
+https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=64
 
-3. Wacht tot GitHub Pages deployment groen is.
+Controle:
+- v64 PHOTO BETA
+- DB 243
+- BUILD 64
 
-4. Open:
-   https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=63
+Nieuwe test:
+1. Tik Maak foto of Kies foto.
+2. Controleer de preview en draai de foto indien nodig.
+3. Tik Vul kaartgegevens in.
+4. Typ nummer + naam + set + staat.
+5. Open Cardmarket.
 
-5. Bovenaan moet staan:
-   v63
-   DB 243
-   BUILD 63
+De foto blijft lokaal in de browser en wordt niet geüpload.
+Automatische kaartdetectie zit nog niet in deze eerste foto-bèta.

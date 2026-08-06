@@ -10,8 +10,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="CardScout" />
   <title>CardScout · TCG Helper</title>
-  <link rel="stylesheet" href="style-v63.css?build=63" />
-  <link rel="manifest" href="manifest.json?build=63" />
+  <link rel="stylesheet" href="style-v64.css?build=64" />
+  <link rel="manifest" href="manifest.json?build=64" />
 </head>
 <body>
   <div class="tcgBg" aria-hidden="true"><span class="tcgCardShape a"></span><span class="tcgCardShape b"></span><span class="tcgCardShape c"></span><span class="tcgCardShape d"></span></div>
@@ -41,12 +41,60 @@
       </div>
       <div class="brandText">
         <h1>CardScout</h1>
-        <p>TCG price scout · v63</p>
+        <p>TCG price scout · v64 PHOTO BETA</p>
       </div>
-      <div class="headerBadges"><span class="dbPill">DB 243</span><span class="dbPill">BUILD 63</span><span class="pill">FREE</span></div>
+      <div class="headerBadges"><span class="dbPill">DB 243</span><span class="dbPill">BUILD 64</span><span class="pill">FREE</span></div>
     </header>
 
-    <section class="card quickPanel">
+
+    <section class="card photoPanel" id="photoPanel">
+      <div class="photoHeader">
+        <div>
+          <span class="betaTag">NIEUW · BETA</span>
+          <h2>Kaartfoto gebruiken</h2>
+          <p>Maak een scherpe foto of kies een bestaande foto. De foto blijft lokaal op je telefoon.</p>
+        </div>
+      </div>
+
+      <div class="photoActions">
+        <button type="button" class="photoPrimary" id="takePhotoBtn">📷 Maak foto</button>
+        <button type="button" class="photoSecondary" id="choosePhotoBtn">🖼️ Kies foto</button>
+      </div>
+
+      <input type="file" id="cameraInput" accept="image/*" capture="environment" hidden />
+      <input type="file" id="galleryInput" accept="image/*" hidden />
+
+      <div class="photoStage empty" id="photoStage">
+        <div class="photoPlaceholder" id="photoPlaceholder">
+          <span class="photoPlaceholderIcon">▣</span>
+          <b>Nog geen kaartfoto</b>
+          <small>Leg de kaart vlak neer en vermijd reflectie.</small>
+        </div>
+        <canvas id="photoCanvas" aria-label="Voorbeeld kaartfoto"></canvas>
+        <div class="cardGuide" aria-hidden="true"></div>
+      </div>
+
+      <div class="photoTools" id="photoTools" hidden>
+        <button type="button" id="rotateLeftBtn">↶ Links</button>
+        <button type="button" id="rotateRightBtn">↷ Rechts</button>
+        <button type="button" id="clearPhotoBtn">✕ Wissen</button>
+      </div>
+
+      <div class="photoTips">
+        <b>Beste resultaat</b>
+        <span>• Hele kaart in beeld</span>
+        <span>• Foto recht van boven</span>
+        <span>• Geen flits op sleeve of toploader</span>
+        <span>• Naam en kaartnummer leesbaar</span>
+      </div>
+
+      <button type="button" class="continuePhotoBtn" id="continuePhotoBtn" disabled>
+        Vul kaartgegevens in ↓
+      </button>
+      <p class="photoBetaNote">Automatische herkenning volgt later. Deze bèta test eerst de foto-workflow en snelle Cardmarket-opzoeking.</p>
+    </section>
+
+    <section class="card quickPanel" id="quickPanel">
       <label class="label" for="quickInput">Snel zoeken</label>
       <div class="quickWrap">
         <input id="quickInput" class="quick" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="bijv. 12 vaporeon jungle nm" />
@@ -196,6 +244,6 @@
       Enter maakt en kopieert alleen een link. Open Cardmarket pas wanneer nodig, zodat je minder snel rate-limits krijgt.
     </section>
   </main>
-  <script src="app-v63.js?build=63"></script>
+  <script src="app-v64.js?build=64"></script>
 </body>
 </html>

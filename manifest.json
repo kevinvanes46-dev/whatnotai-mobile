@@ -1,11 +1,11 @@
 {
-  "name": "CardScout Vintage TCG Helper v63",
+  "name": "CardScout Photo Beta v64",
   "short_name": "CardScout",
-  "start_url": "./?build=63",
+  "start_url": "./?build=64",
   "scope": "./",
   "display": "standalone",
   "background_color": "#030711",
   "theme_color": "#08111f",
   "description": "Cardmarket helper met 243 vintage/value kaarten en 33 setcodes.",
-  "id": "./cardscout-v63"
+  "id": "./cardscout-v64-photo-beta"
 }
