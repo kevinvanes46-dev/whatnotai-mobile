@@ -1,0 +1,80 @@
+CardScout v61 — database & Cardmarket audit
+Generated: 2026-08-06
+
+SUMMARY
+- Catalog records: 243
+- Direct Cardmarket product routes: 227
+- Safe exact-search routes: 16
+- Supported set aliases/codes: 33
+- Duplicate keys: 0
+- Local filter/search tests: PASS
+- Python syntax: PASS
+- Mobile JavaScript syntax: PASS
+
+COVERAGE
+- AQUAPOLIS: 4
+- BASE: 19
+- BASE SET 2: 20
+- EX CRYSTAL GUARDIANS: 1
+- EX DEOXYS: 3
+- EX DRAGON FRONTIERS: 3
+- EX EMERALD: 1
+- EX FIRERED LEAFGREEN: 2
+- EX HOLON PHANTOMS: 1
+- EX LEGEND MAKER: 1
+- EX POWER KEEPERS: 1
+- EX TEAM ROCKET RETURNS: 3
+- EX UNSEEN FORCES: 2
+- EXPEDITION: 4
+- FOSSIL: 16
+- GYM CHALLENGE: 20
+- GYM HEROES: 20
+- JUNGLE: 18
+- LEGENDARY COLLECTION: 4
+- NEO DESTINY: 24
+- NEO DISCOVERY: 18
+- NEO GENESIS: 19
+- NEO REVELATION: 17
+- ROCKET: 18
+- SKYRIDGE: 4
+
+IMPORTANT SAFETY DESIGN
+- Direct product pages are used for stable WOTC patterns and manually checked chase cards.
+- Team Rocket and other variant-sensitive pages do NOT get guessed. They use Cardmarket's exact
+  collector-number search syntax, e.g. "Dark Blastoise TR3".
+- Unknown cards also use set-code search instead of a fabricated product URL.
+- NM/EX/GD/PL/PO and language parameters are appended to every generated URL.
+
+SUPPORTED POPULAR SETS
+Base Set, Jungle, Fossil, Base Set 2, Team Rocket, Gym Heroes, Gym Challenge,
+Neo Genesis, Neo Discovery, Neo Revelation, Neo Destiny, Legendary Collection,
+Southern Islands, WOTC Promos, Expedition, Aquapolis, Skyridge,
+EX Ruby & Sapphire, EX Sandstorm, EX Dragon, EX Team Magma vs Team Aqua,
+EX Hidden Legends, EX FireRed & LeafGreen, EX Team Rocket Returns, EX Deoxys,
+EX Emerald, EX Unseen Forces, EX Delta Species, EX Legend Maker,
+EX Holon Phantoms, EX Crystal Guardians, EX Dragon Frontiers, EX Power Keepers.
+
+TESTED COMMAND EXAMPLES
+- 4 charizard base nm
+- 12 vaporeon jungle nm
+- 5 gengar fossil ex
+- 4 charizard base set 2 nm
+- 4 dark charizard rocket nm
+- 2 blaines charizard gym challenge nm
+- 9 lugia neo genesis nm
+- 13 umbreon neo discovery nm
+- 65 shining gyarados neo revelation nm
+- 107 shining charizard neo destiny nm
+- 3 charizard legendary collection nm
+- 3 charizard reverse legendary collection nm
+- 146 charizard skyridge nm
+- 107 rayquaza gold star ex deoxys nm
+- 100 charizard gold star ex dragon frontiers nm
+- jp base 002 ivysaur nm
+- jp fossil 094 gengar nm
+
+LIMITATION
+Cardmarket can rename or split product variants later. No external app can honestly guarantee a
+permanent 10000% match against future Cardmarket changes without using Cardmarket's current product
+catalog/IDs at runtime. v61 is therefore fail-safe: it never guesses a direct product page for
+variant-sensitive or unknown records; it falls back to the official collector-code search.
