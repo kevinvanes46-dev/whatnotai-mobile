@@ -6,6 +6,6 @@
   "display": "standalone",
   "background_color": "#030711",
   "theme_color": "#08111f",
-  "description": "Cardmarket helper met lokale Smart Scan, guided camera, OCR en veilige naam+set-reconciliatie voor kaartnummerherstel. 1st Edition blijft handmatig.",
+  "description": "CardScout v73: stabiele v71 OCR-basis met veilige naam+set reconciliatie, guided camera, handmatige 1st Edition en 253 vintage/value kaarten.",
   "id": "./"
 }

@@ -1,0 +1,14 @@
+CardScout Mobile v73 STABLE RECONCILE
+
+1. Pak deze ZIP uit.
+2. Upload ALLE losse bestanden naar de root van de GitHub repository.
+3. Commit direct naar main.
+4. Wacht tot GitHub Pages groen is.
+5. Open: https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=73
+
+Controle:
+- v73 STABLE RECONCILE
+- DB 253
+- BUILD 73
+
+Eerste regressietest: Horsea Neo Genesis 62/111.

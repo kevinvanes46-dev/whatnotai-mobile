@@ -1,0 +1,15 @@
+CardScout Mobile v73 STABLE RECONCILE
+
+Doel:
+- rollback naar de bewezen v71 OCR-zones/passes
+- GEEN v72 wijzigingen aan OCR-crops of nummerextractie
+- alleen veilige reconciliatie NA de scan
+
+Belangrijkste regressiefix:
+Horsea Neo Genesis 62/111
+- als OCR 2/111 leest
+- set /111 => Neo Genesis
+- Horsea + Neo Genesis heeft lokaal exact één kaart (#62)
+- CardScout corrigeert dan veilig naar #62
+
+1st Edition blijft 100% handmatig.

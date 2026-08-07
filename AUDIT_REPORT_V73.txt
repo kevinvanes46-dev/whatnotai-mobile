@@ -1,0 +1,9 @@
+CardScout v73 audit
+- JavaScript syntax: PASS
+- cards.json parse: PASS
+- DB records: 253
+- Horsea Neo Genesis #62 direct route present: PASS
+- v71 OCR zones retained: PASS
+- v72 pre-extraction/crop changes removed: PASS
+- post-scan name+set reconciliation added: PASS
+- 1st Edition remains manual: PASS
