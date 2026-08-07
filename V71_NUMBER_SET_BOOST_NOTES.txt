@@ -1,0 +1,19 @@
+CardScout Mobile v71 NUMBER + SET BOOST
+
+Main goal:
+- improve collector-number OCR and set detection without guessing.
+
+Changes:
+- 1st Edition stays fully manual (Normal / 1ST EDITION).
+- higher-resolution guided camera capture (max 2300px, JPEG 0.98).
+- more targeted bottom-right collector-number crops.
+- extra high-contrast / threshold / inverted OCR passes only when needed.
+- OCR digit streams tolerate spaces and missing slash: 6 2 / 1 1 1 and 62111 can become 62/111.
+- name-aware matching compares OCR digits to local candidate cards.
+- denominator-only evidence can select a set when the detected name makes it unique.
+- ambiguous evidence remains unresolved instead of choosing the wrong set.
+- corrected/expanded English collector denominators through supported WOTC + EX-era sets.
+- stronger one-tap set candidate buttons when scanning cannot prove the set.
+
+Important:
+The scanner should prefer 'not sure' over a wrong set.

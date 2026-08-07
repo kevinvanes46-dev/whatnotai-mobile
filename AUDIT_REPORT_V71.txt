@@ -1,0 +1,15 @@
+CardScout Mobile v71 - local audit
+
+PASS - JavaScript syntax (node --check)
+PASS - DB version v71
+PASS - 253 card records / 34 set labels
+PASS - unique cache files app-v71.js + style-v71.css
+PASS - manual 1st Edition filter remains isFirstEd=Y
+PASS - Horsea parser: 62/111, 62111, spaced 6 2 / 1 1 1, denominator-only 111 -> Neo Genesis
+PASS - Horsea parser: 49/62, 4962, spaced digits -> Fossil
+PASS - ambiguous partial 6211 is intentionally NOT guessed
+PASS - corrected collector denominators: Neo Destiny 105, Aquapolis 147, Skyridge 144
+PASS - duplicate totals are not globally guessed; known-name candidates can disambiguate safely
+PASS - guided camera capture raised to max 2300px / JPEG 0.98 for small collector numbers
+
+Focus test after deployment: Horsea 62/111 Neo Genesis first.

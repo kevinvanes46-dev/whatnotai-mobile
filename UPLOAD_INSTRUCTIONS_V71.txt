@@ -1,0 +1,22 @@
+CardScout Mobile v71 NUMBER + SET BOOST
+
+1. Extract this ZIP.
+2. Upload ALL loose files to the root of the GitHub repository whatnotai-mobile.
+3. Overwrite existing files with the new versions.
+4. Commit directly to main.
+5. Wait for GitHub Pages deployment.
+6. Open:
+
+https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=71
+
+Expected header:
+- v71 NUMBER + SET BOOST
+- DB 253
+- BUILD 71
+
+First test:
+Horsea 62/111 from Neo Genesis.
+Expected: Horsea + Neo Genesis + #62, or at minimum a clear one-tap Neo Genesis candidate. It must not silently become Fossil.
+
+1st Edition:
+Choose Normal / 1ST EDITION manually. The scanner does not try to detect the stamp.

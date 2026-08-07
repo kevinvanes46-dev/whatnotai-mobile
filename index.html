@@ -10,8 +10,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="CardScout" />
   <title>CardScout · TCG Helper</title>
-  <link rel="stylesheet" href="style-v70.css?build=70" />
-  <link rel="manifest" href="manifest.json?build=70" />
+  <link rel="stylesheet" href="style-v71.css?build=71" />
+  <link rel="manifest" href="manifest.json?build=71" />
 </head>
 <body>
   <div class="tcgBg" aria-hidden="true"><span class="tcgCardShape a"></span><span class="tcgCardShape b"></span><span class="tcgCardShape c"></span><span class="tcgCardShape d"></span></div>
@@ -58,9 +58,9 @@
       </div>
       <div class="brandText">
         <h1>CardScout</h1>
-        <p>TCG price scout · v70 SET FIRST</p>
+        <p>TCG price scout · v71 NUMBER + SET BOOST</p>
       </div>
-      <div class="headerBadges"><span class="dbPill">DB 253</span><span class="dbPill">BUILD 70</span><span class="pill">FREE</span></div>
+      <div class="headerBadges"><span class="dbPill">DB 253</span><span class="dbPill">BUILD 71</span><span class="pill">FREE</span></div>
     </header>
 
 
@@ -105,7 +105,7 @@
         </div>
         <div class="ocrResult" id="ocrResult" hidden></div>
         <div class="scanEditionQuick" id="scanEditionQuick" hidden>
-          <span><b>1st Edition?</b><small>Scan kan het missen bij sleeve/reflexie.</small></span>
+          <span><b>1st Edition?</b><small>Kies dit zelf — de scanner bepaalt alleen kaart en set.</small></span>
           <div class="choiceGrid twoChoices" data-choice-target="editionSelect">
             <button type="button" class="choiceBtn" aria-pressed="false" data-value="AUTO">Normaal</button>
             <button type="button" class="choiceBtn editionFirstBtn" aria-pressed="false" data-value="1ST">1ST EDITION</button>
@@ -124,7 +124,7 @@
       <button type="button" class="continuePhotoBtn" id="continuePhotoBtn" disabled>
         Vul kaartgegevens in ↓
       </button>
-      <p class="photoBetaNote">SMART SCAN: plaats de kaart bij Maak foto binnen het kader. CardScout probeert naam, kaartnummer, set én 1st Edition lokaal te herkennen. Controleer het resultaat altijd vóór Cardmarket.</p>
+      <p class="photoBetaNote">SMART SCAN: plaats de kaart binnen het camerakader. CardScout focust op naam, kaartnummer en vooral de juiste set. 1st Edition kies je zelf. Bij twijfel krijg je setkeuzes met één tik.</p>
     </section>
 
     <section class="card quickPanel" id="quickPanel">
@@ -291,6 +291,6 @@
       Enter maakt en kopieert alleen een link. Open Cardmarket pas wanneer nodig, zodat je minder snel rate-limits krijgt.
     </section>
   </main>
-  <script src="app-v70.js?build=70"></script>
+  <script src="app-v71.js?build=71"></script>
 </body>
 </html>
