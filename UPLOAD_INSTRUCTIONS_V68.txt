@@ -1,0 +1,31 @@
+CardScout Mobile v68 SMART SCAN
+
+Upload ALLE bestanden uit deze ZIP naar de ROOT van de GitHub-repository:
+kevinvanes46-dev/whatnotai-mobile
+
+Overschrijf de bestaande bestanden. Upload de losse bestanden, niet de ZIP zelf.
+
+Controle na GitHub Pages deployment:
+https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=68
+
+Bovenaan moet staan:
+- v68 SMART SCAN
+- DB 251
+- BUILD 68
+
+Belangrijkste v68-test:
+1. Maak foto van een 1st Edition WOTC-kaart met de stamp goed zichtbaar.
+2. Scan kaart.
+3. Controleer of "Editie: 1st Edition" verschijnt.
+4. Als de scan de stamp mist: tik direct onder het scanresultaat op 1ST EDITION.
+5. Maak/open de Cardmarket-link. Die link moet de 1st Edition-filter bevatten.
+6. Zet daarna Normaal aan en controleer dat de 1st Edition-filter verdwijnt.
+
+Extra regressietests:
+- Shellder 54/62 Fossil
+- Slowpoke 55/62 Fossil
+- Energy Search 59/62 Fossil
+- Chikorita 53/111 Neo Genesis
+- Bagon 43/101 EX Dragon Frontiers
+- Beldum 1/12 EX Trainer Kit 2
+- Metang 5/12 EX Trainer Kit 2

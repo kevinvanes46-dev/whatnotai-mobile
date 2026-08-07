@@ -1,0 +1,43 @@
+CardScout Mobile v68 - lokale pre-release audit
+
+PASS
+
+Build
+- APP_VERSION: v68
+- Header: v68 SMART SCAN
+- DB badge: 251
+- BUILD badge: 68
+- Assets: app-v68.js / style-v68.css
+
+JavaScript
+- node --check: PASS
+
+Database
+- cards.json version: v68
+- records: 251
+- direct: 235
+- search-only: 16
+- supported set labels: 34
+- duplicate keys: 0
+- directe URLs buiten cardmarket.com Pokemon-pad: 0
+
+Regressie-records aanwezig
+- Shellder Fossil
+- Energy Search Fossil
+- Beldum EX Trainer Kit 2
+- Metang EX Trainer Kit 2
+
+Collector-number parser
+- 1/12: PASS
+- 5/12: PASS
+- 53/111: PASS
+- 54/62: PASS
+
+Cardmarket filter test
+- EN + NM + 1ST -> language=1 + minCondition=2 + isFirstEd=Y: PASS
+- EN + NM + Normaal -> geen isFirstEd=Y: PASS
+
+Safety
+- Bestaande gecontroleerde productroutes behouden.
+- 1st Edition wordt als filter toegevoegd; geen gegokte V1/V2-variant voor First Edition.
+- Lage-confidence OCR wordt niet automatisch als kaartnaam ingevuld.

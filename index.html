@@ -10,8 +10,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="CardScout" />
   <title>CardScout · TCG Helper</title>
-  <link rel="stylesheet" href="style-v67.css?build=67" />
-  <link rel="manifest" href="manifest.json?build=67" />
+  <link rel="stylesheet" href="style-v68.css?build=68" />
+  <link rel="manifest" href="manifest.json?build=68" />
 </head>
 <body>
   <div class="tcgBg" aria-hidden="true"><span class="tcgCardShape a"></span><span class="tcgCardShape b"></span><span class="tcgCardShape c"></span><span class="tcgCardShape d"></span></div>
@@ -58,9 +58,9 @@
       </div>
       <div class="brandText">
         <h1>CardScout</h1>
-        <p>TCG price scout · v67 GUIDED SCAN</p>
+        <p>TCG price scout · v68 SMART SCAN</p>
       </div>
-      <div class="headerBadges"><span class="dbPill">DB 243</span><span class="dbPill">BUILD 67</span><span class="pill">FREE</span></div>
+      <div class="headerBadges"><span class="dbPill">DB 251</span><span class="dbPill">BUILD 68</span><span class="pill">FREE</span></div>
     </header>
 
 
@@ -104,6 +104,13 @@
           <small id="ocrProgressText">Scanner voorbereiden…</small>
         </div>
         <div class="ocrResult" id="ocrResult" hidden></div>
+        <div class="scanEditionQuick" id="scanEditionQuick" hidden>
+          <span><b>1st Edition?</b><small>Scan kan het missen bij sleeve/reflexie.</small></span>
+          <div class="choiceGrid twoChoices" data-choice-target="editionSelect">
+            <button type="button" class="choiceBtn" aria-pressed="false" data-value="AUTO">Normaal</button>
+            <button type="button" class="choiceBtn editionFirstBtn" aria-pressed="false" data-value="1ST">1ST EDITION</button>
+          </div>
+        </div>
       </div>
 
       <div class="photoTips" id="photoTips">
@@ -117,7 +124,7 @@
       <button type="button" class="continuePhotoBtn" id="continuePhotoBtn" disabled>
         Vul kaartgegevens in ↓
       </button>
-      <p class="photoBetaNote">GUIDED SCAN: plaats de kaart bij Maak foto binnen het kader. Daarna probeert CardScout lokaal naam en kaartnummer te lezen. Controleer het resultaat altijd vóór Cardmarket.</p>
+      <p class="photoBetaNote">SMART SCAN: plaats de kaart bij Maak foto binnen het kader. CardScout probeert naam, kaartnummer, set én 1st Edition lokaal te herkennen. Controleer het resultaat altijd vóór Cardmarket.</p>
     </section>
 
     <section class="card quickPanel" id="quickPanel">
@@ -137,6 +144,7 @@
         <span><code>jp base 002 ivysaur</code></span>
         <span><code>lc charizard 3 reverse</code></span>
         <span><code>shining gyarados 65</code></span>
+        <span><code>54 shellder fossil 1st nm</code></span>
       </div>
       <div class="examples" id="exampleChips">
         <button type="button" data-fill="4 charizard base nm">Base Charizard</button>
@@ -202,6 +210,7 @@
         <option>EX CRYSTAL GUARDIANS</option>
         <option>EX DRAGON FRONTIERS</option>
         <option>EX POWER KEEPERS</option>
+        <option>EX TRAINER KIT 2</option>
       </select>
       <select id="langSelect" class="hiddenSelect" aria-hidden="true">
         <option>JP</option>
@@ -212,6 +221,10 @@
         <option>EX</option>
         <option>GD</option>
         <option>PL</option>
+      </select>
+      <select id="editionSelect" class="hiddenSelect" aria-hidden="true">
+        <option value="AUTO">AUTO</option>
+        <option value="1ST">1ST</option>
       </select>
 
       <div class="fixedControls">
@@ -230,6 +243,14 @@
             <button type="button" class="choiceBtn" aria-pressed="false" data-value="GD">GD</button>
             <button type="button" class="choiceBtn" aria-pressed="false" data-value="PL">PL</button>
           </div>
+        </div>
+        <div class="editionControl">
+          <label class="label">Editie</label>
+          <div class="choiceGrid twoChoices" data-choice-target="editionSelect">
+            <button type="button" class="choiceBtn" aria-pressed="false" data-value="AUTO">Normaal</button>
+            <button type="button" class="choiceBtn editionFirstBtn" aria-pressed="false" data-value="1ST">1ST EDITION</button>
+          </div>
+          <small class="editionHelp">Bij een 1st Edition scan zet CardScout dit automatisch aan. Je kunt het altijd zelf corrigeren.</small>
         </div>
       </div>
     </section>
@@ -270,6 +291,6 @@
       Enter maakt en kopieert alleen een link. Open Cardmarket pas wanneer nodig, zodat je minder snel rate-limits krijgt.
     </section>
   </main>
-  <script src="app-v67.js?build=67"></script>
+  <script src="app-v68.js?build=68"></script>
 </body>
 </html>

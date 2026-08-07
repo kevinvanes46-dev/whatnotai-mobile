@@ -1,0 +1,46 @@
+CardScout v68 SMART SCAN
+
+Hoofdfocus
+- Betere lokale fotoscan zonder betaalde AI/API per scan.
+- 1st Edition wordt een echte eigenschap van de Cardmarket-link.
+- Liever "niet zeker" dan een foutieve kaartnaam.
+
+Nieuw / verbeterd
+- Guided in-app camera met zichtbaar kaartkader.
+- Extra donkere buitenzone rond het live kaartkader.
+- OCR-woordenlijst uitgebreid t/m Generation IV.
+- Extra scherpe OCR-pass voor de bovenste naamstrook.
+- Kaartnummer accepteert nu ook kleine settotalen zoals 1/12 en 5/12.
+- Extra bottom-right OCR-pass voor collector numbers.
+- Trainerherkenning verbeterd, inclusief Energy Search en klassieke WOTC Trainer-namen.
+- Unieke lokale catalogusmatch mag ontbrekend kaartnummer/set veilig aanvullen als er exact één match is.
+- 8 tijdens de praktijktest gecontroleerde kaarten toegevoegd aan de lokale catalogus.
+- EX Trainer Kit 2 toegevoegd als ondersteunde set.
+
+1st Edition
+- Nieuwe editieknop: Normaal / 1ST EDITION.
+- Smart Scan controleert gericht de westelijke WOTC "EDITION 1"-stamp links onder het artwork.
+- Twee OCR-passes voor de stamp (harde + zachte contrastpass) om sleeves/reflexie beter op te vangen.
+- Bij automatische detectie wordt 1ST EDITION geactiveerd.
+- Direct onder het scanresultaat staat een snelle handmatige 1ST EDITION-correctie.
+- Handmatig gekozen 1ST blijft actief bij een gewone snelle zoekopdracht, tenzij "unlimited" wordt getypt.
+- Cardmarket-links krijgen bij 1ST de First Edition-offerfilter; er worden geen nieuwe product-URL-varianten gegokt.
+
+Database v68
+- Records: 251
+- Directe routes: 235
+- Veilige zoekroutes: 16
+- Ondersteunde setlabels: 34
+
+Nieuwe gecontroleerde routes
+- Shellder #54 Fossil
+- Slowpoke #55 Fossil
+- Energy Search #59 Fossil
+- Dark Vileplume #30 Team Rocket
+- Chikorita #53 Neo Genesis
+- Bagon Delta Species #43 EX Dragon Frontiers
+- Beldum #1 EX Trainer Kit 2
+- Metang #5 EX Trainer Kit 2
+
+Belangrijk
+OCR blijft beta. Naam/nummer/set/editie altijd controleren voordat Cardmarket wordt geopend.
