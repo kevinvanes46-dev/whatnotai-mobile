@@ -1,0 +1,11 @@
+CardScout v70 local audit
+
+PASS - Catalog version: v70
+PASS - Cards: 253
+PASS - Sets: 34
+PASS - Horsea NEO GENESIS #62: 1
+PASS - Horsea FOSSIL #49: 1
+PASS - No automatic editionScan variable: True
+PASS - Manual edition text: present
+PASS - Robust number helper: present
+PASS - No arbitrary DB first match: present

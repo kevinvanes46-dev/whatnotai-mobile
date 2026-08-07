@@ -1,0 +1,15 @@
+CardScout Mobile v70 SET FIRST
+
+Hoofdfocus:
+- 1st Edition wordt NIET meer automatisch gescand.
+- Gebruiker kiest per kaart handmatig Normaal of 1ST EDITION.
+- Setherkenning krijgt prioriteit boven editieherkenning.
+- Collector-number rechtsonder wordt meerdere keren lokaal gelezen met verschillende crops/contrastinstellingen.
+- OCR zonder slash wordt hersteld wanneer mogelijk: 62111 kan als 62/111 worden geïnterpreteerd.
+- Alleen de denominator kan al een veilige set-hint geven: /111 -> Neo Genesis, /62 -> Fossil, enz.
+- Naam + veilige set-hint mag via de lokale database het kaartnummer aanvullen wanneer die combinatie uniek is.
+- Bij meerdere mogelijke sets kiest CardScout NOOIT meer stilletjes het eerste database-record.
+- Als de set onzeker blijft toont CardScout veilige mogelijke sets/kaartnummers om met één tik te kiezen.
+
+Specifieke regressietest:
+Horsea Neo Genesis 62/111 mag niet meer automatisch Fossil worden.

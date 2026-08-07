@@ -1,0 +1,23 @@
+CardScout Mobile v70 SET FIRST
+
+UPLOAD
+1. Pak deze ZIP uit.
+2. Upload ALLE losse bestanden naar de root van kevinvanes46-dev/whatnotai-mobile.
+3. Overschrijf bestaande bestanden.
+4. Commit naar main.
+5. Wacht op GitHub Pages deployment.
+
+OPEN
+https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=70
+
+VERWACHT
+- v70 SET FIRST
+- DB 253
+- BUILD 70
+
+EERSTE TEST
+1. Scan Horsea Neo Genesis #62/111.
+2. Verwacht: Horsea + Neo Genesis. Fossil mag niet automatisch gekozen worden.
+3. Als nummer niet volledig gelezen wordt, moet /111 of de unieke Neo Genesis-match helpen.
+4. Test daarna Horsea Fossil #49/62 om te controleren dat /62 juist Fossil geeft.
+5. 1st Edition: kies de knop handmatig. Scanner probeert de stempel niet meer automatisch te bepalen.
