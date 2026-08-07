@@ -6,6 +6,6 @@
   "display": "standalone",
   "background_color": "#030711",
   "theme_color": "#08111f",
-  "description": "Cardmarket helper met lokale Smart Scan, guided-camera, OCR, verbeterde nummer/set-herkenning, guided-camera en handmatige 1st Edition-filter en 253 vintage/value kaarten.",
+  "description": "Cardmarket helper met lokale Smart Scan, guided camera, OCR en veilige naam+set-reconciliatie voor kaartnummerherstel. 1st Edition blijft handmatig.",
   "id": "./"
 }

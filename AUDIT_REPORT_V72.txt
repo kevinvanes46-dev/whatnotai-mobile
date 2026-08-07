@@ -1,0 +1,9 @@
+CardScout v72 audit
+PASS - version index
+PASS - build badge
+PASS - js ref
+PASS - css ref
+PASS - horsea NG62 present
+PASS - horsea direct
+PASS - candidate-first code
+PASS - reconcile rule

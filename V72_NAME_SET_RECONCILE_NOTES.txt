@@ -1,0 +1,8 @@
+v72 fixes
+- Candidate-aware nummerherkenning draait vóór blind accepteren van een afgesneden strict OCR-resultaat.
+- Horsea 62/111 -> OCR 2/111 kan nu naar 62/111 worden hersteld.
+- Naam + unieke setmatch overschrijft een conflicterende OCR-numerator.
+- Directe Cardmarket-route wordt daardoor Horsea-NG62 i.p.v. zoekterm Horsea NG2.
+- Nummer-crop rechtsonder is iets breder naar links gemaakt om het eerste cijfer minder snel af te snijden.
+- 1st Edition blijft volledig handmatig.
+- Geen nieuwe Cardmarket-URL's gegokt; bestaande geverifieerde Horsea NG62-route wordt gebruikt.

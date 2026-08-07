@@ -1,0 +1,18 @@
+CardScout Mobile v72 NAME + SET RECONCILE
+
+1. Upload ALLE bestanden uit deze ZIP naar de root van de GitHub repository.
+2. Overschrijf index.html, cards.json, manifest.json en sw.js.
+3. Upload ook app-v72.js en style-v72.css.
+4. Oude app-v71.js/style-v71.css mogen blijven, maar worden niet meer gebruikt.
+5. Commit naar main en wacht op GitHub Pages.
+
+Open daarna:
+https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=72
+
+Controle:
+- v72 NAME + SET RECONCILE
+- DB 253
+- BUILD 72
+
+Belangrijkste regressietest:
+Horsea Neo Genesis 62/111. Als OCR slechts 2/111 leest, moet CardScout dit corrigeren naar #62 omdat Horsea + Neo Genesis lokaal exact één kaart oplevert.
