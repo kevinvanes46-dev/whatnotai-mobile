@@ -1,0 +1,14 @@
+CardScout Mobile v69 FIRST ED SAFE
+
+Hotfixes op basis van echte iPhone-test:
+- Nieuwe foto wist altijd oude naam/nummer/set/editie. Geen stale scan-data meer.
+- 1ST EDITION blijft een echte Cardmarket productfilter via isFirstEd=Y op geverifieerde directe kaartpagina's.
+- 1st Edition OCR scant meerdere gerichte zones met meerdere contrastpasses.
+- Als OCR alleen het set-totaal leest (bv. 111 uit 62/111), kan CardScout de set nog afleiden.
+- Naam + eenduidige set-match mag een conflicterende OCR-numerator corrigeren.
+- Horsea Fossil #49 en Horsea Neo Genesis #62 zijn als geverifieerde Cardmarket-routes toegevoegd.
+- Bij een 1st Edition kaart zonder geverifieerde directe route wordt geen onzekere collectorcode geforceerd.
+
+Belangrijk:
+Cardmarket behandelt First Edition als kaartattribuut. De betrouwbare one-click route is daarom:
+exacte productpagina + isFirstEd=Y + language + minCondition.

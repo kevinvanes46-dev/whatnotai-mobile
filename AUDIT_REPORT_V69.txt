@@ -1,0 +1,15 @@
+CardScout v69 local audit
+
+- JS syntax: PASS
+- Catalog version: v69
+- Cards: 253
+- Direct URLs: 237
+- Search-only: 16
+- Set labels: 34
+- Horsea Fossil #49 direct route: PASS
+- Horsea Neo Genesis #62 direct route: PASS
+- New-photo stale field reset: PASS (code audit)
+- 1st Edition direct filter: isFirstEd=Y
+- EN language filter: language=1
+- JP language filter: language=7
+- NM filter: minCondition=2

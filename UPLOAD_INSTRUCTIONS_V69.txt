@@ -1,0 +1,18 @@
+CardScout Mobile v69 FIRST ED SAFE
+
+1. Upload ALLE losse bestanden uit deze ZIP naar de root van GitHub.
+2. Overschrijf bestaande index.html, cards.json, manifest.json en sw.js.
+3. Nieuwe cachebestanden zijn app-v69.js en style-v69.css.
+4. Commit naar main.
+5. Open na deployment:
+   https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=69
+
+Controle bovenaan:
+- v69 FIRST ED SAFE
+- DB 253
+- BUILD 69
+
+Eerste tests:
+A. Scan Horsea Neo Genesis 62/111 na een andere kaart: oude nummer/set mogen NIET blijven staan.
+B. Kies 1ST EDITION en maak link. Bij een exacte kaartpagina moet URL isFirstEd=Y bevatten.
+C. Test echte 1st Edition WOTC-kaart: automatische stampdetectie of handmatige 1ST-knop.
