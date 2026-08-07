@@ -6,6 +6,6 @@
   "display": "standalone",
   "background_color": "#030711",
   "theme_color": "#08111f",
-  "description": "Cardmarket helper met lokale fotovoorbeeldfunctie en 243 vintage/value kaarten.",
+  "description": "Cardmarket helper met lokale guided-camera en OCR-functie en 243 vintage/value kaarten.",
   "id": "./"
 }

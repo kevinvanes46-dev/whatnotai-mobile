@@ -1,0 +1,15 @@
+CardScout Mobile v67 GUIDED SCAN
+
+Upload ALLE bestanden uit deze ZIP naar de root van de GitHub repository.
+Overschrijf de bestaande bestanden.
+
+Open daarna:
+https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=67
+
+Controle:
+- v67 GUIDED SCAN
+- DB 243
+- BUILD 67
+
+Belangrijkste test:
+Tik Maak foto -> geef cameratoegang -> zet de hele kaart binnen het blauwe kader -> maak foto -> Scan kaart (beta).

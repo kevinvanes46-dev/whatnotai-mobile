@@ -10,13 +10,30 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="CardScout" />
   <title>CardScout · TCG Helper</title>
-  <link rel="stylesheet" href="style-v66.css?build=66" />
-  <link rel="manifest" href="manifest.json?build=65" />
+  <link rel="stylesheet" href="style-v67.css?build=67" />
+  <link rel="manifest" href="manifest.json?build=67" />
 </head>
 <body>
   <div class="tcgBg" aria-hidden="true"><span class="tcgCardShape a"></span><span class="tcgCardShape b"></span><span class="tcgCardShape c"></span><span class="tcgCardShape d"></span></div>
   <div class="bgGlow bgOne"></div>
   <div class="bgGlow bgTwo"></div>
+  <div class="cameraShell" id="cameraShell" hidden aria-hidden="true">
+    <div class="cameraTopbar">
+      <button type="button" id="cameraCancelBtn" class="cameraTextBtn">Annuleren</button>
+      <div class="cameraTitle"><b>Kaart in kader</b><small>Houd de hele kaart binnen de lijn</small></div>
+      <span class="cameraTopSpacer" aria-hidden="true"></span>
+    </div>
+    <div class="cameraViewport" id="cameraViewport">
+      <video id="cameraVideo" autoplay muted playsinline></video>
+      <div class="liveCardGuide" id="liveCardGuide" aria-hidden="true"><span>KAART</span></div>
+      <div class="cameraHint">Recht van boven · liefst zonder reflectie</div>
+    </div>
+    <div class="cameraBottom">
+      <span class="cameraBottomSpacer" aria-hidden="true"></span>
+      <button type="button" id="cameraShutterBtn" class="cameraShutter" aria-label="Maak kaartfoto"><span></span></button>
+      <button type="button" id="cameraFallbackBtn" class="cameraTextBtn cameraFallbackBtn">Camera-app</button>
+    </div>
+  </div>
   <main class="app">
     <header class="hero">
       <div class="brandMark" aria-label="CardScout logo">
@@ -41,9 +58,9 @@
       </div>
       <div class="brandText">
         <h1>CardScout</h1>
-        <p>TCG price scout · v66 OCR LAB</p>
+        <p>TCG price scout · v67 GUIDED SCAN</p>
       </div>
-      <div class="headerBadges"><span class="dbPill">DB 243</span><span class="dbPill">BUILD 66</span><span class="pill">FREE</span></div>
+      <div class="headerBadges"><span class="dbPill">DB 243</span><span class="dbPill">BUILD 67</span><span class="pill">FREE</span></div>
     </header>
 
 
@@ -100,7 +117,7 @@
       <button type="button" class="continuePhotoBtn" id="continuePhotoBtn" disabled>
         Vul kaartgegevens in ↓
       </button>
-      <p class="photoBetaNote">OCR LAB: de scan probeert lokaal op je telefoon naam en kaartnummer te lezen. Controleer het resultaat altijd vóór Cardmarket.</p>
+      <p class="photoBetaNote">GUIDED SCAN: plaats de kaart bij Maak foto binnen het kader. Daarna probeert CardScout lokaal naam en kaartnummer te lezen. Controleer het resultaat altijd vóór Cardmarket.</p>
     </section>
 
     <section class="card quickPanel" id="quickPanel">
@@ -253,6 +270,6 @@
       Enter maakt en kopieert alleen een link. Open Cardmarket pas wanneer nodig, zodat je minder snel rate-limits krijgt.
     </section>
   </main>
-  <script src="app-v66.js?build=66"></script>
+  <script src="app-v67.js?build=67"></script>
 </body>
 </html>

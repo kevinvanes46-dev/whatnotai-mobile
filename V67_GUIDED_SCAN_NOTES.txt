@@ -1,0 +1,27 @@
+CardScout v67 GUIDED SCAN
+
+Doel van deze beta:
+- Maak foto opent waar mogelijk een live camera in CardScout.
+- Een 63:88 kaartkader helpt de gebruiker de kaart direct goed te positioneren.
+- De gemaakte foto wordt lokaal uit het kader uitgesneden met een kleine veiligheidsmarge.
+- OCR gebruikt voor guided foto's specifiekere zones voor naam en kaartnummer.
+
+Verbeteringen t.o.v. v66:
+- Live kaartkader vóór het maken van de foto (getUserMedia, achtercamera).
+- Fallback naar de normale camera-app als live camera niet beschikbaar/toegestaan is.
+- Gen 3 + Gen 4 Pokémonnamen toegevoegd aan de OCR-woordenschat.
+- Lage-confidence fuzzy naamhits worden NIET meer automatisch ingevuld.
+- Trainerkaarten worden apart gedetecteerd in plaats van als willekeurige Pokémon gematcht.
+- Guided scan leest het naamgebied en het nummergebied apart.
+- Nummerzone gebruikt eerst digits/slash-only OCR en daarna een bredere fallback.
+- Bestaande v65/v66 zoek- en Cardmarketlogica blijft verder intact.
+
+Test vooral:
+1. Shellder / Fossil-achtige WOTC kaart.
+2. Bagon, Beldum en Metang (Gen 3).
+3. Trainerkaart zoals Energy Search.
+4. EX-era kaart met klein collector number onderaan.
+5. Weiger camera-permissie één keer om de native-camera fallback te controleren.
+
+Privacy:
+De foto blijft lokaal in de browser. Tesseract.js wordt bij eerste OCR-gebruik nog via jsDelivr geladen.
