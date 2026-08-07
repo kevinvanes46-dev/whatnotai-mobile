@@ -1,0 +1,6 @@
+CardScout v74 audit
+PASS - 253 Cardmarket records preserved
+PASS - v73 OCR pipeline retained
+PASS - local set-symbol rescue present
+PASS - manual 1st Edition retained
+PASS - v74 cache-busting filenames

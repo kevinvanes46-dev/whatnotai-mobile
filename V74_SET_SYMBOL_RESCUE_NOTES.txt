@@ -1,0 +1,9 @@
+CardScout Mobile v74 SET SYMBOL RESCUE
+
+- v73 OCR basis behouden.
+- Lokale set-symboolherkenning voor 15 klassieke WotC/e-Card sets.
+- Naam + sterk symbool + unieke lokale kandidaat herstelt nummer/set zonder te gokken.
+- 1st Edition blijft handmatig.
+- Bij twijfel verschijnen setkeuzes met één tik.
+
+Hoofdtest: Horsea 62/111 moet Neo Genesis #62 worden.

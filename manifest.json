@@ -6,6 +6,6 @@
   "display": "standalone",
   "background_color": "#030711",
   "theme_color": "#08111f",
-  "description": "CardScout v73: stabiele v71 OCR-basis met veilige naam+set reconciliatie, guided camera, handmatige 1st Edition en 253 vintage/value kaarten.",
+  "description": "CardScout v74: lokale set-symboolherkenning als rescue naast OCR, guided camera, handmatige 1st Edition en 253 vintage/value kaarten.",
   "id": "./"
 }

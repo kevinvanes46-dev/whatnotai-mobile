@@ -1,0 +1,7 @@
+CardScout Mobile v74 SET SYMBOL RESCUE
+
+Upload ALLE bestanden uit deze ZIP naar de root van GitHub en overschrijf de bestaande bestanden.
+Open daarna:
+https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=74
+
+Verwacht: v74 SET SYMBOL RESCUE · DB 253 · BUILD 74
