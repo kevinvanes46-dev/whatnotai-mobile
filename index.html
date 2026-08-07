@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="CardScout" />
   <title>CardScout · TCG Helper</title>
-  <link rel="stylesheet" href="style-v65.css?build=65" />
+  <link rel="stylesheet" href="style-v66.css?build=66" />
   <link rel="manifest" href="manifest.json?build=65" />
 </head>
 <body>
@@ -41,9 +41,9 @@
       </div>
       <div class="brandText">
         <h1>CardScout</h1>
-        <p>TCG price scout · v65 ALIGNMENT FIX</p>
+        <p>TCG price scout · v66 OCR LAB</p>
       </div>
-      <div class="headerBadges"><span class="dbPill">DB 243</span><span class="dbPill">BUILD 65</span><span class="pill">FREE</span></div>
+      <div class="headerBadges"><span class="dbPill">DB 243</span><span class="dbPill">BUILD 66</span><span class="pill">FREE</span></div>
     </header>
 
 
@@ -80,6 +80,15 @@
         <button type="button" id="clearPhotoBtn">✕ Wissen</button>
       </div>
 
+      <div class="ocrLab" id="ocrLab">
+        <button type="button" class="scanPhotoBtn" id="scanPhotoBtn" disabled>⚡ Scan kaart (beta)</button>
+        <div class="ocrProgress" id="ocrProgress" hidden>
+          <div class="ocrProgressBar"><span id="ocrProgressFill"></span></div>
+          <small id="ocrProgressText">Scanner voorbereiden…</small>
+        </div>
+        <div class="ocrResult" id="ocrResult" hidden></div>
+      </div>
+
       <div class="photoTips" id="photoTips">
         <b>Beste resultaat</b>
         <span>• Houd de hele kaart in beeld</span>
@@ -91,7 +100,7 @@
       <button type="button" class="continuePhotoBtn" id="continuePhotoBtn" disabled>
         Vul kaartgegevens in ↓
       </button>
-      <p class="photoBetaNote">Automatische herkenning volgt later. Deze bèta test eerst de foto-workflow en snelle Cardmarket-opzoeking.</p>
+      <p class="photoBetaNote">OCR LAB: de scan probeert lokaal op je telefoon naam en kaartnummer te lezen. Controleer het resultaat altijd vóór Cardmarket.</p>
     </section>
 
     <section class="card quickPanel" id="quickPanel">
@@ -244,6 +253,6 @@
       Enter maakt en kopieert alleen een link. Open Cardmarket pas wanneer nodig, zodat je minder snel rate-limits krijgt.
     </section>
   </main>
-  <script src="app-v65.js?build=65"></script>
+  <script src="app-v66.js?build=66"></script>
 </body>
 </html>

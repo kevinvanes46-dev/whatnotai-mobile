@@ -1,0 +1,19 @@
+CardScout v66 OCR LAB
+
+Doel: bewijzen hoeveel automatische herkenning gratis in de mobiele browser haalbaar is zonder betaalde vision-API.
+
+Nieuw:
+- Scan kaart (beta) na foto.
+- Browser-side Tesseract.js OCR.
+- Pokémonnaam matcht tegen lokale Pokedex/kaartdatabase.
+- Probeert collector number zoals 46/62 te lezen.
+- Unieke WOTC-settotalen kunnen een set-hint geven (bijv. /62 = Fossil).
+- Vult gevonden naam/nummer/set in de bestaande velden.
+- Handmatige workflow en Cardmarket-logica blijven intact.
+
+Beperkingen:
+- OCR is nog experimenteel en afhankelijk van foto, reflectie, kleine tekst en lettertype.
+- Set-symbool wordt nog niet visueel herkend.
+- Huidige catalogus bevat 243 geselecteerde records; volledige setlijsten zijn nodig voor veel sterkere matching.
+- Eerste OCR-run downloadt gratis OCR/WASM-taalbestanden; daarna kan browsercache helpen.
+- Conditie blijft handmatig.

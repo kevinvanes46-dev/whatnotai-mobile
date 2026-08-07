@@ -1,0 +1,22 @@
+CardScout Mobile v66 OCR LAB
+
+Upload alle bestanden uit deze ZIP naar de root van de GitHub repository en overschrijf bestaande bestanden.
+Open daarna:
+https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=66
+
+Controle:
+- v66 OCR LAB
+- DB 243
+- BUILD 66
+
+Test op iPhone:
+1. Maak/kies een rechte kaartfoto.
+2. Tik Scan kaart (beta).
+3. Eerste scan kan langer duren omdat de gratis OCR-engine in de browser wordt geladen.
+4. Controleer of naam en eventueel kaartnummer worden ingevuld.
+5. Controleer ALTIJD handmatig vóór Open CM.
+
+Privacy:
+- De kaartfoto wordt niet naar een CardScout-server geüpload.
+- OCR draait in de browser op het toestel.
+- In deze beta worden Tesseract.js en taalbestanden bij eerste gebruik vanaf een CDN geladen.
