@@ -1,0 +1,8 @@
+CardScout Mobile v75 GALLERY AUTO-CROP
+
+Upload ALLE losse bestanden uit deze map naar de root van de GitHub repository en overschrijf de oude bestanden.
+
+Open daarna:
+https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=75
+
+Controle: v75 GALLERY AUTO-CROP · BUILD 75 · DB 253

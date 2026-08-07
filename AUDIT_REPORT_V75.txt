@@ -1,0 +1,3 @@
+CardScout v75 local audit
+Expected DB records: 253
+Focus: gallery auto-crop, collector-number OCR zoom, set-symbol rescue, no automatic 1st Edition.

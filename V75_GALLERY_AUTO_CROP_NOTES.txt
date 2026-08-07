@@ -1,0 +1,7 @@
+v75 fixes:
+- Kies foto: stippelkader verdwijnt; het kader is alleen voor Maak foto.
+- Galerijfoto: CardScout zoekt lokaal de gele kaartrand en normaliseert de kaart vóór OCR.
+- Als auto-crop niet betrouwbaar is, wordt veilig de volledige foto gescand.
+- Collector number rechtsonder wordt op hogere resolutie en tot 8.5x vergroot gescand.
+- Set-symboolherkenning werkt nu ook na betrouwbare gallery auto-crop.
+- 1st Edition blijft volledig handmatig.
