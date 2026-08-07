@@ -20,3 +20,4 @@ Nieuwe test:
 
 De foto blijft lokaal in de browser en wordt niet geüpload.
 Automatische kaartdetectie zit nog niet in deze eerste foto-bèta.
+Deploy retry v65 - 07-08-2026
