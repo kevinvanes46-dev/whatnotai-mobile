@@ -1,0 +1,23 @@
+CardScout Mobile v76 NUMBER PATCH - audit
+
+Catalog version: v76
+Cards: 253
+Sets: 34
+Direct URLs: 237
+Search-only records: 16
+Duplicate keys: 0
+
+Regression target:
+- Horsea Fossil #49 present: True
+- Horsea Neo Genesis #62 present: True
+- Partial OCR 62/1 matching code present: True
+- Number-confirmed local card overrides conflicting symbol match: True
+- 1st Edition remains manual: True
+
+Syntax:
+- node --check app-v76.js: PASS (run before packaging)
+
+Expected Horsea test:
+Horsea + OCR fragments such as 62/1 => local candidate Horsea #62 / Neo Genesis / total 111.
+
+PASS - v76 targeted number patch packaged.

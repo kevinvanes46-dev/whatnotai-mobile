@@ -6,6 +6,6 @@
   "display": "standalone",
   "background_color": "#030711",
   "theme_color": "#08111f",
-  "description": "CardScout v75: galerijfoto auto-crop op kaartranden, grotere collector-number OCR, set-symbool rescue, guided camera en handmatige 1st Edition.",
+  "description": "CardScout v76: gerichte collector-number patch voor gedeeltelijke nummers zoals 62/1, lokale naam+nummer reconciliatie, galerijfoto auto-crop, guided camera en handmatige 1st Edition.",
   "id": "./"
 }

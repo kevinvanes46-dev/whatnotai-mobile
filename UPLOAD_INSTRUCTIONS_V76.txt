@@ -1,0 +1,17 @@
+CardScout Mobile v76 NUMBER PATCH
+
+1. Upload ALLE bestanden uit deze ZIP naar de root van de GitHub repository.
+2. Overschrijf de bestaande bestanden.
+3. Commit direct naar main.
+4. Wacht tot GitHub Pages klaar is.
+5. Open:
+   https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=76
+
+Controle bovenaan:
+- v76 NUMBER PATCH
+- DB 253
+- BUILD 76
+
+Eerste regressietest:
+Horsea Neo Genesis 62/111. Ook als OCR slechts 62/1 leest, moet CardScout via de lokale naamkandidaten herstellen naar #62 / Neo Genesis.
+1st Edition blijft handmatig.

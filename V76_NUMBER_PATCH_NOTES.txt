@@ -1,0 +1,13 @@
+CardScout v76 NUMBER PATCH
+
+Doel: alleen de collector-number herkenning stabiliseren zonder de werkende foto-/zoekworkflow opnieuw te verbouwen.
+
+Patch:
+- Herkent gedeeltelijke OCR-breuken zoals 62/1 wanneer naamkandidaten lokaal bekend zijn.
+- Vereist een exacte numerator-match tegen een lokale kandidaat; losse getallen worden niet gegokt.
+- Herhaalde gedeeltelijke lezingen verhogen betrouwbaarheid.
+- Een door nummer+lokale database bevestigde kaart wint van een conflicterende set-symboolclassificatie.
+- Voor Horsea: 62/1 + Horsea => Horsea #62, Neo Genesis, totaal 111.
+- Fossil Horsea #49 blijft apart en wordt niet gekozen zonder bewijs voor 49/62.
+- Geen wijziging aan handmatige 1st Edition-logica.
+- Geen nieuwe Cardmarket-URL's toegevoegd of gegokt.
