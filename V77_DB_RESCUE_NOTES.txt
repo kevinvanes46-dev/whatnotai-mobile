@@ -1,0 +1,20 @@
+CardScout Mobile v77 DB RESCUE
+
+Doel
+- v76 OCR/scanbasis NIET veranderen.
+- OCR-fouten na de scan veilig corrigeren met geverifieerde lokale kaartdata.
+
+Nieuwe geverifieerde regressiekaarten
+- Pidgey #77/110 — EX Holon Phantoms — HP77
+- Jirachi #31/146 — Legends Awakened — LA31
+- Dunsparce #60/100 — EX Sandstorm — SS60
+- Remoraid #80/105 — Neo Destiny — NDE80
+- Cradily #7/108 — EX Power Keepers — PK7
+
+Rescue-regels
+1. Exact nummer/totaal dat lokaal uniek is mag naam + set herstellen.
+2. Naam + bekende set + 1 lokale kaart mag ontbrekend nummer herstellen.
+3. Een OCR-breuk met een onbekend set-totaal (bv. 4/7) wordt niet blind vertrouwd.
+4. Bij twijfel of meerdere kandidaten: niet gokken.
+5. Horsea v76-logica blijft intact.
+6. 1st Edition blijft handmatig.

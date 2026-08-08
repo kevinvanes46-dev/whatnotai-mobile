@@ -1,0 +1,34 @@
+CardScout Mobile v77 DB RESCUE - local audit
+
+Build markers
+- Version: v77
+- DB records: 258
+- Supported set labels: 35
+- Direct routes: 242
+- Search-only records: 16
+
+Core regressions preserved
+- Horsea #62/111 -> Neo Genesis local/direct route present
+- Bellsprout #49/64 -> Jungle logic unchanged
+- Tentacool #56/62 -> Fossil logic unchanged
+- 1st Edition remains manual
+
+New DB rescue cards
+- Pidgey #77/110 -> EX Holon Phantoms (HP77)
+- Jirachi #31/146 -> Legends Awakened (LA31)
+- Dunsparce #60/100 -> EX Sandstorm (SS60)
+- Remoraid #80/105 -> Neo Destiny (NDE80)
+- Cradily #7/108 -> EX Power Keepers (PK7)
+
+Safety logic
+- Exact number/total may restore name+set only when unique in local DB.
+- Unknown OCR denominator (example 4/7) cannot override a verified local name candidate.
+- Supported but conflicting denominators are not blindly overwritten.
+- Multiple candidates => no guessing.
+
+Technical checks
+- app-v77.js: node --check PASS
+- cards.json == embedded data: PASS
+- duplicate card keys: PASS
+- direct Cardmarket URL shape: PASS
+- build references index.html -> app-v77.js/style-v77.css: PASS

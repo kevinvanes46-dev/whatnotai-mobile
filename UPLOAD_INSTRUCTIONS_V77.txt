@@ -1,0 +1,23 @@
+CardScout Mobile v77 DB RESCUE
+
+1. Pak deze ZIP uit.
+2. Upload ALLE losse bestanden naar de root van de GitHub repository.
+3. Overschrijf bestaande bestanden.
+4. Commit naar main.
+5. Wacht op GitHub Pages.
+6. Open: https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=77
+
+Verwacht bovenaan:
+- v77 DB RESCUE
+- DB 258
+- BUILD 77
+
+Regressietest:
+- Horsea 62/111 -> Neo Genesis
+- Pidgey 77/110 -> EX Holon Phantoms
+- Jirachi 31/146 -> Legends Awakened
+- Dunsparce 60/100 -> EX Sandstorm
+- Remoraid 80/105 -> Neo Destiny
+- Cradily 7/108 -> EX Power Keepers
+- Bellsprout 49/64 -> Jungle
+- Tentacool 56/62 -> Fossil
