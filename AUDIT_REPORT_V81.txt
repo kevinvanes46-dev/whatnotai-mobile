@@ -1,0 +1,9 @@
+CardScout v81 focused scan audit
+- Based on v80 Mobile Core.
+- Full-card OCR removed from scan path.
+- Exactly two Tesseract recognition calls in normal scan path: name composite + number composite.
+- Set symbol is local pixel matching and cannot override a stronger number/database set.
+- Guided photos also attempt yellow-border normalization.
+- 1st Edition remains manual.
+- Smart Search and DP/POP catalog retained.
+- OCR worker prewarms during browser idle time to reduce first-scan wait.

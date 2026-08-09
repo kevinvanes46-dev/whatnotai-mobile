@@ -1,0 +1,11 @@
+CardScout Mobile v81 FOCUSED SCAN
+
+Upload ALLE losse bestanden uit deze ZIP naar de root van de GitHub repository.
+Commit naar main.
+Open daarna:
+https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=81
+
+Controle bovenaan:
+v81 FOCUSED SCAN
+BUILD 81
+SETS 51

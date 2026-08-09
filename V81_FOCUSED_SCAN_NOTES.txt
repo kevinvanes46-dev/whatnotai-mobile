@@ -1,0 +1,11 @@
+CardScout Mobile v81 FOCUSED SCAN
+
+Scanner bewust vereenvoudigd:
+1. OCR alleen naamstrook linksboven.
+2. OCR alleen collector number rechtsonder.
+3. Set-symbool alleen lokaal als tie-breaker.
+
+Geen full-card OCR fallback meer. Dat voorkomt 30-40 seconden scans en foutieve nummers uit attack-tekst.
+Camera- en galerijfoto's proberen eerst de gele kaartgrens te normaliseren.
+1st Edition blijft handmatig.
+Smart Search + DP/POP uit v80 blijven aanwezig.
