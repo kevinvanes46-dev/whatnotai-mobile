@@ -1,0 +1,64 @@
+CardScout Mobile v80 MOBILE CORE - local pre-release audit
+Date: 2026-08-09
+
+STATIC CORE
+PASS - app-v80.js JavaScript syntax (node --check)
+PASS - cards.json valid JSON
+PASS - manifest.json valid JSON
+PASS - 258 embedded stable card records
+PASS - 242 verified/direct Cardmarket routes retained
+PASS - 16 embedded safe-search records retained
+PASS - 51 set definitions
+PASS - 0 duplicate embedded card keys
+PASS - 0 duplicate HTML element IDs
+PASS - all local index references exist (app-v80.js, style-v80.css, manifest.json)
+PASS - unique v80 asset names / BUILD 80 references
+
+DP / POP CATALOG
+PASS - 17 catalog packs configured:
+  Diamond & Pearl, Mysterious Treasures, Secret Wonders, Great Encounters,
+  Majestic Dawn, Legends Awakened, Stormfront, DP Black Star Promos,
+  POP Series 1-9.
+PASS - imported cards are search-only; no guessed Cardmarket product URL is generated.
+PASS - catalog data is cached in localStorage after successful first load.
+PASS - background catalog load waits so it does not compete with first OCR startup.
+
+SET PARSER REGRESSION TESTS
+PASS - Base Set 2 no longer collapses to Base Set
+PASS - EX Dragon Frontiers no longer collapses to EX Dragon
+PASS - EX Team Rocket Returns no longer collapses to Team Rocket
+PASS - dp1 -> Diamond & Pearl
+PASS - dp6 -> Legends Awakened
+PASS - dpp -> DP Black Star Promos
+PASS - pop5 -> POP Series 5
+PASS - stormfront -> Stormfront
+
+SCAN / WORKFLOW
+PASS - v77 rescue logic retained as scan foundation
+PASS - OCR worker reuse/prewarm present
+PASS - easy-card collector fast path present
+PASS - difficult-card compatibility fallback retained
+PASS - successful scan calls makeLink automatically (no Enter required)
+PASS - scan-local Open Cardmarket button present
+PASS - scan duration is shown after every scan
+PASS - 1st Edition remains manual
+PASS - JP/EN and NM/EX/GD/PL preferences persist locally
+
+SMART SEARCH
+PASS - live max 3 results
+PASS - set/name/number order-independent parsing
+PASS - language tokens supported
+PASS - NM/GD/PL and full word 'excellent' can update condition when a Smart Search result is selected
+PASS - bare 'ex' remains available as a card-name suffix; use EX button or 'excellent' for condition
+PASS - longest set alias wins to avoid overlapping-set bugs
+
+LIVE DEVICE TESTS STILL REQUIRED AFTER DEPLOYMENT
+1. Horsea 62/111 -> Neo Genesis regression
+2. Bellsprout 49/64 -> Jungle
+3. Tentacool 56/62 -> Fossil
+4. Verify successful scan fills fields + Open Cardmarket without Enter
+5. Compare displayed scan time to v77
+6. Smart Search: horse 62
+7. Smart Search after DP+POP READY: pop5 mew / stormfront charizard / dpp turtwig dp01
+8. Reload page and verify language + condition preference remains
+9. Verify DP+POP badge reaches READY on first online load and remains immediate from cache afterward

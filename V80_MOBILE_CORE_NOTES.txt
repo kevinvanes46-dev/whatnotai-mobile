@@ -1,0 +1,30 @@
+CardScout Mobile v80 MOBILE CORE
+
+Major milestone:
+- v77 scan logic kept as stable base
+- Fast OCR path: easy cards skip expensive fallback passes
+- OCR worker prewarms after photo load
+- Successful scan auto-fills name/number/set and builds Cardmarket route (no Enter)
+- Open Cardmarket button appears directly under scan result
+- Smart Search: order-independent, live top 3 matches, tap to build route
+- JP/EN + condition preferences are remembered locally
+- Diamond & Pearl main series + DP Black Star Promos + POP Series 1-9 set support added
+- Complete DP/POP English card metadata loads from the open PokemonTCG/pokemon-tcg-data GitHub dataset and is cached locally after first load
+- Imported DP/POP cards use safe Cardmarket search routes; no product URL is guessed
+- 1st Edition remains manual
+
+Stable regression cards to test:
+Horsea 62/111 Neo Genesis
+Bellsprout 49/64 Jungle
+Tentacool 56/62 Fossil
+Pidgey 77/110 EX Holon Phantoms
+Jirachi 31/146 Legends Awakened
+Dunsparce 60/100 EX Sandstorm
+Remoraid 80/105 Neo Destiny
+Cradily 7/108 EX Power Keepers
+
+Extra hardening:
+- Longest set alias wins (fixes Base Set 2 / EX Dragon Frontiers collisions)
+- DP Black Star Promos included as separate DPP catalog pack
+- Scan time is shown after every scan
+- DP/POP background download waits so it does not compete with first OCR startup

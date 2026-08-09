@@ -1,0 +1,9 @@
+CARDScout v80 upload
+1. Unzip this file.
+2. GitHub > whatnotai-mobile > Add file > Upload files.
+3. Upload the loose files from this folder to repository root.
+4. Commit directly to main.
+5. Wait for GitHub Pages deployment.
+6. Open: https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=80
+Expected header: v80 MOBILE CORE / BUILD 80 / SETS 51.
+DP+POP changes to READY after the static catalog pack loads or immediately when cached.
