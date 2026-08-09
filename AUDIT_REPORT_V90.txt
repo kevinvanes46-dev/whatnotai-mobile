@@ -1,0 +1,27 @@
+CardScout v90 VISUAL ENGINE internal audit
+
+JS syntax: PASS
+Primary scanner direct OCR calls: PASS (0)
+Visual seed references: 20
+Official TCGdex references configured: 251
+Independent visual holdout tests: 12/12 PASS
+
+PASS Horsea: top=en|neo genesis|62|horsea d=0.017 margin=0.199
+PASS Shroomish: top=en|ex ruby sapphire|69|shroomish d=0.087 margin=0.133
+PASS Cradily: top=en|ex power keepers|7|cradily d=0.091 margin=0.197
+PASS Poochyena: top=en|ex ruby sapphire|65|poochyena d=0.108 margin=0.134
+PASS Pidgey: top=en|ex holon phantoms|77|pidgey d=0.128 margin=0.104
+PASS Jirachi: top=en|legends awakened|31|jirachi d=0.127 margin=0.229
+PASS Dunsparce: top=en|ex sandstorm|60|dunsparce d=0.118 margin=0.098
+PASS Tentacool: top=en|fossil|56|tentacool d=0.000 margin=0.260
+PASS Energy Search: top=en|fossil|59|energy search d=0.000 margin=0.254
+PASS Slowpoke: top=en|fossil|55|slowpoke d=0.000 margin=0.345
+PASS Bagon Delta Species: top=en|ex dragon frontiers|43|bagon delta species d=0.000 margin=0.251
+PASS Chikorita: top=en|neo genesis|53|chikorita d=0.000 margin=0.234
+
+Architecture:
+- Visual fingerprint matching is primary.
+- Official TCGdex reference images are fingerprinted in the browser and cached locally.
+- OCR remains a secondary fallback only if no visual candidate exists.
+- Low-confidence visual results are never auto-filled; top candidates are shown instead.
+- First Edition remains manual.

@@ -1,0 +1,9 @@
+v90 VISUAL ENGINE
+- New primary scanner: whole-card visual fingerprint matching (pHash + dHash + aHash + chroma grid).
+- No full-card OCR in primary path.
+- 19 immediate regression card profiles, stored as fingerprints only.
+- 260+ official TCGdex image references configured for background local indexing/caching.
+- Visual strong matches auto-fill name + number + set and prepare Cardmarket.
+- Ambiguous matches show max 3 candidates; no guessing.
+- Existing focused OCR kept only as a secondary fallback for cards not yet visually indexed.
+- First Edition remains manual.

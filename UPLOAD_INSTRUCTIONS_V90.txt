@@ -1,0 +1,11 @@
+CardScout Mobile v90 VISUAL ENGINE
+
+1. Pak deze ZIP uit.
+2. Upload ALLE losse bestanden naar de root van GitHub en overschrijf bestaande bestanden.
+3. Commit naar main.
+4. Open:
+https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=90
+
+Controle bovenaan: v90 VISUAL ENGINE · BUILD 90
+
+De eerste keer bouwt CardScout op de achtergrond een lokale visuele referentie-index uit officiële TCGdex kaartafbeeldingen. Bekende regressiekaarten hebben direct ingebouwde beeld-fingerprints; de foto's zelf worden NIET meegeleverd.
