@@ -1,0 +1,33 @@
+CardScout Mobile v85 STABLE SCAN - internal regression audit
+Date: 2026-08-09
+
+STATIC CHECKS
+PASS - app-v85.js syntax (node --check)
+PASS - no full-card OCR inside scanCurrentPhoto
+PASS - normal scan path uses 2 small OCR calls (top + bottom)
+PASS - hard-card fallbacks stay limited to top/bottom zones only
+PASS - 261 embedded card records / 245 direct routes / 51 sets
+PASS - 1st Edition remains manual
+
+SCREENSHOT OCR REGRESSION HARNESS
+Test basis: card areas extracted from the user's supplied iPhone screenshots, then OCR'd only in the same top/bottom regions used by v85.
+
+PASS - Cradily: name recognized; collector evidence 7/108
+PASS - Shroomish: name recognized; collector evidence 69/109
+PASS - Dunsparce: name recognized; collector evidence 60/100
+PASS - Pidgey: name recognized; collector evidence 77/110
+PASS - Jirachi: name recognized; denominator evidence 146 -> local Legends Awakened #31 reconcile
+PASS - Bellsprout: name recognized; collector digits resolve 49/64
+PASS - Remoraid: name recognized; collector digits resolve 80/105
+PASS - Tentacool: name recognized; collector digits resolve 56/62
+PASS - Horsea: name recognized; scoped set-symbol comparison prefers Neo Genesis over Fossil; local DB resolves #62/111
+
+HORSEA SYMBOL CHECK
+Neo Genesis score: 0.5655
+Fossil score:      0.4557
+Margin:            0.1098
+v85 scoped threshold: 0.54 with >=0.08 margin
+Expected result: Neo Genesis -> Horsea #62/111
+
+IMPORTANT
+This is an internal regression test against the supplied screenshots and local OCR tooling. Actual iPhone Safari camera input can still differ in focus, glare and resolution, but v85 was not released solely from one Horsea test: the regression set above was checked first.

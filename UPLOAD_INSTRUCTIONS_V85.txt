@@ -1,0 +1,8 @@
+CardScout Mobile v85 STABLE SCAN
+
+1. Upload alle losse bestanden naar de root van de GitHub repository.
+2. Overschrijf bestaande index/app/style/cards/manifest/sw bestanden.
+3. Commit naar main.
+4. Open: https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=85
+
+Controle: v85 STABLE SCAN / DB 261 / BUILD 85

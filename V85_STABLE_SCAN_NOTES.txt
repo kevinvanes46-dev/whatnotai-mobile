@@ -1,0 +1,11 @@
+CardScout Mobile v85 STABLE SCAN
+
+Doel: regressies stoppen.
+- v81 UI/Smart Search/DP+POP behouden.
+- Geen full-card OCR.
+- Naam: alleen top/header.
+- Nummer: brede onderrand + collector-corner + adaptive threshold in 1 OCR-call.
+- Maximaal 1 kleine naam- en/of nummerfallback bij moeilijke kaarten.
+- Database reconcile corrigeert OCR, maar gokt geen set.
+- 1st Edition blijft handmatig.
+- Shroomish RS69, Bellsprout JU49 en Tentacool FO56 toegevoegd als geverifieerde lokale records.
