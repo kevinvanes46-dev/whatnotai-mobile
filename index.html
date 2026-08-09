@@ -10,8 +10,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="CardScout" />
   <title>CardScout · TCG Helper</title>
-  <link rel="stylesheet" href="style-v90.css?build=90" />
-  <link rel="manifest" href="manifest.json?build=90" />
+  <link rel="stylesheet" href="style-v77.css?build=77" />
+  <link rel="manifest" href="manifest.json?build=76" />
 </head>
 <body>
   <div class="tcgBg" aria-hidden="true"><span class="tcgCardShape a"></span><span class="tcgCardShape b"></span><span class="tcgCardShape c"></span><span class="tcgCardShape d"></span></div>
@@ -58,16 +58,16 @@
       </div>
       <div class="brandText">
         <h1>CardScout</h1>
-        <p>TCG price scout · v90 VISUAL ENGINE</p>
+        <p>TCG price scout · v77 DB RESCUE</p>
       </div>
-      <div class="headerBadges"><span class="dbPill" id="dbBadge">DB 262+</span><span class="dbPill" id="setBadge">SETS 51</span><span class="dbPill" id="catalogBadge">DP+POP</span><span class="dbPill">BUILD 90</span><span class="pill">FREE</span></div>
+      <div class="headerBadges"><span class="dbPill">DB 258</span><span class="dbPill">BUILD 77</span><span class="pill">FREE</span></div>
     </header>
 
 
     <section class="card photoPanel" id="photoPanel">
       <div class="photoHeader">
         <div>
-          <span class="betaTag">SMART SCAN · BETA</span>
+          <span class="betaTag">NIEUW · BETA</span>
           <h2>Kaartfoto gebruiken</h2>
           <p>Maak een scherpe foto of kies een bestaande foto. De volledige foto blijft lokaal op je telefoon.</p>
         </div>
@@ -98,7 +98,7 @@
       </div>
 
       <div class="ocrLab" id="ocrLab">
-        <button type="button" class="scanPhotoBtn" id="scanPhotoBtn" disabled>⚡ Scan kaart</button>
+        <button type="button" class="scanPhotoBtn" id="scanPhotoBtn" disabled>⚡ Scan kaart (beta)</button>
         <div class="ocrProgress" id="ocrProgress" hidden>
           <div class="ocrProgressBar"><span id="ocrProgressFill"></span></div>
           <small id="ocrProgressText">Scanner voorbereiden…</small>
@@ -111,7 +111,6 @@
             <button type="button" class="choiceBtn editionFirstBtn" aria-pressed="false" data-value="1ST">1ST EDITION</button>
           </div>
         </div>
-        <a id="scanOpenBtn" class="scanOpenCm" href="#" target="_blank" rel="noopener" hidden>Open Cardmarket →</a>
       </div>
 
       <div class="photoTips" id="photoTips">
@@ -125,7 +124,7 @@
       <button type="button" class="continuePhotoBtn" id="continuePhotoBtn" disabled>
         Vul kaartgegevens in ↓
       </button>
-      <p class="photoBetaNote">VISUAL SCAN: plaats de kaart binnen het camerakader. CardScout focust op naam, kaartnummer en vooral de juiste set. 1st Edition kies je zelf. Bij twijfel krijg je setkeuzes met één tik.</p>
+      <p class="photoBetaNote">SMART SCAN: plaats de kaart binnen het camerakader. CardScout focust op naam, kaartnummer en vooral de juiste set. 1st Edition kies je zelf. Bij twijfel krijg je setkeuzes met één tik.</p>
     </section>
 
     <section class="card quickPanel" id="quickPanel">
@@ -134,12 +133,10 @@
         <input id="quickInput" class="quick" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="bijv. 12 vaporeon jungle nm" />
         <button id="quickGo" class="quickGo" type="button" title="Maak link">↵</button>
       </div>
-      <div id="smartResults" class="smartResults" hidden aria-live="polite"></div>
-      <div class="smartHint"><b>Smart Search</b> · volgorde maakt niet uit · probeer <code>horse 62</code>, <code>pop5 mew</code> of <code>stormfront charizard</code>.</div>
       <div class="searchFormula" aria-label="Zoekvolgorde">
-        <span class="formulaLabel">Smart input</span>
-        <strong>naam</strong><i>·</i><strong>nummer</strong><i>·</i><strong>set</strong><i>·</i><strong>staat</strong>
-        <code>volgorde vrij</code>
+        <span class="formulaLabel">Typvolgorde</span>
+        <strong>nummer</strong><i>+</i><strong>naam</strong><i>+</i><strong>set</strong><i>+</i><strong>staat</strong>
+        <code>12 vaporeon jungle nm</code>
       </div>
       <div class="quickHelp">
         <b>Shortcuts</b>
@@ -214,23 +211,6 @@
         <option>EX DRAGON FRONTIERS</option>
         <option>EX POWER KEEPERS</option>
         <option>EX TRAINER KIT 2</option>
-        <option>DIAMOND PEARL</option>
-        <option>MYSTERIOUS TREASURES</option>
-        <option>SECRET WONDERS</option>
-        <option>GREAT ENCOUNTERS</option>
-        <option>MAJESTIC DAWN</option>
-        <option>LEGENDS AWAKENED</option>
-        <option>STORMFRONT</option>
-        <option>DP BLACK STAR PROMOS</option>
-        <option>POP SERIES 1</option>
-        <option>POP SERIES 2</option>
-        <option>POP SERIES 3</option>
-        <option>POP SERIES 4</option>
-        <option>POP SERIES 5</option>
-        <option>POP SERIES 6</option>
-        <option>POP SERIES 7</option>
-        <option>POP SERIES 8</option>
-        <option>POP SERIES 9</option>
       </select>
       <select id="langSelect" class="hiddenSelect" aria-hidden="true">
         <option>JP</option>
@@ -308,9 +288,9 @@
     </section>
 
     <section class="note">
-      Scan vult naam, nummer en set automatisch in en zet Cardmarket klaar. Smart Search toont maximaal 3 matches terwijl je typt. Foto’s blijven lokaal; alleen de gratis DP/POP-kaartcatalogus wordt één keer als statische data geladen en lokaal gecachet.
+      Enter maakt en kopieert alleen een link. Open Cardmarket pas wanneer nodig, zodat je minder snel rate-limits krijgt.
     </section>
   </main>
-  <script src="app-v90.js?build=90"></script>
+  <script src="app-v77.js?build=77"></script>
 </body>
 </html>
