@@ -1,0 +1,13 @@
+CardScout v86 REGRESSION LOCK internal audit
+
+JS syntax: PASS
+Stable records: 262
+Direct routes: 246
+
+PASS  Poochyena name-only: Poochyena #65 EX RUBY SAPPHIRE
+PASS  Cradily name-only: Cradily #7 EX POWER KEEPERS
+PASS  Shroomish collector: Shroomish #69 EX RUBY SAPPHIRE
+PASS  Dunsparce collector: Dunsparce #60 EX SANDSTORM
+PASS  Horsea collector: Horsea #62 NEO GENESIS
+PASS  Bellsprout collector: Bellsprout #49 JUNGLE
+PASS  Tentacool collector: Tentacool #56 FOSSIL

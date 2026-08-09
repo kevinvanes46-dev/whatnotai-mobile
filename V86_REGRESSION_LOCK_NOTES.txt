@@ -1,0 +1,7 @@
+v86 REGRESSION LOCK
+- v85 speed path retained; no whole-card OCR.
+- Name OCR changed to a tight colour-preserving top-left line; one narrow fallback only.
+- Exact collector rescue now checks the frozen embedded scan DB before the dynamic catalog.
+- Unique verified embedded name may recover number+set when collector OCR is missing.
+- Added verified Poochyena RS65 (EX Ruby & Sapphire) to scan DB.
+- 1st Edition remains manual.

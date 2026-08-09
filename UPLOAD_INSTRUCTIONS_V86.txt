@@ -1,0 +1,7 @@
+CardScout Mobile v86 REGRESSION LOCK
+
+Upload ALLE bestanden uit deze map naar de root van de GitHub repository en overschrijf de bestaande bestanden.
+Open daarna:
+https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=86
+
+Controle bovenaan: v86 REGRESSION LOCK · DB 262+ · BUILD 86
