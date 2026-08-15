@@ -1,0 +1,45 @@
+CardScout v100 CORE3 STABLE — scanner audit
+
+GOAL
+Only identify: 1) card name, 2) collector/card number, 3) set.
+No attack text, rules text, HP/body OCR, price OCR or automatic 1st Edition OCR.
+
+ROOT CAUSE FOUND
+- v77 preserved the coordinate system of guided camera photos. A live camera photo was already cropped by guideSourceRect().
+- v81 changed makeOcrCanvas() so yellow-card auto-crop was also applied to guided camera photos. That silently changed the zoom/coordinate system. Fixed percentage ROIs for name/number then moved relative to the card.
+- Later versions repeatedly changed loadPhotoFile / makeOcrCanvas / scanCurrentPhoto / name crops. This created regressions where fixing one era broke another.
+- v77 accuracy was better but slow because it could OCR: name ROI + header ROI + enhanced top ROI + entire card fallback + many collector-number passes + broad bottom fallback. This also read attack/body text, which is unnecessary.
+- v90 visual fingerprinting was not a production-grade visual model and was correctly rejected.
+
+V100 DECISION
+- Camera capture + makeOcrCanvas are frozen from v77.
+- Guided camera coordinates stay exactly as v77. Yellow-border auto-crop is used only for gallery photos, exactly as in v77.
+- Exactly two OCR recognize() calls in scanCurrentPhoto():
+  A. v77 top/title ROIs batched into one composite image
+  B. v77 bottom collector-number ROIs batched into one composite image
+- Each OCR call receives a composite of multiple preprocessing variants of that SAME legal ROI. This improves robustness without OCR-ing attacks/body text.
+- Exact database reconciliation is stronger than fuzzy OCR.
+- Set total (e.g. /111) is used to scope the set. Set-symbol matching is only a tie-breaker and may never override an exact name+collector DB match.
+- No name-only guess is allowed to invent set/number.
+
+DEBUG
+- Every incomplete scan is automatically stored locally in localStorage.
+- The log contains build, timestamp, source, scan time, only name/number OCR snippets, parsed fields, reason, and a small thumbnail.
+- UI button 'Download foutlog' exports cardscout-failed-scans-YYYY-MM-DD.json.
+- 'Foute scan opslaan' lets a user record a scan that looked successful but was wrong.
+- Max 40 entries are retained to stay within browser storage limits.
+
+INTERNAL REGRESSION DATASET
+Known test photos/crops used during development include Horsea 62/111, Bellsprout 49/64, Tentacool 56/62, Dunsparce 60/100, Shroomish 69/109, Cradily 7/108, Poochyena 65/109, Pidgey 77/110, Nincada 67/97, Jirachi 31/146 plus older Beldum/Metang/Chikorita/Shellder/Slowpoke/Dark Vileplume captures.
+
+RESEARCH REFERENCES
+- Tesseract official ImproveQuality: use appropriate PSM for small regions, adequate scaling/borders.
+  https://tesseract-ocr.github.io/tessdoc/ImproveQuality.html
+- Tesseract.js API: rectangle OCR, setParameters, whitelist; recommends sufficient resolution/upscaling.
+  https://github.com/naptha/tesseract.js/blob/master/docs/api.md
+- OpenCV scanner pattern: contour detection + perspective normalization.
+  https://docs.opencv.org/
+- NolanAmblard/Pokemon-Card-Scanner: normalize card perspective before recognition.
+  https://github.com/NolanAmblard/Pokemon-Card-Scanner
+- ShreyShingala/Pokemon-Card-Scanning-Webapp: card detection + visual matching + OCR sanity checks.
+  https://github.com/ShreyShingala/Pokemon-Card-Scanning-Webapp

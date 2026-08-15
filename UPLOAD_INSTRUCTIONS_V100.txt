@@ -1,0 +1,9 @@
+CardScout v100 CORE3 STABLE
+
+Upload ALL files in this folder/ZIP to the ROOT of the GitHub repository and overwrite the old files.
+Do not upload the ZIP itself. Commit directly to main.
+
+Open after deployment:
+https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=100
+
+Expected header: v100 CORE3 STABLE / BUILD 100.

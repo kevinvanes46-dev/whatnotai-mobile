@@ -10,8 +10,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="CardScout" />
   <title>CardScout · TCG Helper</title>
-  <link rel="stylesheet" href="style-v77.css?build=77" />
-  <link rel="manifest" href="manifest.json?build=76" />
+  <link rel="stylesheet" href="style-v100.css?build=100" />
+  <link rel="manifest" href="manifest.json?build=100" />
 </head>
 <body>
   <div class="tcgBg" aria-hidden="true"><span class="tcgCardShape a"></span><span class="tcgCardShape b"></span><span class="tcgCardShape c"></span><span class="tcgCardShape d"></span></div>
@@ -58,9 +58,9 @@
       </div>
       <div class="brandText">
         <h1>CardScout</h1>
-        <p>TCG price scout · v77 DB RESCUE</p>
+        <p>TCG price scout · v100 CORE3 STABLE</p>
       </div>
-      <div class="headerBadges"><span class="dbPill">DB 258</span><span class="dbPill">BUILD 77</span><span class="pill">FREE</span></div>
+      <div class="headerBadges"><span class="dbPill">DB 263</span><span class="dbPill">BUILD 100</span><span class="pill">FREE</span></div>
     </header>
 
 
@@ -98,7 +98,7 @@
       </div>
 
       <div class="ocrLab" id="ocrLab">
-        <button type="button" class="scanPhotoBtn" id="scanPhotoBtn" disabled>⚡ Scan kaart (beta)</button>
+        <button type="button" class="scanPhotoBtn" id="scanPhotoBtn" disabled>⚡ Scan kaart</button>
         <div class="ocrProgress" id="ocrProgress" hidden>
           <div class="ocrProgressBar"><span id="ocrProgressFill"></span></div>
           <small id="ocrProgressText">Scanner voorbereiden…</small>
@@ -124,7 +124,15 @@
       <button type="button" class="continuePhotoBtn" id="continuePhotoBtn" disabled>
         Vul kaartgegevens in ↓
       </button>
-      <p class="photoBetaNote">SMART SCAN: plaats de kaart binnen het camerakader. CardScout focust op naam, kaartnummer en vooral de juiste set. 1st Edition kies je zelf. Bij twijfel krijg je setkeuzes met één tik.</p>
+      <p class="photoBetaNote">CORE3 SCAN: CardScout leest alleen de kaartnaam, het kaartnummer en bepaalt de set. Aanvallen en overige kaarttekst worden niet gescand.</p>
+      <details class="debugPanel" id="debugPanel">
+        <summary>Scanner debug <span class="debugCount"><b id="debugFailCount">0</b> fouten</span></summary>
+        <p>Mislukte/onzekere scans worden alleen lokaal op dit toestel bewaard. Download het JSON-bestand om fouten later te analyseren.</p>
+        <div class="debugActions">
+          <button type="button" id="debugDownloadBtn">Download foutlog</button>
+          <button type="button" id="debugClearBtn">Wis foutlog</button>
+        </div>
+      </details>
     </section>
 
     <section class="card quickPanel" id="quickPanel">
@@ -291,6 +299,6 @@
       Enter maakt en kopieert alleen een link. Open Cardmarket pas wanneer nodig, zodat je minder snel rate-limits krijgt.
     </section>
   </main>
-  <script src="app-v77.js?build=77"></script>
+  <script src="app-v100.js?build=100"></script>
 </body>
 </html>

@@ -1,0 +1,39 @@
+CardScout v100 CORE3 STABLE — internal regression evidence
+Date: 2026-08-09
+
+Scope
+The scanner is intentionally limited to THREE outputs only:
+1. card name
+2. collector/card number
+3. set
+No attack text, rules text, HP/body OCR, price OCR, or automatic 1st Edition OCR.
+
+Architecture checks
+PASS - guided camera geometry restored to v77 behavior
+PASS - yellow-border auto-crop is NOT applied to guided camera captures
+PASS - gallery-only yellow-border auto-crop retained
+PASS - exactly 2 Tesseract worker.recognize() calls in the entire app
+PASS - no full-card OCR call
+PASS - top OCR composite contains title/header area only
+PASS - bottom OCR composite contains collector/set-number strip only
+PASS - exact local DB evidence outranks fuzzy OCR/set-symbol guesses
+PASS - JavaScript syntax check (node --check)
+PASS - failed/incomplete scans are recorded locally and exportable as JSON
+
+Known regression cards exercised during development
+Horsea 62/111 — strong evidence for name + 62/111; DB => Neo Genesis
+Bellsprout 49/64 — strong evidence for name + 49/64; DB => Jungle
+Tentacool 56/62 — strong evidence for name + 56/62; DB => Fossil
+Dunsparce 60/100 — strong evidence for name + 60/100; DB => EX Sandstorm
+Shroomish 69/109 — OCR can lose leading letters, but 69/109 + DB rescue identifies the supported card
+Cradily 7/108 — strong evidence for name + 7/108; DB => EX Power Keepers
+Poochyena 65/109 — strong evidence for name + 65/109; DB => EX Ruby & Sapphire
+Pidgey 77/110 — name can be weak, but exact supported collector number can rescue the card
+Nincada 67/97 — strong evidence for name + 67/97; DB => EX Dragon
+Jirachi 31/146 — hardest old low-resolution screenshot; title/number OCR is less reliable. v100 includes title-edge fuzzy rescue + DB/set-total reconciliation, but this screenshot is NOT claimed as a guaranteed pass.
+
+Older coverage used as sanity checks during earlier scanner work
+Beldum, Metang, Chikorita, Shellder, Slowpoke, Energy Search, Dark Vileplume.
+
+Important limitation
+The archived chat screenshots are lower resolution than the original iPhone camera photos. A result that is marginal on an old screenshot can be materially better on the original capture. The release therefore does not claim 100% recognition on every Pokemon printing. It does guarantee that the scanner no longer reads unrelated attack/body text and that failed cases are captured in a structured debug export instead of being silently guessed.

@@ -1,0 +1,32 @@
+CardScout scanner function regression matrix
+
+Same hash = function body unchanged between versions.
+
+loadPhotoFile
+  v76:06f27a83  v77:06f27a83  v80:06f27a83  v81:06f27a83  v85:06f27a83  v86:06f27a83  v90:06f27a83
+guideSourceRect
+  v76:462860b1  v77:462860b1  v80:462860b1  v81:462860b1  v85:462860b1  v86:462860b1  v90:462860b1
+captureGuidedPhoto
+  v76:d9551629  v77:d9551629  v80:d9551629  v81:d9551629  v85:d9551629  v86:d9551629  v90:d9551629
+detectYellowCardBounds
+  v76:226c188e  v77:226c188e  v80:226c188e  v81:226c188e  v85:226c188e  v86:226c188e  v90:226c188e
+makeOcrCanvas
+  v76:d2a1ef63  v77:d2a1ef63  v80:d2a1ef63  v81:39e1ce59  v85:e6d4a77e  v86:e6d4a77e  v90:e6d4a77e
+makeEnhancedCrop
+  v76:c4155a3e  v77:c4155a3e  v80:c4155a3e  v81:c4155a3e  v85:c4155a3e  v86:c4155a3e  v90:c4155a3e
+findPokemonName
+  v76:84ed21e3  v77:84ed21e3  v80:84ed21e3  v81:84ed21e3  v85:db7fe9e5  v86:db7fe9e5  v90:db7fe9e5
+extractCollectorNumberLoose
+  v76:192067df  v77:c49b3f5a  v80:c49b3f5a  v81:c49b3f5a  v85:c49b3f5a  v86:c49b3f5a  v90:c49b3f5a
+scanCollectorEvidence
+  v76:9c44e092  v77:9c44e092  v80:977fe31a  v81:977fe31a  v85:977fe31a  v86:977fe31a  v90:977fe31a
+detectSetSymbolLocal
+  v76:c3ce0341  v77:c3ce0341  v80:c3ce0341  v81:c3ce0341  v85:153d632f  v86:153d632f  v90:153d632f
+scanCurrentPhoto
+  v76:d4d70b66  v77:b77d049a  v80:0f7f1e68  v81:0101a135  v85:a9808ddf  v86:4b86db09  v90:ca0cb052
+
+Key finding:
+- v76 and v77 preserve the same loadPhotoFile/makeOcrCanvas camera geometry.
+- v81 changes makeOcrCanvas to call detectYellowCardBounds for guided camera photos too, crop the canvas, and return a new zoomed coordinate system.
+- scanCurrentPhoto changed in every major build after v76, so multiple independent OCR/layout changes were being mixed together.
+- v100 freezes v77 camera geometry and replaces only the OCR orchestration with two legal ROI calls.
