@@ -1,0 +1,6 @@
+UPLOAD ALL ROOT FILES TO GITHUB
+1. Open kevinvanes46-dev/whatnotai-mobile
+2. Upload every file from this package to repository root
+3. Replace existing files and commit to main
+4. Open: https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=130#scan
+Expected scanner: VISION CORE v130

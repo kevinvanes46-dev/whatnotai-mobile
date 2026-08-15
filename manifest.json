@@ -1,11 +1,11 @@
 {
   "name": "CardScout",
   "short_name": "CardScout",
-  "start_url": "./?build=110#scan",
+  "start_url": "./?build=120#scan",
   "scope": "./",
   "display": "standalone",
   "background_color": "#050912",
   "theme_color": "#07111e",
-  "description": "CardScout mobile TCG scout. Scan, search and open verified Cardmarket routes with the locked CORE3 scanner.",
+  "description": "CardScout mobile Pokémon TCG scout. Scan a card, match it locally and open the correct Cardmarket route.",
   "id": "./"
 }

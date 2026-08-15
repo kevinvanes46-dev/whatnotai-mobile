@@ -1,0 +1,13 @@
+CardScout v130 — VISION CORE
+
+Architecture:
+1. Detect actual yellow card frame / quad
+2. Perspective-normalize internally (camera UI is untouched)
+3. Visual fingerprint matching against regression seeds + TCGdex references
+4. OCR only as fallback
+5. A recognized title is only accepted with visual corroboration or collector evidence
+6. Collector OCR is used when the visual match is not decisive
+7. Set-symbol guessing is not used by the v130 scan path
+8. Debug JSON stores normalization method, visual top-3, stage timings and OCR call count
+
+Regression additions from 2026-08-15 debug: Beldum, Metang, Bagon 43/101, Oddish 63/82, Dark Vileplume 30/82.

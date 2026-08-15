@@ -1,0 +1,33 @@
+CardScout v130 VISION CORE — QA
+
+STATIC
+- app-v130.js syntax: PASS
+- ui-v120.js syntax: PASS
+- duplicate HTML ids: 0
+- primary scan path uses visual matching before OCR: PASS
+- set-symbol guessing in v130 scan path: 0 calls
+- OCR recognize calls available in fallback: max 2
+- debug fields: normalization method, quad, visual top-3, reference count, OCR calls, timings
+- cards.json: 265 exact catalog entries
+- visual catalog: 253 TCGdex reference URLs
+- visual regression profiles: 56 (20 prior + 36 current normalized/augmented)
+
+2026-08-15 DEBUG REGRESSIONS
+- Beldum EX Trainer Kit 2 #1
+- Metang EX Trainer Kit 2 #5
+- Bagon EX Dragon Frontiers #43
+- Oddish Team Rocket #63
+- Dark Vileplume Team Rocket #30
+
+VISION HOLDOUT
+40 randomized transformations across the five current failed-card identities:
+rotation, brightness, darkness, scale and projective perturbation.
+Top-1 identity: 40/40 PASS.
+
+Safety changes
+- No name-only exact-card acceptance merely because the local DB has one result.
+- No set-symbol-only set assignment in the v130 scanner.
+- Weak visual evidence falls through to normalized OCR instead of inventing a card.
+- First Edition remains manual.
+
+Note: This QA validates the code and regression images available in this development session. It cannot guarantee every Pokemon printing or every future camera condition. New failures are captured by the expanded debug log for targeted regression tests.

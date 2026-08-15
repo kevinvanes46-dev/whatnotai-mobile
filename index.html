@@ -10,13 +10,14 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="CardScout" />
-  <title>CardScout · TCG Scout</title>
-  <link rel="stylesheet" href="style-v110.css?build=110" />
-  <link rel="manifest" href="manifest.json?build=110" />
+  <title>CardScout · Scan. Match. Check.</title>
+  <link rel="stylesheet" href="style-v120.css?build=130" />
+  <link rel="manifest" href="manifest.json?build=120" />
 </head>
 <body>
   <div class="ambient" aria-hidden="true"><span></span><span></span></div>
 
+  <!-- v130 Vision Core camera DOM. UI stays compatible with the stable v120 shell. -->
   <div class="cameraShell" id="cameraShell" hidden aria-hidden="true">
     <div class="cameraTopbar">
       <button type="button" id="cameraCancelBtn" class="cameraTextBtn">Annuleren</button>
@@ -37,8 +38,8 @@
 
   <main class="appShell">
     <header class="topbar">
-      <div class="brandCluster">
-        <div class="brandMark" aria-hidden="true">
+      <button type="button" class="brandCluster" id="brandHomeBtn" aria-label="Ga naar scanner">
+        <span class="brandMark" aria-hidden="true">
           <svg class="brandIcon" viewBox="0 0 96 96">
             <defs>
               <linearGradient id="boltGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff36b"/><stop offset="55%" stop-color="#ffcc2e"/><stop offset="100%" stop-color="#ff8a00"/></linearGradient>
@@ -47,42 +48,63 @@
             <rect x="18" y="10" width="60" height="76" rx="15" fill="url(#cardGrad)" stroke="#5c7dab" stroke-width="3"/>
             <path d="M52 9 28 52h19l-7 35 29-48H50l2-30Z" fill="url(#boltGrad)" stroke="#fff4a2" stroke-width="2" stroke-linejoin="round"/>
           </svg>
-        </div>
-        <div class="brandText"><h1>CardScout</h1><p>Scan. Match. Check.</p></div>
-      </div>
+        </span>
+        <span class="brandText"><strong>CardScout</strong><small>Pokémon TCG scout</small></span>
+      </button>
       <div id="status" class="status statusChip" role="status" aria-live="polite">Klaar</div>
     </header>
 
     <div class="tabViewport">
+      <!-- SCAN -->
       <section class="tabView active" data-view="scan" aria-labelledby="navScan">
-        <div class="screenIntro"><div><span class="eyebrow">Scanner</span><h2>Scan je kaart</h2><p>Foto erin, kaart eruit. Geen onnodige stappen.</p></div><span class="coreBadge">CORE3</span></div>
+        <div class="scanHero">
+          <div><span class="eyebrow">Scanner</span><h1>Scan een kaart</h1><p>Maak een foto. CardScout doet de rest automatisch.</p></div>
+          <button type="button" class="prefsPill" id="scanPrefsBtn" aria-label="Open zoekvoorkeuren"><span id="scanPrefsText">EN · NM</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+        </div>
 
-        <section class="surface scanSurface" id="photoPanel">
-          <div class="photoActions">
-            <button type="button" class="photoPrimary" id="takePhotoBtn"><span class="btnIcon">📷</span><span><b>Maak foto</b><small>Camera</small></span></button>
-            <button type="button" class="photoSecondary" id="choosePhotoBtn"><span class="btnIcon">🖼️</span><span><b>Kies foto</b><small>Bibliotheek</small></span></button>
+        <section class="scanWorkspace" id="photoPanel">
+          <div class="captureBar">
+            <button type="button" class="captureMain" id="takePhotoBtn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h3l1.2-2h5.6L16 7h3a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"/><circle cx="12" cy="13" r="4"/></svg>
+              <span><b>Scan met camera</b><small>Automatisch herkennen</small></span>
+            </button>
+            <button type="button" class="captureLibrary" id="choosePhotoBtn" aria-label="Kies foto uit bibliotheek">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m5 18 5-5 3 3 2-2 4 4"/></svg>
+              <span>Foto</span>
+            </button>
           </div>
           <input type="file" id="cameraInput" accept="image/*" capture="environment" hidden />
           <input type="file" id="galleryInput" accept="image/*" hidden />
 
           <div class="photoStage empty" id="photoStage">
-            <div class="photoPlaceholder" id="photoPlaceholder"><span class="photoPlaceholderIcon">▣</span><b>Klaar om te scannen</b><small>Plaats één kaart volledig in beeld.</small></div>
+            <div class="photoPlaceholder" id="photoPlaceholder">
+              <span class="scanGlyph" aria-hidden="true"><i></i><i></i><i></i><i></i><b>⚡</b></span>
+              <strong>Klaar om te scannen</strong>
+              <small>Hele kaart in beeld · recht van boven</small>
+            </div>
             <canvas id="photoCanvas" role="img" aria-label="Voorbeeld van de gekozen kaartfoto"></canvas>
             <div class="cardGuide" aria-hidden="true"></div>
+
+            <div class="scanOverlay" id="scanOverlay" hidden aria-live="polite">
+              <div class="scanPulse"><span></span></div>
+              <strong>Kaart analyseren</strong>
+              <small id="scanOverlayText">Scanner voorbereiden…</small>
+              <div class="scanOverlayBar"><span id="scanOverlayFill"></span></div>
+            </div>
           </div>
 
           <div class="photoTools" id="photoTools" hidden>
-            <button type="button" id="rotateLeftBtn">↶ Links</button>
-            <button type="button" id="rotateRightBtn">↷ Rechts</button>
-            <button type="button" id="clearPhotoBtn">✕ Wissen</button>
+            <button type="button" id="rotateLeftBtn" aria-label="Draai foto links"><svg viewBox="0 0 24 24"><path d="M4 4v6h6M5.5 15a7 7 0 1 0 1.2-7.5L4 10"/></svg><span>Links</span></button>
+            <button type="button" id="rotateRightBtn" aria-label="Draai foto rechts"><svg viewBox="0 0 24 24"><path d="M20 4v6h-6M18.5 15a7 7 0 1 1-1.2-7.5L20 10"/></svg><span>Rechts</span></button>
+            <button type="button" id="clearPhotoBtn" aria-label="Wis foto"><svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V4h6v3M8 10v8m4-8v8m4-8v8M7 7l1 14h8l1-14"/></svg><span>Wissen</span></button>
           </div>
 
-          <div class="ocrLab" id="ocrLab">
-            <button type="button" class="scanPhotoBtn" id="scanPhotoBtn" disabled><span>⚡</span> Scan kaart</button>
-            <div class="ocrProgress" id="ocrProgress" hidden><div class="ocrProgressBar"><span id="ocrProgressFill"></span></div><small id="ocrProgressText">Scanner voorbereiden…</small></div>
-            <div class="ocrResult resultCard" id="ocrResult" hidden></div>
-            <div class="scanEditionQuick" id="scanEditionQuick" hidden>
-              <div><b>Editie</b><small>1st Edition kies je zelf.</small></div>
+          <!-- CORE3 engine controls/results remain in DOM but are not part of normal UX. -->
+          <div class="engineLayer" id="ocrLab" aria-hidden="true">
+            <button type="button" id="scanPhotoBtn" disabled>Scan kaart</button>
+            <div id="ocrProgress" hidden><div><span id="ocrProgressFill"></span></div><small id="ocrProgressText">Scanner voorbereiden…</small></div>
+            <div id="ocrResult" hidden></div>
+            <div id="scanEditionQuick" hidden>
               <div class="choiceGrid twoChoices" data-choice-target="editionSelect">
                 <button type="button" class="choiceBtn" aria-pressed="false" data-value="AUTO">Normaal</button>
                 <button type="button" class="choiceBtn editionFirstBtn" aria-pressed="false" data-value="1ST">1ST</button>
@@ -90,28 +112,27 @@
             </div>
           </div>
 
-          <details class="scanHelp"><summary>Tips voor een betere scan</summary><div id="photoTips" class="photoTips"><span>Hele kaart in beeld</span><span>Recht van boven</span><span>Geen reflectie</span><span>Rustige achtergrond</span></div></details>
+          <div class="scanAssurance"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.7 2.8 8 7 10 4.2-2 7-5.3 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>Foto blijft lokaal</span><span class="dotSep">•</span><span>Naam · nummer · set</span></div>
           <button type="button" class="utilityHidden" id="continuePhotoBtn" disabled>Vul kaartgegevens in</button>
-          <p class="trustNote">De foto blijft lokaal op je toestel. CardScout leest alleen naam, kaartnummer en set.</p>
         </section>
       </section>
 
+      <!-- SEARCH -->
       <section class="tabView" data-view="search" aria-labelledby="navSearch">
-        <div class="screenIntro"><div><span class="eyebrow">Smart Search</span><h2>Zoek handmatig</h2><p>Typ wat je ziet; volgorde maakt niet uit.</p></div></div>
+        <div class="screenIntro compact"><div><span class="eyebrow">Smart Search</span><h2>Zoek een kaart</h2><p>Naam, nummer, set of conditie — typ in elke volgorde.</p></div></div>
 
-        <section class="surface quickPanel" id="quickPanel">
-          <label class="label" for="quickInput">Zoek kaart</label>
-          <div class="quickWrap"><input id="quickInput" class="quick" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="bijv. horsea 62 neo nm" /><button id="quickGo" class="quickGo" type="button" title="Zoeken" aria-label="Zoeken">↵</button></div>
-          <div class="searchHint"><span>Voorbeelden</span><code>62 horsea neo</code><code>54 shellder fossil 1st</code></div>
-          <div id="exampleChips" class="examples utilityHidden">
-            <button type="button" data-fill="4 charizard base nm">Base Charizard</button><button type="button" data-fill="12 vaporeon jungle nm">Jungle Vaporeon</button><button type="button" data-fill="5 gengar fossil nm">Fossil Gengar</button>
-          </div>
+        <section class="searchBox" id="quickPanel">
+          <svg class="searchIcon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <input id="quickInput" class="quick" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="bijv. horsea 62 neo" />
+          <button id="quickGo" class="quickGo" type="button" title="Zoeken" aria-label="Zoeken"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
         </section>
+        <div id="smartSuggestions" class="smartSuggestions" hidden aria-live="polite"></div>
+        <div id="exampleChips" class="examples utilityHidden"><button type="button" data-fill="4 charizard base nm">Base Charizard</button><button type="button" data-fill="12 vaporeon jungle nm">Jungle Vaporeon</button><button type="button" data-fill="5 gengar fossil nm">Fossil Gengar</button></div>
 
-        <section class="surface formPanel stablePanel">
-          <div class="sectionTitle"><div><span class="eyebrow">Details</span><h3>Kaartgegevens</h3></div><span class="autoTag">Set AUTO</span></div>
+        <section class="surface searchSettings">
+          <div class="sectionTitle"><div><span class="eyebrow">Handmatig</span><h3>Details corrigeren</h3></div><span class="autoTag">Set AUTO</span></div>
           <div class="row two"><div><label class="label" for="numberInput">Nummer</label><input id="numberInput" autocomplete="off" inputmode="numeric" enterkeyhint="next" placeholder="62" /></div><div><label class="label" for="nameInput">Naam</label><input id="nameInput" autocomplete="off" enterkeyhint="search" placeholder="Horsea" /></div></div>
-          <div class="autoSetLine" id="setInfo">Set: <b>AUTO</b> · CardScout kiest alleen een directe kaart als de match zeker is.</div>
+          <div class="autoSetLine" id="setInfo">Set: <b>AUTO</b></div>
 
           <select id="setSelect" class="hiddenSelect" aria-hidden="true">
             <option>AUTO</option><option>BASE</option><option>JUNGLE</option><option>FOSSIL</option><option>BASE SET 2</option><option>ROCKET</option><option>GYM HEROES</option><option>GYM CHALLENGE</option><option>NEO GENESIS</option><option>NEO DISCOVERY</option><option>NEO REVELATION</option><option>NEO DESTINY</option><option>LEGENDARY COLLECTION</option><option>SOUTHERN ISLANDS</option><option>WOTC PROMO</option><option>EXPEDITION</option><option>AQUAPOLIS</option><option>SKYRIDGE</option><option>EX RUBY SAPPHIRE</option><option>EX SANDSTORM</option><option>EX DRAGON</option><option>EX TEAM MAGMA AQUA</option><option>EX HIDDEN LEGENDS</option><option>EX FIRERED LEAFGREEN</option><option>EX TEAM ROCKET RETURNS</option><option>EX DEOXYS</option><option>EX EMERALD</option><option>EX UNSEEN FORCES</option><option>EX DELTA SPECIES</option><option>EX LEGEND MAKER</option><option>EX HOLON PHANTOMS</option><option>EX CRYSTAL GUARDIANS</option><option>EX DRAGON FRONTIERS</option><option>EX POWER KEEPERS</option><option>EX TRAINER KIT 2</option>
@@ -120,74 +141,93 @@
           <select id="condSelect" class="hiddenSelect" aria-hidden="true"><option>NM</option><option>EX</option><option>GD</option><option>PL</option></select>
           <select id="editionSelect" class="hiddenSelect" aria-hidden="true"><option value="AUTO">AUTO</option><option value="1ST">1ST</option></select>
 
-          <details class="filterDetails"><summary>Filters aanpassen <span id="filterSummary">EN · NM · Normaal</span></summary>
-            <div class="fixedControls">
-              <div><label class="label">Taal</label><div class="choiceGrid twoChoices" data-choice-target="langSelect"><button type="button" class="choiceBtn" aria-pressed="false" data-value="JP">JP</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="EN">EN</button></div></div>
-              <div><label class="label">Staat</label><div class="choiceGrid fourChoices" data-choice-target="condSelect"><button type="button" class="choiceBtn" aria-pressed="false" data-value="NM">NM</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="EX">EX</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="GD">GD</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="PL">PL</button></div></div>
-              <div class="editionControl"><label class="label">Editie</label><div class="choiceGrid twoChoices" data-choice-target="editionSelect"><button type="button" class="choiceBtn" aria-pressed="false" data-value="AUTO">Normaal</button><button type="button" class="choiceBtn editionFirstBtn" aria-pressed="false" data-value="1ST">1ST EDITION</button></div></div>
-            </div>
-          </details>
+          <div class="filterStrip">
+            <div><span>Taal</span><div class="choiceGrid twoChoices" data-choice-target="langSelect"><button type="button" class="choiceBtn" aria-pressed="false" data-value="JP">JP</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="EN">EN</button></div></div>
+            <div><span>Staat</span><div class="choiceGrid fourChoices" data-choice-target="condSelect"><button type="button" class="choiceBtn" aria-pressed="false" data-value="NM">NM</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="EX">EX</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="GD">GD</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="PL">PL</button></div></div>
+            <div><span>Editie</span><div class="choiceGrid twoChoices" data-choice-target="editionSelect"><button type="button" class="choiceBtn" aria-pressed="false" data-value="AUTO">Normaal</button><button type="button" class="choiceBtn editionFirstBtn" aria-pressed="false" data-value="1ST">1ST</button></div></div>
+          </div>
         </section>
 
-        <section class="searchActions"><button id="makeBtn" type="button" class="primary">Maak Cardmarket-link</button><button id="clearBtn" type="button" class="ghost">Wis</button></section>
-
-        <details class="surface linkDetails"><summary>Linkdetails</summary><div class="statusLine"><span>Gegenereerde link</span><button id="copyBtn" type="button" class="tinyBtn">Kopieer</button></div><textarea id="urlBox" readonly placeholder="Cardmarket-link komt hier"></textarea><div id="matchBox" class="matchBox"></div></details>
+        <section class="searchActions"><button id="makeBtn" type="button" class="primary">Zoek op Cardmarket</button><button id="clearBtn" type="button" class="ghost">Wis</button></section>
+        <details class="surface linkDetails"><summary>Technische linkdetails</summary><div class="statusLine"><span>Gegenereerde link</span><button id="copyBtn" type="button" class="tinyBtn">Kopieer</button></div><textarea id="urlBox" readonly placeholder="Cardmarket-link komt hier"></textarea><div id="matchBox" class="matchBox"></div></details>
       </section>
 
+      <!-- RECENT -->
       <section class="tabView" data-view="recent" aria-labelledby="navRecent">
-        <div class="screenIntro"><div><span class="eyebrow">Geschiedenis</span><h2>Recent</h2><p>Je laatste Cardmarket-checks bij elkaar.</p></div></div>
-        <section class="surface savedPanel"><div class="sectionHeader"><h3>Recente kaarten</h3><button id="clearRecentBtn" type="button" class="tinyBtn danger">Wis alles</button></div><div id="recentList" class="savedList empty">Nog geen recente zoekopdrachten.</div></section>
+        <div class="screenIntro compact"><div><span class="eyebrow">Geschiedenis</span><h2>Recent bekeken</h2><p>Spring terug naar kaarten die je net hebt gecontroleerd.</p></div></div>
+        <section class="surface savedPanel"><div class="sectionHeader"><h3>Laatste checks</h3><button id="clearRecentBtn" type="button" class="tinyBtn danger">Wis alles</button></div><div id="recentList" class="savedList empty">Nog geen recente zoekopdrachten.</div></section>
       </section>
 
+      <!-- FAVORITES -->
       <section class="tabView" data-view="favorites" aria-labelledby="navFavorites">
-        <div class="screenIntro"><div><span class="eyebrow">Bewaard</span><h2>Favorieten</h2><p>Kaarten die je snel terug wilt vinden.</p></div></div>
-        <section class="surface savedPanel"><div class="sectionHeader"><h3>Favorieten</h3><button id="clearFavBtn" type="button" class="tinyBtn danger">Wis alles</button></div><div id="favoriteList" class="savedList empty">Nog geen favorieten.</div></section>
+        <div class="screenIntro compact"><div><span class="eyebrow">Bewaard</span><h2>Favorieten</h2><p>Je vaste kaarten direct binnen handbereik.</p></div></div>
+        <section class="surface savedPanel"><div class="sectionHeader"><h3>Bewaarde kaarten</h3><button id="clearFavBtn" type="button" class="tinyBtn danger">Wis alles</button></div><div id="favoriteList" class="savedList empty">Nog geen favorieten.</div></section>
       </section>
 
+      <!-- SETTINGS -->
       <section class="tabView" data-view="settings" aria-labelledby="navSettings">
-        <div class="screenIntro"><div><span class="eyebrow">CardScout</span><h2>Instellingen</h2><p>Voorkeuren, privacy en scannerdiagnose.</p></div></div>
+        <div class="screenIntro compact"><div><span class="eyebrow">CardScout</span><h2>Meer</h2><p>Voorkeuren, privacy en diagnose.</p></div></div>
 
         <section class="surface settingsCard">
-          <div class="settingsRow"><div class="settingsIcon">⚡</div><div><b>Scanner-engine</b><small>CORE3 Stable · alleen naam, nummer en set</small></div><span class="okDot">Actief</span></div>
-          <div class="settingsRow"><div class="settingsIcon">🔒</div><div><b>Privacy</b><small>Kaartfoto's blijven lokaal op je toestel</small></div><span class="mutedBadge">Lokaal</span></div>
+          <div class="settingsRow"><div class="settingsIcon"><svg viewBox="0 0 24 24"><path d="m13 2-8 12h7l-1 8 8-12h-7l1-8Z"/></svg></div><div><b>Automatisch scannen</b><small>Foto kiezen → direct herkennen → resultaat</small></div><span class="okDot">Aan</span></div>
+          <div class="settingsRow"><div class="settingsIcon"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.7 2.8 8 7 10 4.2-2 7-5.3 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></div><div><b>Privacy</b><small>Kaartfoto's blijven lokaal op je toestel</small></div><span class="mutedBadge">Lokaal</span></div>
         </section>
 
         <section class="surface settingsCard">
-          <div class="sectionTitle"><div><span class="eyebrow">Standaard</span><h3>Zoekvoorkeuren</h3></div></div>
-          <p class="settingsHint">Deze keuzes worden gebruikt voor nieuwe Cardmarket-links.</p>
+          <div class="sectionTitle"><div><span class="eyebrow">Standaard</span><h3>Cardmarket-voorkeuren</h3></div></div>
           <div class="fixedControls settingsControls">
             <div><label class="label">Taal</label><div class="choiceGrid twoChoices" data-choice-target="langSelect"><button type="button" class="choiceBtn" aria-pressed="false" data-value="JP">JP</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="EN">EN</button></div></div>
             <div><label class="label">Staat</label><div class="choiceGrid fourChoices" data-choice-target="condSelect"><button type="button" class="choiceBtn" aria-pressed="false" data-value="NM">NM</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="EX">EX</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="GD">GD</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="PL">PL</button></div></div>
+            <div><label class="label">Editie</label><div class="choiceGrid twoChoices" data-choice-target="editionSelect"><button type="button" class="choiceBtn" aria-pressed="false" data-value="AUTO">Normaal</button><button type="button" class="choiceBtn editionFirstBtn" aria-pressed="false" data-value="1ST">1ST Edition</button></div></div>
           </div>
         </section>
 
         <section class="surface settingsCard">
           <details class="debugPanel" id="debugPanel">
             <summary><span><b>Scanner debug</b><small>Alleen nodig als een kaart fout gaat</small></span><span class="debugCount"><b id="debugFailCount">0</b> fouten</span></summary>
-            <p>Mislukte of handmatig gemarkeerde scans worden alleen lokaal bewaard.</p>
+            <p>Mislukte of handmatig gemarkeerde scans worden alleen lokaal bewaard. Download het bestand om meerdere fouten tegelijk te analyseren.</p>
             <div class="debugActions"><button type="button" id="debugDownloadBtn">Download foutlog</button><button type="button" id="debugClearBtn">Wis foutlog</button></div>
           </details>
         </section>
 
-        <section class="surface aboutCard"><div><b>CardScout</b><small>Mobiele TCG price scout</small></div><div class="aboutMeta"><span>UI 110</span><span>CORE 100</span><span>DB 263</span></div></section>
+        <section class="surface aboutCard"><div><b>CardScout</b><small>Mobile Pokémon TCG scout</small></div><div class="aboutMeta"><span>UI 120</span><span>CORE 100</span><span>DB 263</span></div></section>
       </section>
     </div>
   </main>
 
+  <!-- Existing engine action dock remains for Smart Search and as fallback after closing result. -->
   <div class="actionDock" id="actionDock" aria-hidden="true">
     <a id="openBtn" class="open disabled" href="#" target="_blank" rel="noopener"><span>Open Cardmarket</span><small>Direct naar kaart</small></a>
     <button id="favoriteBtn" type="button" class="dockFavorite" aria-label="Voeg toe aan favorieten">☆</button>
   </div>
 
+  <!-- Native-style scan result sheet. Filled by ui-v120.js; CORE3 only writes its locked hidden result. -->
+  <div class="resultBackdrop" id="resultBackdrop" hidden></div>
+  <section class="resultSheet" id="resultSheet" hidden aria-modal="true" role="dialog" aria-labelledby="resultTitle">
+    <div class="sheetHandle" aria-hidden="true"></div>
+    <div class="resultHead">
+      <div class="resultState" id="resultState"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <div class="resultIdentity"><span class="eyebrow" id="resultEyebrow">Kaart gevonden</span><h2 id="resultTitle">—</h2><p id="resultMeta">—</p></div>
+      <button type="button" class="sheetClose" id="resultCloseBtn" aria-label="Sluit resultaat"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="resultChips"><button type="button" id="resultLangChip" class="resultChip">EN</button><button type="button" id="resultCondChip" class="resultChip">NM</button><button type="button" id="resultEditionChip" class="resultChip">Normaal</button></div>
+    <div class="editionChooser" id="resultEditionChooser" hidden><button type="button" data-edition="AUTO">Normaal</button><button type="button" data-edition="1ST">1st Edition</button></div>
+    <a id="resultOpenBtn" class="resultOpen disabled" href="#" target="_blank" rel="noopener"><span>Open Cardmarket</span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+    <div class="resultSecondary"><button type="button" id="resultRescanBtn"><svg viewBox="0 0 24 24"><path d="M4 4v6h6M5.5 15a7 7 0 1 0 1.2-7.5L4 10"/></svg>Nieuwe scan</button><button type="button" id="resultEditBtn"><svg viewBox="0 0 24 24"><path d="M4 20h4l11-11-4-4L4 16v4ZM13 7l4 4"/></svg>Bewerk</button><button type="button" id="resultBadBtn"><svg viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.3 4.7 2.8 18a2 2 0 0 0 1.7 3h15a2 2 0 0 0 1.7-3L13.7 4.7a2 2 0 0 0-3.4 0Z"/></svg>Fout</button></div>
+    <p class="resultHint" id="resultHint">Controleer bij twijfel altijd de kaart op Cardmarket.</p>
+  </section>
+
+  <div class="toast" id="toast" hidden role="status" aria-live="polite"></div>
+
   <nav class="bottomNav" aria-label="Hoofdnavigatie">
     <button type="button" class="navBtn active" id="navScan" data-tab="scan" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h3l1.2-2h5.6L16 7h3a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"/><circle cx="12" cy="13" r="4"/></svg><span>Scan</span></button>
     <button type="button" class="navBtn" id="navSearch" data-tab="search" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>Zoeken</span></button>
     <button type="button" class="navBtn" id="navRecent" data-tab="recent" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg><span>Recent</span></button>
-    <button type="button" class="navBtn" id="navFavorites" data-tab="favorites" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"/></svg><span>Favoriet</span></button>
+    <button type="button" class="navBtn" id="navFavorites" data-tab="favorites" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"/></svg><span>Favorieten</span></button>
     <button type="button" class="navBtn" id="navSettings" data-tab="settings" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3V2.8h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></svg><span>Meer</span></button>
   </nav>
 
-  <script src="app-v100.js?build=110"></script>
-  <script src="ui-v110.js?build=110"></script>
+  <script src="app-v130.js?build=130"></script>
+  <script src="ui-v120.js?build=130"></script>
 </body>
 </html>

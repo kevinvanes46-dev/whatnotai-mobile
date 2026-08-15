@@ -1,1 +1,1017 @@
-{"version":"v90","refs":[{"key":"en|base|1|alakazam","url":"https://assets.tcgdex.net/en/base/base1/1/low.webp"},{"key":"en|base|2|blastoise","url":"https://assets.tcgdex.net/en/base/base1/2/low.webp"},{"key":"en|base|3|chansey","url":"https://assets.tcgdex.net/en/base/base1/3/low.webp"},{"key":"en|base|4|charizard","url":"https://assets.tcgdex.net/en/base/base1/4/low.webp"},{"key":"en|base|5|clefairy","url":"https://assets.tcgdex.net/en/base/base1/5/low.webp"},{"key":"en|base|6|gyarados","url":"https://assets.tcgdex.net/en/base/base1/6/low.webp"},{"key":"en|base|7|hitmonchan","url":"https://assets.tcgdex.net/en/base/base1/7/low.webp"},{"key":"en|base|8|machamp","url":"https://assets.tcgdex.net/en/base/base1/8/low.webp"},{"key":"en|base|9|magneton","url":"https://assets.tcgdex.net/en/base/base1/9/low.webp"},{"key":"en|base|10|mewtwo","url":"https://assets.tcgdex.net/en/base/base1/10/low.webp"},{"key":"en|base|11|nidoking","url":"https://assets.tcgdex.net/en/base/base1/11/low.webp"},{"key":"en|base|12|ninetales","url":"https://assets.tcgdex.net/en/base/base1/12/low.webp"},{"key":"en|base|13|poliwrath","url":"https://assets.tcgdex.net/en/base/base1/13/low.webp"},{"key":"en|base|14|raichu","url":"https://assets.tcgdex.net/en/base/base1/14/low.webp"},{"key":"en|base|15|venusaur","url":"https://assets.tcgdex.net/en/base/base1/15/low.webp"},{"key":"en|base|16|zapdos","url":"https://assets.tcgdex.net/en/base/base1/16/low.webp"},{"key":"en|jungle|1|clefable","url":"https://assets.tcgdex.net/en/base/base2/1/low.webp"},{"key":"en|jungle|2|electrode","url":"https://assets.tcgdex.net/en/base/base2/2/low.webp"},{"key":"en|jungle|3|flareon","url":"https://assets.tcgdex.net/en/base/base2/3/low.webp"},{"key":"en|jungle|4|jolteon","url":"https://assets.tcgdex.net/en/base/base2/4/low.webp"},{"key":"en|jungle|5|kangaskhan","url":"https://assets.tcgdex.net/en/base/base2/5/low.webp"},{"key":"en|jungle|6|mr. mime","url":"https://assets.tcgdex.net/en/base/base2/6/low.webp"},{"key":"en|jungle|7|nidoqueen","url":"https://assets.tcgdex.net/en/base/base2/7/low.webp"},{"key":"en|jungle|8|pidgeot","url":"https://assets.tcgdex.net/en/base/base2/8/low.webp"},{"key":"en|jungle|9|pinsir","url":"https://assets.tcgdex.net/en/base/base2/9/low.webp"},{"key":"en|jungle|10|scyther","url":"https://assets.tcgdex.net/en/base/base2/10/low.webp"},{"key":"en|jungle|11|snorlax","url":"https://assets.tcgdex.net/en/base/base2/11/low.webp"},{"key":"en|jungle|12|vaporeon","url":"https://assets.tcgdex.net/en/base/base2/12/low.webp"},{"key":"en|jungle|13|venomoth","url":"https://assets.tcgdex.net/en/base/base2/13/low.webp"},{"key":"en|jungle|14|victreebel","url":"https://assets.tcgdex.net/en/base/base2/14/low.webp"},{"key":"en|jungle|15|vileplume","url":"https://assets.tcgdex.net/en/base/base2/15/low.webp"},{"key":"en|jungle|16|wigglytuff","url":"https://assets.tcgdex.net/en/base/base2/16/low.webp"},{"key":"en|fossil|1|aerodactyl","url":"https://assets.tcgdex.net/en/base/base3/1/low.webp"},{"key":"en|fossil|2|articuno","url":"https://assets.tcgdex.net/en/base/base3/2/low.webp"},{"key":"en|fossil|3|ditto","url":"https://assets.tcgdex.net/en/base/base3/3/low.webp"},{"key":"en|fossil|4|dragonite","url":"https://assets.tcgdex.net/en/base/base3/4/low.webp"},{"key":"en|fossil|5|gengar","url":"https://assets.tcgdex.net/en/base/base3/5/low.webp"},{"key":"en|fossil|6|haunter","url":"https://assets.tcgdex.net/en/base/base3/6/low.webp"},{"key":"en|fossil|7|hitmonlee","url":"https://assets.tcgdex.net/en/base/base3/7/low.webp"},{"key":"en|fossil|8|hypno","url":"https://assets.tcgdex.net/en/base/base3/8/low.webp"},{"key":"en|fossil|9|kabutops","url":"https://assets.tcgdex.net/en/base/base3/9/low.webp"},{"key":"en|fossil|10|lapras","url":"https://assets.tcgdex.net/en/base/base3/10/low.webp"},{"key":"en|fossil|11|magneton","url":"https://assets.tcgdex.net/en/base/base3/11/low.webp"},{"key":"en|fossil|12|moltres","url":"https://assets.tcgdex.net/en/base/base3/12/low.webp"},{"key":"en|fossil|13|muk","url":"https://assets.tcgdex.net/en/base/base3/13/low.webp"},{"key":"en|fossil|14|raichu","url":"https://assets.tcgdex.net/en/base/base3/14/low.webp"},{"key":"en|fossil|15|zapdos","url":"https://assets.tcgdex.net/en/base/base3/15/low.webp"},{"key":"en|base set 2|1|alakazam","url":"https://assets.tcgdex.net/en/base/base4/1/low.webp"},{"key":"en|base set 2|2|blastoise","url":"https://assets.tcgdex.net/en/base/base4/2/low.webp"},{"key":"en|base set 2|3|chansey","url":"https://assets.tcgdex.net/en/base/base4/3/low.webp"},{"key":"en|base set 2|4|charizard","url":"https://assets.tcgdex.net/en/base/base4/4/low.webp"},{"key":"en|base set 2|5|clefable","url":"https://assets.tcgdex.net/en/base/base4/5/low.webp"},{"key":"en|base set 2|6|clefairy","url":"https://assets.tcgdex.net/en/base/base4/6/low.webp"},{"key":"en|base set 2|7|gyarados","url":"https://assets.tcgdex.net/en/base/base4/7/low.webp"},{"key":"en|base set 2|8|hitmonchan","url":"https://assets.tcgdex.net/en/base/base4/8/low.webp"},{"key":"en|base set 2|9|magneton","url":"https://assets.tcgdex.net/en/base/base4/9/low.webp"},{"key":"en|base set 2|10|mewtwo","url":"https://assets.tcgdex.net/en/base/base4/10/low.webp"},{"key":"en|base set 2|11|nidoking","url":"https://assets.tcgdex.net/en/base/base4/11/low.webp"},{"key":"en|base set 2|12|nidoqueen","url":"https://assets.tcgdex.net/en/base/base4/12/low.webp"},{"key":"en|base set 2|13|ninetales","url":"https://assets.tcgdex.net/en/base/base4/13/low.webp"},{"key":"en|base set 2|14|pidgeot","url":"https://assets.tcgdex.net/en/base/base4/14/low.webp"},{"key":"en|base set 2|15|poliwrath","url":"https://assets.tcgdex.net/en/base/base4/15/low.webp"},{"key":"en|base set 2|16|raichu","url":"https://assets.tcgdex.net/en/base/base4/16/low.webp"},{"key":"en|base set 2|17|scyther","url":"https://assets.tcgdex.net/en/base/base4/17/low.webp"},{"key":"en|base set 2|18|venusaur","url":"https://assets.tcgdex.net/en/base/base4/18/low.webp"},{"key":"en|base set 2|19|wigglytuff","url":"https://assets.tcgdex.net/en/base/base4/19/low.webp"},{"key":"en|base set 2|20|zapdos","url":"https://assets.tcgdex.net/en/base/base4/20/low.webp"},{"key":"en|rocket|1|dark alakazam","url":"https://assets.tcgdex.net/en/base/base5/1/low.webp"},{"key":"en|rocket|2|dark arbok","url":"https://assets.tcgdex.net/en/base/base5/2/low.webp"},{"key":"en|rocket|3|dark blastoise","url":"https://assets.tcgdex.net/en/base/base5/3/low.webp"},{"key":"en|rocket|4|dark charizard","url":"https://assets.tcgdex.net/en/base/base5/4/low.webp"},{"key":"en|rocket|5|dark dragonite","url":"https://assets.tcgdex.net/en/base/base5/5/low.webp"},{"key":"en|rocket|6|dark dugtrio","url":"https://assets.tcgdex.net/en/base/base5/6/low.webp"},{"key":"en|rocket|7|dark golbat","url":"https://assets.tcgdex.net/en/base/base5/7/low.webp"},{"key":"en|rocket|8|dark gyarados","url":"https://assets.tcgdex.net/en/base/base5/8/low.webp"},{"key":"en|rocket|9|dark hypno","url":"https://assets.tcgdex.net/en/base/base5/9/low.webp"},{"key":"en|rocket|10|dark machamp","url":"https://assets.tcgdex.net/en/base/base5/10/low.webp"},{"key":"en|rocket|11|dark magneton","url":"https://assets.tcgdex.net/en/base/base5/11/low.webp"},{"key":"en|rocket|12|dark slowbro","url":"https://assets.tcgdex.net/en/base/base5/12/low.webp"},{"key":"en|rocket|13|dark vileplume","url":"https://assets.tcgdex.net/en/base/base5/13/low.webp"},{"key":"en|rocket|14|dark weezing","url":"https://assets.tcgdex.net/en/base/base5/14/low.webp"},{"key":"en|rocket|15|here comes team rocket!","url":"https://assets.tcgdex.net/en/base/base5/15/low.webp"},{"key":"en|rocket|16|rocket's sneak attack","url":"https://assets.tcgdex.net/en/base/base5/16/low.webp"},{"key":"en|rocket|17|rainbow energy","url":"https://assets.tcgdex.net/en/base/base5/17/low.webp"},{"key":"en|gym heroes|1|blaine's moltres","url":"https://assets.tcgdex.net/en/gym/gym1/1/low.webp"},{"key":"en|gym heroes|2|brock's rhydon","url":"https://assets.tcgdex.net/en/gym/gym1/2/low.webp"},{"key":"en|gym heroes|3|erika's clefable","url":"https://assets.tcgdex.net/en/gym/gym1/3/low.webp"},{"key":"en|gym heroes|4|erika's dragonair","url":"https://assets.tcgdex.net/en/gym/gym1/4/low.webp"},{"key":"en|gym heroes|5|erika's vileplume","url":"https://assets.tcgdex.net/en/gym/gym1/5/low.webp"},{"key":"en|gym heroes|6|lt. surge's electabuzz","url":"https://assets.tcgdex.net/en/gym/gym1/6/low.webp"},{"key":"en|gym heroes|7|lt. surge's fearow","url":"https://assets.tcgdex.net/en/gym/gym1/7/low.webp"},{"key":"en|gym heroes|8|lt. surge's magneton","url":"https://assets.tcgdex.net/en/gym/gym1/8/low.webp"},{"key":"en|gym heroes|9|misty's seadra","url":"https://assets.tcgdex.net/en/gym/gym1/9/low.webp"},{"key":"en|gym heroes|10|misty's tentacruel","url":"https://assets.tcgdex.net/en/gym/gym1/10/low.webp"},{"key":"en|gym heroes|11|rocket's hitmonchan","url":"https://assets.tcgdex.net/en/gym/gym1/11/low.webp"},{"key":"en|gym heroes|12|rocket's moltres","url":"https://assets.tcgdex.net/en/gym/gym1/12/low.webp"},{"key":"en|gym heroes|13|rocket's scyther","url":"https://assets.tcgdex.net/en/gym/gym1/13/low.webp"},{"key":"en|gym heroes|14|sabrina's gengar","url":"https://assets.tcgdex.net/en/gym/gym1/14/low.webp"},{"key":"en|gym heroes|15|brock","url":"https://assets.tcgdex.net/en/gym/gym1/15/low.webp"},{"key":"en|gym heroes|16|erika","url":"https://assets.tcgdex.net/en/gym/gym1/16/low.webp"},{"key":"en|gym heroes|17|lt. surge","url":"https://assets.tcgdex.net/en/gym/gym1/17/low.webp"},{"key":"en|gym heroes|18|misty","url":"https://assets.tcgdex.net/en/gym/gym1/18/low.webp"},{"key":"en|gym heroes|19|the rocket's trap","url":"https://assets.tcgdex.net/en/gym/gym1/19/low.webp"},{"key":"en|gym challenge|1|blaine's arcanine","url":"https://assets.tcgdex.net/en/gym/gym2/1/low.webp"},{"key":"en|gym challenge|2|blaine's charizard","url":"https://assets.tcgdex.net/en/gym/gym2/2/low.webp"},{"key":"en|gym challenge|3|brock's ninetales","url":"https://assets.tcgdex.net/en/gym/gym2/3/low.webp"},{"key":"en|gym challenge|4|erika's venusaur","url":"https://assets.tcgdex.net/en/gym/gym2/4/low.webp"},{"key":"en|gym challenge|5|giovanni's gyarados","url":"https://assets.tcgdex.net/en/gym/gym2/5/low.webp"},{"key":"en|gym challenge|6|giovanni's machamp","url":"https://assets.tcgdex.net/en/gym/gym2/6/low.webp"},{"key":"en|gym challenge|7|giovanni's nidoking","url":"https://assets.tcgdex.net/en/gym/gym2/7/low.webp"},{"key":"en|gym challenge|8|giovanni's persian","url":"https://assets.tcgdex.net/en/gym/gym2/8/low.webp"},{"key":"en|gym challenge|9|koga's beedrill","url":"https://assets.tcgdex.net/en/gym/gym2/9/low.webp"},{"key":"en|gym challenge|10|koga's ditto","url":"https://assets.tcgdex.net/en/gym/gym2/10/low.webp"},{"key":"en|gym challenge|11|lt. surge's raichu","url":"https://assets.tcgdex.net/en/gym/gym2/11/low.webp"},{"key":"en|gym challenge|12|misty's golduck","url":"https://assets.tcgdex.net/en/gym/gym2/12/low.webp"},{"key":"en|gym challenge|13|misty's gyarados","url":"https://assets.tcgdex.net/en/gym/gym2/13/low.webp"},{"key":"en|gym challenge|14|rocket's mewtwo","url":"https://assets.tcgdex.net/en/gym/gym2/14/low.webp"},{"key":"en|gym challenge|15|rocket's zapdos","url":"https://assets.tcgdex.net/en/gym/gym2/15/low.webp"},{"key":"en|gym challenge|16|sabrina's alakazam","url":"https://assets.tcgdex.net/en/gym/gym2/16/low.webp"},{"key":"en|gym challenge|17|blaine","url":"https://assets.tcgdex.net/en/gym/gym2/17/low.webp"},{"key":"en|gym challenge|18|giovanni","url":"https://assets.tcgdex.net/en/gym/gym2/18/low.webp"},{"key":"en|gym challenge|19|koga","url":"https://assets.tcgdex.net/en/gym/gym2/19/low.webp"},{"key":"en|gym challenge|20|sabrina","url":"https://assets.tcgdex.net/en/gym/gym2/20/low.webp"},{"key":"en|neo genesis|1|ampharos","url":"https://assets.tcgdex.net/en/neo/neo1/1/low.webp"},{"key":"en|neo genesis|2|azumarill","url":"https://assets.tcgdex.net/en/neo/neo1/2/low.webp"},{"key":"en|neo genesis|3|bellossom","url":"https://assets.tcgdex.net/en/neo/neo1/3/low.webp"},{"key":"en|neo genesis|4|feraligatr","url":"https://assets.tcgdex.net/en/neo/neo1/4/low.webp"},{"key":"en|neo genesis|5|feraligatr","url":"https://assets.tcgdex.net/en/neo/neo1/5/low.webp"},{"key":"en|neo genesis|6|heracross","url":"https://assets.tcgdex.net/en/neo/neo1/6/low.webp"},{"key":"en|neo genesis|7|jumpluff","url":"https://assets.tcgdex.net/en/neo/neo1/7/low.webp"},{"key":"en|neo genesis|8|kingdra","url":"https://assets.tcgdex.net/en/neo/neo1/8/low.webp"},{"key":"en|neo genesis|9|lugia","url":"https://assets.tcgdex.net/en/neo/neo1/9/low.webp"},{"key":"en|neo genesis|10|meganium","url":"https://assets.tcgdex.net/en/neo/neo1/10/low.webp"},{"key":"en|neo genesis|11|meganium","url":"https://assets.tcgdex.net/en/neo/neo1/11/low.webp"},{"key":"en|neo genesis|12|pichu","url":"https://assets.tcgdex.net/en/neo/neo1/12/low.webp"},{"key":"en|neo genesis|13|skarmory","url":"https://assets.tcgdex.net/en/neo/neo1/13/low.webp"},{"key":"en|neo genesis|14|slowking","url":"https://assets.tcgdex.net/en/neo/neo1/14/low.webp"},{"key":"en|neo genesis|15|steelix","url":"https://assets.tcgdex.net/en/neo/neo1/15/low.webp"},{"key":"en|neo genesis|16|togetic","url":"https://assets.tcgdex.net/en/neo/neo1/16/low.webp"},{"key":"en|neo genesis|17|typhlosion","url":"https://assets.tcgdex.net/en/neo/neo1/17/low.webp"},{"key":"en|neo genesis|18|typhlosion","url":"https://assets.tcgdex.net/en/neo/neo1/18/low.webp"},{"key":"en|neo genesis|19|metal energy","url":"https://assets.tcgdex.net/en/neo/neo1/19/low.webp"},{"key":"en|neo discovery|1|espeon","url":"https://assets.tcgdex.net/en/neo/neo2/1/low.webp"},{"key":"en|neo discovery|2|forretress","url":"https://assets.tcgdex.net/en/neo/neo2/2/low.webp"},{"key":"en|neo discovery|3|hitmontop","url":"https://assets.tcgdex.net/en/neo/neo2/3/low.webp"},{"key":"en|neo discovery|4|houndoom","url":"https://assets.tcgdex.net/en/neo/neo2/4/low.webp"},{"key":"en|neo discovery|5|houndour","url":"https://assets.tcgdex.net/en/neo/neo2/5/low.webp"},{"key":"en|neo discovery|6|kabutops","url":"https://assets.tcgdex.net/en/neo/neo2/6/low.webp"},{"key":"en|neo discovery|7|magnemite","url":"https://assets.tcgdex.net/en/neo/neo2/7/low.webp"},{"key":"en|neo discovery|8|politoed","url":"https://assets.tcgdex.net/en/neo/neo2/8/low.webp"},{"key":"en|neo discovery|9|poliwrath","url":"https://assets.tcgdex.net/en/neo/neo2/9/low.webp"},{"key":"en|neo discovery|10|scizor","url":"https://assets.tcgdex.net/en/neo/neo2/10/low.webp"},{"key":"en|neo discovery|11|smeargle","url":"https://assets.tcgdex.net/en/neo/neo2/11/low.webp"},{"key":"en|neo discovery|12|tyranitar","url":"https://assets.tcgdex.net/en/neo/neo2/12/low.webp"},{"key":"en|neo discovery|13|umbreon","url":"https://assets.tcgdex.net/en/neo/neo2/13/low.webp"},{"key":"en|neo discovery|14|unown [a]","url":"https://assets.tcgdex.net/en/neo/neo2/14/low.webp"},{"key":"en|neo discovery|15|ursaring","url":"https://assets.tcgdex.net/en/neo/neo2/15/low.webp"},{"key":"en|neo discovery|16|wobbuffet","url":"https://assets.tcgdex.net/en/neo/neo2/16/low.webp"},{"key":"en|neo discovery|17|yanma","url":"https://assets.tcgdex.net/en/neo/neo2/17/low.webp"},{"key":"en|neo revelation|1|ampharos","url":"https://assets.tcgdex.net/en/neo/neo3/1/low.webp"},{"key":"en|neo revelation|2|blissey","url":"https://assets.tcgdex.net/en/neo/neo3/2/low.webp"},{"key":"en|neo revelation|3|celebi","url":"https://assets.tcgdex.net/en/neo/neo3/3/low.webp"},{"key":"en|neo revelation|4|crobat","url":"https://assets.tcgdex.net/en/neo/neo3/4/low.webp"},{"key":"en|neo revelation|5|delibird","url":"https://assets.tcgdex.net/en/neo/neo3/5/low.webp"},{"key":"en|neo revelation|6|entei","url":"https://assets.tcgdex.net/en/neo/neo3/6/low.webp"},{"key":"en|neo revelation|7|ho-oh","url":"https://assets.tcgdex.net/en/neo/neo3/7/low.webp"},{"key":"en|neo revelation|8|houndoom","url":"https://assets.tcgdex.net/en/neo/neo3/8/low.webp"},{"key":"en|neo revelation|9|jumpluff","url":"https://assets.tcgdex.net/en/neo/neo3/9/low.webp"},{"key":"en|neo revelation|10|magneton","url":"https://assets.tcgdex.net/en/neo/neo3/10/low.webp"},{"key":"en|neo revelation|11|misdreavus","url":"https://assets.tcgdex.net/en/neo/neo3/11/low.webp"},{"key":"en|neo revelation|12|porygon2","url":"https://assets.tcgdex.net/en/neo/neo3/12/low.webp"},{"key":"en|neo revelation|13|raikou","url":"https://assets.tcgdex.net/en/neo/neo3/13/low.webp"},{"key":"en|neo revelation|14|suicune","url":"https://assets.tcgdex.net/en/neo/neo3/14/low.webp"},{"key":"en|neo revelation|65|shining gyarados","url":"https://assets.tcgdex.net/en/neo/neo3/65/low.webp"},{"key":"en|neo revelation|66|shining magikarp","url":"https://assets.tcgdex.net/en/neo/neo3/66/low.webp"},{"key":"en|neo destiny|1|dark ampharos","url":"https://assets.tcgdex.net/en/neo/neo4/1/low.webp"},{"key":"en|neo destiny|2|dark crobat","url":"https://assets.tcgdex.net/en/neo/neo4/2/low.webp"},{"key":"en|neo destiny|3|dark donphan","url":"https://assets.tcgdex.net/en/neo/neo4/3/low.webp"},{"key":"en|neo destiny|4|dark espeon","url":"https://assets.tcgdex.net/en/neo/neo4/4/low.webp"},{"key":"en|neo destiny|5|dark feraligatr","url":"https://assets.tcgdex.net/en/neo/neo4/5/low.webp"},{"key":"en|neo destiny|6|dark gengar","url":"https://assets.tcgdex.net/en/neo/neo4/6/low.webp"},{"key":"en|neo destiny|7|dark houndoom","url":"https://assets.tcgdex.net/en/neo/neo4/7/low.webp"},{"key":"en|neo destiny|8|dark porygon2","url":"https://assets.tcgdex.net/en/neo/neo4/8/low.webp"},{"key":"en|neo destiny|9|dark scizor","url":"https://assets.tcgdex.net/en/neo/neo4/9/low.webp"},{"key":"en|neo destiny|10|dark typhlosion","url":"https://assets.tcgdex.net/en/neo/neo4/10/low.webp"},{"key":"en|neo destiny|11|dark tyranitar","url":"https://assets.tcgdex.net/en/neo/neo4/11/low.webp"},{"key":"en|neo destiny|12|light arcanine","url":"https://assets.tcgdex.net/en/neo/neo4/12/low.webp"},{"key":"en|neo destiny|13|light azumarill","url":"https://assets.tcgdex.net/en/neo/neo4/13/low.webp"},{"key":"en|neo destiny|14|light dragonite","url":"https://assets.tcgdex.net/en/neo/neo4/14/low.webp"},{"key":"en|neo destiny|15|light togetic","url":"https://assets.tcgdex.net/en/neo/neo4/15/low.webp"},{"key":"en|neo destiny|16|miracle energy","url":"https://assets.tcgdex.net/en/neo/neo4/16/low.webp"},{"key":"en|neo destiny|106|shining celebi","url":"https://assets.tcgdex.net/en/neo/neo4/106/low.webp"},{"key":"en|neo destiny|107|shining charizard","url":"https://assets.tcgdex.net/en/neo/neo4/107/low.webp"},{"key":"en|neo destiny|108|shining kabutops","url":"https://assets.tcgdex.net/en/neo/neo4/108/low.webp"},{"key":"en|neo destiny|109|shining mewtwo","url":"https://assets.tcgdex.net/en/neo/neo4/109/low.webp"},{"key":"en|neo destiny|110|shining noctowl","url":"https://assets.tcgdex.net/en/neo/neo4/110/low.webp"},{"key":"en|neo destiny|111|shining raichu","url":"https://assets.tcgdex.net/en/neo/neo4/111/low.webp"},{"key":"en|neo destiny|112|shining steelix","url":"https://assets.tcgdex.net/en/neo/neo4/112/low.webp"},{"key":"en|neo destiny|113|shining tyranitar","url":"https://assets.tcgdex.net/en/neo/neo4/113/low.webp"},{"key":"en|legendary collection|3|charizard","url":"https://assets.tcgdex.net/en/base/base6/3/low.webp"},{"key":"en|legendary collection|3|charizard reverse holo","url":"https://assets.tcgdex.net/en/base/base6/3/low.webp"},{"key":"en|legendary collection|29|mewtwo","url":"https://assets.tcgdex.net/en/base/base6/29/low.webp"},{"key":"en|legendary collection|4|dark blastoise","url":"https://assets.tcgdex.net/en/base/base6/4/low.webp"},{"key":"en|expedition|6|charizard","url":"https://assets.tcgdex.net/en/ecard/ecard1/6/low.webp"},{"key":"en|expedition|39|charizard","url":"https://assets.tcgdex.net/en/ecard/ecard1/39/low.webp"},{"key":"en|expedition|40|charizard","url":"https://assets.tcgdex.net/en/ecard/ecard1/40/low.webp"},{"key":"en|expedition|124|pikachu","url":"https://assets.tcgdex.net/en/ecard/ecard1/124/low.webp"},{"key":"en|aquapolis|149|lugia","url":"https://assets.tcgdex.net/en/ecard/ecard2/149/low.webp"},{"key":"en|aquapolis|148|kingdra","url":"https://assets.tcgdex.net/en/ecard/ecard2/148/low.webp"},{"key":"en|aquapolis|150|nidoking","url":"https://assets.tcgdex.net/en/ecard/ecard2/150/low.webp"},{"key":"en|aquapolis|h19|ninetales","url":"https://assets.tcgdex.net/en/ecard/ecard2/H19/low.webp"},{"key":"en|skyridge|146|charizard","url":"https://assets.tcgdex.net/en/ecard/ecard3/146/low.webp"},{"key":"en|skyridge|145|celebi","url":"https://assets.tcgdex.net/en/ecard/ecard3/145/low.webp"},{"key":"en|skyridge|147|crobat","url":"https://assets.tcgdex.net/en/ecard/ecard3/147/low.webp"},{"key":"en|skyridge|h10|gyarados","url":"https://assets.tcgdex.net/en/ecard/ecard3/H10/low.webp"},{"key":"en|ex team rocket returns|107|mudkip gold star","url":"https://assets.tcgdex.net/en/ex/ex7/107/low.webp"},{"key":"en|ex team rocket returns|108|torchic gold star","url":"https://assets.tcgdex.net/en/ex/ex7/108/low.webp"},{"key":"en|ex team rocket returns|109|treecko gold star","url":"https://assets.tcgdex.net/en/ex/ex7/109/low.webp"},{"key":"en|ex deoxys|105|latias gold star","url":"https://assets.tcgdex.net/en/ex/ex8/105/low.webp"},{"key":"en|ex deoxys|106|latios gold star","url":"https://assets.tcgdex.net/en/ex/ex8/106/low.webp"},{"key":"en|ex deoxys|107|rayquaza gold star","url":"https://assets.tcgdex.net/en/ex/ex8/107/low.webp"},{"key":"en|ex firered leafgreen|104|blastoise ex","url":"https://assets.tcgdex.net/en/ex/ex6/104/low.webp"},{"key":"en|ex firered leafgreen|105|charizard ex","url":"https://assets.tcgdex.net/en/ex/ex6/105/low.webp"},{"key":"en|ex emerald|9|rayquaza","url":"https://assets.tcgdex.net/en/ex/ex9/9/low.webp"},{"key":"en|ex unseen forces|112|umbreon ex","url":"https://assets.tcgdex.net/en/ex/ex10/112/low.webp"},{"key":"en|ex unseen forces|113|entei gold star","url":"https://assets.tcgdex.net/en/ex/ex10/113/low.webp"},{"key":"en|ex legend maker|88|mew ex","url":"https://assets.tcgdex.net/en/ex/ex12/88/low.webp"},{"key":"en|ex holon phantoms|103|mewtwo gold star","url":"https://assets.tcgdex.net/en/ex/ex13/103/low.webp"},{"key":"en|ex crystal guardians|4|charizard delta species","url":"https://assets.tcgdex.net/en/ex/ex14/4/low.webp"},{"key":"en|ex dragon frontiers|99|tyranitar ex delta species","url":"https://assets.tcgdex.net/en/ex/ex15/99/low.webp"},{"key":"en|ex dragon frontiers|100|charizard gold star delta species","url":"https://assets.tcgdex.net/en/ex/ex15/100/low.webp"},{"key":"en|ex dragon frontiers|101|mew gold star delta species","url":"https://assets.tcgdex.net/en/ex/ex15/101/low.webp"},{"key":"en|ex power keepers|6|charizard","url":"https://assets.tcgdex.net/en/ex/ex16/6/low.webp"},{"key":"en|jungle|51|eevee","url":"https://assets.tcgdex.net/en/base/base2/51/low.webp"},{"key":"en|fossil|54|shellder","url":"https://assets.tcgdex.net/en/base/base3/54/low.webp"},{"key":"en|fossil|55|slowpoke","url":"https://assets.tcgdex.net/en/base/base3/55/low.webp"},{"key":"en|fossil|59|energy search","url":"https://assets.tcgdex.net/en/base/base3/59/low.webp"},{"key":"en|rocket|30|dark vileplume","url":"https://assets.tcgdex.net/en/base/base5/30/low.webp"},{"key":"en|neo genesis|53|chikorita","url":"https://assets.tcgdex.net/en/neo/neo1/53/low.webp"},{"key":"en|ex dragon frontiers|43|bagon delta species","url":"https://assets.tcgdex.net/en/ex/ex15/43/low.webp"},{"key":"en|fossil|49|horsea","url":"https://assets.tcgdex.net/en/base/base3/49/low.webp"},{"key":"en|neo genesis|62|horsea","url":"https://assets.tcgdex.net/en/neo/neo1/62/low.webp"},{"key":"en|ex holon phantoms|77|pidgey","url":"https://assets.tcgdex.net/en/ex/ex13/77/low.webp"},{"key":"en|legends awakened|31|jirachi","url":"https://assets.tcgdex.net/en/dp/dp6/31/low.webp"},{"key":"en|ex sandstorm|60|dunsparce","url":"https://assets.tcgdex.net/en/ex/ex2/60/low.webp"},{"key":"en|neo destiny|80|remoraid","url":"https://assets.tcgdex.net/en/neo/neo4/80/low.webp"},{"key":"en|ex power keepers|7|cradily","url":"https://assets.tcgdex.net/en/ex/ex16/7/low.webp"},{"key":"en|ex ruby sapphire|69|shroomish","url":"https://assets.tcgdex.net/en/ex/ex1/69/low.webp"},{"key":"en|jungle|49|bellsprout","url":"https://assets.tcgdex.net/en/base/base2/49/low.webp"},{"key":"en|fossil|56|tentacool","url":"https://assets.tcgdex.net/en/base/base3/56/low.webp"},{"key":"en|ex ruby sapphire|65|poochyena","url":"https://assets.tcgdex.net/en/ex/ex1/65/low.webp"}]}
+{
+  "version": "v130",
+  "refs": [
+    {
+      "key": "en|base|1|alakazam",
+      "url": "https://assets.tcgdex.net/en/base/base1/1/low.webp"
+    },
+    {
+      "key": "en|base|2|blastoise",
+      "url": "https://assets.tcgdex.net/en/base/base1/2/low.webp"
+    },
+    {
+      "key": "en|base|3|chansey",
+      "url": "https://assets.tcgdex.net/en/base/base1/3/low.webp"
+    },
+    {
+      "key": "en|base|4|charizard",
+      "url": "https://assets.tcgdex.net/en/base/base1/4/low.webp"
+    },
+    {
+      "key": "en|base|5|clefairy",
+      "url": "https://assets.tcgdex.net/en/base/base1/5/low.webp"
+    },
+    {
+      "key": "en|base|6|gyarados",
+      "url": "https://assets.tcgdex.net/en/base/base1/6/low.webp"
+    },
+    {
+      "key": "en|base|7|hitmonchan",
+      "url": "https://assets.tcgdex.net/en/base/base1/7/low.webp"
+    },
+    {
+      "key": "en|base|8|machamp",
+      "url": "https://assets.tcgdex.net/en/base/base1/8/low.webp"
+    },
+    {
+      "key": "en|base|9|magneton",
+      "url": "https://assets.tcgdex.net/en/base/base1/9/low.webp"
+    },
+    {
+      "key": "en|base|10|mewtwo",
+      "url": "https://assets.tcgdex.net/en/base/base1/10/low.webp"
+    },
+    {
+      "key": "en|base|11|nidoking",
+      "url": "https://assets.tcgdex.net/en/base/base1/11/low.webp"
+    },
+    {
+      "key": "en|base|12|ninetales",
+      "url": "https://assets.tcgdex.net/en/base/base1/12/low.webp"
+    },
+    {
+      "key": "en|base|13|poliwrath",
+      "url": "https://assets.tcgdex.net/en/base/base1/13/low.webp"
+    },
+    {
+      "key": "en|base|14|raichu",
+      "url": "https://assets.tcgdex.net/en/base/base1/14/low.webp"
+    },
+    {
+      "key": "en|base|15|venusaur",
+      "url": "https://assets.tcgdex.net/en/base/base1/15/low.webp"
+    },
+    {
+      "key": "en|base|16|zapdos",
+      "url": "https://assets.tcgdex.net/en/base/base1/16/low.webp"
+    },
+    {
+      "key": "en|jungle|1|clefable",
+      "url": "https://assets.tcgdex.net/en/base/base2/1/low.webp"
+    },
+    {
+      "key": "en|jungle|2|electrode",
+      "url": "https://assets.tcgdex.net/en/base/base2/2/low.webp"
+    },
+    {
+      "key": "en|jungle|3|flareon",
+      "url": "https://assets.tcgdex.net/en/base/base2/3/low.webp"
+    },
+    {
+      "key": "en|jungle|4|jolteon",
+      "url": "https://assets.tcgdex.net/en/base/base2/4/low.webp"
+    },
+    {
+      "key": "en|jungle|5|kangaskhan",
+      "url": "https://assets.tcgdex.net/en/base/base2/5/low.webp"
+    },
+    {
+      "key": "en|jungle|6|mr. mime",
+      "url": "https://assets.tcgdex.net/en/base/base2/6/low.webp"
+    },
+    {
+      "key": "en|jungle|7|nidoqueen",
+      "url": "https://assets.tcgdex.net/en/base/base2/7/low.webp"
+    },
+    {
+      "key": "en|jungle|8|pidgeot",
+      "url": "https://assets.tcgdex.net/en/base/base2/8/low.webp"
+    },
+    {
+      "key": "en|jungle|9|pinsir",
+      "url": "https://assets.tcgdex.net/en/base/base2/9/low.webp"
+    },
+    {
+      "key": "en|jungle|10|scyther",
+      "url": "https://assets.tcgdex.net/en/base/base2/10/low.webp"
+    },
+    {
+      "key": "en|jungle|11|snorlax",
+      "url": "https://assets.tcgdex.net/en/base/base2/11/low.webp"
+    },
+    {
+      "key": "en|jungle|12|vaporeon",
+      "url": "https://assets.tcgdex.net/en/base/base2/12/low.webp"
+    },
+    {
+      "key": "en|jungle|13|venomoth",
+      "url": "https://assets.tcgdex.net/en/base/base2/13/low.webp"
+    },
+    {
+      "key": "en|jungle|14|victreebel",
+      "url": "https://assets.tcgdex.net/en/base/base2/14/low.webp"
+    },
+    {
+      "key": "en|jungle|15|vileplume",
+      "url": "https://assets.tcgdex.net/en/base/base2/15/low.webp"
+    },
+    {
+      "key": "en|jungle|16|wigglytuff",
+      "url": "https://assets.tcgdex.net/en/base/base2/16/low.webp"
+    },
+    {
+      "key": "en|fossil|1|aerodactyl",
+      "url": "https://assets.tcgdex.net/en/base/base3/1/low.webp"
+    },
+    {
+      "key": "en|fossil|2|articuno",
+      "url": "https://assets.tcgdex.net/en/base/base3/2/low.webp"
+    },
+    {
+      "key": "en|fossil|3|ditto",
+      "url": "https://assets.tcgdex.net/en/base/base3/3/low.webp"
+    },
+    {
+      "key": "en|fossil|4|dragonite",
+      "url": "https://assets.tcgdex.net/en/base/base3/4/low.webp"
+    },
+    {
+      "key": "en|fossil|5|gengar",
+      "url": "https://assets.tcgdex.net/en/base/base3/5/low.webp"
+    },
+    {
+      "key": "en|fossil|6|haunter",
+      "url": "https://assets.tcgdex.net/en/base/base3/6/low.webp"
+    },
+    {
+      "key": "en|fossil|7|hitmonlee",
+      "url": "https://assets.tcgdex.net/en/base/base3/7/low.webp"
+    },
+    {
+      "key": "en|fossil|8|hypno",
+      "url": "https://assets.tcgdex.net/en/base/base3/8/low.webp"
+    },
+    {
+      "key": "en|fossil|9|kabutops",
+      "url": "https://assets.tcgdex.net/en/base/base3/9/low.webp"
+    },
+    {
+      "key": "en|fossil|10|lapras",
+      "url": "https://assets.tcgdex.net/en/base/base3/10/low.webp"
+    },
+    {
+      "key": "en|fossil|11|magneton",
+      "url": "https://assets.tcgdex.net/en/base/base3/11/low.webp"
+    },
+    {
+      "key": "en|fossil|12|moltres",
+      "url": "https://assets.tcgdex.net/en/base/base3/12/low.webp"
+    },
+    {
+      "key": "en|fossil|13|muk",
+      "url": "https://assets.tcgdex.net/en/base/base3/13/low.webp"
+    },
+    {
+      "key": "en|fossil|14|raichu",
+      "url": "https://assets.tcgdex.net/en/base/base3/14/low.webp"
+    },
+    {
+      "key": "en|fossil|15|zapdos",
+      "url": "https://assets.tcgdex.net/en/base/base3/15/low.webp"
+    },
+    {
+      "key": "en|base set 2|1|alakazam",
+      "url": "https://assets.tcgdex.net/en/base/base4/1/low.webp"
+    },
+    {
+      "key": "en|base set 2|2|blastoise",
+      "url": "https://assets.tcgdex.net/en/base/base4/2/low.webp"
+    },
+    {
+      "key": "en|base set 2|3|chansey",
+      "url": "https://assets.tcgdex.net/en/base/base4/3/low.webp"
+    },
+    {
+      "key": "en|base set 2|4|charizard",
+      "url": "https://assets.tcgdex.net/en/base/base4/4/low.webp"
+    },
+    {
+      "key": "en|base set 2|5|clefable",
+      "url": "https://assets.tcgdex.net/en/base/base4/5/low.webp"
+    },
+    {
+      "key": "en|base set 2|6|clefairy",
+      "url": "https://assets.tcgdex.net/en/base/base4/6/low.webp"
+    },
+    {
+      "key": "en|base set 2|7|gyarados",
+      "url": "https://assets.tcgdex.net/en/base/base4/7/low.webp"
+    },
+    {
+      "key": "en|base set 2|8|hitmonchan",
+      "url": "https://assets.tcgdex.net/en/base/base4/8/low.webp"
+    },
+    {
+      "key": "en|base set 2|9|magneton",
+      "url": "https://assets.tcgdex.net/en/base/base4/9/low.webp"
+    },
+    {
+      "key": "en|base set 2|10|mewtwo",
+      "url": "https://assets.tcgdex.net/en/base/base4/10/low.webp"
+    },
+    {
+      "key": "en|base set 2|11|nidoking",
+      "url": "https://assets.tcgdex.net/en/base/base4/11/low.webp"
+    },
+    {
+      "key": "en|base set 2|12|nidoqueen",
+      "url": "https://assets.tcgdex.net/en/base/base4/12/low.webp"
+    },
+    {
+      "key": "en|base set 2|13|ninetales",
+      "url": "https://assets.tcgdex.net/en/base/base4/13/low.webp"
+    },
+    {
+      "key": "en|base set 2|14|pidgeot",
+      "url": "https://assets.tcgdex.net/en/base/base4/14/low.webp"
+    },
+    {
+      "key": "en|base set 2|15|poliwrath",
+      "url": "https://assets.tcgdex.net/en/base/base4/15/low.webp"
+    },
+    {
+      "key": "en|base set 2|16|raichu",
+      "url": "https://assets.tcgdex.net/en/base/base4/16/low.webp"
+    },
+    {
+      "key": "en|base set 2|17|scyther",
+      "url": "https://assets.tcgdex.net/en/base/base4/17/low.webp"
+    },
+    {
+      "key": "en|base set 2|18|venusaur",
+      "url": "https://assets.tcgdex.net/en/base/base4/18/low.webp"
+    },
+    {
+      "key": "en|base set 2|19|wigglytuff",
+      "url": "https://assets.tcgdex.net/en/base/base4/19/low.webp"
+    },
+    {
+      "key": "en|base set 2|20|zapdos",
+      "url": "https://assets.tcgdex.net/en/base/base4/20/low.webp"
+    },
+    {
+      "key": "en|rocket|1|dark alakazam",
+      "url": "https://assets.tcgdex.net/en/base/base5/1/low.webp"
+    },
+    {
+      "key": "en|rocket|2|dark arbok",
+      "url": "https://assets.tcgdex.net/en/base/base5/2/low.webp"
+    },
+    {
+      "key": "en|rocket|3|dark blastoise",
+      "url": "https://assets.tcgdex.net/en/base/base5/3/low.webp"
+    },
+    {
+      "key": "en|rocket|4|dark charizard",
+      "url": "https://assets.tcgdex.net/en/base/base5/4/low.webp"
+    },
+    {
+      "key": "en|rocket|5|dark dragonite",
+      "url": "https://assets.tcgdex.net/en/base/base5/5/low.webp"
+    },
+    {
+      "key": "en|rocket|6|dark dugtrio",
+      "url": "https://assets.tcgdex.net/en/base/base5/6/low.webp"
+    },
+    {
+      "key": "en|rocket|7|dark golbat",
+      "url": "https://assets.tcgdex.net/en/base/base5/7/low.webp"
+    },
+    {
+      "key": "en|rocket|8|dark gyarados",
+      "url": "https://assets.tcgdex.net/en/base/base5/8/low.webp"
+    },
+    {
+      "key": "en|rocket|9|dark hypno",
+      "url": "https://assets.tcgdex.net/en/base/base5/9/low.webp"
+    },
+    {
+      "key": "en|rocket|10|dark machamp",
+      "url": "https://assets.tcgdex.net/en/base/base5/10/low.webp"
+    },
+    {
+      "key": "en|rocket|11|dark magneton",
+      "url": "https://assets.tcgdex.net/en/base/base5/11/low.webp"
+    },
+    {
+      "key": "en|rocket|12|dark slowbro",
+      "url": "https://assets.tcgdex.net/en/base/base5/12/low.webp"
+    },
+    {
+      "key": "en|rocket|13|dark vileplume",
+      "url": "https://assets.tcgdex.net/en/base/base5/13/low.webp"
+    },
+    {
+      "key": "en|rocket|14|dark weezing",
+      "url": "https://assets.tcgdex.net/en/base/base5/14/low.webp"
+    },
+    {
+      "key": "en|rocket|15|here comes team rocket!",
+      "url": "https://assets.tcgdex.net/en/base/base5/15/low.webp"
+    },
+    {
+      "key": "en|rocket|16|rocket's sneak attack",
+      "url": "https://assets.tcgdex.net/en/base/base5/16/low.webp"
+    },
+    {
+      "key": "en|rocket|17|rainbow energy",
+      "url": "https://assets.tcgdex.net/en/base/base5/17/low.webp"
+    },
+    {
+      "key": "en|gym heroes|1|blaine's moltres",
+      "url": "https://assets.tcgdex.net/en/gym/gym1/1/low.webp"
+    },
+    {
+      "key": "en|gym heroes|2|brock's rhydon",
+      "url": "https://assets.tcgdex.net/en/gym/gym1/2/low.webp"
+    },
+    {
+      "key": "en|gym heroes|3|erika's clefable",
+      "url": "https://assets.tcgdex.net/en/gym/gym1/3/low.webp"
+    },
+    {
+      "key": "en|gym heroes|4|erika's dragonair",
+      "url": "https://assets.tcgdex.net/en/gym/gym1/4/low.webp"
+    },
+    {
+      "key": "en|gym heroes|5|erika's vileplume",
+      "url": "https://assets.tcgdex.net/en/gym/gym1/5/low.webp"
+    },
+    {
+      "key": "en|gym heroes|6|lt. surge's electabuzz",
+      "url": "https://assets.tcgdex.net/en/gym/gym1/6/low.webp"
+    },
+    {
+      "key": "en|gym heroes|7|lt. surge's fearow",
+      "url": "https://assets.tcgdex.net/en/gym/gym1/7/low.webp"
+    },
+    {
+      "key": "en|gym heroes|8|lt. surge's magneton",
+      "url": "https://assets.tcgdex.net/en/gym/gym1/8/low.webp"
+    },
+    {
+      "key": "en|gym heroes|9|misty's seadra",
+      "url": "https://assets.tcgdex.net/en/gym/gym1/9/low.webp"
+    },
+    {
+      "key": "en|gym heroes|10|misty's tentacruel",
+      "url": "https://assets.tcgdex.net/en/gym/gym1/10/low.webp"
+    },
+    {
+      "key": "en|gym heroes|11|rocket's hitmonchan",
+      "url": "https://assets.tcgdex.net/en/gym/gym1/11/low.webp"
+    },
+    {
+      "key": "en|gym heroes|12|rocket's moltres",
+      "url": "https://assets.tcgdex.net/en/gym/gym1/12/low.webp"
+    },
+    {
+      "key": "en|gym heroes|13|rocket's scyther",
+      "url": "https://assets.tcgdex.net/en/gym/gym1/13/low.webp"
+    },
+    {
+      "key": "en|gym heroes|14|sabrina's gengar",
+      "url": "https://assets.tcgdex.net/en/gym/gym1/14/low.webp"
+    },
+    {
+      "key": "en|gym heroes|15|brock",
+      "url": "https://assets.tcgdex.net/en/gym/gym1/15/low.webp"
+    },
+    {
+      "key": "en|gym heroes|16|erika",
+      "url": "https://assets.tcgdex.net/en/gym/gym1/16/low.webp"
+    },
+    {
+      "key": "en|gym heroes|17|lt. surge",
+      "url": "https://assets.tcgdex.net/en/gym/gym1/17/low.webp"
+    },
+    {
+      "key": "en|gym heroes|18|misty",
+      "url": "https://assets.tcgdex.net/en/gym/gym1/18/low.webp"
+    },
+    {
+      "key": "en|gym heroes|19|the rocket's trap",
+      "url": "https://assets.tcgdex.net/en/gym/gym1/19/low.webp"
+    },
+    {
+      "key": "en|gym challenge|1|blaine's arcanine",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/1/low.webp"
+    },
+    {
+      "key": "en|gym challenge|2|blaine's charizard",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/2/low.webp"
+    },
+    {
+      "key": "en|gym challenge|3|brock's ninetales",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/3/low.webp"
+    },
+    {
+      "key": "en|gym challenge|4|erika's venusaur",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/4/low.webp"
+    },
+    {
+      "key": "en|gym challenge|5|giovanni's gyarados",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/5/low.webp"
+    },
+    {
+      "key": "en|gym challenge|6|giovanni's machamp",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/6/low.webp"
+    },
+    {
+      "key": "en|gym challenge|7|giovanni's nidoking",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/7/low.webp"
+    },
+    {
+      "key": "en|gym challenge|8|giovanni's persian",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/8/low.webp"
+    },
+    {
+      "key": "en|gym challenge|9|koga's beedrill",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/9/low.webp"
+    },
+    {
+      "key": "en|gym challenge|10|koga's ditto",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/10/low.webp"
+    },
+    {
+      "key": "en|gym challenge|11|lt. surge's raichu",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/11/low.webp"
+    },
+    {
+      "key": "en|gym challenge|12|misty's golduck",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/12/low.webp"
+    },
+    {
+      "key": "en|gym challenge|13|misty's gyarados",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/13/low.webp"
+    },
+    {
+      "key": "en|gym challenge|14|rocket's mewtwo",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/14/low.webp"
+    },
+    {
+      "key": "en|gym challenge|15|rocket's zapdos",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/15/low.webp"
+    },
+    {
+      "key": "en|gym challenge|16|sabrina's alakazam",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/16/low.webp"
+    },
+    {
+      "key": "en|gym challenge|17|blaine",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/17/low.webp"
+    },
+    {
+      "key": "en|gym challenge|18|giovanni",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/18/low.webp"
+    },
+    {
+      "key": "en|gym challenge|19|koga",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/19/low.webp"
+    },
+    {
+      "key": "en|gym challenge|20|sabrina",
+      "url": "https://assets.tcgdex.net/en/gym/gym2/20/low.webp"
+    },
+    {
+      "key": "en|neo genesis|1|ampharos",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/1/low.webp"
+    },
+    {
+      "key": "en|neo genesis|2|azumarill",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/2/low.webp"
+    },
+    {
+      "key": "en|neo genesis|3|bellossom",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/3/low.webp"
+    },
+    {
+      "key": "en|neo genesis|4|feraligatr",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/4/low.webp"
+    },
+    {
+      "key": "en|neo genesis|5|feraligatr",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/5/low.webp"
+    },
+    {
+      "key": "en|neo genesis|6|heracross",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/6/low.webp"
+    },
+    {
+      "key": "en|neo genesis|7|jumpluff",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/7/low.webp"
+    },
+    {
+      "key": "en|neo genesis|8|kingdra",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/8/low.webp"
+    },
+    {
+      "key": "en|neo genesis|9|lugia",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/9/low.webp"
+    },
+    {
+      "key": "en|neo genesis|10|meganium",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/10/low.webp"
+    },
+    {
+      "key": "en|neo genesis|11|meganium",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/11/low.webp"
+    },
+    {
+      "key": "en|neo genesis|12|pichu",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/12/low.webp"
+    },
+    {
+      "key": "en|neo genesis|13|skarmory",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/13/low.webp"
+    },
+    {
+      "key": "en|neo genesis|14|slowking",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/14/low.webp"
+    },
+    {
+      "key": "en|neo genesis|15|steelix",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/15/low.webp"
+    },
+    {
+      "key": "en|neo genesis|16|togetic",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/16/low.webp"
+    },
+    {
+      "key": "en|neo genesis|17|typhlosion",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/17/low.webp"
+    },
+    {
+      "key": "en|neo genesis|18|typhlosion",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/18/low.webp"
+    },
+    {
+      "key": "en|neo genesis|19|metal energy",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/19/low.webp"
+    },
+    {
+      "key": "en|neo discovery|1|espeon",
+      "url": "https://assets.tcgdex.net/en/neo/neo2/1/low.webp"
+    },
+    {
+      "key": "en|neo discovery|2|forretress",
+      "url": "https://assets.tcgdex.net/en/neo/neo2/2/low.webp"
+    },
+    {
+      "key": "en|neo discovery|3|hitmontop",
+      "url": "https://assets.tcgdex.net/en/neo/neo2/3/low.webp"
+    },
+    {
+      "key": "en|neo discovery|4|houndoom",
+      "url": "https://assets.tcgdex.net/en/neo/neo2/4/low.webp"
+    },
+    {
+      "key": "en|neo discovery|5|houndour",
+      "url": "https://assets.tcgdex.net/en/neo/neo2/5/low.webp"
+    },
+    {
+      "key": "en|neo discovery|6|kabutops",
+      "url": "https://assets.tcgdex.net/en/neo/neo2/6/low.webp"
+    },
+    {
+      "key": "en|neo discovery|7|magnemite",
+      "url": "https://assets.tcgdex.net/en/neo/neo2/7/low.webp"
+    },
+    {
+      "key": "en|neo discovery|8|politoed",
+      "url": "https://assets.tcgdex.net/en/neo/neo2/8/low.webp"
+    },
+    {
+      "key": "en|neo discovery|9|poliwrath",
+      "url": "https://assets.tcgdex.net/en/neo/neo2/9/low.webp"
+    },
+    {
+      "key": "en|neo discovery|10|scizor",
+      "url": "https://assets.tcgdex.net/en/neo/neo2/10/low.webp"
+    },
+    {
+      "key": "en|neo discovery|11|smeargle",
+      "url": "https://assets.tcgdex.net/en/neo/neo2/11/low.webp"
+    },
+    {
+      "key": "en|neo discovery|12|tyranitar",
+      "url": "https://assets.tcgdex.net/en/neo/neo2/12/low.webp"
+    },
+    {
+      "key": "en|neo discovery|13|umbreon",
+      "url": "https://assets.tcgdex.net/en/neo/neo2/13/low.webp"
+    },
+    {
+      "key": "en|neo discovery|14|unown [a]",
+      "url": "https://assets.tcgdex.net/en/neo/neo2/14/low.webp"
+    },
+    {
+      "key": "en|neo discovery|15|ursaring",
+      "url": "https://assets.tcgdex.net/en/neo/neo2/15/low.webp"
+    },
+    {
+      "key": "en|neo discovery|16|wobbuffet",
+      "url": "https://assets.tcgdex.net/en/neo/neo2/16/low.webp"
+    },
+    {
+      "key": "en|neo discovery|17|yanma",
+      "url": "https://assets.tcgdex.net/en/neo/neo2/17/low.webp"
+    },
+    {
+      "key": "en|neo revelation|1|ampharos",
+      "url": "https://assets.tcgdex.net/en/neo/neo3/1/low.webp"
+    },
+    {
+      "key": "en|neo revelation|2|blissey",
+      "url": "https://assets.tcgdex.net/en/neo/neo3/2/low.webp"
+    },
+    {
+      "key": "en|neo revelation|3|celebi",
+      "url": "https://assets.tcgdex.net/en/neo/neo3/3/low.webp"
+    },
+    {
+      "key": "en|neo revelation|4|crobat",
+      "url": "https://assets.tcgdex.net/en/neo/neo3/4/low.webp"
+    },
+    {
+      "key": "en|neo revelation|5|delibird",
+      "url": "https://assets.tcgdex.net/en/neo/neo3/5/low.webp"
+    },
+    {
+      "key": "en|neo revelation|6|entei",
+      "url": "https://assets.tcgdex.net/en/neo/neo3/6/low.webp"
+    },
+    {
+      "key": "en|neo revelation|7|ho-oh",
+      "url": "https://assets.tcgdex.net/en/neo/neo3/7/low.webp"
+    },
+    {
+      "key": "en|neo revelation|8|houndoom",
+      "url": "https://assets.tcgdex.net/en/neo/neo3/8/low.webp"
+    },
+    {
+      "key": "en|neo revelation|9|jumpluff",
+      "url": "https://assets.tcgdex.net/en/neo/neo3/9/low.webp"
+    },
+    {
+      "key": "en|neo revelation|10|magneton",
+      "url": "https://assets.tcgdex.net/en/neo/neo3/10/low.webp"
+    },
+    {
+      "key": "en|neo revelation|11|misdreavus",
+      "url": "https://assets.tcgdex.net/en/neo/neo3/11/low.webp"
+    },
+    {
+      "key": "en|neo revelation|12|porygon2",
+      "url": "https://assets.tcgdex.net/en/neo/neo3/12/low.webp"
+    },
+    {
+      "key": "en|neo revelation|13|raikou",
+      "url": "https://assets.tcgdex.net/en/neo/neo3/13/low.webp"
+    },
+    {
+      "key": "en|neo revelation|14|suicune",
+      "url": "https://assets.tcgdex.net/en/neo/neo3/14/low.webp"
+    },
+    {
+      "key": "en|neo revelation|65|shining gyarados",
+      "url": "https://assets.tcgdex.net/en/neo/neo3/65/low.webp"
+    },
+    {
+      "key": "en|neo revelation|66|shining magikarp",
+      "url": "https://assets.tcgdex.net/en/neo/neo3/66/low.webp"
+    },
+    {
+      "key": "en|neo destiny|1|dark ampharos",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/1/low.webp"
+    },
+    {
+      "key": "en|neo destiny|2|dark crobat",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/2/low.webp"
+    },
+    {
+      "key": "en|neo destiny|3|dark donphan",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/3/low.webp"
+    },
+    {
+      "key": "en|neo destiny|4|dark espeon",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/4/low.webp"
+    },
+    {
+      "key": "en|neo destiny|5|dark feraligatr",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/5/low.webp"
+    },
+    {
+      "key": "en|neo destiny|6|dark gengar",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/6/low.webp"
+    },
+    {
+      "key": "en|neo destiny|7|dark houndoom",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/7/low.webp"
+    },
+    {
+      "key": "en|neo destiny|8|dark porygon2",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/8/low.webp"
+    },
+    {
+      "key": "en|neo destiny|9|dark scizor",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/9/low.webp"
+    },
+    {
+      "key": "en|neo destiny|10|dark typhlosion",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/10/low.webp"
+    },
+    {
+      "key": "en|neo destiny|11|dark tyranitar",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/11/low.webp"
+    },
+    {
+      "key": "en|neo destiny|12|light arcanine",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/12/low.webp"
+    },
+    {
+      "key": "en|neo destiny|13|light azumarill",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/13/low.webp"
+    },
+    {
+      "key": "en|neo destiny|14|light dragonite",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/14/low.webp"
+    },
+    {
+      "key": "en|neo destiny|15|light togetic",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/15/low.webp"
+    },
+    {
+      "key": "en|neo destiny|16|miracle energy",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/16/low.webp"
+    },
+    {
+      "key": "en|neo destiny|106|shining celebi",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/106/low.webp"
+    },
+    {
+      "key": "en|neo destiny|107|shining charizard",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/107/low.webp"
+    },
+    {
+      "key": "en|neo destiny|108|shining kabutops",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/108/low.webp"
+    },
+    {
+      "key": "en|neo destiny|109|shining mewtwo",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/109/low.webp"
+    },
+    {
+      "key": "en|neo destiny|110|shining noctowl",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/110/low.webp"
+    },
+    {
+      "key": "en|neo destiny|111|shining raichu",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/111/low.webp"
+    },
+    {
+      "key": "en|neo destiny|112|shining steelix",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/112/low.webp"
+    },
+    {
+      "key": "en|neo destiny|113|shining tyranitar",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/113/low.webp"
+    },
+    {
+      "key": "en|legendary collection|3|charizard",
+      "url": "https://assets.tcgdex.net/en/base/base6/3/low.webp"
+    },
+    {
+      "key": "en|legendary collection|3|charizard reverse holo",
+      "url": "https://assets.tcgdex.net/en/base/base6/3/low.webp"
+    },
+    {
+      "key": "en|legendary collection|29|mewtwo",
+      "url": "https://assets.tcgdex.net/en/base/base6/29/low.webp"
+    },
+    {
+      "key": "en|legendary collection|4|dark blastoise",
+      "url": "https://assets.tcgdex.net/en/base/base6/4/low.webp"
+    },
+    {
+      "key": "en|expedition|6|charizard",
+      "url": "https://assets.tcgdex.net/en/ecard/ecard1/6/low.webp"
+    },
+    {
+      "key": "en|expedition|39|charizard",
+      "url": "https://assets.tcgdex.net/en/ecard/ecard1/39/low.webp"
+    },
+    {
+      "key": "en|expedition|40|charizard",
+      "url": "https://assets.tcgdex.net/en/ecard/ecard1/40/low.webp"
+    },
+    {
+      "key": "en|expedition|124|pikachu",
+      "url": "https://assets.tcgdex.net/en/ecard/ecard1/124/low.webp"
+    },
+    {
+      "key": "en|aquapolis|149|lugia",
+      "url": "https://assets.tcgdex.net/en/ecard/ecard2/149/low.webp"
+    },
+    {
+      "key": "en|aquapolis|148|kingdra",
+      "url": "https://assets.tcgdex.net/en/ecard/ecard2/148/low.webp"
+    },
+    {
+      "key": "en|aquapolis|150|nidoking",
+      "url": "https://assets.tcgdex.net/en/ecard/ecard2/150/low.webp"
+    },
+    {
+      "key": "en|aquapolis|h19|ninetales",
+      "url": "https://assets.tcgdex.net/en/ecard/ecard2/H19/low.webp"
+    },
+    {
+      "key": "en|skyridge|146|charizard",
+      "url": "https://assets.tcgdex.net/en/ecard/ecard3/146/low.webp"
+    },
+    {
+      "key": "en|skyridge|145|celebi",
+      "url": "https://assets.tcgdex.net/en/ecard/ecard3/145/low.webp"
+    },
+    {
+      "key": "en|skyridge|147|crobat",
+      "url": "https://assets.tcgdex.net/en/ecard/ecard3/147/low.webp"
+    },
+    {
+      "key": "en|skyridge|h10|gyarados",
+      "url": "https://assets.tcgdex.net/en/ecard/ecard3/H10/low.webp"
+    },
+    {
+      "key": "en|ex team rocket returns|107|mudkip gold star",
+      "url": "https://assets.tcgdex.net/en/ex/ex7/107/low.webp"
+    },
+    {
+      "key": "en|ex team rocket returns|108|torchic gold star",
+      "url": "https://assets.tcgdex.net/en/ex/ex7/108/low.webp"
+    },
+    {
+      "key": "en|ex team rocket returns|109|treecko gold star",
+      "url": "https://assets.tcgdex.net/en/ex/ex7/109/low.webp"
+    },
+    {
+      "key": "en|ex deoxys|105|latias gold star",
+      "url": "https://assets.tcgdex.net/en/ex/ex8/105/low.webp"
+    },
+    {
+      "key": "en|ex deoxys|106|latios gold star",
+      "url": "https://assets.tcgdex.net/en/ex/ex8/106/low.webp"
+    },
+    {
+      "key": "en|ex deoxys|107|rayquaza gold star",
+      "url": "https://assets.tcgdex.net/en/ex/ex8/107/low.webp"
+    },
+    {
+      "key": "en|ex firered leafgreen|104|blastoise ex",
+      "url": "https://assets.tcgdex.net/en/ex/ex6/104/low.webp"
+    },
+    {
+      "key": "en|ex firered leafgreen|105|charizard ex",
+      "url": "https://assets.tcgdex.net/en/ex/ex6/105/low.webp"
+    },
+    {
+      "key": "en|ex emerald|9|rayquaza",
+      "url": "https://assets.tcgdex.net/en/ex/ex9/9/low.webp"
+    },
+    {
+      "key": "en|ex unseen forces|112|umbreon ex",
+      "url": "https://assets.tcgdex.net/en/ex/ex10/112/low.webp"
+    },
+    {
+      "key": "en|ex unseen forces|113|entei gold star",
+      "url": "https://assets.tcgdex.net/en/ex/ex10/113/low.webp"
+    },
+    {
+      "key": "en|ex legend maker|88|mew ex",
+      "url": "https://assets.tcgdex.net/en/ex/ex12/88/low.webp"
+    },
+    {
+      "key": "en|ex holon phantoms|103|mewtwo gold star",
+      "url": "https://assets.tcgdex.net/en/ex/ex13/103/low.webp"
+    },
+    {
+      "key": "en|ex crystal guardians|4|charizard delta species",
+      "url": "https://assets.tcgdex.net/en/ex/ex14/4/low.webp"
+    },
+    {
+      "key": "en|ex dragon frontiers|99|tyranitar ex delta species",
+      "url": "https://assets.tcgdex.net/en/ex/ex15/99/low.webp"
+    },
+    {
+      "key": "en|ex dragon frontiers|100|charizard gold star delta species",
+      "url": "https://assets.tcgdex.net/en/ex/ex15/100/low.webp"
+    },
+    {
+      "key": "en|ex dragon frontiers|101|mew gold star delta species",
+      "url": "https://assets.tcgdex.net/en/ex/ex15/101/low.webp"
+    },
+    {
+      "key": "en|ex power keepers|6|charizard",
+      "url": "https://assets.tcgdex.net/en/ex/ex16/6/low.webp"
+    },
+    {
+      "key": "en|jungle|51|eevee",
+      "url": "https://assets.tcgdex.net/en/base/base2/51/low.webp"
+    },
+    {
+      "key": "en|fossil|54|shellder",
+      "url": "https://assets.tcgdex.net/en/base/base3/54/low.webp"
+    },
+    {
+      "key": "en|fossil|55|slowpoke",
+      "url": "https://assets.tcgdex.net/en/base/base3/55/low.webp"
+    },
+    {
+      "key": "en|fossil|59|energy search",
+      "url": "https://assets.tcgdex.net/en/base/base3/59/low.webp"
+    },
+    {
+      "key": "en|rocket|30|dark vileplume",
+      "url": "https://assets.tcgdex.net/en/base/base5/30/low.webp"
+    },
+    {
+      "key": "en|neo genesis|53|chikorita",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/53/low.webp"
+    },
+    {
+      "key": "en|ex dragon frontiers|43|bagon delta species",
+      "url": "https://assets.tcgdex.net/en/ex/ex15/43/low.webp"
+    },
+    {
+      "key": "en|fossil|49|horsea",
+      "url": "https://assets.tcgdex.net/en/base/base3/49/low.webp"
+    },
+    {
+      "key": "en|neo genesis|62|horsea",
+      "url": "https://assets.tcgdex.net/en/neo/neo1/62/low.webp"
+    },
+    {
+      "key": "en|ex holon phantoms|77|pidgey",
+      "url": "https://assets.tcgdex.net/en/ex/ex13/77/low.webp"
+    },
+    {
+      "key": "en|legends awakened|31|jirachi",
+      "url": "https://assets.tcgdex.net/en/dp/dp6/31/low.webp"
+    },
+    {
+      "key": "en|ex sandstorm|60|dunsparce",
+      "url": "https://assets.tcgdex.net/en/ex/ex2/60/low.webp"
+    },
+    {
+      "key": "en|neo destiny|80|remoraid",
+      "url": "https://assets.tcgdex.net/en/neo/neo4/80/low.webp"
+    },
+    {
+      "key": "en|ex power keepers|7|cradily",
+      "url": "https://assets.tcgdex.net/en/ex/ex16/7/low.webp"
+    },
+    {
+      "key": "en|ex ruby sapphire|69|shroomish",
+      "url": "https://assets.tcgdex.net/en/ex/ex1/69/low.webp"
+    },
+    {
+      "key": "en|jungle|49|bellsprout",
+      "url": "https://assets.tcgdex.net/en/base/base2/49/low.webp"
+    },
+    {
+      "key": "en|fossil|56|tentacool",
+      "url": "https://assets.tcgdex.net/en/base/base3/56/low.webp"
+    },
+    {
+      "key": "en|ex ruby sapphire|65|poochyena",
+      "url": "https://assets.tcgdex.net/en/ex/ex1/65/low.webp"
+    },
+    {
+      "key": "en|ex dragon frontiers|43|bagon",
+      "url": "https://assets.tcgdex.net/en/ex/ex15/43/low.webp"
+    },
+    {
+      "key": "en|rocket|63|oddish",
+      "url": "https://assets.tcgdex.net/en/base/base5/63/low.webp"
+    }
+  ]
+}
