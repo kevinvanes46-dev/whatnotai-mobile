@@ -1,11 +1,11 @@
 {
-  "name": "CardScout v100 CORE3 STABLE",
+  "name": "CardScout",
   "short_name": "CardScout",
-  "start_url": "./",
+  "start_url": "./?build=110#scan",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#030711",
-  "theme_color": "#08111f",
-  "description": "CardScout v77: stabiele v76 OCR-basis met lokale database-rescue voor naam/nummer/set, geverifieerde regressiekaarten, guided camera en handmatige 1st Edition.",
+  "background_color": "#050912",
+  "theme_color": "#07111e",
+  "description": "CardScout mobile TCG scout. Scan, search and open verified Cardmarket routes with the locked CORE3 scanner.",
   "id": "./"
 }

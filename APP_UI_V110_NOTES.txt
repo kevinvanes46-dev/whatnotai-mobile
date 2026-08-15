@@ -1,0 +1,29 @@
+CardScout v110 APP SHELL
+========================
+
+Goal
+- Rebuild the mobile experience around the locked v100 CORE3 scanner.
+- Scanner implementation remains app-v100.js.
+- v110 changes presentation/navigation only through index.html, style-v110.css and ui-v110.js.
+
+Navigation
+1. Scan
+2. Zoeken
+3. Recent
+4. Favorieten
+5. Meer / Instellingen
+
+UX rules
+- Scan is the default/home screen.
+- No build/database badges in the main header.
+- Debug information lives under Settings.
+- Open Cardmarket appears as a sticky action only when a valid link exists.
+- Scanner result auto-fills existing name/number/set fields through the locked CORE3 code.
+- No "Vul kaartgegevens in" step in the visible UI.
+- 1st Edition remains manual per card.
+- Search filters are collapsed by default.
+- Recent and Favorites no longer make the main screen endlessly long.
+
+Scanner lock
+- app-v100.js copied unchanged from v100 CORE3 STABLE.
+- No OCR regions, crop geometry, database rescue or set logic changed in this UI release.

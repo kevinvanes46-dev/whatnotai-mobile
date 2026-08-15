@@ -1,0 +1,15 @@
+CardScout v110 APP SHELL
+
+1. Pak deze ZIP uit.
+2. Upload alle bestanden naar de root van de GitHub repository whatnotai-mobile.
+3. Overschrijf bestaande bestanden.
+4. Commit direct naar main.
+5. Wacht op GitHub Pages deployment.
+6. Open:
+   https://kevinvanes46-dev.github.io/whatnotai-mobile/?build=110#scan
+
+Controle:
+- Onderin 5 tabs: Scan / Zoeken / Recent / Favoriet / Meer.
+- Hoofdscherm toont GEEN DB/build/free badges.
+- Scanner core is nog steeds app-v100.js (CORE3 LOCKED).
+- Open Cardmarket verschijnt onderin pas wanneer een geldige link klaarstaat.
