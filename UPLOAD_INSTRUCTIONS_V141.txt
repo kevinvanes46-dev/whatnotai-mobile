@@ -1,0 +1,12 @@
+CARDSCOUT v141 UPLOAD
+=====================
+
+1. Bewaar je huidige v140 ZIP als backup.
+2. Pak CardScout_mobile_v141_FULL_CLICK_FIX.zip lokaal uit.
+3. Upload de INHOUD van de ZIP naar dezelfde GitHub Pages repository/root.
+4. Vervang de v140 appbestanden door de v141 bestanden.
+5. Als je repository een CNAME-bestand heeft: NIET verwijderen.
+6. Test daarna met:
+   https://kevinvanes46-dev.github.io/whatnotai-mobile/?v=141#scan
+
+De ZIP bevat geen CNAME-bestand.

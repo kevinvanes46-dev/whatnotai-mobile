@@ -1,0 +1,36 @@
+CardScout v141 — FULL CLICK HOTFIX
+=================================
+
+Waarom v141
+-----------
+v140 stopte direct in app-v140.js omdat DATA.pokedex werd gebruikt voordat DATA was geïnitialiseerd.
+Daardoor werden veel click handlers nooit gekoppeld.
+
+Hersteld / getest
+-----------------
+- Scan met camera
+- Foto kiezen + automatische Scan kaart pipeline
+- Zoeken / Smart Search
+- Zoek op Cardmarket
+- Cardmarket JP / EN
+- Cardmarket NM / EX / GD / PL
+- Normaal / 1ST Edition
+- Voorkeuren in zowel Zoeken als Meer
+- Scan-voorkeuren knop
+- Recent
+- Favorieten
+- Resultaat-sheet knoppen
+- Debug / foutlog
+- Learning memory controls
+
+QA
+--
+53 package/static checks PASS
+50/50 Chromium interaction tests PASS
+0 page errors
+0 console errors
+
+Niet geclaimd
+-------------
+Deze hotfix maakt de bestaande hash-scanner niet ineens nauwkeurig.
+Neural Scanner / volledige catalogus blijft de volgende aparte ontwikkeling.
