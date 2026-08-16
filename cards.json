@@ -580,6 +580,159 @@
         "la",
         "dp legends awakened"
       ]
+    },
+    "DIAMOND PEARL": {
+      "label": "Diamond & Pearl",
+      "code": "DP",
+      "aliases": [
+        "diamond pearl",
+        "diamond & pearl",
+        "dp base",
+        "dp1"
+      ]
+    },
+    "MYSTERIOUS TREASURES": {
+      "label": "Mysterious Treasures",
+      "code": "MT",
+      "aliases": [
+        "mysterious treasures",
+        "mysterious treasure",
+        "mt"
+      ]
+    },
+    "SECRET WONDERS": {
+      "label": "Secret Wonders",
+      "code": "SW",
+      "aliases": [
+        "secret wonders",
+        "secret wonder",
+        "sw"
+      ]
+    },
+    "GREAT ENCOUNTERS": {
+      "label": "Great Encounters",
+      "code": "GE",
+      "aliases": [
+        "great encounters",
+        "great encounter",
+        "ge"
+      ]
+    },
+    "MAJESTIC DAWN": {
+      "label": "Majestic Dawn",
+      "code": "MD",
+      "aliases": [
+        "majestic dawn",
+        "md"
+      ]
+    },
+    "STORMFRONT": {
+      "label": "Stormfront",
+      "code": "SF",
+      "aliases": [
+        "stormfront",
+        "storm front",
+        "sf"
+      ]
+    },
+    "DP PROMO": {
+      "label": "DP Black Star Promos",
+      "code": "DPP",
+      "aliases": [
+        "dp promo",
+        "dp promos",
+        "dp black star promo",
+        "dpp"
+      ]
+    },
+    "NINTENDO PROMO": {
+      "label": "Nintendo Black Star Promos",
+      "code": "",
+      "aliases": [
+        "nintendo promo",
+        "nintendo black star promo"
+      ]
+    },
+    "POP SERIES 1": {
+      "label": "POP Series 1",
+      "code": "POP1",
+      "aliases": [
+        "pop series 1",
+        "pop 1",
+        "pop1"
+      ]
+    },
+    "POP SERIES 2": {
+      "label": "POP Series 2",
+      "code": "POP2",
+      "aliases": [
+        "pop series 2",
+        "pop 2",
+        "pop2"
+      ]
+    },
+    "POP SERIES 3": {
+      "label": "POP Series 3",
+      "code": "POP3",
+      "aliases": [
+        "pop series 3",
+        "pop 3",
+        "pop3"
+      ]
+    },
+    "POP SERIES 4": {
+      "label": "POP Series 4",
+      "code": "POP4",
+      "aliases": [
+        "pop series 4",
+        "pop 4",
+        "pop4"
+      ]
+    },
+    "POP SERIES 5": {
+      "label": "POP Series 5",
+      "code": "POP5",
+      "aliases": [
+        "pop series 5",
+        "pop 5",
+        "pop5"
+      ]
+    },
+    "POP SERIES 6": {
+      "label": "POP Series 6",
+      "code": "POP6",
+      "aliases": [
+        "pop series 6",
+        "pop 6",
+        "pop6"
+      ]
+    },
+    "POP SERIES 7": {
+      "label": "POP Series 7",
+      "code": "POP7",
+      "aliases": [
+        "pop series 7",
+        "pop 7",
+        "pop7"
+      ]
+    },
+    "POP SERIES 8": {
+      "label": "POP Series 8",
+      "code": "POP8",
+      "aliases": [
+        "pop series 8",
+        "pop 8",
+        "pop8"
+      ]
+    },
+    "POP SERIES 9": {
+      "label": "POP Series 9",
+      "code": "POP9",
+      "aliases": [
+        "pop series 9",
+        "pop 9",
+        "pop9"
+      ]
     }
   },
   "knownCards": [

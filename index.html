@@ -12,7 +12,7 @@
   <meta name="apple-mobile-web-app-title" content="CardScout" />
   <title>CardScout · Scan. Match. Check.</title>
   <link rel="stylesheet" href="style-v120.css?build=130" />
-  <link rel="manifest" href="manifest.json?build=120" />
+  <link rel="manifest" href="manifest.json?build=140" />
 </head>
 <body>
   <div class="ambient" aria-hidden="true"><span></span><span></span></div>
@@ -136,6 +136,7 @@
 
           <select id="setSelect" class="hiddenSelect" aria-hidden="true">
             <option>AUTO</option><option>BASE</option><option>JUNGLE</option><option>FOSSIL</option><option>BASE SET 2</option><option>ROCKET</option><option>GYM HEROES</option><option>GYM CHALLENGE</option><option>NEO GENESIS</option><option>NEO DISCOVERY</option><option>NEO REVELATION</option><option>NEO DESTINY</option><option>LEGENDARY COLLECTION</option><option>SOUTHERN ISLANDS</option><option>WOTC PROMO</option><option>EXPEDITION</option><option>AQUAPOLIS</option><option>SKYRIDGE</option><option>EX RUBY SAPPHIRE</option><option>EX SANDSTORM</option><option>EX DRAGON</option><option>EX TEAM MAGMA AQUA</option><option>EX HIDDEN LEGENDS</option><option>EX FIRERED LEAFGREEN</option><option>EX TEAM ROCKET RETURNS</option><option>EX DEOXYS</option><option>EX EMERALD</option><option>EX UNSEEN FORCES</option><option>EX DELTA SPECIES</option><option>EX LEGEND MAKER</option><option>EX HOLON PHANTOMS</option><option>EX CRYSTAL GUARDIANS</option><option>EX DRAGON FRONTIERS</option><option>EX POWER KEEPERS</option><option>EX TRAINER KIT 2</option>
+<option>DIAMOND PEARL</option><option>MYSTERIOUS TREASURES</option><option>SECRET WONDERS</option><option>GREAT ENCOUNTERS</option><option>MAJESTIC DAWN</option><option>STORMFRONT</option><option>DP PROMO</option><option>NINTENDO PROMO</option><option>POP SERIES 1</option><option>POP SERIES 2</option><option>POP SERIES 3</option><option>POP SERIES 4</option><option>POP SERIES 5</option><option>POP SERIES 6</option><option>POP SERIES 7</option><option>POP SERIES 8</option><option>POP SERIES 9</option><option>LEGENDS AWAKENED</option>
           </select>
           <select id="langSelect" class="hiddenSelect" aria-hidden="true"><option>JP</option><option>EN</option></select>
           <select id="condSelect" class="hiddenSelect" aria-hidden="true"><option>NM</option><option>EX</option><option>GD</option><option>PL</option></select>
@@ -186,11 +187,11 @@
           <details class="debugPanel" id="debugPanel">
             <summary><span><b>Scanner debug</b><small>Alleen nodig als een kaart fout gaat</small></span><span class="debugCount"><b id="debugFailCount">0</b> fouten</span></summary>
             <p>Mislukte of handmatig gemarkeerde scans worden alleen lokaal bewaard. Download het bestand om meerdere fouten tegelijk te analyseren.</p>
-            <div class="debugActions"><button type="button" id="debugDownloadBtn">Download foutlog</button><button type="button" id="debugClearBtn">Wis foutlog</button></div>
+            <div class="debugActions"><button type="button" id="debugDownloadBtn">Download foutlog</button><button type="button" id="debugClearBtn">Wis foutlog</button></div><p id="learningMemoryStats">Scannergeheugen laden…</p><div class="debugActions"><button type="button" id="learningBackupBtn">Backup geheugen</button><button type="button" id="learningRestoreBtn">Herstel geheugen</button><input id="learningRestoreInput" type="file" accept="application/json" hidden></div>
           </details>
         </section>
 
-        <section class="surface aboutCard"><div><b>CardScout</b><small>Mobile Pokémon TCG scout</small></div><div class="aboutMeta"><span>UI 120</span><span>CORE 100</span><span>DB 263</span></div></section>
+        <section class="surface aboutCard"><div><b>CardScout</b><small>Mobile Pokémon TCG scout</small></div><div class="aboutMeta"><span>UI 140</span><span>CORE 140</span><span>DB 265+</span></div></section>
       </section>
     </div>
   </main>
@@ -227,7 +228,8 @@
     <button type="button" class="navBtn" id="navSettings" data-tab="settings" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3V2.8h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></svg><span>Meer</span></button>
   </nav>
 
-  <script src="app-v130.js?build=130"></script>
-  <script src="ui-v120.js?build=130"></script>
+  <script src="cardscout-memory-v140.js?build=140"></script>
+  <script src="app-v140.js?build=140"></script>
+  <script src="ui-v140.js?build=140"></script>
 </body>
 </html>

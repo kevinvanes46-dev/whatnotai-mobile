@@ -1,7 +1,7 @@
 {
   "name": "CardScout",
   "short_name": "CardScout",
-  "start_url": "./?build=120#scan",
+  "start_url": "./?build=140#scan",
   "scope": "./",
   "display": "standalone",
   "background_color": "#050912",

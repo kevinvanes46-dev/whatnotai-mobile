@@ -1,0 +1,17 @@
+CardScout v140 FOUNDATION
+
+Safety release built from the exact uploaded v130 ZIP.
+- v130 baseline hashes included.
+- App/UI/Cardmarket flow retained.
+- Scanner core now embeds the same cards.json used by Smart Search.
+- 7 cards that existed only in cards.json are now visible to core too.
+- Vision index starts warming before the first scan and is stored in IndexedDB when available.
+- Automatic visual acceptance requires a nearly-complete official reference index.
+- Repeated hand-made seeds no longer receive multiple min-distance chances; seeds are fallback only.
+- Persistent learning memory stores confirmed/corrected scan fingerprints across app updates.
+- A deliberate Cardmarket open confirms the scan; Edit -> corrected fields -> Cardmarket stores a correction.
+- Preferences migrate from v130 keys to stable non-build-specific keys.
+- Added manual set aliases/options for Diamond & Pearl era + POP Series 1-9.
+
+IMPORTANT: this is a foundation/safety build, NOT yet the final neural recognition engine.
+The v130 265-card catalog is still not a full Pokemon catalog; learned manual cards can bridge gaps, but full TCGdex/neural catalog remains the next engine layer.

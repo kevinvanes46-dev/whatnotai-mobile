@@ -1,0 +1,97 @@
+# CardScout v140 Foundation QA
+
+- PASS: **79**
+- WARN: **2**
+- FAIL: **0**
+
+## Checks
+
+- ✅ **file exists: index.html**
+- ✅ **file exists: app-v140.js**
+- ✅ **file exists: ui-v140.js**
+- ✅ **file exists: cardscout-memory-v140.js**
+- ✅ **file exists: cards.json**
+- ✅ **file exists: visual-catalog.json**
+- ✅ **file exists: visual-seeds.json**
+- ✅ **file exists: manifest.json**
+- ✅ **file exists: sw.js**
+- ✅ **JavaScript syntax: app-v140.js**
+- ✅ **JavaScript syntax: ui-v140.js**
+- ✅ **JavaScript syntax: cardscout-memory-v140.js**
+- ✅ **JavaScript syntax: sw.js**
+- ✅ **HTML local referenced files exist**
+- ✅ **script order memory -> app -> UI** — [22285, 22346, 22394]
+- ✅ **no stale app/ui script references in index**
+- ✅ **knownCards preserved exactly from v130 cards.json** — 265 records
+- ✅ **knownCards count is 265** — 265
+- ✅ **embedded DATA parses as JSON**
+- ✅ **scanner embedded knownCards == cards.json knownCards** — 265 records
+- ✅ **scanner embedded sets == cards.json sets** — 52 set definitions
+- ✅ **7 cards previously invisible to scanner are now in runtime**
+- ✅ **unchanged baseline SHA256: visual-catalog.json**
+- ✅ **unchanged baseline SHA256: visual-seeds.json**
+- ✅ **unchanged baseline SHA256: style-v100.css**
+- ✅ **unchanged baseline SHA256: style-v110.css**
+- ✅ **unchanged baseline SHA256: style-v120.css**
+- ✅ **unchanged baseline SHA256: ui-v110.js**
+- ✅ **unchanged baseline SHA256: sw.js**
+- ✅ **manifest launches v140 URL** — ./?build=140#scan
+- ✅ **manifest otherwise unchanged from v130**
+- ✅ **all official visual catalog keys resolve to runtime card objects**
+- ⚠️ **seed keys without base card object** — en|jungle|43|farfetch'd
+- ✅ **fair ranking: official once per identity; seeds grouped/median fallback** — [('en|ex trainer kit 2|1|beldum', 13), ('en|rocket|30|dark vileplume', 7), ('en|ex trainer kit 2|5|metang', 7), ('en|ex dragon frontiers|43|bagon', 6), ('en|rocket|63|oddish', 6)]
+- ✅ **seed-only results cannot auto-accept**
+- ✅ **auto visual acceptance blocked until official index ready**
+- ✅ **index readiness requires unique coverage of entire current visual catalog** — official refs: 253
+- ✅ **full visual index warmup starts from startup idle path**
+- ✅ **orphan seed rows are skipped at runtime**
+- ✅ **learning memory uses stable IndexedDB database**
+- ✅ **language preference stable key + v130 migration**
+- ✅ **condition preference stable key + v130 migration**
+- ✅ **edition preference stable key + v130 migration**
+- ✅ **debug log stable key + v130 migration**
+- ✅ **official fingerprint cache moved to persistent memory cache**
+- ✅ **learning module supports confirm/correct/match**
+- ✅ **learning examples distinguish confirmations/corrections**
+- ✅ **known bad scan can be excluded from learning**
+- ✅ **corrections/rejections remove exact conflicting learned fingerprints**
+- ✅ **learning counts unique fingerprints instead of duplicate taps**
+- ✅ **learning DB handles upgrades/version changes safely**
+- ✅ **manual failed-scan learning is time-bounded**
+- ✅ **failed scan tells user how to teach the card**
+- ✅ **UI hooks correction + deliberate Cardmarket confirmation**
+- ✅ **both Cardmarket open paths trigger learning hook**
+- ✅ **learning backup/restore UI + engine present**
+- ✅ **all bad-scan actions purge conflicting learning memory** — markRejected hooks: 2
+- ✅ **HTML has no duplicate element IDs** — 90 ids / 90 unique; duplicates: []
+- ✅ **cards.json keys agree with language/set/number/name fields** — []
+- ✅ **cards.json has no exact duplicate card keys** — []
+- ✅ **learning distance matches v130 fingerprint representation exactly** — 0
+- ✅ **Cardmarket direct/search card data unchanged** — direct 249; search-only 16
+- ✅ **all stored direct URLs remain Cardmarket Pokemon URLs** — []
+- ✅ **Cardmarket routing marker retained: CONDITION_IDS**
+- ✅ **Cardmarket routing marker retained: LANGUAGE_IDS**
+- ✅ **Cardmarket routing marker retained: AUTO_VALUE_DIRECTS**
+- ✅ **Cardmarket routing marker retained: VERIFIED_EXTRA_DIRECTS**
+- ✅ **Cardmarket routing marker retained: isFirstEd**
+- ✅ **Cardmarket routing marker retained: Legendary-Collection/Charizard**
+- ✅ **runtime build metadata v140/core140**
+- ✅ **About metadata updated**
+- ✅ **visible runtime status identifies v140 foundation**
+- ✅ **service worker actively deletes old CardScout caches**
+- ✅ **service worker unregisters itself after cleanup**
+- ✅ **app actively unregisters old service workers**
+- ✅ **app also removes stale CardScout cache keys**
+- ✅ **DP-era + POP set definitions/options available for manual routing**
+- ⚠️ **DP/POP card catalog still incomplete (expected foundation limitation)** — {"DIAMOND PEARL": 0, "GREAT ENCOUNTERS": 0, "LEGENDS AWAKENED": 1, "MAJESTIC DAWN": 0, "MYSTERIOUS TREASURES": 0, "POP SERIES 1": 0, "POP SERIES 2": 0, "POP SERIES 3": 0, "POP SERIES 4": 0, "POP SERIES 5": 0, "POP SERIES 6": 0, "POP SERIES 7": 0, "POP SERIES 8": 0, "POP SERIES 9": 0, "SECRET WONDERS": 0, "STORMFRONT": 0}
+- ✅ **UI v110 exact unchanged**
+- ✅ **ui-v140 remains close to v130 UI layer** — similarity 0.9803
+- ✅ **no stale APP_VERSION v76**
+
+## Release interpretation
+
+- v140 is a safety/foundation build, not yet the final neural scanner.
+- Existing v130 known-card records and Cardmarket direct URLs are preserved exactly.
+- The scanner/runtime data split, incomplete startup index, seed ranking bias and build-specific learning/prefs are addressed.
+- Full DP/POP card-image coverage and a production neural embedding engine remain separate work; QA intentionally warns if coverage is still absent.
+- Headless Chromium in this container hangs even on a trivial page, so this report does not claim an end-to-end browser/Safari smoke test. One real-device iPhone Safari smoke test is still required before production replacement.

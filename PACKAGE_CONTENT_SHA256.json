@@ -1,0 +1,27 @@
+{
+  "release": "CardScout v140 FOUNDATION SAFE",
+  "note": "SHA-256 hashes for packaged files; this manifest file hashes all other files and intentionally does not hash itself.",
+  "files": {
+    "index.html": "9fd3f5d323156e7308efb358a1b03c061a1902e833935111207289b3c99c8a66",
+    "app-v140.js": "a8b2d0bdcb5409e733d8d5565c21655fb38d1f115839e60d5fe6cd06335a7421",
+    "ui-v140.js": "ab0040ad475a9498aab827ecbd09a156cdb566fd7546e24689efc143bc774a4e",
+    "ui-v110.js": "08883be946b15ab6bf398553c9e77b14baf8f6899732f7b4bb5ddfe2db34efba",
+    "cardscout-memory-v140.js": "984c2933082f5667d1735c54ae70368cea3e8aeee98e0e7477d1f2b1c5c66137",
+    "cards.json": "e0791b1f30ecc56eb39d60949e62878f6b0d8f71322c1b00513a29c4a0cb2669",
+    "visual-catalog.json": "89130ff81f52d3294e322170f3fc1d66a9e5b2808523399cb9270d0717c671e7",
+    "visual-seeds.json": "8c3ea1c36cdb6cc4382d179d5120451f3eaed987e1afcf6d10833c4d2e587e78",
+    "manifest.json": "2f8507423da109fa412873cfc1aec08a76903358a0f9e867656a0ad17e1661e5",
+    "sw.js": "4b9e00e73ebdb45d77128a67a863d0ec9280fefd1836491e9adbfe4968d814eb",
+    "style-v100.css": "d5fcb6f51ccbd9c7aa9c490ed84b209149543a30445de5d5cf542b1a3b7970c0",
+    "style-v110.css": "a53743a92d4ae8397f847deea4b9313734690e93c7ead35a23e53bb691103997",
+    "style-v120.css": "cc513a28b6fef1e9ac07beb22050e26b5c94b88629dcf6f032f6dddeb6b90f2c",
+    "BASELINE_V130_SHA256.json": "d6952c97bf47105de67021b60a191b7bc62495faf0e4ca11d973cac7abad0ff5",
+    "V140_FOUNDATION_NOTES.txt": "2086c3a69539db4df295607a13a905b1da8e0853a7d9e4e0a73d3148f6653929",
+    "QA_V140_FOUNDATION.md": "ac44028ddf2e91c0c7562dc604193839b1f6afea762af2b04deda274147167f2",
+    "CHANGE_SURFACE_V140.md": "01d4bcd611aafe7682a22cccc6a1c6db581fcc6dd1f13fdf749c12cdb78f1a89",
+    "FAILURE_REPLAY_V140.md": "714bcdb39216468008e9ebfb91f48e03be00d8b4344eb443e0cd289d7d6d308a",
+    "KNOWN_DATA_ISSUES_V140.md": "ed45588b358d0039960b208020e40ef9ac58d332dffbe6e72e0c70ec150f914a",
+    "SCANNER_CORE_2_RESEARCH.md": "9e7ce3422606912956c17c3fcf6e432c6db5b1cb334a86d8d0a434cd3f3126a1",
+    "UPLOAD_INSTRUCTIONS_V140.txt": "9ba46d32fabb31a8ed2b335485db2980190e8b7d9f77545345c74c99802b9fb1"
+  }
+}

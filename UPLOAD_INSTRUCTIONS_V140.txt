@@ -1,0 +1,25 @@
+CardScout v140 FOUNDATION — SAFE TEST UPLOAD
+
+1. KEEP your current v130 ZIP as rollback. Do not delete it.
+2. Prefer a staging/test GitHub Pages branch or separate test URL first.
+3. Upload the contents of this ZIP to the site root (not the ZIP file itself).
+4. Open the site once in Safari and hard-refresh/reopen if an old PWA tab was still open.
+5. In About/debug, confirm the visible runtime says: v140 · FOUNDATION · visual + learning memory.
+6. First startup may warm the official legacy reference cache in the background. Automatic hash acceptance is blocked until complete unique coverage is present.
+7. Test existing non-scanner functions before judging recognition:
+   - Smart Search
+   - EN/JP
+   - NM/EX/GD/PL
+   - 1ST toggle
+   - Cardmarket direct/search links
+   - Recent/favorites if used
+8. Scanner memory behavior:
+   - Correct result + deliberate Cardmarket open = one confirmed example.
+   - Wrong result -> mark Fout/Edit, correct name + number + set, then Cardmarket = correction.
+   - No reliable result -> fill name + number + set and open Cardmarket within 2 minutes = correction/learning.
+   - Repeated taps of the exact same fingerprint do not increase support multiple times.
+   - Marking a scan as wrong removes exact conflicting learned examples.
+9. Use “Backup geheugen” before clearing Safari website data or moving to another phone/origin.
+10. DO NOT treat v140 as the final neural scanner. It is the safe foundation for v150.
+
+Release gate at package time: see QA_V140_FOUNDATION.md. A real iPhone Safari smoke test is still required because the container's Chromium runtime could not execute even a trivial page reliably.
