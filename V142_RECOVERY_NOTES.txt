@@ -1,0 +1,15 @@
+CardScout v142 RECOVERY
+
+Purpose:
+- Restore working known-card scan acceptance after the v140 readiness regression.
+- Preserve the v141 interaction/click fix.
+- Do NOT hand-patch the six new missing test cards.
+
+Latest real-device evidence:
+- v140 loaded 246/253 official references.
+- Oddish (2x), Bagon and Chikorita were correct visual Top-1 but were rejected because v140 demanded 253/253.
+- v142 allows high-confidence official matching once >=95% of the catalog is loaded.
+- The threshold replay on the 10 newest scans accepts 4/4 correct DB-available cards and 0/6 wrong candidates.
+
+Known limitation:
+The current catalog is only 265 cards. Shelgon, Omastar, Surskit, Granbull, Cacnea and Cyndaquil from the newest test batch are not in it, so v142 intentionally refuses to invent those identities. Full catalog + neural retrieval remains the correct next scanner project.

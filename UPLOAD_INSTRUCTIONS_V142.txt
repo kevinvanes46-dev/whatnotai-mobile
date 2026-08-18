@@ -1,0 +1,8 @@
+CardScout v142 RECOVERY
+1. Keep the v130 ZIP as rollback.
+2. Delete/replace the site runtime files with the unpacked v142 package contents.
+3. Do not upload the ZIP itself as the website.
+4. Open: https://kevinvanes46-dev.github.io/whatnotai-mobile/?v=142#scan
+5. In More/About confirm UI 142 / CORE 142.
+6. Test controls first, then scan Oddish TR63, Bagon DF43 and Chikorita NG53.
+7. Export a new failed-scan log only after v142 is visibly loaded.
