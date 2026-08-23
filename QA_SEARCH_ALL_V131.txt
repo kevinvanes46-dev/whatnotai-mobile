@@ -1,0 +1,40 @@
+CardScout v131 SEARCH ALL — QA
+
+SCOPE
+- Built directly from exact v130 ZIP.
+- Scanner engine app-v130.js is byte-identical to v130.
+- cards.json, visual-catalog.json, visual-seeds.json are byte-identical.
+- Old ui-v120.js and style-v120.css are kept byte-identical as rollback files.
+- Only index.html switches to new isolated ui-v131-search.js + style-v131-search.css.
+
+SEARCH BEHAVIOR
+- Generic for EVERY card; no Pokemon-name hardcoding.
+- Searches all 265 current known card records.
+- Partial names: e.g. chari / geng / bago / pika.
+- Multi-token, word-order-independent search across name, collector number, set label, set code, aliases, rarity, language.
+- EN/JP preference boosts ranking but does not hide catalog cards.
+- No 3-result cap: every matching current-catalog result is rendered.
+- Vertical touch scrolling with max-height on mobile.
+- Tap result fills name + number + set + card language and reuses existing Cardmarket flow.
+- Outside tap closes list; touch scrolling does not rely on blur.
+
+STATIC QUERY COUNTS ON CURRENT CATALOG
+- chari: 17 matches
+- dark: 28 matches
+- bago: 2 matches
+- horse 62: 1 matches
+- rocket dark: 16 matches
+- geng: 4 matches
+- mew: 8 matches
+- pika: 1 matches
+
+CHECKS
+- ui-v131-search.js syntax: PASS
+- app-v130.js syntax: PASS
+- protected scanner/data hashes unchanged: PASS
+- no .slice(0,3) in new renderSuggestions: PASS
+- vertical overflow rule present: PASS
+
+LIMITATION
+- This improves search across the cards CURRENTLY in cards.json. It does not magically add missing cards to the catalog.
+- Real iPhone Safari interaction should still be smoke-tested after upload.

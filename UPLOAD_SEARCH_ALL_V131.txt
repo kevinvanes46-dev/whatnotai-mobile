@@ -1,0 +1,7 @@
+CardScout v131 SEARCH ALL — upload
+
+1. Keep your original v130 ZIP as rollback.
+2. Upload ALL files from this ZIP to the same GitHub Pages site root, overwriting index.html and adding ui-v131-search.js/style-v131-search.css.
+3. Open the site with ?build=131-search#search once to bypass stale browser cache.
+4. Test: type chari, dark, bago, geng and scroll the result list.
+5. Scanner is intentionally still the exact v130 app-v130.js.
