@@ -1,0 +1,11 @@
+CardScout v132 FULL SEARCH EN/JP
+
+Upload ALL files from this folder to the GitHub Pages root, replacing same-name files.
+Open with cache-buster: ?build=132-full-en-jp#search
+
+Search catalog behavior:
+- local v131 database appears immediately
+- all cards from the 35 existing CardScout sets are added from free TCGdex REST data
+- EN loads first; JP loads in background and is cached for 14 days
+- JP online rows use safe Cardmarket name search; authentic local JP direct routes keep priority
+- scanner engine app-v130.js is unchanged

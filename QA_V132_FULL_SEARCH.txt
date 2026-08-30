@@ -1,0 +1,26 @@
+CardScout v132 Search Catalog QA
+
+Scope: Search page only.
+Scanner engine: app-v130.js byte-identical to v131.
+cards.json: byte-identical to v131.
+visual-catalog.json: byte-identical to v131.
+visual-seeds.json: byte-identical to v131.
+
+Catalog source: TCGdex public REST API (no key).
+Selected set coverage: all 35 set definitions already present in v131.
+Languages: EN + JP where TCGdex has the language record.
+JP note: old Japanese printed numbering does not map 1:1 to international sets. Online JP rows therefore do NOT pretend to know the printed JP number; Cardmarket opens a safe Japanese-language name search. Existing hand-verified JP records retain their real numbers/direct URLs.
+
+Rendering: 80 rows per batch; more append on vertical scroll.
+Cache: 14 days in localStorage, with local 265-card catalog as instant/offline fallback.
+
+Static/local tests executed:
+- Node JavaScript syntax check: PASS
+- 35/35 existing set mappings present: PASS
+- scanner/core data SHA-256 unchanged from v131: PASS
+- mocked Chromium interaction test: PASS (generic partial search, remote EN merge, remote JP merge, JP safe-search click, non-Charizard query)
+
+Not claimed:
+- live TCGdex network was not reachable from this build container
+- iPhone/Safari has not been tested here
+Run the uploaded GitHub Pages build once to confirm live EN/JP counts on the phone.
