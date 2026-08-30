@@ -11,7 +11,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="CardScout" />
   <title>CardScout · Zoek. Bewaar. Check.</title>
-  <link rel="stylesheet" href="style-v133-product.css?build=133-search-collection" />
+  <link rel="stylesheet" href="style-v135-product.css?build=135-price-condition" />
   <link rel="manifest" href="manifest.json?build=120" />
 </head>
 <body>
@@ -128,7 +128,19 @@
         </section>
         <div class="searchModeRow" aria-label="Zoekmodi">
           <button type="button" id="stampedToggle" class="searchModeChip" aria-pressed="false">⚡ STAMPED</button>
-          <span class="searchModeHelp">filtert de set-logo reverse era · of typ <b>stamp</b></span>
+          <span class="searchModeHelp">set-logo reverse holo · typ <b>stamp</b>, <b>stamps</b> of <b>reverse</b></span>
+        </div>
+        <div id="stampedSetChips" class="stampedSetChips" hidden aria-label="Stamped sets">
+          <button type="button" data-stamped-set="EX TEAM ROCKET RETURNS">Rocket Returns</button>
+          <button type="button" data-stamped-set="EX DEOXYS">Deoxys</button>
+          <button type="button" data-stamped-set="EX EMERALD">Emerald</button>
+          <button type="button" data-stamped-set="EX UNSEEN FORCES">Unseen Forces</button>
+          <button type="button" data-stamped-set="EX DELTA SPECIES">Delta Species</button>
+          <button type="button" data-stamped-set="EX LEGEND MAKER">Legend Maker</button>
+          <button type="button" data-stamped-set="EX HOLON PHANTOMS">Holon Phantoms</button>
+          <button type="button" data-stamped-set="EX CRYSTAL GUARDIANS">Crystal Guardians</button>
+          <button type="button" data-stamped-set="EX DRAGON FRONTIERS">Dragon Frontiers</button>
+          <button type="button" data-stamped-set="EX POWER KEEPERS">Power Keepers</button>
         </div>
         <div id="smartSuggestions" class="smartSuggestions" hidden aria-live="polite"></div>
         <div id="exampleChips" class="examples utilityHidden"><button type="button" data-fill="4 charizard base nm">Base Charizard</button><button type="button" data-fill="12 vaporeon jungle nm">Jungle Vaporeon</button><button type="button" data-fill="5 gengar fossil nm">Fossil Gengar</button></div>
@@ -152,7 +164,7 @@
           </div>
         </section>
 
-        <section class="searchActions"><button id="makeBtn" type="button" class="primary">Zoek op Cardmarket</button><button id="clearBtn" type="button" class="ghost">Wis</button></section>
+        <section class="searchActions"><button id="makeBtn" type="button" class="primary">Open Cardmarket</button><button id="clearBtn" type="button" class="ghost">Wis</button></section>
         <details class="surface linkDetails"><summary>Technische linkdetails</summary><div class="statusLine"><span>Gegenereerde link</span><button id="copyBtn" type="button" class="tinyBtn">Kopieer</button></div><textarea id="urlBox" readonly placeholder="Cardmarket-link komt hier"></textarea><div id="matchBox" class="matchBox"></div></details>
       </section>
 
@@ -170,7 +182,7 @@
           <span id="collectionPriceStatus">Nog niet bijgewerkt</span>
         </div>
         <section id="collectionList" class="collectionList empty">Nog geen kaarten. Zoek een kaart en tik op <b>+ Collectie</b>.</section>
-        <p class="collectionFootnote">Cardmarket-prijzen komen via de TCGdex prijsfeed. Stamped/reverse varianten kunnen afwijken; die tonen we bewust als indicatie, niet als gegarandeerde verkoopprijs.</p>
+        <p class="collectionFootnote">Marktindicaties komen via de dagelijkse TCGdex/Cardmarket prijsfeed. STAMPED gebruikt de aparte reverse/foil Cardmarket-trend. De opgeslagen kaartstaat (NM/EX/GD/PL) verandert de trendprijs niet automatisch, omdat de feed geen betrouwbare condition-specifieke trend bevat.</p>
       </section>
 
       <!-- RECENT -->
@@ -190,7 +202,6 @@
         <div class="screenIntro compact"><div><span class="eyebrow">CardScout</span><h2>Meer</h2><p>Voorkeuren, privacy en diagnose.</p></div></div>
 
         <section class="surface settingsCard">
-          <div class="settingsRow"><div class="settingsIcon"><svg viewBox="0 0 24 24"><path d="m13 2-8 12h7l-1 8 8-12h-7l1-8Z"/></svg></div><div><b>Automatisch scannen</b><small>Foto kiezen → direct herkennen → resultaat</small></div><span class="okDot">Aan</span></div>
           <div class="settingsRow"><div class="settingsIcon"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.7 2.8 8 7 10 4.2-2 7-5.3 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></div><div><b>Privacy</b><small>Kaartfoto's blijven lokaal op je toestel</small></div><span class="mutedBadge">Lokaal</span></div>
         </section>
 
@@ -203,14 +214,6 @@
           </div>
         </section>
 
-        <section class="surface settingsCard">
-          <details class="debugPanel" id="debugPanel">
-            <summary><span><b>Scanner debug</b><small>Alleen nodig als een kaart fout gaat</small></span><span class="debugCount"><b id="debugFailCount">0</b> fouten</span></summary>
-            <p>Mislukte of handmatig gemarkeerde scans worden alleen lokaal bewaard. Download het bestand om meerdere fouten tegelijk te analyseren.</p>
-            <div class="debugActions"><button type="button" id="debugDownloadBtn">Download foutlog</button><button type="button" id="debugClearBtn">Wis foutlog</button></div>
-          </details>
-        </section>
-
 
         <section class="surface settingsCard collectionBackupCard">
           <div class="sectionTitle"><div><span class="eyebrow">Collectie</span><h3>Backup & herstel</h3></div></div>
@@ -219,12 +222,12 @@
           <input type="file" id="collectionImportFile" accept="application/json,.json" hidden />
         </section>
 
-        <section class="surface aboutCard"><div><b>CardScout</b><small>Mobile Pokémon TCG scout</small></div><div class="aboutMeta"><span>UI 133</span><span>SEARCH EN/JP</span><span>COLLECTION</span></div></section>
+        <section class="surface aboutCard"><div><b>CardScout</b><small>Mobile Pokémon TCG scout</small></div><div class="aboutMeta"><span>UI 136</span><span>ONE CLICK</span><span>REVERSE PRICE</span><span>CONDITION</span></div></section>
       </section>
     </div>
   </main>
 
-  <!-- Existing engine action dock remains for Smart Search and as fallback after closing result. -->
+  <!-- Hidden link engine + visible collection action. Cardmarket itself is one-click from the blue button. -->
   <div class="actionDock" id="actionDock" aria-hidden="true">
     <a id="openBtn" class="open disabled" href="#" target="_blank" rel="noopener"><span>Open Cardmarket</span><small>Direct naar kaart</small></a>
     <button id="collectionAddBtn" type="button" class="dockCollection" disabled>+ Collectie</button>
@@ -257,7 +260,7 @@
   </nav>
 
   <script src="app-v130.js?build=130"></script>
-  <script src="ui-v133-focus.js?build=133-search-collection"></script>
-  <script src="ui-v133-collection.js?build=133-search-collection"></script>
+  <script src="ui-v136-focus.js?build=136-clean-card-titles"></script>
+  <script src="ui-v136-collection.js?build=136-clean-card-titles"></script>
 </body>
 </html>

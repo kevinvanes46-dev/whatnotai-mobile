@@ -1,11 +1,11 @@
 {
   "name": "CardScout",
   "short_name": "CardScout",
-  "start_url": "./?build=133-search-collection#search",
+  "start_url": "./?build=136-clean-card-titles#search",
   "scope": "./",
   "display": "standalone",
   "background_color": "#050912",
   "theme_color": "#07111e",
-  "description": "Pokémon TCG snelzoeken, stamped filter en collectiebeheer",
+  "description": "Pokémon TCG snelzoeken, stamped/reverse zoeken en collectiebeheer met marktindicatie",
   "id": "./"
 }

@@ -1,0 +1,12 @@
+CardScout v136 — CLEAN CARD TITLES
+
+Change:
+- Search result titles: 'Seedot · #60' -> 'Seedot #60'
+- Collection titles: 'Igglybuff · #21' -> 'Igglybuff #21'
+- Set/language/condition separators are unchanged.
+- v135 reverse/stamped price fix and editable purchase condition are retained.
+
+Local QA:
+- Active JS syntax PASS
+- Active search title no longer contains middle-dot before card number
+- Active collection title no longer contains middle-dot before card number

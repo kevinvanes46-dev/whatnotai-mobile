@@ -1,0 +1,13 @@
+CardScout v134 — ONE CLICK + STAMPED QA
+
+Changes:
+- Blue search action is now direct Open Cardmarket (one user click).
+- Bottom duplicate Open Cardmarket action is hidden; dock is collection-only.
+- Stamped query terms: stamp, stamps, stamped, reverse, reverseholo, rh, setlogo, etc.
+- Stamped quick set chips include EX Deoxys and all English set-logo reverse-holo era sets from EX Team Rocket Returns through EX Power Keepers.
+- EX DEOXYS remains mapped to TCGdex ex8.
+- Collection localStorage key preserved so v133 data survives.
+
+Important:
+- STAMPED means English set-logo reverse-holo variant / era search. It does not assert that every card in every set has every possible variant.
+- Scanner remains absent from visible navigation; legacy scanner engine files remain inert for rollback compatibility.

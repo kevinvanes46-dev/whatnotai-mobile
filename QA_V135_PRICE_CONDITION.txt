@@ -1,0 +1,23 @@
+CardScout v135 — PRICE + CONDITION QA
+
+Changes
+- STAMPED collection prices now use Cardmarket foil/reverse fields from TCGdex:
+  trend-holo -> avg7-holo -> avg30-holo -> avg-holo -> avg1-holo -> low-holo.
+- STAMPED NEVER falls back to the normal Cardmarket trend price.
+- Collection card has an editable 'Staat gekocht' control: NM / EX / GD / PL.
+- Existing v133/v134 collection localStorage key is preserved.
+- Existing cards are migrated without deleting collection data.
+- Market total only counts an actual resolved variant price; no old normal-price fallback.
+- Visible Scanner settings/debug residue removed from the More tab.
+- Search and Cardmarket one-click flow retained.
+
+Important
+- Condition is recorded as collection metadata.
+- No fake condition multiplier is applied to market value because the price feed does
+  not provide a trustworthy condition-specific trend price.
+
+Local checks
+- JavaScript syntax checked with Node.
+- Required v135 files present.
+- Legacy collection key preserved.
+- Reverse-price field priority verified statically.
