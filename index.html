@@ -10,8 +10,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="CardScout" />
-  <title>CardScout · Scan. Match. Check.</title>
-  <link rel="stylesheet" href="style-v132-catalog.css?build=132-full-en-jp" />
+  <title>CardScout · Zoek. Bewaar. Check.</title>
+  <link rel="stylesheet" href="style-v133-product.css?build=133-search-collection" />
   <link rel="manifest" href="manifest.json?build=120" />
 </head>
 <body>
@@ -38,7 +38,7 @@
 
   <main class="appShell">
     <header class="topbar">
-      <button type="button" class="brandCluster" id="brandHomeBtn" aria-label="Ga naar scanner">
+      <button type="button" class="brandCluster" id="brandHomeBtn" aria-label="Ga naar zoeken">
         <span class="brandMark" aria-hidden="true">
           <svg class="brandIcon" viewBox="0 0 96 96">
             <defs>
@@ -56,7 +56,7 @@
 
     <div class="tabViewport">
       <!-- SCAN -->
-      <section class="tabView active" data-view="scan" aria-labelledby="navScan">
+      <section class="tabView" data-view="scan" aria-labelledby="navScan">
         <div class="scanHero">
           <div><span class="eyebrow">Scanner</span><h1>Scan een kaart</h1><p>Maak een foto. CardScout doet de rest automatisch.</p></div>
           <button type="button" class="prefsPill" id="scanPrefsBtn" aria-label="Open zoekvoorkeuren"><span id="scanPrefsText">EN · NM</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
@@ -118,14 +118,18 @@
       </section>
 
       <!-- SEARCH -->
-      <section class="tabView" data-view="search" aria-labelledby="navSearch">
-        <div class="screenIntro compact"><div><span class="eyebrow">Smart Search</span><h2>Zoek een kaart</h2><p>Naam, nummer, set of conditie — typ in elke volgorde.</p></div></div>
+      <section class="tabView active" data-view="search" aria-labelledby="navSearch">
+        <div class="screenIntro compact"><div><span class="eyebrow">Snelzoeken</span><h2>Vind elke kaart snel</h2><p>Typ een deel van naam, nummer of set. Scroll direct door alle matches.</p></div></div>
 
         <section class="searchBox" id="quickPanel">
           <svg class="searchIcon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
           <input id="quickInput" class="quick" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="bijv. horsea 62 neo" />
           <button id="quickGo" class="quickGo" type="button" title="Zoeken" aria-label="Zoeken"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
         </section>
+        <div class="searchModeRow" aria-label="Zoekmodi">
+          <button type="button" id="stampedToggle" class="searchModeChip" aria-pressed="false">⚡ STAMPED</button>
+          <span class="searchModeHelp">filtert de set-logo reverse era · of typ <b>stamp</b></span>
+        </div>
         <div id="smartSuggestions" class="smartSuggestions" hidden aria-live="polite"></div>
         <div id="exampleChips" class="examples utilityHidden"><button type="button" data-fill="4 charizard base nm">Base Charizard</button><button type="button" data-fill="12 vaporeon jungle nm">Jungle Vaporeon</button><button type="button" data-fill="5 gengar fossil nm">Fossil Gengar</button></div>
 
@@ -150,6 +154,23 @@
 
         <section class="searchActions"><button id="makeBtn" type="button" class="primary">Zoek op Cardmarket</button><button id="clearBtn" type="button" class="ghost">Wis</button></section>
         <details class="surface linkDetails"><summary>Technische linkdetails</summary><div class="statusLine"><span>Gegenereerde link</span><button id="copyBtn" type="button" class="tinyBtn">Kopieer</button></div><textarea id="urlBox" readonly placeholder="Cardmarket-link komt hier"></textarea><div id="matchBox" class="matchBox"></div></details>
+      </section>
+
+
+      <!-- COLLECTION -->
+      <section class="tabView" data-view="collection" aria-labelledby="navCollection">
+        <div class="screenIntro compact"><div><span class="eyebrow">Mijn kaarten</span><h2>Collectie</h2><p>Bijhouden wat je hebt, wat je betaalde en de actuele marktindicatie.</p></div></div>
+        <section class="collectionSummary">
+          <div><small>Kaarten</small><b id="collectionCount">0</b></div>
+          <div><small>Betaald</small><b id="collectionPaid">€0,00</b></div>
+          <div><small>CM indicatie</small><b id="collectionMarket">€0,00</b></div>
+        </section>
+        <div class="collectionToolbar">
+          <button type="button" id="collectionRefreshBtn">↻ Prijzen vernieuwen</button>
+          <span id="collectionPriceStatus">Nog niet bijgewerkt</span>
+        </div>
+        <section id="collectionList" class="collectionList empty">Nog geen kaarten. Zoek een kaart en tik op <b>+ Collectie</b>.</section>
+        <p class="collectionFootnote">Cardmarket-prijzen komen via de TCGdex prijsfeed. Stamped/reverse varianten kunnen afwijken; die tonen we bewust als indicatie, niet als gegarandeerde verkoopprijs.</p>
       </section>
 
       <!-- RECENT -->
@@ -190,7 +211,15 @@
           </details>
         </section>
 
-        <section class="surface aboutCard"><div><b>CardScout</b><small>Mobile Pokémon TCG scout</small></div><div class="aboutMeta"><span>UI 120</span><span>CORE 100</span><span>SEARCH DB FULL EN/JP</span></div></section>
+
+        <section class="surface settingsCard collectionBackupCard">
+          <div class="sectionTitle"><div><span class="eyebrow">Collectie</span><h3>Backup & herstel</h3></div></div>
+          <p class="settingsCopy">Je collectie blijft lokaal op dit toestel. Exporteer af en toe een backup zodat je nooit je lijst kwijt bent.</p>
+          <div class="backupActions"><button type="button" id="collectionExportBtn">Exporteer JSON</button><button type="button" id="collectionImportBtn">Importeer</button><button type="button" id="collectionClearBtn" class="danger">Wis collectie</button></div>
+          <input type="file" id="collectionImportFile" accept="application/json,.json" hidden />
+        </section>
+
+        <section class="surface aboutCard"><div><b>CardScout</b><small>Mobile Pokémon TCG scout</small></div><div class="aboutMeta"><span>UI 133</span><span>SEARCH EN/JP</span><span>COLLECTION</span></div></section>
       </section>
     </div>
   </main>
@@ -198,7 +227,8 @@
   <!-- Existing engine action dock remains for Smart Search and as fallback after closing result. -->
   <div class="actionDock" id="actionDock" aria-hidden="true">
     <a id="openBtn" class="open disabled" href="#" target="_blank" rel="noopener"><span>Open Cardmarket</span><small>Direct naar kaart</small></a>
-    <button id="favoriteBtn" type="button" class="dockFavorite" aria-label="Voeg toe aan favorieten">☆</button>
+    <button id="collectionAddBtn" type="button" class="dockCollection" disabled>+ Collectie</button>
+    <button id="favoriteBtn" type="button" class="dockFavorite legacyFavorite" aria-label="Voeg toe aan favorieten">☆</button>
   </div>
 
   <!-- Native-style scan result sheet. Filled by ui-v120.js; CORE3 only writes its locked hidden result. -->
@@ -220,14 +250,14 @@
   <div class="toast" id="toast" hidden role="status" aria-live="polite"></div>
 
   <nav class="bottomNav" aria-label="Hoofdnavigatie">
-    <button type="button" class="navBtn active" id="navScan" data-tab="scan" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h3l1.2-2h5.6L16 7h3a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"/><circle cx="12" cy="13" r="4"/></svg><span>Scan</span></button>
-    <button type="button" class="navBtn" id="navSearch" data-tab="search" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>Zoeken</span></button>
+    <button type="button" class="navBtn active" id="navSearch" data-tab="search" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>Zoeken</span></button>
+    <button type="button" class="navBtn" id="navCollection" data-tab="collection" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 7h8M8 11h8M8 15h5"/></svg><span>Collectie</span></button>
     <button type="button" class="navBtn" id="navRecent" data-tab="recent" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg><span>Recent</span></button>
-    <button type="button" class="navBtn" id="navFavorites" data-tab="favorites" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"/></svg><span>Favorieten</span></button>
     <button type="button" class="navBtn" id="navSettings" data-tab="settings" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3V2.8h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></svg><span>Meer</span></button>
   </nav>
 
   <script src="app-v130.js?build=130"></script>
-  <script src="ui-v132-catalog.js?build=132-full-en-jp"></script>
+  <script src="ui-v133-focus.js?build=133-search-collection"></script>
+  <script src="ui-v133-collection.js?build=133-search-collection"></script>
 </body>
 </html>

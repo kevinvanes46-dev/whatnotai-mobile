@@ -1,0 +1,27 @@
+CardScout v133 SEARCH + COLLECTION — QA
+
+Static checks
+- app-v130.js syntax: PASS
+- ui-v133-focus.js syntax: PASS
+- ui-v133-collection.js syntax: PASS
+- visible bottom navigation has 4 tabs: Search / Collection / Recent / More
+- no visible Scan navigation entry
+- Search is default active view
+- STAMPED search mode exists and is generic, not hard-coded to one Pokémon
+- collection local persistence / quantity / purchase price / export-import code present
+
+Headless interaction test (Chromium, mocked external catalog calls)
+- visible nav buttons: 4
+- scanner visible: 0
+- 'chari' local fallback results: 17
+- 'bagon stamp' activates STAMPED mode
+- stamped-era Bagon result selectable
+- + Collection enabled after card selection
+- selected Bagon persisted as STAMPED collection item
+- collection count after add: 1
+- uncaught JavaScript errors: 0
+
+Not claimed by this QA
+- live TCGdex/Cardmarket price network tested from iPhone: NOT TESTED HERE
+- GitHub Pages/iPhone Safari tested: NOT TESTED HERE
+- every card in a stamped-era set is guaranteed to have a stamped reverse printing: NO; Cardmarket is final variant check

@@ -1,0 +1,13 @@
+CardScout v133 — Search & Collection
+
+VISIBLE PRODUCT
+- Search is the start page.
+- Scanner tab/camera/debug removed from the visible UX.
+- Full EN + JP search catalog from v132 remains.
+- STAMPED mode filters English EX Team Rocket Returns through EX Power Keepers, the set-logo stamped reverse-holo era. It is a set-era filter; Cardmarket remains the final variant check.
+- New Collection tab: quantity, condition, purchase price, Cardmarket link, price indicator, backup/import.
+- Price data: TCGdex Cardmarket pricing feed; cached locally and refreshed max every 12h.
+- STAMPED prices are deliberately marked approximate because the current Cardmarket feed does not expose an exact per-reverse-stamped price in TCGdex.
+
+ROLLBACK SAFETY
+app-v130.js and old scanner assets remain in the package but have no visible entry point in v133. This avoids breaking the mature Cardmarket link builder while the product direction is being validated. They can be physically removed in a later cleanup after v133 is proven on iPhone.
