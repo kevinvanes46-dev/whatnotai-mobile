@@ -121,10 +121,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .stampedSetChips[hidden]{display:none!important}
 .stampedSetChips button{flex:0 0 auto;border:1px solid rgba(247,181,52,.36);background:rgba(247,181,52,.07);color:#e8c36d;border-radius:999px;padding:8px 11px;font:700 12px/1 system-ui,-apple-system,Segoe UI,sans-serif;white-space:nowrap}
 .stampedSetChips button.active{background:rgba(247,181,52,.18);border-color:#f7b534;color:#ffe2a1}
-/* The hidden legacy anchor is still the URL source used by collection logic; do not show a second CM action. */
-#actionDock #openBtn{display:none!important}
-#actionDock.ready{grid-template-columns:1fr!important}
-#actionDock .dockCollection{width:100%}
+/* openBtn is both the shared URL source and the persistent Cardmarket action. */
+#actionDock #openBtn{display:flex!important;min-width:0}
+#actionDock.ready{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}
+#actionDock .dockCollection{width:100%;min-width:0}
 .searchActions #makeBtn::before{content:'↗ ';font-weight:900}
 
 
@@ -162,8 +162,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .wishHint{color:#9f89b3;font-size:9px;font-weight:800}
 .boughtBtn,.editMiniBtn{min-height:34px;border-radius:9px;border:1px solid #31516c;background:#0b1f31;color:#c9dceb;font-size:9px;font-weight:850;padding:0 10px}
 .boughtBtn{border-color:#2c6648;background:#123324;color:#77e7ad}
-.collectionEditorBackdrop{position:fixed;inset:0;background:rgba(1,5,10,.72);backdrop-filter:blur(4px);z-index:98}
-.collectionEditorSheet{position:fixed;left:0;right:0;bottom:0;z-index:99;background:#0c1724;border:1px solid #2c455c;border-bottom:0;border-radius:22px 22px 0 0;padding:8px 16px calc(16px + env(safe-area-inset-bottom));box-shadow:0 -18px 60px rgba(0,0,0,.45);max-height:88vh;overflow:auto}
+.collectionEditorBackdrop{position:fixed;inset:0;background:rgba(1,5,10,.72);backdrop-filter:blur(4px);z-index:300}
+.collectionEditorSheet{position:fixed;left:0;right:0;bottom:0;z-index:310;background:#0c1724;border:1px solid #2c455c;border-bottom:0;border-radius:22px 22px 0 0;padding:8px 16px calc(16px + env(safe-area-inset-bottom));box-shadow:0 -18px 60px rgba(0,0,0,.45);max-height:88vh;overflow:auto}
 .collectionEditorSheet[hidden],.collectionEditorBackdrop[hidden]{display:none!important}
 .editorHandle{width:42px;height:4px;border-radius:99px;background:#405266;margin:1px auto 12px}
 .editorHeader{display:flex;gap:12px;justify-content:space-between;align-items:flex-start}
@@ -185,7 +185,29 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .editorActions .primary{border:0;background:#168ff0;color:#fff}
 .editorActions .danger{border:1px solid #66333a;background:#25151a;color:#ff929d}
 body.collectionEditorOpen{overflow:hidden}
+body.collectionEditorOpen .actionDock{opacity:0!important;pointer-events:none!important}
 @media (min-width:700px){
   .collectionEditorSheet{left:50%;right:auto;bottom:20px;transform:translateX(-50%);width:min(520px,calc(100vw - 32px));border-radius:22px;border-bottom:1px solid #2c455c}
   .collectionSummaryPro{grid-template-columns:repeat(4,1fr)}
+}
+
+
+/* v144 — wider desktop shell, paired mobile actions, and explicit purchase condition. */
+.collectionCondition{color:#a9c2d7!important;font-size:9px!important}
+.collectionCondition strong{color:#eef8ff;font-size:10px}
+
+@media (min-width:760px){
+  .appShell{width:min(780px,100%);padding-left:20px;padding-right:20px}
+  .bottomNav{width:min(780px,100%)}
+  .actionDock{width:min(740px,calc(100% - 40px))}
+  .resultSheet{width:min(780px,100%)}
+  .collectionCard{padding:16px}
+  .collectionControlPanel{gap:12px}
+}
+
+@media (max-width:390px){
+  :root{--dockH:134px}
+  #actionDock.ready{grid-template-columns:1fr!important}
+  .actionDock{width:calc(100% - 16px)}
+  #actionDock .open,#actionDock .dockCollection{width:100%;min-height:54px}
 }

@@ -11,7 +11,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="CardScout" />
   <title>CardScout · Zoek. Bewaar. Check.</title>
-  <link rel="stylesheet" href="style-v137-product.css?build=137-collection-pro" />
+  <link rel="stylesheet" href="style-v137-product.css?build=144-polish" />
   <link rel="manifest" href="manifest.json?build=137" />
 </head>
 <body>
@@ -179,7 +179,7 @@
           <div><small>Kaarten</small><b id="collectionCount">0</b></div>
           <div><small>Wishlist</small><b id="wishlistCount">0</b></div>
           <div><small>Betaald</small><b id="collectionPaid">€0,00</b></div>
-          <div><small>CM indicatie</small><b id="collectionMarket">€0,00</b></div>
+          <div><small>CM trend</small><b id="collectionMarket">€0,00</b></div>
         </section>
 
         <section class="collectionControlPanel">
@@ -215,11 +215,11 @@
 
         <div class="collectionToolbar">
           <button type="button" id="collectionRefreshBtn">↻ Marktindicatie</button>
-          <span id="collectionPriceStatus">Prijsdata is indicatief</span>
+          <span id="collectionPriceStatus">CM-trend is indicatief</span>
         </div>
 
         <section id="collectionList" class="collectionList empty">Nog geen kaarten. Zoek een kaart en tik op <b>+ Collectie</b>.</section>
-        <p class="collectionFootnote">Aankoopprijs, staat en variant zijn jouw eigen gegevens. Marktwaarden blijven voorlopig een indicatie; we verbeteren de prijsengine later apart.</p>
+        <p class="collectionFootnote">Aankoopprijs, staat en variant zijn jouw eigen gegevens. De CM-trend is een marktindicatie, geen exacte conditieprijs.</p>
       </section>
 
       <!-- RECENT -->
@@ -259,12 +259,12 @@
           <input type="file" id="collectionImportFile" accept="application/json,.json" hidden />
         </section>
 
-        <section class="surface aboutCard"><div><b>CardScout</b><small>Mobile Pokémon TCG scout</small></div><div class="aboutMeta"><span>UI 137</span><span>SEARCH FIRST</span><span>COLLECTION PRO</span><span>APP READY</span></div></section>
+        <section class="surface aboutCard"><div><b>CardScout</b><small>Mobile Pokémon TCG scout</small></div><div class="aboutMeta"><span>UI 144</span><span>V137 CORE</span><span>COLLECTION PRO</span><span>APP READY</span></div></section>
       </section>
     </div>
   </main>
 
-  <!-- Hidden link engine + visible collection action. Cardmarket itself is one-click from the blue button. -->
+  <!-- Both actions stay available after selecting a card; openBtn remains the shared Cardmarket link source. -->
   <div class="actionDock" id="actionDock" aria-hidden="true">
     <a id="openBtn" class="open disabled" href="#" target="_blank" rel="noopener"><span>Open Cardmarket</span><small>Direct naar kaart</small></a>
     <button id="collectionAddBtn" type="button" class="dockCollection" disabled>+ Collectie</button>
@@ -305,7 +305,7 @@
     </div>
 
     <div class="editorSection">
-      <label>Staat gekocht</label>
+      <label>Staat bij aankoop</label>
       <div class="editorChoiceGrid four">
         <button type="button" class="active" data-editor-condition="NM">NM</button>
         <button type="button" data-editor-condition="EX">EX</button>
@@ -342,8 +342,8 @@
     <button type="button" class="navBtn" id="navSettings" data-tab="settings" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3V2.8h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></svg><span>Meer</span></button>
   </nav>
 
-  <script src="app-v137.js?build=137-collection-pro"></script>
-  <script src="ui-v137-focus.js?build=137-collection-pro"></script>
-  <script src="ui-v137-collection.js?build=137-collection-pro"></script>
+  <script src="app-v137.js?build=144-polish"></script>
+  <script src="ui-v137-focus.js?build=144-polish"></script>
+  <script src="ui-v137-collection.js?build=144-polish"></script>
 </body>
 </html>

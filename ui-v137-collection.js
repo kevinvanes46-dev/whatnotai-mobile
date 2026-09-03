@@ -69,6 +69,24 @@
   function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   function eur(v){return Number.isFinite(Number(v))?new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR'}).format(Number(v)):'—'}
   function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim()}
+  function cleanVisibleCardName(value,number=''){
+    let name=String(value||'')
+      .replace(/[\u200B-\u200D\u2060\uFEFF\uFFFD]/g,'')
+      .replace(/\s+/g,' ')
+      .trim()
+      .replace(/\s*[\u00b7•]\s*#\s*/g,' #');
+    const collector=String(number||'').replace(/[\u200B-\u200D\u2060\uFEFF\uFFFD]/g,'').trim();
+    if(collector){
+      const escaped=collector.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+      name=name.replace(new RegExp(`\\s+#\\s*${escaped}\\s*$`,'i'),'').trim();
+    }
+    return name;
+  }
+  function visibleCardTitle(item){
+    const number=String(item?.number||'').replace(/[\u200B-\u200D\u2060\uFEFF\uFFFD]/g,'').trim();
+    const name=cleanVisibleCardName(item?.name,number)||'Onbekende kaart';
+    return `${name}${number?' #'+number:''}`;
+  }
   function toast(t){const el=$('toast');if(!el)return;el.textContent=t;el.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>el.hidden=true,1800)}
   function uid(){return 'c_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8)}
   function identityKey(x){return [x.listType,x.language,x.set,x.number,norm(x.name),x.variant,x.edition,x.condition].join('|')}
@@ -164,14 +182,14 @@
       condition:CONDITIONS.includes(sel.condition)?sel.condition:(condSelect?.value||'NM'),
       variant:sel.stamped?'STAMPED':'NORMAL'
     };
-    editorTitle.textContent=`${c.name}${c.number?' #'+c.number:''}`;
+    editorTitle.textContent=visibleCardTitle(c);
     editorMeta.textContent=[c.set_name||c.set,c.language||langSelect?.value||'EN'].filter(Boolean).join(' · ');
     editorEyebrow.textContent='Toevoegen';
     editorQty.value='1';
     editorPaid.value='';
     editorDelete.hidden=true;
     editor.dataset.pending=JSON.stringify({
-      name:c.name,number:String(c.number||''),set:c.set||'AUTO',setName:c.set_name||c.set||'AUTO',
+      name:cleanVisibleCardName(c.name,c.number)||c.name,number:String(c.number||''),set:c.set||'AUTO',setName:c.set_name||c.set||'AUTO',
       language:c.language||langSelect?.value||'EN',edition:sel.edition||editionSelect?.value||'AUTO',
       sourceId:c.source_id||'',cardmarketUrl:sel.cardmarketUrl||c.url||openBtn?.getAttribute('href')||''
     });
@@ -181,7 +199,7 @@
   function openEditEditor(item){
     editorMode='edit';editingId=item.uid;
     editorState={list:item.listType,condition:item.condition,variant:item.variant};
-    editorTitle.textContent=`${item.name}${item.number?' #'+item.number:''}`;
+    editorTitle.textContent=visibleCardTitle(item);
     editorMeta.textContent=[item.setName||item.set,item.language].filter(Boolean).join(' · ');
     editorEyebrow.textContent=item.listType==='WISHLIST'?'Wishlist bewerken':'Kaart bewerken';
     editorQty.value=String(item.qty||1);
@@ -212,6 +230,8 @@
 
     const arr=read().map(normalizeItem).filter(Boolean);
 
+    let priceTargetId=null;
+    let shouldRefreshPrice=false;
     if(editorMode==='add'){
       let base;
       try{base=JSON.parse(editor.dataset.pending||'{}')}catch(_){base={}}
@@ -225,22 +245,33 @@
       if(existing){
         existing.qty+=qty;
         if(existing.paidEach==null&&paid!=null)existing.paidEach=paid;
-      }else arr.unshift(item);
+        priceTargetId=existing.uid;
+        shouldRefreshPrice=existing.listType==='OWNED'&&(!existing.priceUpdated||!Number.isFinite(Number(existing.price))||Number(existing.price)<=0);
+      }else{
+        arr.unshift(item);
+        priceTargetId=item.uid;
+        shouldRefreshPrice=item.listType==='OWNED';
+      }
       write(arr);
       toast(editorState.list==='WISHLIST'?'Toegevoegd aan wishlist':'Toegevoegd aan collectie');
     }else{
       const x=arr.find(x=>x.uid===editingId);
       if(!x)return;
+      const previousList=x.listType;
+      const previousVariant=x.variant;
       x.listType=editorState.list;
       x.condition=editorState.condition;
       x.variant=editorState.variant;
       x.qty=qty;
       x.paidEach=editorState.list==='OWNED'?paid:null;
-      if(x.variant==='STAMPED'){x.price=null;x.priceUpdated=0;x.priceSource='';}
+      if(previousVariant!==x.variant){x.price=null;x.priceUpdated=0;x.priceSource='';}
+      priceTargetId=x.uid;
+      shouldRefreshPrice=x.listType==='OWNED'&&(previousList!=='OWNED'||previousVariant!==x.variant||!x.priceUpdated||!Number.isFinite(Number(x.price))||Number(x.price)<=0);
       write(arr);
       toast('Wijzigingen opgeslagen');
     }
     closeEditor();render();
+    if(shouldRefreshPrice&&priceTargetId)void refreshOnePrice(priceTargetId);
   });
 
   editorDelete?.addEventListener('click',()=>{
@@ -322,12 +353,13 @@
               ${isWish?'<span class="wishBadge">♡ Wishlist</span>':'<span class="ownedBadge">✓ In collectie</span>'}
               ${x.variant==='STAMPED'?'<span class="stampBadge">⚡ Stamped</span>':''}
             </div>
-            <h3>${esc(x.name)}${x.number?' #'+esc(x.number):''}</h3>
-            <p>${esc(x.setName||x.set)} · ${esc(x.language)} · ${esc(x.condition)}</p>
+            <h3>${esc(visibleCardTitle(x))}</h3>
+            <p>${esc(x.setName||x.set)} · ${esc(x.language)}</p>
+            <p class="collectionCondition">${isWish?'Gewenste staat':'Gekocht'}: <strong>${esc(x.condition)}</strong></p>
           </div>
           <div class="collectionValue">
             <b>${shownPrice&&!isWish?eur(shownPrice):'—'}</b>
-            <small>${isWish?'nog niet gekocht':esc(x.priceSource||'marktindicatie')}</small>
+            <small>${isWish?'nog niet gekocht':(shownPrice?esc(x.priceSource||'CM trend'):'—')}</small>
           </div>
         </button>
 
@@ -356,7 +388,7 @@
       if(act==='bought'){
         editorMode='edit';editingId=x.uid;
         editorState={list:'OWNED',condition:x.condition,variant:x.variant};
-        editorTitle.textContent=`${x.name}${x.number?' #'+x.number:''}`;
+        editorTitle.textContent=visibleCardTitle(x);
         editorMeta.textContent=[x.setName||x.set,x.language].join(' · ');
         editorEyebrow.textContent='Markeer als gekocht';
         editorQty.value='1';editorPaid.value='';editorDelete.hidden=false;
@@ -400,10 +432,14 @@
       try{return await fetchJson(`${API}/${lang}/cards/${encodeURIComponent(item.sourceId)}`)}catch(_){}
     }
     if(item.language==='JP'||!item.number)return null;
+    const collector=String(item.number).trim().split('/')[0].replace(/^0+(?=\d)/,'');
+    if(!collector)return null;
     for(const sid of (SET_IDS[item.set]||[])){
       try{
-        const c=await fetchJson(`${API}/en/cards/${encodeURIComponent(sid+'-'+item.number)}`);
-        if(c&&norm(c.name)===norm(item.name))return c;
+        const c=await fetchJson(`${API}/en/cards/${encodeURIComponent(sid+'-'+collector)}`);
+        // For English cards the set ID + collector number is the unique identity.
+        // Display aliases such as "Charizard Delta Species" must not reject that exact card.
+        if(c)return c;
       }catch(_){}
     }
     return null;
@@ -411,7 +447,7 @@
   function firstFinite(...values){
     for(const v of values){
       const n=Number(v);
-      if(Number.isFinite(n)&&n>=0)return n;
+      if(Number.isFinite(n)&&n>0)return n;
     }
     return null;
   }
@@ -421,10 +457,30 @@
     const updated=Date.parse(cm.updated||'')||Date.now();
     if(item.variant==='STAMPED'){
       const reverse=firstFinite(cm['trend-holo'],cm['avg7-holo'],cm['avg30-holo'],cm['avg-holo'],cm['avg1-holo'],cm['low-holo']);
-      return {price:reverse,updated,source:reverse!=null?'CM reverse trend':'geen reverse prijs'};
+      return {price:reverse,updated,source:reverse!=null?'CM trend · reverse':''};
     }
     const normal=firstFinite(cm.trend,cm.avg7,cm.avg30,cm.avg,cm.avg1,cm.low);
-    return {price:normal,updated,source:normal!=null?'CM trend':'geen CM prijs'};
+    return {price:normal,updated,source:normal!=null?'CM trend':''};
+  }
+  async function refreshOnePrice(uid){
+    const initial=read().map(normalizeItem).filter(Boolean).find(x=>x.uid===uid);
+    if(!initial||initial.listType!=='OWNED')return;
+    if(priceStatus)priceStatus.textContent=`CM-trend ophalen voor ${cleanVisibleCardName(initial.name,initial.number)||'kaart'}…`;
+    try{
+      const card=await resolveCard(initial);
+      if(!card)throw new Error('unresolved');
+      const arr=read().map(normalizeItem).filter(Boolean);
+      const current=arr.find(x=>x.uid===uid);
+      if(!current||current.listType!=='OWNED')return;
+      const p=priceFrom(card,current);
+      current.price=p.price;
+      current.priceUpdated=p.updated||Date.now();
+      current.priceSource=p.source;
+      write(arr);render();
+      if(priceStatus)priceStatus.textContent=p.price!=null?'CM-trend voor nieuwe kaart bijgewerkt':'Geen betrouwbare CM-trend beschikbaar';
+    }catch(_){
+      if(priceStatus)priceStatus.textContent='CM-trend voor nieuwe kaart niet beschikbaar';
+    }
   }
   async function refreshPrices(force=false){
     const arr=read().map(normalizeItem).filter(Boolean);

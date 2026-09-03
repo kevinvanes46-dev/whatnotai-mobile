@@ -215,6 +215,28 @@
     return setInfo?.[set]?.label || String(set).toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
   }
 
+  function cleanVisibleCardName(value, number=''){
+    let name=String(value||'')
+      .replace(/[\u200B-\u200D\u2060\uFEFF\uFFFD]/g,'')
+      .replace(/\s+/g,' ')
+      .trim()
+      .replace(/\s*[\u00b7•]\s*#\s*/g,' #');
+    const collector=String(number||'').replace(/[\u200B-\u200D\u2060\uFEFF\uFFFD]/g,'').trim();
+    if(collector){
+      const escaped=collector.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+      name=name.replace(new RegExp(`\\s+#\\s*${escaped}\\s*$`,'i'),'').trim();
+    }
+    return name;
+  }
+
+  function cleanSavedCardTitles(){
+    document.querySelectorAll('.itemTitle').forEach(el=>{
+      let cleaned=cleanVisibleCardName(el.textContent).replace(/\s+\(([^()]+)\)\s*$/,' #$1');
+      cleaned=cleaned.replace(/\s+#([^\s]+)\s+#\1\s*$/i,' #$1');
+      if(cleaned!==el.textContent)el.textContent=cleaned;
+    });
+  }
+
   function syncPrefs(){
     if(!scanPrefsText) return;
     const edition = editionSelect?.value === '1ST' ? ' · 1ST' : '';
@@ -243,7 +265,7 @@
   function syncResultSheet(){
     if(!resultSheet) return;
     const complete = resultComplete();
-    const name = (nameInput?.value || '').trim() || 'Kaart niet zeker';
+    const name = cleanVisibleCardName(nameInput?.value || '', numberInput?.value || '') || 'Kaart niet zeker';
     const number = String(numberInput?.value || '').trim();
     const set = setSelect?.value || 'AUTO';
     const card = exactCatalogCard();
@@ -499,13 +521,14 @@
       const lang = card.language || 'EN';
       const isRemote = card.source === 'tcgdex';
       const displayNumber = lang === 'JP' && isRemote ? '' : String(card.number || '').trim();
+      const displayName = cleanVisibleCardName(card.name,displayNumber) || 'Onbekende kaart';
       btn.innerHTML = `<span class="suggestionMain"><span class="suggestionTitle"></span><span class="suggestionMeta"></span></span><span class="suggestionArrow"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></span>`;
-      btn.querySelector('.suggestionTitle').textContent = `${card.name}${displayNumber ? ` #${displayNumber}` : ''}`;
+      btn.querySelector('.suggestionTitle').textContent = `${displayName}${displayNumber ? ` #${displayNumber}` : ''}`;
       const sourceNote = isRemote ? (lang === 'JP' ? ' · JP online' : ' · volledige catalogus') : '';
       const stampNote = (queryWantsStamped(quickInput?.value || '') && lang === 'EN' && STAMPED_SET_KEYS.has(card.set)) ? ' · ⚡ STAMPED-era' : '';
       btn.querySelector('.suggestionMeta').textContent = `${label} · ${lang}${card.rarity ? ' · '+card.rarity : ''}${stampNote}${sourceNote}`;
       btn.addEventListener('click', () => {
-        nameInput.value = card.name;
+        nameInput.value = displayName;
         // TCGdex Japanese records use a cross-language set mapping. Do not pretend that number is the
         // printed Japanese collector/Pokedex number; authentic local JP records still keep their real number.
         numberInput.value = (lang === 'JP' && isRemote) ? '' : (card.number || '');
@@ -513,7 +536,7 @@
         if(hasSetOption) setSelect.value = card.set;
         else setSelect.value = 'AUTO';
         if(langSelect && ['EN','JP'].includes(lang)) langSelect.value = lang;
-        quickInput.value = `${card.name}${displayNumber ? ' '+displayNumber : ''} ${label}`.trim();
+        quickInput.value = `${displayName}${displayNumber ? ' '+displayNumber : ''} ${label}`.trim();
         if(typeof updateCustomSelects === 'function') updateCustomSelects();
         savePrefs();
         smartSuggestions.hidden = true;
@@ -521,13 +544,13 @@
         safelyRebuildLink();
         const stampedSelected = queryWantsStamped(quickInput?.value || '') && lang === 'EN' && STAMPED_SET_KEYS.has(card.set);
         window.dispatchEvent(new CustomEvent('cardscout:card-selected',{detail:{
-          card:{...card}, stamped:stampedSelected,
+          card:{...card,name:displayName}, stamped:stampedSelected,
           condition:condSelect?.value || 'NM', edition:editionSelect?.value || 'AUTO',
           cardmarketUrl:openBtn?.getAttribute('href') || card.url || ''
         }}));
-        showToast(stampedSelected ? `${card.name}: stamped/reverse variant geselecteerd` : (isRemote && lang === 'JP'
-          ? `${card.name}: veilige JP Cardmarket-zoekroute klaar`
-          : `${card.name} klaar voor Cardmarket`));
+        showToast(stampedSelected ? `${displayName}: stamped/reverse variant geselecteerd` : (isRemote && lang === 'JP'
+          ? `${displayName}: veilige JP Cardmarket-zoekroute klaar`
+          : `${displayName} klaar voor Cardmarket`));
       });
       smartSuggestions.appendChild(btn);
     }
@@ -627,12 +650,13 @@
   function makeOnlineCard(card,setKey,lang,enNameById,sourceSetName){
     if(!card || !card.id) return null;
     const englishName = lang === 'JP' ? (enNameById?.get(card.id) || '') : '';
-    const localizedName = String(card.name || '').trim();
-    const name = englishName || localizedName;
-    if(!name) return null;
+    const localizedName = cleanVisibleCardName(card.name || '');
+    const rawName = englishName || localizedName;
+    if(!rawName) return null;
     const def=setInfo?.[setKey] || {};
     const jp = lang === 'JP';
     const number = jp ? '' : String(card.localId || '').trim();
+    const name = cleanVisibleCardName(rawName,number);
     const aliases=[];
     if(jp && localizedName && normalize(localizedName)!==normalize(name)) aliases.push(localizedName);
     return {
@@ -811,10 +835,12 @@
   if(ocrProgressText) new MutationObserver(mirrorProgress).observe(ocrProgressText,{childList:true,subtree:true,characterData:true});
   if(ocrProgressFill) new MutationObserver(mirrorProgress).observe(ocrProgressFill,{attributes:true,attributeFilter:['style']});
   if(openBtn) new MutationObserver(() => { syncResultSheet(); syncDock(); }).observe(openBtn,{attributes:true,attributeFilter:['href','class']});
+  ['recentList','favoriteList'].map($).filter(Boolean).forEach(el=>new MutationObserver(cleanSavedCardTitles).observe(el,{childList:true,subtree:true,characterData:true}));
 
   restorePrefs();
   loadCatalog();
   syncPrefs();
+  cleanSavedCardTitles();
   setTab((location.hash || '#search').slice(1), false);
   // Keep technical CORE3 version out of normal UI while leaving the engine untouched.
   if(status){ status.textContent='Klaar'; status.className='status ok'; }
