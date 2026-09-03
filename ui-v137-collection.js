@@ -473,9 +473,15 @@
       const current=arr.find(x=>x.uid===uid);
       if(!current||current.listType!=='OWNED')return;
       const p=priceFrom(card,current);
-      current.price=p.price;
-      current.priceUpdated=p.updated||Date.now();
-      current.priceSource=p.source;
+      if(p.price===null){
+        current.price=null;
+        current.priceUpdated=0;
+        current.priceSource='';
+      }else{
+        current.price=p.price;
+        current.priceUpdated=p.updated||Date.now();
+        current.priceSource=p.source;
+      }
       write(arr);render();
       if(priceStatus)priceStatus.textContent=p.price!=null?'CM-trend voor nieuwe kaart bijgewerkt':'Geen betrouwbare CM-trend beschikbaar';
     }catch(_){
@@ -495,7 +501,11 @@
         const card=await resolveCard(x);
         if(!card){failed++;continue}
         const p=priceFrom(card,x);
-        x.price=p.price;x.priceUpdated=p.updated||Date.now();x.priceSource=p.source;changed++;
+        if(p.price===null){
+          x.price=null;x.priceUpdated=0;x.priceSource='';failed++;
+        }else{
+          x.price=p.price;x.priceUpdated=p.updated||Date.now();x.priceSource=p.source;changed++;
+        }
       }catch(_){failed++}
     }
     write(arr);render();
