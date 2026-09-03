@@ -1,0 +1,27 @@
+CardScout v137 — Collection Pro / App-ready
+
+Functional changes
+- Collection search.
+- Filters: owned, wishlist, EN, JP, stamped, condition, set.
+- Sorting: recent, name, set, purchase price.
+- Add sheet with: owned/wishlist, NM/EX/GD/PL, normal/stamped, quantity, purchase price.
+- Existing collection records migrate without changing the localStorage key.
+- Edit existing collection records.
+- Wishlist -> 'Gekocht' flow.
+- JSON import/export preserved.
+- Search, stamped search and one-click Cardmarket are based on v136 behavior.
+- Hidden scanner no longer loads visual reference catalog in the background.
+
+App readiness
+- Standalone web-app manifest updated.
+- Separate Capacitor 8 native starter generated.
+
+Price note
+- Price values remain market indications.
+- No fake condition multiplier is applied.
+
+QA performed
+- JavaScript syntax check.
+- HTML IDs required by Collection Pro verified.
+- v133 collection storage key preserved.
+- No background vLoadFiles idle call remains in app-v137.js.

@@ -1,0 +1,138 @@
+{
+  "PACKAGE_MANIFEST_V133.json": {
+    "bytes": 3149,
+    "sha256": "e665ab3761ade4c976572da3cc096046935aea4ae561bb1d078a04d75bfc9431"
+  },
+  "PACKAGE_MANIFEST_V134.json": {
+    "bytes": 3829,
+    "sha256": "abfe2768cd78e5e43140bdad16012b669f3de54b0c349d4547d6c46fd9c2dc94"
+  },
+  "PACKAGE_MANIFEST_V135.json": {
+    "bytes": 4108,
+    "sha256": "65ac7465aa7bd38fd2a2f30fe070a13d903dc93ae137b8efd7418c7d3ed49433"
+  },
+  "QA_SEARCH_ALL_V131.txt": {
+    "bytes": 1623,
+    "sha256": "df227d872b1218fda088e7cb5435515a3607d2894d5200b8c96c2341ce7fcc7e"
+  },
+  "QA_V130.txt": {
+    "bytes": 1425,
+    "sha256": "d9b3f5e655f224f755bebe15208af18394fc3921746cce36c82b70a9d3463b24"
+  },
+  "QA_V133_SEARCH_COLLECTION.txt": {
+    "bytes": 1125,
+    "sha256": "65c771d94f7e6713c294dd9e3ea7ec3edec6b9e4f4ac5b55778485ae6c17443d"
+  },
+  "QA_V134_ONECLICK_STAMPED.txt": {
+    "bytes": 811,
+    "sha256": "6fcecb09b95b93eb321e632dbed50b00d63924020146ee3b496632dc3875b875"
+  },
+  "QA_V135_PRICE_CONDITION.txt": {
+    "bytes": 1061,
+    "sha256": "7b67c72176739741e742dcdec889ff04b58356114207a33d41e2df26642fc30c"
+  },
+  "QA_V136_CLEAN_CARD_TITLES.txt": {
+    "bytes": 472,
+    "sha256": "a961ff172fe48cd0f7616a458c65319202f8dc9c869f2ba1a382b86444eadf4d"
+  },
+  "QA_V137_COLLECTION_PRO.txt": {
+    "bytes": 1004,
+    "sha256": "91394f3941ecc1c16faa0fde3233f446a6c2a3cda79121d418a40fe4f1134d1a"
+  },
+  "SEARCH_CATALOG_SETS_V132.txt": {
+    "bytes": 718,
+    "sha256": "f94cdc936cd9b2c4857a1a548147caa75184b1f8c62a8e439768aa03a1f40831"
+  },
+  "TCGDEX_DATA_LICENSE_NOTICE.txt": {
+    "bytes": 1338,
+    "sha256": "cf7e48075ad07b20c47266f7c29c8f59bb40c65ad40332e389511fd9f932daca"
+  },
+  "UPLOAD_INSTRUCTIONS_V130.txt": {
+    "bytes": 289,
+    "sha256": "9a6aa2b0ab7917ca1d22618f03fceee427cfb17bc821a88744c4518a753682f0"
+  },
+  "UPLOAD_SEARCH_ALL_V131.txt": {
+    "bytes": 438,
+    "sha256": "689296b04e0c091014d67ae9d1eedb708e0ebaa7cf7e645cedbe6d27c38bc7c8"
+  },
+  "V133_PRODUCT_DIRECTION.txt": {
+    "bytes": 1026,
+    "sha256": "3bcf5daea4fc69812da11c73a5d59ca303cbfa16a147e636c1fa7f332474e24e"
+  },
+  "VISION_CORE_V130.txt": {
+    "bytes": 657,
+    "sha256": "6dce4d45ff754801c79bbd8e4d6c3f0ccaa8058a7c36526bcd07d47a3884819f"
+  },
+  "app-v137.js": {
+    "bytes": 201553,
+    "sha256": "b8d2ede868930634381f603f87b65b81a36cfa5690f5b9d2a86d72b8f9399e3c"
+  },
+  "cards.json": {
+    "bytes": 129498,
+    "sha256": "7f5d7cd98ed9ea453b6aa878aa94e391bdb4a8c8e469228895fc7af71be4be09"
+  },
+  "index.html": {
+    "bytes": 27939,
+    "sha256": "e2cf32f839f0af8a19977f0e208785f70a1f5d87a393206bbd15c5c989d95794"
+  },
+  "manifest.json": {
+    "bytes": 486,
+    "sha256": "53dc1688fe06fda208bbd4a1085c4cc3d73974858d1ff453251792fff18e1211"
+  },
+  "style-v100.css": {
+    "bytes": 33395,
+    "sha256": "d5fcb6f51ccbd9c7aa9c490ed84b209149543a30445de5d5cf542b1a3b7970c0"
+  },
+  "style-v110.css": {
+    "bytes": 19626,
+    "sha256": "a53743a92d4ae8397f847deea4b9313734690e93c7ead35a23e53bb691103997"
+  },
+  "style-v120.css": {
+    "bytes": 26657,
+    "sha256": "cc513a28b6fef1e9ac07beb22050e26b5c94b88629dcf6f032f6dddeb6b90f2c"
+  },
+  "style-v133-product.css": {
+    "bytes": 32267,
+    "sha256": "c77f335221c4411af135bec42f7839be44d782f8d90f8dc12e6e3d0efcf9f2ce"
+  },
+  "style-v137-product.css": {
+    "bytes": 38703,
+    "sha256": "d4e045bf30d4dc6152026cc8bde1c6b1578b5bfd651080c0098afdb397ba1a24"
+  },
+  "sw.js": {
+    "bytes": 440,
+    "sha256": "4b9e00e73ebdb45d77128a67a863d0ec9280fefd1836491e9adbfe4968d814eb"
+  },
+  "ui-v110.js": {
+    "bytes": 3155,
+    "sha256": "08883be946b15ab6bf398553c9e77b14baf8f6899732f7b4bb5ddfe2db34efba"
+  },
+  "ui-v120.js": {
+    "bytes": 19660,
+    "sha256": "34fc6d2b57ed14a98233971c4bd004d2389798d9d9e861c8dec090ddf116f716"
+  },
+  "ui-v133-collection.js": {
+    "bytes": 10416,
+    "sha256": "7c01e1290219ffdfb27cc16565cb881c1d1d75d3d3ebfd5a81b29228165bbf22"
+  },
+  "ui-v133-focus.js": {
+    "bytes": 34312,
+    "sha256": "46c788504351df6c84b700b3accc80e4920a7c669fff278ad3ada6b877312f62"
+  },
+  "ui-v137-collection.js": {
+    "bytes": 21914,
+    "sha256": "da99156c6bb3e0c03b31eea1a7ef608c2634a7b7bf961468bcc1ecca49993345"
+  },
+  "ui-v137-focus.js": {
+    "bytes": 36446,
+    "sha256": "6bb78f52840e97519a8b6a623efeda8c0705ed9ac8666245c48110e887299518"
+  },
+  "visual-catalog.json": {
+    "bytes": 31213,
+    "sha256": "89130ff81f52d3294e322170f3fc1d66a9e5b2808523399cb9270d0717c671e7"
+  },
+  "visual-seeds.json": {
+    "bytes": 127483,
+    "sha256": "8c3ea1c36cdb6cc4382d179d5120451f3eaed987e1afcf6d10833c4d2e587e78"
+  }
+}

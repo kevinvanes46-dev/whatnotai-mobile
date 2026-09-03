@@ -11,8 +11,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="CardScout" />
   <title>CardScout · Zoek. Bewaar. Check.</title>
-  <link rel="stylesheet" href="style-v135-product.css?build=135-price-condition" />
-  <link rel="manifest" href="manifest.json?build=120" />
+  <link rel="stylesheet" href="style-v137-product.css?build=137-collection-pro" />
+  <link rel="manifest" href="manifest.json?build=137" />
 </head>
 <body>
   <div class="ambient" aria-hidden="true"><span></span><span></span></div>
@@ -171,18 +171,55 @@
 
       <!-- COLLECTION -->
       <section class="tabView" data-view="collection" aria-labelledby="navCollection">
-        <div class="screenIntro compact"><div><span class="eyebrow">Mijn kaarten</span><h2>Collectie</h2><p>Bijhouden wat je hebt, wat je betaalde en de actuele marktindicatie.</p></div></div>
-        <section class="collectionSummary">
+        <div class="screenIntro compact">
+          <div><span class="eyebrow">Mijn kaarten</span><h2>Collectie</h2><p>Zoek, filter en beheer wat je bezit of nog wilt kopen.</p></div>
+        </div>
+
+        <section class="collectionSummary collectionSummaryPro">
           <div><small>Kaarten</small><b id="collectionCount">0</b></div>
+          <div><small>Wishlist</small><b id="wishlistCount">0</b></div>
           <div><small>Betaald</small><b id="collectionPaid">€0,00</b></div>
           <div><small>CM indicatie</small><b id="collectionMarket">€0,00</b></div>
         </section>
+
+        <section class="collectionControlPanel">
+          <div class="collectionSearchWrap">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+            <input id="collectionSearch" type="search" autocomplete="off" placeholder="Zoek in collectie…" />
+          </div>
+
+          <div class="collectionQuickFilters" id="collectionQuickFilters" aria-label="Collectiefilters">
+            <button type="button" class="active" data-filter-list="ALL">Alles</button>
+            <button type="button" data-filter-list="OWNED">In collectie</button>
+            <button type="button" data-filter-list="WISHLIST">Wishlist</button>
+            <button type="button" data-filter-language="EN">EN</button>
+            <button type="button" data-filter-language="JP">JP</button>
+            <button type="button" data-filter-variant="STAMPED">⚡ Stamped</button>
+          </div>
+
+          <div class="collectionFilterRow">
+            <select id="collectionConditionFilter" aria-label="Filter op staat">
+              <option value="">Alle staten</option>
+              <option value="NM">NM</option><option value="EX">EX</option><option value="GD">GD</option><option value="PL">PL</option>
+            </select>
+            <select id="collectionSetFilter" aria-label="Filter op set"><option value="">Alle sets</option></select>
+            <select id="collectionSort" aria-label="Sorteer collectie">
+              <option value="recent">Nieuwste</option>
+              <option value="name">Naam A–Z</option>
+              <option value="set">Set A–Z</option>
+              <option value="paid-desc">Aankoopprijs hoog</option>
+              <option value="paid-asc">Aankoopprijs laag</option>
+            </select>
+          </div>
+        </section>
+
         <div class="collectionToolbar">
-          <button type="button" id="collectionRefreshBtn">↻ Prijzen vernieuwen</button>
-          <span id="collectionPriceStatus">Nog niet bijgewerkt</span>
+          <button type="button" id="collectionRefreshBtn">↻ Marktindicatie</button>
+          <span id="collectionPriceStatus">Prijsdata is indicatief</span>
         </div>
+
         <section id="collectionList" class="collectionList empty">Nog geen kaarten. Zoek een kaart en tik op <b>+ Collectie</b>.</section>
-        <p class="collectionFootnote">Marktindicaties komen via de dagelijkse TCGdex/Cardmarket prijsfeed. STAMPED gebruikt de aparte reverse/foil Cardmarket-trend. De opgeslagen kaartstaat (NM/EX/GD/PL) verandert de trendprijs niet automatisch, omdat de feed geen betrouwbare condition-specifieke trend bevat.</p>
+        <p class="collectionFootnote">Aankoopprijs, staat en variant zijn jouw eigen gegevens. Marktwaarden blijven voorlopig een indicatie; we verbeteren de prijsengine later apart.</p>
       </section>
 
       <!-- RECENT -->
@@ -202,7 +239,7 @@
         <div class="screenIntro compact"><div><span class="eyebrow">CardScout</span><h2>Meer</h2><p>Voorkeuren, privacy en diagnose.</p></div></div>
 
         <section class="surface settingsCard">
-          <div class="settingsRow"><div class="settingsIcon"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.7 2.8 8 7 10 4.2-2 7-5.3 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></div><div><b>Privacy</b><small>Kaartfoto's blijven lokaal op je toestel</small></div><span class="mutedBadge">Lokaal</span></div>
+          <div class="settingsRow"><div class="settingsIcon"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.7 2.8 8 7 10 4.2-2 7-5.3 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></div><div><b>Privacy</b><small>Je collectie blijft lokaal op je toestel</small></div><span class="mutedBadge">Lokaal</span></div>
         </section>
 
         <section class="surface settingsCard">
@@ -222,7 +259,7 @@
           <input type="file" id="collectionImportFile" accept="application/json,.json" hidden />
         </section>
 
-        <section class="surface aboutCard"><div><b>CardScout</b><small>Mobile Pokémon TCG scout</small></div><div class="aboutMeta"><span>UI 136</span><span>ONE CLICK</span><span>REVERSE PRICE</span><span>CONDITION</span></div></section>
+        <section class="surface aboutCard"><div><b>CardScout</b><small>Mobile Pokémon TCG scout</small></div><div class="aboutMeta"><span>UI 137</span><span>SEARCH FIRST</span><span>COLLECTION PRO</span><span>APP READY</span></div></section>
       </section>
     </div>
   </main>
@@ -250,6 +287,52 @@
     <p class="resultHint" id="resultHint">Controleer bij twijfel altijd de kaart op Cardmarket.</p>
   </section>
 
+
+  <div class="collectionEditorBackdrop" id="collectionEditorBackdrop" hidden></div>
+  <section class="collectionEditorSheet" id="collectionEditor" hidden role="dialog" aria-modal="true" aria-labelledby="collectionEditorTitle">
+    <div class="editorHandle" aria-hidden="true"></div>
+    <div class="editorHeader">
+      <div><span class="eyebrow" id="collectionEditorEyebrow">Toevoegen</span><h2 id="collectionEditorTitle">Kaart</h2><p id="collectionEditorMeta">—</p></div>
+      <button type="button" id="collectionEditorClose" class="editorClose" aria-label="Sluiten">×</button>
+    </div>
+
+    <div class="editorSection">
+      <label>Waar opslaan?</label>
+      <div class="editorChoiceGrid two">
+        <button type="button" class="active" data-editor-list="OWNED">✓ In collectie</button>
+        <button type="button" data-editor-list="WISHLIST">♡ Wishlist</button>
+      </div>
+    </div>
+
+    <div class="editorSection">
+      <label>Staat gekocht</label>
+      <div class="editorChoiceGrid four">
+        <button type="button" class="active" data-editor-condition="NM">NM</button>
+        <button type="button" data-editor-condition="EX">EX</button>
+        <button type="button" data-editor-condition="GD">GD</button>
+        <button type="button" data-editor-condition="PL">PL</button>
+      </div>
+    </div>
+
+    <div class="editorSection">
+      <label>Variant</label>
+      <div class="editorChoiceGrid two">
+        <button type="button" class="active" data-editor-variant="NORMAL">Normaal</button>
+        <button type="button" data-editor-variant="STAMPED">⚡ Stamped</button>
+      </div>
+    </div>
+
+    <div class="editorFields">
+      <label>Aantal<input id="collectionEditorQty" type="number" min="1" step="1" inputmode="numeric" value="1" /></label>
+      <label>Aankoopprijs p/st.<input id="collectionEditorPaid" type="text" inputmode="decimal" placeholder="bijv. 12,50" /></label>
+    </div>
+
+    <div class="editorActions">
+      <button type="button" id="collectionEditorSave" class="primary">Opslaan</button>
+      <button type="button" id="collectionEditorDelete" class="danger" hidden>Verwijder kaart</button>
+    </div>
+  </section>
+
   <div class="toast" id="toast" hidden role="status" aria-live="polite"></div>
 
   <nav class="bottomNav" aria-label="Hoofdnavigatie">
@@ -259,8 +342,8 @@
     <button type="button" class="navBtn" id="navSettings" data-tab="settings" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3V2.8h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></svg><span>Meer</span></button>
   </nav>
 
-  <script src="app-v130.js?build=130"></script>
-  <script src="ui-v136-focus.js?build=136-clean-card-titles"></script>
-  <script src="ui-v136-collection.js?build=136-clean-card-titles"></script>
+  <script src="app-v137.js?build=137-collection-pro"></script>
+  <script src="ui-v137-focus.js?build=137-collection-pro"></script>
+  <script src="ui-v137-collection.js?build=137-collection-pro"></script>
 </body>
 </html>

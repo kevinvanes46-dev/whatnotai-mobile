@@ -1,11 +1,20 @@
 {
-  "name": "CardScout",
+  "name": "CardScout — Pokémon TCG",
   "short_name": "CardScout",
-  "start_url": "./?build=136-clean-card-titles#search",
+  "start_url": "./?build=137-collection-pro#search",
   "scope": "./",
   "display": "standalone",
   "background_color": "#050912",
   "theme_color": "#07111e",
-  "description": "Pokémon TCG snelzoeken, stamped/reverse zoeken en collectiebeheer met marktindicatie",
-  "id": "./"
+  "description": "Pokémon TCG snelzoeken, stamped zoeken, wishlist en collectiebeheer.",
+  "id": "./",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "portrait-primary",
+  "categories": [
+    "games",
+    "utilities"
+  ]
 }
