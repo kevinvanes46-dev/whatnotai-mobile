@@ -287,6 +287,12 @@ function findAutoKnown(lang, number, name){
     .filter(c => c.language === lang);
 }
 function withFilters(url, lang, cond, edition=(editionSelect?.value || 'AUTO')){
+  // Generic searches must never inherit restrictive offer filters.
+  const parsed = new URL(url);
+  if(/^\/[a-z]+\/Pokemon\/Products\/Search\/?$/.test(parsed.pathname)){
+    for(const key of ['minCondition','language','isFirstEd']) parsed.searchParams.delete(key);
+    return parsed.href;
+  }
   const params = [];
   if(CONDITION_IDS[cond]) params.push(`minCondition=${CONDITION_IDS[cond]}`);
   if(LANGUAGE_IDS[lang]) params.push(`language=${LANGUAGE_IDS[lang]}`);
@@ -294,21 +300,29 @@ function withFilters(url, lang, cond, edition=(editionSelect?.value || 'AUTO')){
   if(!params.length) return url;
   return url + (url.includes('?') ? '&' : '?') + params.join('&');
 }
+function cleanCardmarketText(value){
+  return String(value || '').normalize('NFKC')
+    .replace(/[\p{Cc}\p{Cf}\uFFFD]/gu, '').replace(/\s+/g, ' ').trim();
+}
 function buildSearchTerm(name, number, set){
   const def = (DATA.sets || {})[set || ''];
-  const n = cleanNumber(number);
-  if(def && def.code && n) return `${name} ${def.code}${n}`;
-  return [name, number].filter(Boolean).join(' ').trim() || 'pokemon';
+  const n = cleanNumber(cleanCardmarketText(number).replace(/^#/, ''));
+  let title = cleanCardmarketText(name);
+  // Remove a displayed trailing collector number, without damaging names like Porygon2.
+  const suffix = title.match(/\s+#?([a-z]*0*\d+[a-z]*)(?:\/\d+)?$/i);
+  if(n && suffix && cleanNumber(suffix[1]).toLowerCase() === n.toLowerCase()){
+    title = title.slice(0, suffix.index).trim();
+  }
+  const label = cleanCardmarketText(def?.label || (set && set !== 'AUTO' ? set : ''));
+  return [title, label, n].filter(Boolean).join(' ') || 'pokemon';
 }
 
 function searchUrl(name, number, lang, cond, set='AUTO', explicitQuery=''){
-  // JP kaarten hebben eigen Cardmarket-productpagina's en gebruiken niet
-  // betrouwbaar de Engelse collectorcode. Daarom zoekt JP veilig op naam.
+  // Ignore legacy compact queries, including cached TCGdex records. JP uses name only.
   const term = lang === 'JP'
-    ? (String(name || '').trim() || 'pokemon')
-    : (explicitQuery || buildSearchTerm(name, number, set));
-  const q = encodeURIComponent(term);
-  return withFilters(`https://www.cardmarket.com/en/Pokemon/Products/Search?searchString=${q}`, lang, cond);
+    ? (cleanCardmarketText(name) || 'pokemon')
+    : buildSearchTerm(name, number, set);
+  return 'https://www.cardmarket.com/en/Pokemon/Products/Search?searchString=' + encodeURIComponent(term);
 }
 
 function buildUrl(){
@@ -447,12 +461,8 @@ function buildUrl(){
   // Cardmarket gebruikt per kaart soms V1/V2/V3 of afwijkende setcodes.
   // Alleen geverifieerde database-URL's openen direct; de rest opent veilig zoeken.
   const firstEd = editionSelect?.value === '1ST';
-  // v70: bij 1st Edition nooit een onzekere collectorcode forceren. Een fout nummer
-  // kan Cardmarket naar een lege algemene Search-pagina sturen. Zoek dan op naam + setnaam.
-  const def=(DATA.sets||{})[set||''];
-  const firstEdQuery = firstEd ? [name, def?.label || (set!=='AUTO'?set:''), '1st Edition'].filter(Boolean).join(' ') : '';
   return {
-    url: searchUrl(name, firstEd ? '' : number, lang, cond, set, firstEdQuery),
+    url: searchUrl(name, number, lang, cond, set),
     exact: false,
     note: firstEd
       ? `1st Edition: nog geen geverifieerde directe productroute. Veilige zoekpagina op naam/set; kies het juiste resultaat.`
