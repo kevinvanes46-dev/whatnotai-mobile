@@ -1,9 +1,12 @@
-PASS Production scripts, data and original stylesheet identical to v147 after Git line-ending normalization
-PASS 320px search, results, dock, collection, filters, empty, editor, recent and settings
-PASS 375px search, results, dock, collection, filters, empty, editor, recent and settings
-PASS 390px search, results, dock, collection, filters, empty, editor, recent and settings
-PASS 768px search, results, dock, collection, filters, empty, editor, recent and settings
-PASS 1280px search, results, dock, collection, filters, empty, editor, recent and settings
-PASS Visible keyboard focus on search field container
-PASS No browser runtime errors
-8 UI polish audit groups passed; screenshots in C:\Users\kevin\.codex\.chatgpt-projects\g-p-6a4a400bb1d08191b86d4ecd24e3d45d\whatnotai-mobile\artifacts\rareworth-v150
+PASS Scanner and downstream business logic, data and original stylesheet unchanged
+Error: UNKNOWN: unknown error, open 'C:\Users\kevin\.codex\.chatgpt-projects\g-p-6a4a400bb1d08191b86d4ecd24e3d45d\whatnotai-mobile\artifacts\rareworth-v150\empty-320.png'
+    at async open (node:internal/fs/promises:697:25)
+    at async Object.writeFile (node:internal/fs/promises:1317:14)
+    at async _Page.screenshot (C:\Users\kevin\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\playwright-core\lib\coreBundle.js:61393:11)
+    at async shot (C:\Users\kevin\.codex\.chatgpt-projects\g-p-6a4a400bb1d08191b86d4ecd24e3d45d\whatnotai-mobile\tests\ui-polish-v148.test.cjs:43:27)
+    at async C:\Users\kevin\.codex\.chatgpt-projects\g-p-6a4a400bb1d08191b86d4ecd24e3d45d\whatnotai-mobile\tests\ui-polish-v148.test.cjs:58:62 {
+  errno: -4094,
+  code: 'UNKNOWN',
+  syscall: 'open',
+  path: 'C:\\Users\\kevin\\.codex\\.chatgpt-projects\\g-p-6a4a400bb1d08191b86d4ecd24e3d45d\\whatnotai-mobile\\artifacts\\rareworth-v150\\empty-320.png'
+}

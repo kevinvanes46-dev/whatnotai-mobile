@@ -1,0 +1,143 @@
+{
+  "category": "Pokemon",
+  "id": "base4-22",
+  "illustrator": "Mitsuhiro Arita",
+  "image": "https://assets.tcgdex.net/en/base/base4/22",
+  "localId": "22",
+  "name": "Dragonair",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 130,
+      "total": 130
+    },
+    "id": "base4",
+    "logo": "https://assets.tcgdex.net/en/base/base4/logo",
+    "name": "Base Set 2",
+    "symbol": "https://assets.tcgdex.net/univ/base/base4/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": false,
+    "normal": true,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "normal",
+      "size": "standard",
+      "thirdParty": {
+        "cardmarket": 273945,
+        "tcgplayer": 42467
+      },
+      "variantId": "endfynwn4n10gzq",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-06T12:55:34.212Z",
+          "unit": "EUR",
+          "idProduct": 273945,
+          "avg": 9.38,
+          "low": 2.8,
+          "trend": 7.84,
+          "avg1": 4,
+          "avg7": 7.7,
+          "avg30": 9.01,
+          "avg-holo": null,
+          "low-holo": null,
+          "trend-holo": 1.39,
+          "avg1-holo": 1.39,
+          "avg7-holo": 1.45,
+          "avg30-holo": 1.45
+        },
+        "tcgplayer": {
+          "unit": "USD",
+          "updated": "2026-09-06T12:55:32.240Z",
+          "normal": {
+            "productId": 42467,
+            "lowPrice": 4,
+            "midPrice": 7.92,
+            "highPrice": 220.4,
+            "marketPrice": 10.98,
+            "directLowPrice": 7.29
+          }
+        }
+      }
+    }
+  ],
+  "dexId": [
+    148
+  ],
+  "hp": 80,
+  "types": [
+    "Colorless"
+  ],
+  "evolveFrom": "Dratini",
+  "description": "A mystical Pokémon that exudes a gentle aura. Has the ability to change climate conditions.",
+  "stage": "Stage1",
+  "attacks": [
+    {
+      "cost": [
+        "Colorless",
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Slam",
+      "effect": "Flip 2 coins. This attack does 30 damage times the number of heads."
+    },
+    {
+      "cost": [
+        "Colorless",
+        "Colorless",
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Hyper Beam",
+      "effect": "If the Defending Pokémon has any Energy cards attached to it, choose 1 of them and discard it.",
+      "damage": 20
+    }
+  ],
+  "resistances": [
+    {
+      "type": "Psychic",
+      "value": "-30"
+    }
+  ],
+  "retreat": 2,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-07-24T18:27:56+01:00",
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-06T12:55:34.212Z",
+      "unit": "EUR",
+      "idProduct": 273945,
+      "avg": 9.38,
+      "low": 2.8,
+      "trend": 7.84,
+      "avg1": 4,
+      "avg7": 7.7,
+      "avg30": 9.01,
+      "avg-holo": null,
+      "low-holo": null,
+      "trend-holo": 1.39,
+      "avg1-holo": 1.39,
+      "avg7-holo": 1.45,
+      "avg30-holo": 1.45
+    },
+    "tcgplayer": {
+      "unit": "USD",
+      "updated": "2026-09-06T12:55:32.240Z",
+      "normal": {
+        "productId": 42467,
+        "lowPrice": 4,
+        "midPrice": 7.92,
+        "highPrice": 220.4,
+        "marketPrice": 10.98,
+        "directLowPrice": 7.29
+      }
+    }
+  }
+}

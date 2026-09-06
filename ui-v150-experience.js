@@ -2,7 +2,18 @@
 (() => {
   const $=id=>document.getElementById(id);
   // Secondary controls remain intact, but no longer dominate the first screen.
-  $('manualDetails').append(document.querySelector('.searchModeRow'),$('stampedSetChips'));
+  const preferences=document.createElement('section');
+  preferences.className='visiblePreferences';preferences.setAttribute('aria-label','Kaartvoorkeuren');
+  $('quickPanel').after(preferences);
+  preferences.append(document.querySelector('#manualDetails .filterStrip'),document.querySelector('.searchModeRow'));
+  $('manualDetails').append($('stampedSetChips'));
+  document.querySelector('.searchModeHelp').textContent='Kies de uitvoering van jouw kaart';
+  const normalVariant=document.createElement('button');normalVariant.type='button';normalVariant.id='normalVariant';normalVariant.className='searchModeChip';normalVariant.textContent='Normaal';
+  $('stampedToggle').before(normalVariant);$('stampedToggle').textContent='Stamped';
+  const syncVariant=()=>{const on=$('stampedToggle').getAttribute('aria-pressed')==='true';normalVariant.setAttribute('aria-pressed',String(!on));normalVariant.classList.toggle('active',!on);};
+  normalVariant.addEventListener('click',()=>{if($('stampedToggle').getAttribute('aria-pressed')==='true')$('stampedToggle').click();});
+  new MutationObserver(syncVariant).observe($('stampedToggle'),{attributes:true,attributeFilter:['aria-pressed']});syncVariant();
+
   document.querySelector('[data-view="settings"]').append(document.querySelector('.linkDetails'));
   const displayTools=document.createElement('div');displayTools.className='collectionDisplayTools';
   document.querySelector('.collectionToolbar').before(displayTools);
@@ -21,15 +32,16 @@
   function safeImage(value){
     try{const u=new URL(value);return u.protocol==='https:'&&u.hostname==='assets.tcgdex.net'?u.href.replace(/\/$/,''):'';}catch{return '';}
   }
-  function fallback(target){target.classList.remove('artLoading');target.classList.add('artUnavailable');target.textContent='Afbeelding niet beschikbaar';}
+  function fallback(target){target.classList.remove('artLoading');target.classList.add('artUnavailable');target.textContent='Afbeelding niet beschikbaar';const retry=document.createElement('button');retry.type='button';retry.className='artRetry';retry.textContent='Opnieuw laden';retry.addEventListener('click',event=>{event.stopPropagation();target.classList.remove('artUnavailable');target.classList.add('artLoading');load(pending.get(target),target);});if(!target.closest('button'))target.append(retry);}
   async function load(card,target){
-    const data=card.image?card:await lookup(card);
+    let data=card.image?card:await lookup(card);
+    if(!data?.image)data=await lookup(card);
     if(!target.isConnected||pending.get(target)!==card)return;
     const url=safeImage(data?.image);
-    if(!url){fallback(target);return;}
+    if(!url||(card.language==='JP'&&!url.includes('/ja/'))){fallback(target);return;}
     const img=new Image();img.alt=card.name||'Kaart';img.decoding='async';
     img.onload=()=>{if(pending.get(target)===card)target.classList.remove('artLoading');};
-    img.onerror=()=>{if(pending.get(target)===card)fallback(target);};
+    let retried=false;img.onerror=()=>{if(pending.get(target)!==card)return;if(!retried&&!/\.(webp|png|jpe?g)$/i.test(url)){retried=true;img.src=url+'/low.webp';return;}fallback(target);};
     img.src=/\.(webp|png|jpe?g)$/i.test(url)?url:url+'/high.webp';
     target.replaceChildren(img);
   }
@@ -86,8 +98,8 @@
     const version=++selectionGeneration,c=detail.card;
     $('selectedCardPanel').hidden=false;$('homeRecentPanel').hidden=true;
     $('selectedCardTitle').textContent=c.name||'Geselecteerde kaart';
-    $('selectedCardMeta').textContent=[c.set_name||c.set,c.number?'#'+c.number:'',c.language,c.edition==='1ST'?'1st Edition':''].filter(Boolean).join(' · ');
-    $('selectedCardRoute').textContent=detail.cardmarketUrl.includes('/Products/Singles/')?'Directe Cardmarket-pagina beschikbaar':'Zoekresultaten op Cardmarket · controleer de juiste uitvoering';
+    $('selectedCardMeta').textContent=[c.set_name||c.set,c.number?'#'+c.number:'',c.language,c.condition?'Staat '+c.condition:'',c.edition==='1ST'?'1st Edition':''].filter(Boolean).join(' · ');
+    $('selectedCardRoute').textContent=(detail.cardmarketUrl.includes('/Products/Singles/')||detail.cardmarketUrl.includes('idProduct='))?'Directe Cardmarket-pagina beschikbaar':'Zoekresultaten op Cardmarket · controleer de juiste uitvoering';
     $('selectedCardPrice').textContent='Marktindicatie ophalen…';
     $('selectedCardArt').replaceChildren();$('selectedCardArt').classList.remove('artUnavailable');
     window.CardArtwork.mount(c,$('selectedCardArt'));
@@ -95,7 +107,7 @@
     const stamped=$('stampedToggle')?.getAttribute('aria-pressed')==='true';
     const quote=window.cardscoutCollectionUI.priceFrom(data,{variant:stamped?'STAMPED':'NORMAL',edition:$('editionSelect')?.value});
     const currency=new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR'});
-    $('selectedCardPrice').textContent=quote.price?`${currency.format(quote.price)} · ${quote.source}`:'Geen marktindicatie beschikbaar';
+    $('selectedCardPrice').textContent=quote.price?`${currency.format(quote.price)} · ${quote.source} (algemeen)`:'Geen marktindicatie beschikbaar';
   });
 
   // Keep keyboard focus within the existing editor and restore it on close.

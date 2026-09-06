@@ -58,8 +58,8 @@ for(const card of sample){
   assert.equal(c.openBtn.dataset.cmState,'ready');assert.equal(c.openBtn.label.textContent,'Open Cardmarket');assert.equal(c.openBtn.classList.contains('disabled'),false);assert.equal(c.openBtn.href.split('?')[0],productUrl(card));assert.equal(events.filter(e=>e.type==='cardscout:cm-route-ready').length,1);
  });
  stage('timeout -> final fallback',async()=>{
-  let timeout;const {c,events}=context({fetch:()=>new Promise(()=>{}),setTimeout:(fn,ms)=>{assert.equal(ms,3000);timeout=fn;return 1;},clearTimeout(){}});c.DATA.knownCards=[];fields(c,card);c.selectCardmarketCard(card);
-  const pending=c.makeLink(false);assert.equal(c.openBtn.href,'#');timeout();await pending;assert.equal(c.openBtn.dataset.cmState,'ready');const ready=events.filter(e=>e.type==='cardscout:cm-route-ready');assert.equal(ready.length,1);assert.equal(new URL(ready[0].detail.cardmarketUrl).searchParams.get('searchString'),c.cleanCardmarketName(card.name,card.number));
+  let timeout;const {c,events}=context({fetch:()=>new Promise(()=>{}),setTimeout:(fn,ms)=>{assert.ok([3000,8000].includes(ms));timeout=fn;return 1;},clearTimeout(){}});c.DATA.knownCards=[];fields(c,card);c.selectCardmarketCard(card);
+  const pending=c.makeLink(false);assert.equal(c.openBtn.href,'#');timeout();await new Promise(resolve=>setImmediate(resolve));timeout();await pending;assert.equal(c.openBtn.dataset.cmState,'ready');const ready=events.filter(e=>e.type==='cardscout:cm-route-ready');assert.equal(ready.length,1);assert.equal(new URL(ready[0].detail.cardmarketUrl).searchParams.get('searchString'),c.cleanCardmarketName(card.name,card.number));
  });
  for(const failure of ['404','invalid identity'])stage(failure+' -> final fallback',async()=>{
   const {c,events}=context({fetch:async()=>failure==='404'?{ok:false,status:404}:{ok:true,json:async()=>({data:{...apiResponse(card),number:'9999'}})}});c.DATA.knownCards=[];fields(c,card);c.selectCardmarketCard(card);await c.makeLink(false);assert.equal(c.openBtn.dataset.cmState,'ready');assert.equal(events.filter(e=>e.type==='cardscout:cm-route-ready').length,1);safe({url:c.openBtn.href,exact:false},c);

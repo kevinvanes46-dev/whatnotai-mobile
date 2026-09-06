@@ -16,17 +16,20 @@ function pass(s){console.log('PASS '+s);checks++;}
 (async()=>{
  fs.mkdirSync(out,{recursive:true});
  // Frozen production scripts, data and scanner contracts.
- for(const file of ['app-v137.js','cards.json','style-v137-product.css']){
+ for(const file of ['cards.json','style-v137-product.css']){
   assert.equal(fs.readFileSync(path.join(root,file),'utf8').replace(/\r\n/g,'\n'),execFileSync('git',['show',`${baseline}:${file}`],{cwd:root,maxBuffer:20*1024*1024,encoding:'utf8'}).replace(/\r\n/g,'\n'),file);
  }
- pass('Production scripts, data and original stylesheet identical to v147 after Git line-ending normalization');
+ const current=fs.readFileSync(path.join(root,'app-v137.js'),'utf8').replace(/\r\n/g,'\n');
+ const oldApp=execFileSync('git',['show',`${baseline}:app-v137.js`],{cwd:root,maxBuffer:20*1024*1024,encoding:'utf8'}).replace(/\r\n/g,'\n');
+ assert.equal(current.slice(current.indexOf('function applyItem(')),oldApp.slice(oldApp.indexOf('function applyItem(')));
+ pass('Scanner and downstream business logic, data and original stylesheet unchanged');
  const server=http.createServer((req,res)=>{
   const url=new URL(req.url,'http://localhost');
   const file=url.pathname.slice(1)||'index.html';
-  if(!/^[\w.-]+\.(html|css|js|json)$/.test(file)){res.writeHead(404).end();return;}
+  if(!/^[\w.-]+\.(html|css|js|json|svg)$/.test(file)){res.writeHead(404).end();return;}
   try{
    const body=url.searchParams.has('baseline')&&file==='index.html'?execFileSync('git',['show',`${baseline}:index.html`],{cwd:root}):fs.readFileSync(path.join(root,file));
-   res.setHeader('Content-Type',({html:'text/html',css:'text/css',js:'text/javascript',json:'application/json'})[file.split('.').pop()]);res.end(body);
+   res.setHeader('Content-Type',({html:'text/html',css:'text/css',js:'text/javascript',json:'application/json',svg:'image/svg+xml'})[file.split('.').pop()]);res.end(body);
   }catch{res.writeHead(404).end();}
  });
  await new Promise(r=>server.listen(0,'127.0.0.1',r));

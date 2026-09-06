@@ -11,8 +11,8 @@ const pass=name=>{passed++;console.log('PASS '+name);};
 (async()=>{
  const server=http.createServer((req,res)=>{
   const file=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';
-  if(!/^[\w.-]+\.(html|js|css|json)$/.test(file)){res.writeHead(404).end();return;}
-  try{res.setHeader('Content-Type',({html:'text/html',js:'text/javascript',css:'text/css',json:'application/json'})[file.split('.').pop()]);res.end(fs.readFileSync(path.join(root,file)));}catch{res.writeHead(404).end();}
+  if(!/^[\w.-]+\.(html|js|css|json|svg)$/.test(file)){res.writeHead(404).end();return;}
+  try{res.setHeader('Content-Type',({html:'text/html',js:'text/javascript',css:'text/css',json:'application/json',svg:'image/svg+xml'})[file.split('.').pop()]);res.end(fs.readFileSync(path.join(root,file)));}catch{res.writeHead(404).end();}
  });
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));let browser;
  try{
@@ -25,10 +25,12 @@ const pass=name=>{passed++;console.log('PASS '+name);};
    window.routeEvents=[];
    window.addEventListener('cardscout:cm-route-ready',e=>window.routeEvents.push(e.detail));
   },seed);
+  await ctx.route('**/cardmarket-products-v152.js*',r=>r.fulfill({body:'',contentType:'text/javascript'}));
   const page=await ctx.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
   const requests=new Map(),waiting=new Map();
   await ctx.route('**/*',async route=>{
    const url=new URL(route.request().url());
+   if(url.pathname.endsWith('/cardmarket-products-v152.js'))return route.fulfill({body:'',contentType:'text/javascript'});
    if(url.hostname==='127.0.0.1')return route.continue();
    if(url.hostname==='api.pokemontcg.io'){
     const id=url.pathname.split('/').pop();requests.set(id,(requests.get(id)||0)+1);

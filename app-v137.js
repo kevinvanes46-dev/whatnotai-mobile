@@ -508,10 +508,50 @@ function cardmarketIdentity(card){
     card.set, card.language || 'EN'
   ]);
 }
+const CM_SOURCE_SETS = {
+    'BASE':['base1'],
+    'JUNGLE':['base2'],
+    'FOSSIL':['base3'],
+    'BASE SET 2':['base4'],
+    'ROCKET':['base5'],
+    'GYM HEROES':['gym1'],
+    'GYM CHALLENGE':['gym2'],
+    'NEO GENESIS':['neo1'],
+    'NEO DISCOVERY':['neo2'],
+    'NEO REVELATION':['neo3'],
+    'NEO DESTINY':['neo4'],
+    'LEGENDARY COLLECTION':['lc'],
+    'SOUTHERN ISLANDS':['si1'],
+    'WOTC PROMO':['basep'],
+    'EXPEDITION':['ecard1'],
+    'AQUAPOLIS':['ecard2'],
+    'SKYRIDGE':['ecard3'],
+    'EX RUBY SAPPHIRE':['ex1'],
+    'EX SANDSTORM':['ex2'],
+    'EX DRAGON':['ex3'],
+    'EX TEAM MAGMA AQUA':['ex4'],
+    'EX HIDDEN LEGENDS':['ex5'],
+    'EX FIRERED LEAFGREEN':['ex6'],
+    'EX TEAM ROCKET RETURNS':['ex7'],
+    'EX DEOXYS':['ex8'],
+    'EX EMERALD':['ex9'],
+    'EX UNSEEN FORCES':['ex10'],
+    'EX DELTA SPECIES':['ex11'],
+    'EX LEGEND MAKER':['ex12'],
+    'EX HOLON PHANTOMS':['ex13'],
+    'EX CRYSTAL GUARDIANS':['ex14'],
+    'EX DRAGON FRONTIERS':['ex15'],
+    'EX POWER KEEPERS':['ex16'],
+    'EX TRAINER KIT 2':['tk-ex-p','tk-ex-m'],
+    'LEGENDS AWAKENED':['dp6']
+  };
 function currentCardmarketCard(){
   const fields = {name:nameInput.value, number:numberInput.value, set:setSelect.value, language:langSelect.value};
-  return cmSelectedCard && cardmarketIdentity(cmSelectedCard) === cardmarketIdentity(fields)
+  const selected = cmSelectedCard && cardmarketIdentity(cmSelectedCard) === cardmarketIdentity(fields)
     ? {...cmSelectedCard, ...fields} : fields;
+  const ids=CM_SOURCE_SETS[selected.set];
+  if(!selected.source_id&&selected.language==='EN'&&ids?.length===1&&cleanNumber(selected.number))selected.source_id=ids[0]+'-'+cleanNumber(selected.number);
+  return selected;
 }
 function selectCardmarketCard(card){
   cmSelectedCard = {...card};
@@ -528,7 +568,8 @@ function validCardmarketRoute(url, sourceId=''){
     const u = new URL(url);
     if(u.protocol !== 'https:' || u.username || u.password || u.port || u.hash) return false;
     if(u.hostname === 'www.cardmarket.com' || u.hostname === 'cardmarket.com'){
-      return /^\/en\/Pokemon\/Products\/Singles\/[^/]+\/[^/]+$/.test(u.pathname);
+      return /^\/en\/Pokemon\/Products\/Singles\/[^/]+\/[^/]+$/.test(u.pathname)
+        || (u.pathname === '/en/Pokemon/Products' && /^[1-9][0-9]{0,9}$/.test(u.searchParams.get('idProduct') || ''));
     }
     // The API also returns its official, card-specific Cardmarket redirect URL.
     return !!sourceId && u.hostname === 'prices.pokemontcg.io'
@@ -541,7 +582,7 @@ function readCardmarketRouteCache(){
     if(!Array.isArray(entries)) return [];
     const now = Date.now();
     return entries.filter(e => e && typeof e.source_id === 'string'
-      && /^[a-z0-9]+-[a-z0-9]+$/i.test(e.source_id) && validCardmarketRoute(e.url, e.source_id)
+      && /^[a-z0-9]+(?:-[a-z0-9]+)+$/i.test(e.source_id) && validCardmarketRoute(e.url, e.source_id)
       && Number.isFinite(e.timestamp) && e.timestamp <= now && now-e.timestamp < CM_ROUTE_TTL)
       .map(e => ({source_id:e.source_id, url:e.url, timestamp:e.timestamp}));
   }catch(_){ return []; }
@@ -554,13 +595,13 @@ function cacheCardmarketRoute(sourceId, url){
   }catch(_){ /* Storage may be unavailable; the resolved link still works. */ }
 }
 function matchesCardmarketApiCard(card, data){
-  const source = String(card.source_id || '').match(/^([a-z0-9]+)-([a-z0-9]+)$/i);
+  const source = String(card.source_id || '').match(/^([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+)$/i);
   if(!source || !data || data.id !== card.source_id || data.set?.id !== source[1]) return false;
   const number = cleanNumber(card.number).toLowerCase();
   if(!number || cleanNumber(source[2]).toLowerCase() !== number || cleanNumber(data.number).toLowerCase() !== number) return false;
   const nameKey = name => cleanCardmarketName(name, number).toLowerCase().replace(/[^\p{L}\p{N}]/gu, '');
   if(!nameKey(card.name) || nameKey(card.name) !== nameKey(data.name)) return false;
-  const setKey = name => cleanCardmarketText(name).toLowerCase().replace(/^ex\s+/, '').replace(/[^\p{L}\p{N}]/gu, '');
+  const setKey = name => cleanCardmarketText(name).toLowerCase().replace(/\([^)]*\)/g, '').replace(/^ex\s+/, '').replace(/[^\p{L}\p{N}]/gu, '');
   const labels = [(DATA.sets || {})[card.set]?.label, card.set_name, card.source_set_name, card.set].filter(Boolean);
   return !!data.set?.name && labels.some(label => setKey(label) === setKey(data.set.name));
 }
@@ -569,10 +610,14 @@ function resolveFinalCardmarketRoute(input){
   if(card.verified && card.direct && validCardmarketRoute(card.url)){
     return {url:withFilters(card.url, card.language, card.condition, card.edition), exact:true, note:'Direct geverifieerd'};
   }
+  const product=window.CM_PRODUCT_CATALOG?.[card.source_id];
+  if(card.language==='EN'&&product&&matchesCardmarketApiCard(card,product)&&Number.isSafeInteger(product.product)&&product.product>0){
+    return {url:withFilters('https://www.cardmarket.com/en/Pokemon/Products?idProduct='+product.product,card.language,card.condition,card.edition),exact:true,note:'Direct: gecontroleerde product-ID'};
+  }
   const fallback = buildLegacyCardmarketRoute(card);
   if(fallback.exact || !fallback.url) return fallback;
   // v146 cache entries are EN-only: TCGdex can reuse an EN source ID for a JP record.
-  if(card.language !== 'EN' || !/^[a-z0-9]+-[a-z0-9]+$/i.test(card.source_id || '')) return fallback;
+  if(card.language !== 'EN' || !/^[a-z0-9]+(?:-[a-z0-9]+)+$/i.test(card.source_id || '')) return fallback;
   const cached = readCardmarketRouteCache().find(e => e.source_id === card.source_id);
   if(cached) return {...fallback, url:withFilters(cached.url, card.language, card.condition, card.edition), exact:true, note:'Direct: gecachte Cardmarket-route'};
   return resolveCardmarketRoute(card, fallback);
@@ -585,7 +630,7 @@ async function resolveCardmarketRoute(card, fallback){
     return {url:withFilters(card.url, card.language, card.condition, card.edition), exact:true, note:'Direct geverifieerd'};
   }
   if(fallback.exact || card.language !== 'EN'
-    || !/^[a-z0-9]+-[a-z0-9]+$/i.test(card.source_id || '')) return fallback;
+    || !/^[a-z0-9]+(?:-[a-z0-9]+)+$/i.test(card.source_id || '')) return fallback;
   const cached = readCardmarketRouteCache().find(e => e.source_id === card.source_id);
   if(cached) return {url:withFilters(cached.url, card.language, card.condition, card.edition), exact:true, note:'Direct: gecachte Cardmarket-route'};
   const key = card.source_id+'|'+cardmarketIdentity(card);
@@ -601,18 +646,34 @@ async function resolveCardmarketRoute(card, fallback){
           })(),
           new Promise(resolve => { timer = setTimeout(() => { controller.abort(); resolve(null); }, 3000); })
         ]);
-        if(!matchesCardmarketApiCard(card, data) || !validCardmarketRoute(data?.cardmarket?.url, card.source_id)) return '';
-        cacheCardmarketRoute(card.source_id, data.cardmarket.url);
-        return data.cardmarket.url;
-      }catch(_){ return ''; }
+        if(matchesCardmarketApiCard(card, data) && validCardmarketRoute(data?.cardmarket?.url, card.source_id)){
+          cacheCardmarketRoute(card.source_id, data.cardmarket.url);
+          return data.cardmarket.url;
+        }
+      }catch(_){ /* The independent catalog source can still resolve this card. */ }
       finally{ clearTimeout(timer); }
+      const secondaryController = new AbortController();
+      let secondaryTimer;
+      try{
+        const data=await Promise.race([
+          (async()=>{const response=await fetch('https://api.tcgdex.net/v2/en/cards/'+encodeURIComponent(card.source_id),{signal:secondaryController.signal});return response.ok?response.json():null;})(),
+          new Promise(resolve=>{secondaryTimer=setTimeout(()=>{secondaryController.abort();resolve(null);},8000);})
+        ]);
+        const adapted=data&&{id:data.id,name:data.name,number:data.localId,set:data.set};
+        const product=data?.pricing?.cardmarket?.idProduct;
+        if(!matchesCardmarketApiCard(card,adapted)||!Number.isSafeInteger(product)||product<=0)return '';
+        const url='https://www.cardmarket.com/en/Pokemon/Products?idProduct='+product;
+        cacheCardmarketRoute(card.source_id,url);
+        return url;
+      }catch(_){return '';}
+      finally{clearTimeout(secondaryTimer);}
     })();
     cmPendingRoutes.set(key, request);
   }
   let url;
   try{ url = await cmPendingRoutes.get(key); }
   finally{ cmPendingRoutes.delete(key); }
-  return url ? {...fallback, url:withFilters(url, card.language, card.condition, card.edition), exact:true, note:'Direct: Pokémon TCG API'} : fallback;
+  return url ? {...fallback, url:withFilters(url, card.language, card.condition, card.edition), exact:true, note:'Direct: kaartcatalogus'} : fallback;
 }
 
 function setCardmarketRouteState(state){

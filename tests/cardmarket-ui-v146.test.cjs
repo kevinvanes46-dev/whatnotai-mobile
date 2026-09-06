@@ -12,7 +12,7 @@ const pass=name=>{passed++;console.log('PASS '+name);};
 (async()=>{
  const server=http.createServer((req,res)=>{
   const filename=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';
-  if(!/^[\w.-]+\.(html|js|css|json)$/.test(filename)){res.writeHead(404).end();return;}
+  if(!/^[\w.-]+\.(html|js|css|json|svg)$/.test(filename)){res.writeHead(404).end();return;}
   try{const body=fs.readFileSync(path.join(root,filename));res.setHeader('Content-Type',({'html':'text/html','js':'text/javascript','css':'text/css','json':'application/json'})[filename.split('.').pop()]);res.end(body);}catch{res.writeHead(404).end();}
  });
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
@@ -22,11 +22,13 @@ const pass=name=>{passed++;console.log('PASS '+name);};
   const ctx=await browser.newContext();
   const savedCollection=JSON.stringify([{uid:'v146-fixture',name:'Charizard',number:'4',set:'EX CRYSTAL GUARDIANS',setName:'EX Crystal Guardians',language:'EN',edition:'AUTO',condition:'NM',variant:'STAMPED',qty:2,paidEach:12.5,addedAt:1,listType:'OWNED',price:123,priceUpdated:Date.now(),cardmarketUrl:'https://www.cardmarket.com/en/Pokemon/Products/Search?searchString=old'}]);
   await ctx.addInitScript(value=>localStorage.setItem('cardscout_collection_v133',value),savedCollection);
+  await ctx.route('**/cardmarket-products-v152.js*',r=>r.fulfill({body:'',contentType:'text/javascript'}));
   const page=await ctx.newPage();
   const errors=[];let apiCalls=0;
   page.on('pageerror',err=>errors.push(err.message));
   await ctx.route('**/*',async route=>{
    const url=new URL(route.request().url());
+   if(url.pathname.endsWith('/cardmarket-products-v152.js'))return route.fulfill({body:'',contentType:'text/javascript'});
    if(url.hostname==='127.0.0.1') return route.continue();
    if(url.hostname==='api.pokemontcg.io'){
     apiCalls++;
@@ -72,11 +74,14 @@ const pass=name=>{passed++;console.log('PASS '+name);};
   assert.equal(pending.cardmarketUrl.split('?')[0],AZU);assert.equal(pending.sourceId,'ex11-19');
   await page.locator('#collectionEditorClose').click();
   pass('TCGdex selection resolves Azumarill; collection editor receives final URL');
-  for(const [id,value,expected] of [['condSelect','EX','minCondition=3'],['editionSelect','1ST','isFirstEd=Y'],['langSelect','JP','searchString=Azumarill']]){
+  for(const [id,value,expected] of [['condSelect','EX','minCondition=3'],['editionSelect','1ST','isFirstEd=Y']]){
    await page.locator('#'+id).selectOption(value,{force:true});
    await page.waitForFunction(value=>document.querySelector('#openBtn').href.includes(value),expected);
   }
+  await page.locator('#langSelect').selectOption('JP',{force:true});
+  assert.equal(await page.locator('#openBtn').getAttribute('aria-disabled'),'true');
   await page.locator('#langSelect').selectOption('EN',{force:true});
+  await page.locator('.suggestion').first().click();
   await page.waitForFunction(url=>document.querySelector('#openBtn').href.startsWith(url),AZU);
   assert.equal(apiCalls,1);
   await page.locator('#manualDetails summary').click();
@@ -86,7 +91,7 @@ const pass=name=>{passed++;console.log('PASS '+name);};
   await page.locator('#setSelect').selectOption('EX POWER KEEPERS',{force:true});
   await page.waitForFunction(()=>document.querySelector('#matchBox').textContent.includes('EX POWER KEEPERS'));
   assert.equal(new URL(await page.locator('#openBtn').getAttribute('href')).searchParams.get('searchString'),'Duskull');
-  pass('All six manual fields rebuild dock link without makeBtn; cached route avoids new request');
+  pass('Manual edits rebuild links; language changes require reselection; cache avoids new request');
   const storage=await page.evaluate(()=>localStorage.getItem('cardscout_collection_v133'));
   assert.equal(storage,savedCollection);assert.deepEqual(errors,[]);
   pass('Existing collection including purchase/stamped prices unchanged; no browser runtime errors');

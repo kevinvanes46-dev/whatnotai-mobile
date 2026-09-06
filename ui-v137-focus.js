@@ -69,7 +69,7 @@
   const SEARCH_BUILD = '137-collection-pro';
   const TCGDEX_API = 'https://api.tcgdex.net/v2';
   const ONLINE_CACHE_TTL = 14 * 24 * 60 * 60 * 1000;
-  const ONLINE_CACHE_PREFIX = 'cardscout_search_catalog_v133_';
+  const ONLINE_CACHE_PREFIX = 'cardscout_search_catalog_v152_';
   const SUGGESTION_BATCH = 80;
 
   // Search-only catalog expansion. These IDs cover every set already defined in v131.
@@ -86,7 +86,7 @@
     'NEO DISCOVERY':['neo2'],
     'NEO REVELATION':['neo3'],
     'NEO DESTINY':['neo4'],
-    'LEGENDARY COLLECTION':['base6'],
+    'LEGENDARY COLLECTION':['lc'],
     'SOUTHERN ISLANDS':['si1'],
     'WOTC PROMO':['basep'],
     'EXPEDITION':['ecard1'],
@@ -108,7 +108,7 @@
     'EX CRYSTAL GUARDIANS':['ex14'],
     'EX DRAGON FRONTIERS':['ex15'],
     'EX POWER KEEPERS':['ex16'],
-    'EX TRAINER KIT 2':['tk-ex-p','tk-ex-n','tk2a','tk2b'],
+    'EX TRAINER KIT 2':['tk-ex-p','tk-ex-m'],
     'LEGENDS AWAKENED':['dp6']
   };
 
@@ -140,7 +140,7 @@
   }
   function setStampedMode(on, rerender=true){
     stampedToggleOn=!!on;
-    if(stampedToggle){ stampedToggle.classList.toggle('active',stampedToggleOn); stampedToggle.setAttribute('aria-pressed',String(stampedToggleOn)); }
+    if(stampedToggle){ stampedToggle.classList.toggle('active',stampedToggleOn); stampedToggle.setAttribute('aria-pressed',String(stampedToggleOn)); stampedToggle.textContent='Stamped'; }
     syncStampedSetChips();
     if(rerender && quickInput?.value.trim()) renderSuggestions(quickInput.value);
     if(rerender && !quickInput?.value.trim() && stampedToggleOn) renderSuggestions('stamped');
@@ -411,7 +411,7 @@
     safelyRebuildLink();
   }
 
-  function normalize(s){ return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim(); }
+  function normalize(s){ return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\p{L}\p{N}]+/gu,' ').trim(); }
 
   function numericKey(value){
     const m = String(value || '').match(/\d+/);
@@ -559,12 +559,13 @@
     const seq = ++suggestionSeq;
     const fullQuery = normalize(query);
     const rawTokens = fullQuery.split(' ').filter(Boolean);
-    const stampedOnly = queryWantsStamped(query);
+    const stampedOnly = rawTokens.some(t=>STAMP_TERMS.has(t));
     const ignored = new Set(['en','eng','english','jp','jpn','japanese','nm','ex','gd','pl','1st','first','edition','normal','normaal','stamp','stamps','stamped','stamping','stempel','stempels','gestempeld','setstamp','setstamps','reverse','reverseholo','rh','setlogo','logo','holo']);
     const tokens = rawTokens.filter(t => !ignored.has(t));
     if((!tokens.length && !stampedOnly) || !catalog.length){ smartSuggestions.hidden = true; smartSuggestions.innerHTML=''; return; }
 
     const results = catalog
+      .filter(c => (c.language || 'EN') === (langSelect?.value || 'EN'))
       .filter(c => !stampedOnly || ((c.language || 'EN') === 'EN' && STAMPED_SET_KEYS.has(c.set)))
       .map(c => ({card:c, score:tokens.length ? suggestionScore(c,tokens,fullQuery) : 10}))
       .filter(x => x.score >= 0)
@@ -648,20 +649,20 @@
     if(!card || !card.id) return null;
     const englishName = lang === 'JP' ? (enNameById?.get(card.id) || '') : '';
     const localizedName = cleanVisibleCardName(card.name || '');
-    const rawName = englishName || localizedName;
+    const rawName = localizedName || englishName;
     if(!rawName) return null;
     const def=setInfo?.[setKey] || {};
     const jp = lang === 'JP';
     const number = jp ? '' : String(card.localId || '').trim();
     const name = cleanVisibleCardName(rawName,number);
     const aliases=[];
-    if(jp && localizedName && normalize(localizedName)!==normalize(name)) aliases.push(localizedName);
+    if(jp && englishName) aliases.push(englishName);
     return {
       key:`online|${lang.toLowerCase()}|${setKey}|${card.id}`,
       name,
       number,
       set:setKey,
-      set_name:def.label || sourceSetName || setKey,
+      set_name:jp?(sourceSetName||def.label||setKey):(def.label||sourceSetName||setKey),
       source_set_name:sourceSetName || '',
       code:def.code || '',
       language:lang,
@@ -700,7 +701,8 @@
     }
 
     const jobs=[];
-    Object.entries(TCGDEX_SET_IDS).forEach(([setKey,ids])=>ids.forEach(setId=>jobs.push({setKey,setId})));
+    const japaneseSets={'BASE':['PMCG1'],'JUNGLE':['PMCG2'],'FOSSIL':['PMCG3'],'ROCKET':['PMCG4'],'GYM HEROES':['PMCG5'],'GYM CHALLENGE':['PMCG6'],'NEO GENESIS':['neo1'],'NEO DISCOVERY':['neo2'],'NEO REVELATION':['neo3'],'NEO DESTINY':['neo4']};
+    Object.entries(lang==='JP'?japaneseSets:TCGDEX_SET_IDS).forEach(([setKey,ids])=>ids.forEach(setId=>jobs.push({setKey,setId})));
 
     // English is fetched first. Japanese uses the English IDs/names as aliases wherever TCGdex shares IDs.
     let enNameById = new Map();
@@ -785,7 +787,7 @@
     const card = detail.card;
     window.dispatchEvent(new CustomEvent('cardscout:card-selected', {detail:{
       card, cardmarketUrl:detail.cardmarketUrl,
-      stamped:queryWantsStamped(quickInput?.value || '') && card.language === 'EN' && STAMPED_SET_KEYS.has(card.set),
+      stamped:stampedToggleOn,
       condition:condSelect?.value || 'NM', edition:editionSelect?.value || 'AUTO'
     }}));
   });
@@ -817,7 +819,7 @@
     quickInput.focus({preventScroll:true});
   }));
 
-  stampedToggle?.addEventListener('click', () => setStampedMode(!stampedToggleOn));
+  stampedToggle?.addEventListener('click', () => {setStampedMode(!stampedToggleOn,false);safelyRebuildLink();});
   quickInput?.addEventListener('input', () => {
     if(typeof invalidateCardmarketSelection === 'function') invalidateCardmarketSelection();
     const typedStamp=normalize(quickInput.value).split(' ').some(t=>STAMP_TERMS.has(t));
@@ -838,6 +840,7 @@
   [langSelect,condSelect,editionSelect].filter(Boolean).forEach(el => el.addEventListener('change', () => {
     savePrefs(); syncPrefs();
     if(el === langSelect){
+      if(typeof invalidateCardmarketSelection==='function')invalidateCardmarketSelection();
       if(langSelect.value === 'JP') loadOnlineLanguage('JP');
       if(quickInput?.value.trim()) renderSuggestions(quickInput.value);
     }

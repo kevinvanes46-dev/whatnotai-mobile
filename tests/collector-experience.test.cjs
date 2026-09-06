@@ -1,12 +1,12 @@
 'use strict';
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
-const root=path.resolve(__dirname,'..'),out=path.join(root,'artifacts/rareworth-v150'),key='cardscout_collection_v133';
+const root=path.resolve(__dirname,'..'),out=process.env.UI_SCREENSHOT_DIR||path.join(root,'artifacts/rareworth-v150'),key='cardscout_collection_v133';
 const fixtures=Object.fromEntries(['ex15-43','ex14-4'].map(id=>[id,JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/artwork',id+'.json'),'utf8'))]));
 const seed=[{uid:'original',name:'Charizard',number:'4',set:'EX CRYSTAL GUARDIANS',setName:'EX Crystal Guardians',sourceId:'ex14-4',language:'EN',condition:'EX',variant:'STAMPED',edition:'AUTO',qty:3,paidEach:7,addedAt:1,listType:'OWNED',price:20,priceUpdated:Date.now(),priceSource:'CM trend',cardmarketUrl:'https://www.cardmarket.com/en/Pokemon/Products/Search?searchString=Charizard'}];
 (async()=>{
  fs.mkdirSync(out,{recursive:true});
- const server=http.createServer((req,res)=>{const f=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';if(!/^[\w.-]+\.(html|css|js|json)$/.test(f)){res.writeHead(404).end();return;}try{res.setHeader('Content-Type',({html:'text/html',css:'text/css',js:'text/javascript',json:'application/json'})[f.split('.').pop()]);res.end(fs.readFileSync(path.join(root,f)));}catch{res.writeHead(404).end();}});
+ const server=http.createServer((req,res)=>{const f=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';if(!/^[\w.-]+\.(html|css|js|json|svg)$/.test(f)){res.writeHead(404).end();return;}try{res.setHeader('Content-Type',({html:'text/html',css:'text/css',js:'text/javascript',json:'application/json',svg:'image/svg+xml'})[f.split('.').pop()]);res.end(fs.readFileSync(path.join(root,f)));}catch{res.writeHead(404).end();}});
  await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser,groups=0;
  try{
   browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{})});

@@ -1,0 +1,108 @@
+{
+  "category": "Pokemon",
+  "id": "ex11-114",
+  "illustrator": "Kagemaru Himeno",
+  "image": "https://assets.tcgdex.net/en/ex/ex11/114",
+  "localId": "114",
+  "name": "Azumarill",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 113,
+      "total": 114
+    },
+    "id": "ex11",
+    "logo": "https://assets.tcgdex.net/en/ex/ex11/logo",
+    "name": "Delta Species",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex11/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "variantId": "jr7oetx1mqug9"
+    }
+  ],
+  "dexId": [
+    184
+  ],
+  "hp": 70,
+  "types": [
+    "Water"
+  ],
+  "evolveFrom": "Marill",
+  "stage": "Stage1",
+  "abilities": [
+    {
+      "type": "Poke-BODY",
+      "name": "Thick Fat",
+      "effect": "Any damage done to Azumarill by attacks from Fire Pokémon and Water Pokémon is reduced by 30 (after applying Weakness and Resistance)."
+    }
+  ],
+  "attacks": [
+    {
+      "cost": [
+        "Colorless",
+        "Water",
+        "Water"
+      ],
+      "name": "Bubblebeam",
+      "effect": "Flip a coin. If heads, the Defending Pokémon is now Paralyzed.",
+      "damage": 40
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Lightning",
+      "value": "×2"
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-09-03T16:14:47+01:00",
+  "thirdParty": {
+    "cardmarket": 276877,
+    "tcgplayer": 83683
+  },
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-06T12:55:34.212Z",
+      "unit": "EUR",
+      "idProduct": 276877,
+      "avg": 12.23,
+      "low": 5.95,
+      "trend": 16.49,
+      "avg1": 9.9,
+      "avg7": 27.05,
+      "avg30": 22.37,
+      "avg-holo": null,
+      "low-holo": 52.93,
+      "trend-holo": 17.67,
+      "avg1-holo": 20,
+      "avg7-holo": 15.83,
+      "avg30-holo": 7.2
+    },
+    "tcgplayer": {
+      "unit": "USD",
+      "updated": "2026-09-06T12:55:33.804Z",
+      "holofoil": {
+        "productId": 83683,
+        "lowPrice": 89.3,
+        "midPrice": 149.95,
+        "highPrice": 599.92,
+        "marketPrice": 88.52,
+        "directLowPrice": null
+      }
+    }
+  }
+}

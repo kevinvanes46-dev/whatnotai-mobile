@@ -12,11 +12,11 @@
   const SET_IDS={
     'BASE':['base1'],'JUNGLE':['base2'],'FOSSIL':['base3'],'BASE SET 2':['base4'],'ROCKET':['base5'],
     'GYM HEROES':['gym1'],'GYM CHALLENGE':['gym2'],'NEO GENESIS':['neo1'],'NEO DISCOVERY':['neo2'],'NEO REVELATION':['neo3'],'NEO DESTINY':['neo4'],
-    'LEGENDARY COLLECTION':['base6'],'SOUTHERN ISLANDS':['si1'],'WOTC PROMO':['basep'],'EXPEDITION':['ecard1'],'AQUAPOLIS':['ecard2'],'SKYRIDGE':['ecard3'],
+    'LEGENDARY COLLECTION':['lc'],'SOUTHERN ISLANDS':['si1'],'WOTC PROMO':['basep'],'EXPEDITION':['ecard1'],'AQUAPOLIS':['ecard2'],'SKYRIDGE':['ecard3'],
     'EX RUBY SAPPHIRE':['ex1'],'EX SANDSTORM':['ex2'],'EX DRAGON':['ex3'],'EX TEAM MAGMA AQUA':['ex4'],'EX HIDDEN LEGENDS':['ex5'],'EX FIRERED LEAFGREEN':['ex6'],
     'EX TEAM ROCKET RETURNS':['ex7'],'EX DEOXYS':['ex8'],'EX EMERALD':['ex9'],'EX UNSEEN FORCES':['ex10'],'EX DELTA SPECIES':['ex11'],'EX LEGEND MAKER':['ex12'],
     'EX HOLON PHANTOMS':['ex13'],'EX CRYSTAL GUARDIANS':['ex14'],'EX DRAGON FRONTIERS':['ex15'],'EX POWER KEEPERS':['ex16'],'LEGENDS AWAKENED':['dp6'],
-    'EX TRAINER KIT 2':['tk-ex-p','tk-ex-n','tk2a','tk2b']
+    'EX TRAINER KIT 2':['tk-ex-p','tk-ex-m']
   };
 
   const addBtn=$('collectionAddBtn');
@@ -119,6 +119,14 @@
   }
   function toast(t){const el=$('toast');if(!el)return;el.textContent=t;el.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>el.hidden=true,1800)}
   function uid(){return 'c_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8)}
+  function collectionLink(item){
+    const ids=SET_IDS[item.set];
+    const sourceId=item.sourceId||(item.language==='EN'&&ids?.length===1?ids[0]+'-'+String(item.number).replace(/^0+(?=\d)/,''):'');
+    const product=window.CM_PRODUCT_CATALOG?.[sourceId];
+    const card={...item,source_id:sourceId,set_name:item.setName};
+    if(item.language==='EN'&&product&&typeof matchesCardmarketApiCard==='function'&&matchesCardmarketApiCard(card,product))return withFilters('https://www.cardmarket.com/en/Pokemon/Products?idProduct='+product.product,item.language,item.condition,item.edition);
+    return item.cardmarketUrl||'';
+  }
   function identityKey(x){return [x.listType,x.language,x.set,x.number,norm(x.name),x.variant,x.edition,x.condition].join('|')}
 
   function normalizeItem(x){
@@ -251,7 +259,7 @@
     const original=editingId?read().find(x=>x.uid===editingId):null;
     let candidate=original;
     if(!candidate){try{candidate=JSON.parse(editor.dataset.pending||'{}')}catch(_){candidate={}}}
-    const specialNew=(editorState.variant==='STAMPED'&&original?.variant!=='STAMPED')||(!original&&candidate.edition==='1ST');
+    const specialNew=!original&&candidate.edition==='1ST';
     if(specialNew){
       const snapshot=JSON.stringify([editorMode,editingId,editor.dataset.pending,editorState]);
       editorSave.disabled=true;
@@ -259,7 +267,6 @@
       try{metadata=await resolveCard(candidate)}catch(_){}finally{editorSave.disabled=false}
       if(editor.hidden||snapshot!==JSON.stringify([editorMode,editingId,editor.dataset.pending,editorState]))return;
       const stamps=(metadata?.variants_detailed||[]).flatMap(v=>v.stamp||[]);
-      if(editorState.variant==='STAMPED'&&!stamps.includes('set-logo')){toast('Stamped is voor deze kaart niet bevestigd');return}
       if(candidate.edition==='1ST'&&metadata?.variants?.firstEdition!==true&&!stamps.includes('1st-edition')){toast('1st edition is voor deze kaart niet bevestigd');return}
     }
 
@@ -423,7 +430,7 @@
           ${!isWish?`<div class="qtyControl"><button data-act="minus">−</button><span>${x.qty}</span><button data-act="plus">+</button></div>`:'<span class="wishHint">Bewaar voor later</span>'}
           ${!isWish?`<button class="paidBtn" data-act="edit">Betaald: ${x.paidEach!=null?eur(x.paidEach):'invullen'}</button>`:''}
           ${isWish?'<button class="boughtBtn" data-act="bought">Gekocht ✓</button>':''}
-          ${x.cardmarketUrl?`<a href="${esc(x.cardmarketUrl)}" target="_blank" rel="noopener">Cardmarket ↗</a>`:''}
+          ${x.cardmarketUrl?`<a href="${esc(collectionLink(x))}" target="_blank" rel="noopener">Cardmarket ↗</a>`:''}
           <button class="editMiniBtn" data-act="edit">Bewerk</button>
         </div>
       </article>`;
@@ -518,6 +525,7 @@
     if(!cm)return {price:null,updated:0,source:''};
     const updated=Date.parse(cm.updated||'')||Date.now();
     if(item.variant==='STAMPED'){
+      if(!(card?.variants_detailed||[]).some(v=>(v.stamp||[]).includes('set-logo')))return {price:null,updated:0,source:''};
       const reverse=firstFinite(cm['trend-holo'],cm['avg7-holo'],cm['avg30-holo'],cm['avg-holo'],cm['avg1-holo'],cm['low-holo']);
       return {price:reverse,updated,source:reverse!=null?'CM trend · reverse':''};
     }

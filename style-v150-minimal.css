@@ -81,3 +81,55 @@ body::before { background:none; }
   .selectedCardInfo button { padding-left:0; }
   .collectionSummary>div:last-child b { font-size:46px; }
 }
+
+/* Always-visible collector preferences, sized for narrow phones. */
+.visiblePreferences { margin:14px 0 24px; display:grid; gap:12px; }
+.visiblePreferences .filterStrip { display:grid; grid-template-columns:1fr 1.65fr 1fr; gap:12px; margin:0; padding:0; border:0; }
+.visiblePreferences .filterStrip>div { min-width:0; }
+.visiblePreferences .choiceGrid { gap:4px; }
+.visiblePreferences .choiceBtn { min-width:0; min-height:44px; padding:6px 4px; font-size:11px; }
+.visiblePreferences .searchModeRow { margin:0; flex-wrap:wrap; gap:10px; }
+.visiblePreferences .searchModeChip { min-height:44px; font-size:12px; }
+.visiblePreferences .searchModeHelp { font-size:11px; }
+@media(max-width:480px) {
+  .selectedCardPanel { padding:18px 0; min-width:0; }
+  .selectedCardInfo { min-width:0; width:100%; }
+  .selectedCardInfo h2,.selectedCardInfo p { overflow-wrap:anywhere; }
+  .visiblePreferences .filterStrip { gap:8px; }
+  .visiblePreferences .filterStrip>div>span { font-size:11px; }
+}
+
+.selectedCardInfo small { display:block; color:#c3d1cb; font-size:12px; line-height:1.65; max-width:100%; overflow-wrap:anywhere; }
+@media(min-width:760px) { .selectedCardPanel { column-gap:40px; } .selectedCardInfo { padding-left:8px; min-width:0; } }
+@media(max-width:759px) { .selectedCardPanel { grid-template-columns:minmax(0,1fr); } .selectedCardInfo { padding:0 12px; box-sizing:border-box; } }
+.artRetry { display:block; margin:8px auto 0; min-height:44px; padding:6px 12px; font-size:11px; }
+@media(max-width:480px) {
+ .visiblePreferences .filterStrip { grid-template-columns:1fr 1fr; }
+ .visiblePreferences .filterStrip>div:nth-child(2) { grid-row:2; grid-column:1 / -1; }
+ .visiblePreferences .filterStrip>div:nth-child(3) { grid-row:1; grid-column:2; }
+ .visiblePreferences .choiceBtn { min-width:44px; }
+}
+
+.brandMark { background:transparent!important; box-shadow:0 6px 20px #0005; border-radius:12px; overflow:hidden; }
+.brandIcon { display:block; width:100%; height:100%; }
+body { background:radial-gradient(ellipse at 94% 18%,#224c3b26,transparent 45%),#0b1215; }
+.appShell { position:relative; isolation:isolate; }
+.appShell::before,.appShell::after { content:""; position:fixed; z-index:-1; pointer-events:none; width:240px; height:340px; border:1px solid #aadfc412; border-radius:24px; background:linear-gradient(145deg,#96ceaa05,transparent); box-shadow:0 24px 60px #0002; }
+.appShell::before { right:calc(50% - 680px); top:190px; transform:rotate(18deg); }
+.appShell::after { left:calc(50% - 720px); top:470px; transform:rotate(-18deg); }
+@media(max-width:759px) { .appShell::before { right:-170px; opacity:.45; } .appShell::after { display:none; } }
+.visiblePreferences .searchModeRow { display:flex!important; flex-direction:row!important; align-items:center; }
+.visiblePreferences .searchModeChip { flex:0 0 auto; width:auto; min-width:88px; margin:0; }
+.visiblePreferences .searchModeChip.active { background:#24473b; border-color:#7eaf98; color:#d7f5e5; }
+.visiblePreferences .searchModeHelp { flex-basis:100%; }
+@media(max-width:759px) {
+ .selectedCardPanel { grid-template-columns:108px minmax(0,1fr); gap:16px; align-items:start; }
+ .selectedCardArt { width:108px; margin:0; }
+ .selectedCardInfo { padding:0; text-align:left; }
+ .selectedCardInfo h2 { font-size:24px; }
+ .selectedCardInfo small { font-size:11px; line-height:1.6; }
+ .actionDock { display:grid!important; grid-template-columns:minmax(0,1.45fr) minmax(0,1fr); gap:8px; }
+ .actionDock .open,.actionDock .dockCollection { min-width:0; width:100%; min-height:52px; }
+}
+@media(max-width:350px) { .selectedCardPanel { grid-template-columns:88px minmax(0,1fr); gap:12px; } .selectedCardArt { width:88px; } .selectedCardInfo h2 { font-size:22px; } }
+@media(max-width:759px) { #actionDock.ready { grid-template-columns:minmax(0,1.45fr) minmax(0,1fr)!important; } }

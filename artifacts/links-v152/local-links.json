@@ -1,0 +1,1247 @@
+[
+  {
+    "key": "en|base|1|alakazam",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Alakazam-V1-BS1",
+    "valid": true
+  },
+  {
+    "key": "en|base|2|blastoise",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Blastoise-V1-BS2",
+    "valid": true
+  },
+  {
+    "key": "en|base|3|chansey",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Chansey-V1-BS3",
+    "valid": true
+  },
+  {
+    "key": "en|base|4|charizard",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Charizard-V1-BS4",
+    "valid": true
+  },
+  {
+    "key": "en|base|5|clefairy",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Clefairy-V1-BS5",
+    "valid": true
+  },
+  {
+    "key": "en|base|6|gyarados",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Gyarados-V1-BS6",
+    "valid": true
+  },
+  {
+    "key": "en|base|7|hitmonchan",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Hitmonchan-V1-BS7",
+    "valid": true
+  },
+  {
+    "key": "en|base|8|machamp",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Machamp-V1-BS8",
+    "valid": true
+  },
+  {
+    "key": "en|base|9|magneton",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Magneton-V1-BS9",
+    "valid": true
+  },
+  {
+    "key": "en|base|10|mewtwo",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Mewtwo-V1-BS10",
+    "valid": true
+  },
+  {
+    "key": "en|base|11|nidoking",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Nidoking-V1-BS11",
+    "valid": true
+  },
+  {
+    "key": "en|base|12|ninetales",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Ninetales-V1-BS12",
+    "valid": true
+  },
+  {
+    "key": "en|base|13|poliwrath",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Poliwrath-V1-BS13",
+    "valid": true
+  },
+  {
+    "key": "en|base|14|raichu",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Raichu-V1-BS14",
+    "valid": true
+  },
+  {
+    "key": "en|base|15|venusaur",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Venusaur-V1-BS15",
+    "valid": true
+  },
+  {
+    "key": "en|base|16|zapdos",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Zapdos-V1-BS16",
+    "valid": true
+  },
+  {
+    "key": "en|jungle|1|clefable",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Clefable-V1-JU1",
+    "valid": true
+  },
+  {
+    "key": "en|jungle|2|electrode",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Electrode-V1-JU2",
+    "valid": true
+  },
+  {
+    "key": "en|jungle|3|flareon",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Flareon-V1-JU3",
+    "valid": true
+  },
+  {
+    "key": "en|jungle|4|jolteon",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Jolteon-V1-JU4",
+    "valid": true
+  },
+  {
+    "key": "en|jungle|5|kangaskhan",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Kangaskhan-V1-JU5",
+    "valid": true
+  },
+  {
+    "key": "en|jungle|6|mr. mime",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Mr-Mime-V1-JU6",
+    "valid": true
+  },
+  {
+    "key": "en|jungle|7|nidoqueen",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Nidoqueen-V1-JU7",
+    "valid": true
+  },
+  {
+    "key": "en|jungle|8|pidgeot",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Pidgeot-V1-JU8",
+    "valid": true
+  },
+  {
+    "key": "en|jungle|9|pinsir",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Pinsir-V1-JU9",
+    "valid": true
+  },
+  {
+    "key": "en|jungle|10|scyther",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Scyther-V1-JU10",
+    "valid": true
+  },
+  {
+    "key": "en|jungle|11|snorlax",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Snorlax-V1-JU11",
+    "valid": true
+  },
+  {
+    "key": "en|jungle|12|vaporeon",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Vaporeon-V1-JU12",
+    "valid": true
+  },
+  {
+    "key": "en|jungle|13|venomoth",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Venomoth-V1-JU13",
+    "valid": true
+  },
+  {
+    "key": "en|jungle|14|victreebel",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Victreebel-V1-JU14",
+    "valid": true
+  },
+  {
+    "key": "en|jungle|15|vileplume",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Vileplume-V1-JU15",
+    "valid": true
+  },
+  {
+    "key": "en|jungle|16|wigglytuff",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Wigglytuff-V1-JU16",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|1|aerodactyl",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Aerodactyl-V1-FO1",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|2|articuno",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Articuno-V1-FO2",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|3|ditto",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Ditto-V1-FO3",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|4|dragonite",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Dragonite-V1-FO4",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|5|gengar",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Gengar-V1-FO5",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|6|haunter",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Haunter-V1-FO6",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|7|hitmonlee",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Hitmonlee-V1-FO7",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|8|hypno",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Hypno-V1-FO8",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|9|kabutops",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Kabutops-V1-FO9",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|10|lapras",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Lapras-V1-FO10",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|11|magneton",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Magneton-V1-FO11",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|12|moltres",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Moltres-V1-FO12",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|13|muk",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Muk-V1-FO13",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|14|raichu",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Raichu-V1-FO14",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|15|zapdos",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Zapdos-V1-FO15",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|1|alakazam",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Alakazam-B21",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|2|blastoise",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Blastoise-B22",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|3|chansey",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Chansey-B23",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|4|charizard",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Charizard-B24",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|5|clefable",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Clefable-B25",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|6|clefairy",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Clefairy-B26",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|7|gyarados",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Gyarados-B27",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|8|hitmonchan",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Hitmonchan-B28",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|9|magneton",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Magneton-B29",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|10|mewtwo",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Mewtwo-B210",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|11|nidoking",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Nidoking-B211",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|12|nidoqueen",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Nidoqueen-B212",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|13|ninetales",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Ninetales-B213",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|14|pidgeot",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Pidgeot-B214",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|15|poliwrath",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Poliwrath-B215",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|16|raichu",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Raichu-B216",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|17|scyther",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Scyther-B217",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|18|venusaur",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Venusaur-B218",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|19|wigglytuff",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Wigglytuff-B219",
+    "valid": true
+  },
+  {
+    "key": "en|base set 2|20|zapdos",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set-2/Zapdos-B220",
+    "valid": true
+  },
+  {
+    "key": "en|rocket|4|dark charizard",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Team-Rocket/Dark-Charizard-TR4",
+    "valid": true
+  },
+  {
+    "key": "en|gym heroes|1|blaine's moltres",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Heroes/Blaines-Moltres-GH1",
+    "valid": true
+  },
+  {
+    "key": "en|gym heroes|2|brock's rhydon",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Heroes/Brocks-Rhydon-GH2",
+    "valid": true
+  },
+  {
+    "key": "en|gym heroes|3|erika's clefable",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Heroes/Erikas-Clefable-GH3",
+    "valid": true
+  },
+  {
+    "key": "en|gym heroes|4|erika's dragonair",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Heroes/Erikas-Dragonair-GH4",
+    "valid": true
+  },
+  {
+    "key": "en|gym heroes|5|erika's vileplume",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Heroes/Erikas-Vileplume-GH5",
+    "valid": true
+  },
+  {
+    "key": "en|gym heroes|6|lt. surge's electabuzz",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Heroes/Lt-Surges-Electabuzz-GH6",
+    "valid": true
+  },
+  {
+    "key": "en|gym heroes|7|lt. surge's fearow",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Heroes/Lt-Surges-Fearow-GH7",
+    "valid": true
+  },
+  {
+    "key": "en|gym heroes|8|lt. surge's magneton",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Heroes/Lt-Surges-Magneton-GH8",
+    "valid": true
+  },
+  {
+    "key": "en|gym heroes|9|misty's seadra",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Heroes/Mistys-Seadra-GH9",
+    "valid": true
+  },
+  {
+    "key": "en|gym heroes|10|misty's tentacruel",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Heroes/Mistys-Tentacruel-GH10",
+    "valid": true
+  },
+  {
+    "key": "en|gym heroes|11|rocket's hitmonchan",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Heroes/Rockets-Hitmonchan-GH11",
+    "valid": true
+  },
+  {
+    "key": "en|gym heroes|12|rocket's moltres",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Heroes/Rockets-Moltres-GH12",
+    "valid": true
+  },
+  {
+    "key": "en|gym heroes|13|rocket's scyther",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Heroes/Rockets-Scyther-GH13",
+    "valid": true
+  },
+  {
+    "key": "en|gym heroes|14|sabrina's gengar",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Heroes/Sabrinas-Gengar-GH14",
+    "valid": true
+  },
+  {
+    "key": "en|gym heroes|15|brock",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Heroes/Brock-GH15",
+    "valid": true
+  },
+  {
+    "key": "en|gym heroes|16|erika",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Heroes/Erika-GH16",
+    "valid": true
+  },
+  {
+    "key": "en|gym heroes|17|lt. surge",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Heroes/Lt-Surge-GH17",
+    "valid": true
+  },
+  {
+    "key": "en|gym heroes|18|misty",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Heroes/Misty-GH18",
+    "valid": true
+  },
+  {
+    "key": "en|gym heroes|19|the rocket's trap",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Heroes/The-Rockets-Trap-GH19",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|1|blaine's arcanine",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Blaines-Arcanine-GC1",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|2|blaine's charizard",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Blaines-Charizard-GC2",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|3|brock's ninetales",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Brocks-Ninetales-GC3",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|4|erika's venusaur",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Erikas-Venusaur-GC4",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|5|giovanni's gyarados",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Giovannis-Gyarados-GC5",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|6|giovanni's machamp",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Giovannis-Machamp-GC6",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|7|giovanni's nidoking",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Giovannis-Nidoking-GC7",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|8|giovanni's persian",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Giovannis-Persian-GC8",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|9|koga's beedrill",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Kogas-Beedrill-GC9",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|10|koga's ditto",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Kogas-Ditto-GC10",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|11|lt. surge's raichu",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Lt-Surges-Raichu-GC11",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|12|misty's golduck",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Mistys-Golduck-GC12",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|13|misty's gyarados",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Mistys-Gyarados-GC13",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|14|rocket's mewtwo",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Rockets-Mewtwo-GC14",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|15|rocket's zapdos",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Rockets-Zapdos-GC15",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|16|sabrina's alakazam",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Sabrinas-Alakazam-GC16",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|17|blaine",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Blaine-GC17",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|18|giovanni",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Giovanni-GC18",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|19|koga",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Koga-GC19",
+    "valid": true
+  },
+  {
+    "key": "en|gym challenge|20|sabrina",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Gym-Challenge/Sabrina-GC20",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|1|ampharos",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Ampharos-NG1",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|2|azumarill",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Azumarill-NG2",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|3|bellossom",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Bellossom-NG3",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|4|feraligatr",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Feraligatr-NG4",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|5|feraligatr",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Feraligatr-NG5",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|6|heracross",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Heracross-NG6",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|7|jumpluff",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Jumpluff-NG7",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|8|kingdra",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Kingdra-NG8",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|9|lugia",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Lugia-NG9",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|10|meganium",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Meganium-NG10",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|11|meganium",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Meganium-NG11",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|12|pichu",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Pichu-NG12",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|13|skarmory",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Skarmory-NG13",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|14|slowking",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Slowking-NG14",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|15|steelix",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Steelix-NG15",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|16|togetic",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Togetic-NG16",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|17|typhlosion",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Typhlosion-NG17",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|18|typhlosion",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Typhlosion-NG18",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|19|metal energy",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Metal-Energy-NG19",
+    "valid": true
+  },
+  {
+    "key": "en|neo discovery|1|espeon",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Discovery/Espeon-NDI1",
+    "valid": true
+  },
+  {
+    "key": "en|neo discovery|2|forretress",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Discovery/Forretress-NDI2",
+    "valid": true
+  },
+  {
+    "key": "en|neo discovery|3|hitmontop",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Discovery/Hitmontop-NDI3",
+    "valid": true
+  },
+  {
+    "key": "en|neo discovery|4|houndoom",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Discovery/Houndoom-NDI4",
+    "valid": true
+  },
+  {
+    "key": "en|neo discovery|5|houndour",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Discovery/Houndour-NDI5",
+    "valid": true
+  },
+  {
+    "key": "en|neo discovery|6|kabutops",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Discovery/Kabutops-NDI6",
+    "valid": true
+  },
+  {
+    "key": "en|neo discovery|7|magnemite",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Discovery/Magnemite-NDI7",
+    "valid": true
+  },
+  {
+    "key": "en|neo discovery|8|politoed",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Discovery/Politoed-NDI8",
+    "valid": true
+  },
+  {
+    "key": "en|neo discovery|9|poliwrath",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Discovery/Poliwrath-NDI9",
+    "valid": true
+  },
+  {
+    "key": "en|neo discovery|10|scizor",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Discovery/Scizor-NDI10",
+    "valid": true
+  },
+  {
+    "key": "en|neo discovery|11|smeargle",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Discovery/Smeargle-NDI11",
+    "valid": true
+  },
+  {
+    "key": "en|neo discovery|12|tyranitar",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Discovery/Tyranitar-NDI12",
+    "valid": true
+  },
+  {
+    "key": "en|neo discovery|13|umbreon",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Discovery/Umbreon-NDI13",
+    "valid": true
+  },
+  {
+    "key": "en|neo discovery|14|unown [a]",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Discovery/Unown-A-NDI14",
+    "valid": true
+  },
+  {
+    "key": "en|neo discovery|15|ursaring",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Discovery/Ursaring-NDI15",
+    "valid": true
+  },
+  {
+    "key": "en|neo discovery|16|wobbuffet",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Discovery/Wobbuffet-NDI16",
+    "valid": true
+  },
+  {
+    "key": "en|neo discovery|17|yanma",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Discovery/Yanma-NDI17",
+    "valid": true
+  },
+  {
+    "key": "en|neo revelation|1|ampharos",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Ampharos-NR1",
+    "valid": true
+  },
+  {
+    "key": "en|neo revelation|2|blissey",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Blissey-NR2",
+    "valid": true
+  },
+  {
+    "key": "en|neo revelation|3|celebi",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Celebi-NR3",
+    "valid": true
+  },
+  {
+    "key": "en|neo revelation|4|crobat",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Crobat-NR4",
+    "valid": true
+  },
+  {
+    "key": "en|neo revelation|5|delibird",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Delibird-NR5",
+    "valid": true
+  },
+  {
+    "key": "en|neo revelation|6|entei",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Entei-NR6",
+    "valid": true
+  },
+  {
+    "key": "en|neo revelation|7|ho-oh",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Ho-Oh-NR7",
+    "valid": true
+  },
+  {
+    "key": "en|neo revelation|8|houndoom",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Houndoom-NR8",
+    "valid": true
+  },
+  {
+    "key": "en|neo revelation|9|jumpluff",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Jumpluff-NR9",
+    "valid": true
+  },
+  {
+    "key": "en|neo revelation|10|magneton",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Magneton-NR10",
+    "valid": true
+  },
+  {
+    "key": "en|neo revelation|11|misdreavus",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Misdreavus-NR11",
+    "valid": true
+  },
+  {
+    "key": "en|neo revelation|12|porygon2",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Porygon2-NR12",
+    "valid": true
+  },
+  {
+    "key": "en|neo revelation|13|raikou",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Raikou-NR13",
+    "valid": true
+  },
+  {
+    "key": "en|neo revelation|14|suicune",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Suicune-NR14",
+    "valid": true
+  },
+  {
+    "key": "en|neo revelation|65|shining gyarados",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Shining-Gyarados-NR65",
+    "valid": true
+  },
+  {
+    "key": "en|neo revelation|66|shining magikarp",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Revelation/Shining-Magikarp-NR66",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|1|dark ampharos",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Dark-Ampharos-NDE1",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|2|dark crobat",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Dark-Crobat-NDE2",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|3|dark donphan",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Dark-Donphan-NDE3",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|4|dark espeon",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Dark-Espeon-NDE4",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|5|dark feraligatr",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Dark-Feraligatr-NDE5",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|6|dark gengar",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Dark-Gengar-NDE6",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|7|dark houndoom",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Dark-Houndoom-NDE7",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|8|dark porygon2",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Dark-Porygon2-NDE8",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|9|dark scizor",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Dark-Scizor-NDE9",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|10|dark typhlosion",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Dark-Typhlosion-NDE10",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|11|dark tyranitar",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Dark-Tyranitar-NDE11",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|12|light arcanine",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Light-Arcanine-NDE12",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|13|light azumarill",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Light-Azumarill-NDE13",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|14|light dragonite",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Light-Dragonite-NDE14",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|15|light togetic",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Light-Togetic-NDE15",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|16|miracle energy",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Miracle-Energy-NDE16",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|106|shining celebi",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Celebi-NDE106",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|107|shining charizard",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Charizard-NDE107",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|108|shining kabutops",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Kabutops-NDE108",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|109|shining mewtwo",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Mewtwo-NDE109",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|110|shining noctowl",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Noctowl-NDE110",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|111|shining raichu",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Raichu-NDE111",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|112|shining steelix",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Steelix-NDE112",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|113|shining tyranitar",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Shining-Tyranitar-NDE113",
+    "valid": true
+  },
+  {
+    "key": "en|legendary collection|3|charizard",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Legendary-Collection/Charizard-V1-LC3",
+    "valid": true
+  },
+  {
+    "key": "en|legendary collection|3|charizard reverse holo",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Legendary-Collection/Charizard-V2-LC3",
+    "valid": true
+  },
+  {
+    "key": "en|legendary collection|29|mewtwo",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Legendary-Collection/Mewtwo-V1-LC29",
+    "valid": true
+  },
+  {
+    "key": "en|legendary collection|4|dark blastoise",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Legendary-Collection/Dark-Blastoise-LC4",
+    "valid": true
+  },
+  {
+    "key": "en|expedition|6|charizard",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Expedition-Base-Set/Charizard-EX6",
+    "valid": true
+  },
+  {
+    "key": "en|expedition|39|charizard",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Expedition-Base-Set/Charizard-EX39",
+    "valid": true
+  },
+  {
+    "key": "en|expedition|40|charizard",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Expedition-Base-Set/Charizard-EX40",
+    "valid": true
+  },
+  {
+    "key": "en|expedition|124|pikachu",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Expedition-Base-Set/Pikachu-EX124",
+    "valid": true
+  },
+  {
+    "key": "en|aquapolis|149|lugia",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Aquapolis/Lugia-AQ149",
+    "valid": true
+  },
+  {
+    "key": "en|aquapolis|148|kingdra",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Aquapolis/Kingdra-V3-AQ148",
+    "valid": true
+  },
+  {
+    "key": "en|aquapolis|150|nidoking",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Aquapolis/Nidoking-V3-AQ150",
+    "valid": true
+  },
+  {
+    "key": "en|aquapolis|h19|ninetales",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Aquapolis/Ninetales-V1-AQH19",
+    "valid": true
+  },
+  {
+    "key": "en|skyridge|146|charizard",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Skyridge/Charizard-V1-SK146",
+    "valid": true
+  },
+  {
+    "key": "en|skyridge|145|celebi",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Skyridge/Celebi-SK145",
+    "valid": true
+  },
+  {
+    "key": "en|skyridge|147|crobat",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Skyridge/Crobat-V1-SK147",
+    "valid": true
+  },
+  {
+    "key": "en|skyridge|h10|gyarados",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Skyridge/Gyarados-V1-SKH10",
+    "valid": true
+  },
+  {
+    "key": "en|ex team rocket returns|107|mudkip gold star",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Team-Rocket-Returns/Mudkip-Gold-Star-TRR107",
+    "valid": true
+  },
+  {
+    "key": "en|ex team rocket returns|108|torchic gold star",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Team-Rocket-Returns/Torchic-Gold-Star-TRR108",
+    "valid": true
+  },
+  {
+    "key": "en|ex team rocket returns|109|treecko gold star",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Team-Rocket-Returns/Treecko-Gold-Star-TRR109",
+    "valid": true
+  },
+  {
+    "key": "en|ex deoxys|105|latias gold star",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Deoxys/Latias-Gold-Star-DX105",
+    "valid": true
+  },
+  {
+    "key": "en|ex deoxys|106|latios gold star",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Deoxys/Latios-Gold-Star-DX106",
+    "valid": true
+  },
+  {
+    "key": "en|ex deoxys|107|rayquaza gold star",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Deoxys/Rayquaza-Gold-Star-DX107",
+    "valid": true
+  },
+  {
+    "key": "en|ex firered leafgreen|104|blastoise ex",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-FireRed-LeafGreen/Blastoise-ex-FL104",
+    "valid": true
+  },
+  {
+    "key": "en|ex firered leafgreen|105|charizard ex",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-FireRed-LeafGreen/Charizard-ex-FL105",
+    "valid": true
+  },
+  {
+    "key": "en|ex emerald|9|rayquaza",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Emerald/Rayquaza-EM9",
+    "valid": true
+  },
+  {
+    "key": "en|ex unseen forces|112|umbreon ex",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Unseen-Forces/Umbreon-ex-UF112",
+    "valid": true
+  },
+  {
+    "key": "en|ex unseen forces|113|entei gold star",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Unseen-Forces/Entei-Gold-Star-UF113",
+    "valid": true
+  },
+  {
+    "key": "en|ex legend maker|88|mew ex",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Legend-Maker/Mew-ex-LM88",
+    "valid": true
+  },
+  {
+    "key": "en|ex holon phantoms|103|mewtwo gold star",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Holon-Phantoms/Mewtwo-Gold-Star-HP103",
+    "valid": true
+  },
+  {
+    "key": "en|ex crystal guardians|4|charizard delta species",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Crystal-Guardians/Charizard-Delta-Species-CG4",
+    "valid": true
+  },
+  {
+    "key": "en|ex dragon frontiers|99|tyranitar ex delta species",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Dragon-Frontiers/Tyranitar-ex-Delta-Species-DF99",
+    "valid": true
+  },
+  {
+    "key": "en|ex dragon frontiers|100|charizard gold star delta species",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Dragon-Frontiers/Charizard-Gold-Star-Delta-Species-DF100",
+    "valid": true
+  },
+  {
+    "key": "en|ex dragon frontiers|101|mew gold star delta species",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Dragon-Frontiers/Mew-Gold-Star-Delta-Species-DF101",
+    "valid": true
+  },
+  {
+    "key": "en|ex power keepers|6|charizard",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Power-Keepers/Charizard-PK6",
+    "valid": true
+  },
+  {
+    "key": "en|jungle|51|eevee",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Eevee-JU51",
+    "valid": true
+  },
+  {
+    "key": "jp|base|002|ivysaur",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Expansion-Pack/Ivysaur",
+    "valid": true
+  },
+  {
+    "key": "jp|base|006|charizard",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Expansion-Pack/Charizard",
+    "valid": true
+  },
+  {
+    "key": "jp|base|009|blastoise",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Expansion-Pack/Blastoise",
+    "valid": true
+  },
+  {
+    "key": "jp|jungle|133|eevee",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Pokemon-Jungle/Eevee",
+    "valid": true
+  },
+  {
+    "key": "jp|fossil|094|gengar",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Mystery-of-the-Fossils/Gengar",
+    "valid": true
+  },
+  {
+    "key": "jp|rocket|006|dark charizard",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Rocket-Gang/Dark-Charizard-ROG",
+    "valid": true
+  },
+  {
+    "key": "jp|gym heroes|146|rocket's moltres",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Leaders-Stadium/Rockets-Moltres-LST",
+    "valid": true
+  },
+  {
+    "key": "jp|neo discovery|197|umbreon",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Crossing-the-Ruins/Umbreon-CTR",
+    "valid": true
+  },
+  {
+    "key": "jp|neo revelation|220|swinub",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Awakening-Legends/Swinub-AL",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|54|shellder",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Shellder-FO54",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|55|slowpoke",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Slowpoke-FO55",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|59|energy search",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Energy-Search-FO59",
+    "valid": true
+  },
+  {
+    "key": "en|rocket|30|dark vileplume",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Team-Rocket/Dark-Vileplume-TR30",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|53|chikorita",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Chikorita-NG53",
+    "valid": true
+  },
+  {
+    "key": "en|ex dragon frontiers|43|bagon delta species",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Dragon-Frontiers/Bagon-Delta-Species-DF43",
+    "valid": true
+  },
+  {
+    "key": "en|ex trainer kit 2|1|beldum",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Trainer-Kit-2/Beldum-TK2P1",
+    "valid": true
+  },
+  {
+    "key": "en|ex trainer kit 2|5|metang",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Trainer-Kit-2/Metang-TK2P5",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|49|horsea",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Horsea-FO49",
+    "valid": true
+  },
+  {
+    "key": "en|neo genesis|62|horsea",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Horsea-NG62",
+    "valid": true
+  },
+  {
+    "key": "en|ex holon phantoms|77|pidgey",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Holon-Phantoms/Pidgey-Delta-Species-HP77",
+    "valid": true
+  },
+  {
+    "key": "en|legends awakened|31|jirachi",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Legends-Awakened/Jirachi-Lv42-LA31",
+    "valid": true
+  },
+  {
+    "key": "en|ex sandstorm|60|dunsparce",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Sandstorm/Dunsparce-SS60",
+    "valid": true
+  },
+  {
+    "key": "en|neo destiny|80|remoraid",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Destiny/Remoraid-NDE80",
+    "valid": true
+  },
+  {
+    "key": "en|ex power keepers|7|cradily",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Power-Keepers/Cradily-PK7",
+    "valid": true
+  },
+  {
+    "key": "en|ex ruby sapphire|65|poochyena",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Ruby-Sapphire/Poochyena-RS65",
+    "valid": true
+  },
+  {
+    "key": "en|ex ruby sapphire|69|shroomish",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Ruby-Sapphire/Shroomish-RS69",
+    "valid": true
+  },
+  {
+    "key": "en|jungle|49|bellsprout",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Bellsprout-JU49",
+    "valid": true
+  },
+  {
+    "key": "en|fossil|56|tentacool",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Tentacool-FO56",
+    "valid": true
+  },
+  {
+    "key": "en|ex dragon|67|nincada",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Dragon/Nincada-DR67",
+    "valid": true
+  },
+  {
+    "key": "en|ex dragon frontiers|43|bagon",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Dragon-Frontiers/Bagon-Delta-Species-DF43",
+    "valid": true
+  },
+  {
+    "key": "en|rocket|63|oddish",
+    "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Team-Rocket/Oddish-TR63",
+    "valid": true
+  }
+]

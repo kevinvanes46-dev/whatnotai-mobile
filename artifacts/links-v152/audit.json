@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-09-06T15:34:53.664Z",
+  "catalogEntries": 4428,
+  "invalidGeneratedFallbacks": 0,
+  "localLinks": 249,
+  "invalidLocalLinks": 0,
+  "unavailableSetEndpoints": [],
+  "regressions": [
+    {
+      "id": "base4-22",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products?idProduct=273945&minCondition=2&language=1",
+      "exact": true
+    },
+    {
+      "id": "ex11-114",
+      "url": "https://www.cardmarket.com/en/Pokemon/Products?idProduct=276877&minCondition=2&language=1",
+      "exact": true
+    }
+  ],
+  "limitation": "Cardmarket destination access returns HTTP 403. Catalog enumeration and URL validation are not destination-page verification. Remote product IDs validated against live metadata for the reported regressions."
+}

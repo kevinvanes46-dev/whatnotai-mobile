@@ -1,0 +1,41 @@
+'use strict';
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),http=require('node:http'),path=require('node:path');
+const {context}=require('./helpers/cardmarket-harness.cjs');const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+const out='artifacts/links-v152',fixtures=Object.fromEntries(['base4-22','ex11-114'].map(id=>[id,JSON.parse(fs.readFileSync(out+'/'+id+'.json'))]));
+const jpFixture=JSON.parse(fs.readFileSync(out+'/catalog.json')).find(x=>x.lang==='ja'&&x.id==='PMCG1');
+(async()=>{
+ const {c,calls}=context();vm.runInNewContext(fs.readFileSync('cardmarket-products-v152.js','utf8'),{window:c.window});
+ for(const d of Object.values(c.window.CM_PRODUCT_CATALOG)){const result=c.resolveFinalCardmarketRoute({name:d.name,number:d.number,set:d.set.name,set_name:d.set.name,source_id:d.id,language:'EN',condition:'EX'});assert.equal(result.exact,true);assert.equal(new URL(result.url).searchParams.get('idProduct'),String(d.product));assert.equal(new URL(result.url).searchParams.get('minCondition'),'2');}
+ assert.equal(calls.length,0);console.log('PASS '+Object.keys(c.window.CM_PRODUCT_CATALOG).length+' verified product routes without network');
+ for(const [id,data] of Object.entries(fixtures)){const {c}=context({fetch:async url=>url.includes('pokemontcg.io')?{ok:false,status:500}:{ok:true,json:async()=>data}});const result=await c.resolveFinalCardmarketRoute({name:data.name,number:data.localId,set:data.set.name,set_name:data.set.name,source_id:id,language:'EN'});assert.equal(new URL(result.url).searchParams.get('idProduct'),String(data.pricing.cardmarket.idProduct));}
+ console.log('PASS independent provider resolves both reported cards after server failure');
+ const server=http.createServer((req,res)=>{try{const file=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';res.setHeader('Content-Type',file.endsWith('.svg')?'image/svg+xml':file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':'text/html');res.end(fs.readFileSync(path.join(process.cwd(),file)));}catch{res.writeHead(404).end();}});await new Promise(r=>server.listen(0,'127.0.0.1',r));const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH});
+ try{for(const width of [320,375,390,768,1280]){const ctx=await browser.newContext({viewport:{width,height:900},reducedMotion:'reduce'});const page=await ctx.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await ctx.route('**/*',r=>{const u=new URL(r.request().url());if(u.hostname==='127.0.0.1')return r.continue();if(u.hostname==='api.tcgdex.net'){if(u.pathname==='/v2/ja/sets/PMCG1')return r.fulfill({json:{name:'Japanese Base Set',cards:[{id:jpFixture.source_id,name:jpFixture.name,localId:jpFixture.number}]}});const id=u.pathname.split('/').pop();if(u.pathname.includes('/cards/'))return r.fulfill({json:fixtures[id]||{}});const data=Object.values(fixtures).find(x=>x.set.id===id);return r.fulfill({json:data?{name:data.set.name,cards:[{id:data.id,name:data.name,localId:data.localId,image:data.image}]}:{cards:[]}});}if(u.hostname==='assets.tcgdex.net'){if(u.pathname==='/retry-test/high.webp'||u.pathname.startsWith('/missing-test/'))return r.abort();const id=u.pathname.includes('/base4/')?'base4-22':'ex11-114';return r.fulfill({contentType:'image/webp',body:fs.readFileSync(out+'/'+id+'.webp')});}return r.abort();});
+ await page.goto('http://127.0.0.1:'+server.address().port);assert.equal(await page.locator('#stampedToggle').isVisible(),true);assert.equal(await page.locator('.visiblePreferences [data-value="NM"]').isVisible(),true);
+ for(const [id,data] of Object.entries(fixtures)){await page.locator('#quickInput').fill(data.name+' '+data.localId+' '+data.set.name);await page.locator('.suggestion').first().click();await page.waitForFunction(()=>document.querySelector('#selectedCardArt img')?.naturalWidth>0);assert.equal(new URL(await page.locator('#openBtn').getAttribute('href')).searchParams.get('idProduct'),String(data.pricing.cardmarket.idProduct));}
+ await page.locator('.visiblePreferences [data-value="EX"]').click();assert.equal(new URL(await page.locator('#openBtn').getAttribute('href')).searchParams.get('minCondition'),'3');assert.match(await page.locator('#selectedCardMeta').textContent(),/Staat EX/);
+ await page.locator('#stampedToggle').click();await page.locator('#collectionAddBtn').click();await page.locator('#collectionEditorSave').click();assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('cardscout_collection_v133'))[0].variant),'STAMPED');
+ await page.locator('#normalVariant').click();assert.equal(await page.locator('#stampedToggle').getAttribute('aria-pressed'),'false');
+ await page.waitForFunction(()=>document.querySelector('#toast').hidden&&document.querySelector('#collectionUndo').hidden);await page.screenshot({path:out+'/detail-'+width+'.png',fullPage:true});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+ const notice=await page.locator('.selectedCardInfo small').boundingBox();assert.ok(notice.x>=0&&notice.x+notice.width<=width);
+ await page.locator('.visiblePreferences [data-value="JP"]').click();assert.equal(await page.locator('#selectedCardPanel').isVisible(),false);assert.equal(await page.locator('#openBtn').getAttribute('aria-disabled'),'true');
+ await page.locator('#quickInput').fill(jpFixture.name);await page.locator('.suggestion').first().click();assert.equal(await page.locator('#selectedCardTitle').textContent(),jpFixture.name);assert.match(await page.locator('#selectedCardMeta').textContent(),/JP/);await page.waitForFunction(()=>document.querySelector('#selectedCardArt').classList.contains('artUnavailable'));
+
+ if(width===375){
+  await page.evaluate(()=>{const el=document.createElement('div');el.id='artTest';document.body.append(el);window.CardArtwork.mount({name:'Retry fixture',image:'https://assets.tcgdex.net/retry-test'},el);el.scrollIntoView();});
+  await page.waitForFunction(()=>document.querySelector('#artTest img')?.naturalWidth>0&&document.querySelector('#artTest img').src.endsWith('/low.webp'));
+  await page.evaluate(()=>{const el=document.querySelector('#artTest');window.CardArtwork.mount({name:'Missing fixture',image:'https://assets.tcgdex.net/missing-test'},el);});
+  await page.locator('#artTest .artRetry').waitFor();await page.locator('#artTest .artRetry').click();await page.locator('#artTest .artRetry').waitFor();await page.locator('#artTest').evaluate(el=>el.remove());
+  console.log('PASS preview lower-resolution fallback and explicit retry');
+
+  await page.locator('#navSettings').click();const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('cardscout_collection_v133')));
+  const download=page.waitForEvent('download');await page.locator('#collectionExportBtn').click();const file=await download;const backup=JSON.parse(fs.readFileSync(await file.path(),'utf8'));assert.deepEqual(backup.collection,saved);
+  await page.locator('#collectionImportFile').setInputFiles({name:'invalid.json',mimeType:'application/json',buffer:Buffer.from('not json')});await page.waitForFunction(()=>document.querySelector('#toast').textContent==='Ongeldige backup');assert.deepEqual(await page.evaluate(()=>JSON.parse(localStorage.getItem('cardscout_collection_v133'))),saved);
+  page.once('dialog',dialog=>dialog.accept());await page.locator('#collectionClearBtn').click();assert.deepEqual(await page.evaluate(()=>JSON.parse(localStorage.getItem('cardscout_collection_v133'))),[]);
+  await page.locator('#collectionImportFile').setInputFiles({name:'backup.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(backup))});await page.waitForFunction(()=>JSON.parse(localStorage.getItem('cardscout_collection_v133')).length===1);assert.deepEqual(await page.evaluate(()=>JSON.parse(localStorage.getItem('cardscout_collection_v133'))),saved);
+  console.log('PASS export, confirmed clear, import restore and invalid backup preservation');
+ }
+ assert.deepEqual(errors,[]);await ctx.close();console.log('PASS '+width+'px links, EX offers, manual stamped, JP invalidation, readable detail and no overflow');}
+ }finally{await browser.close();await new Promise(r=>server.close(r));}
+})().catch(e=>{console.error(e);process.exitCode=1});
