@@ -32,6 +32,15 @@ let count=0;
   await scenario('Older source quote cannot replace newer saved quote',[item],r=>r.fulfill({json:{pricing:{cardmarket:{trend:2,updated:new Date(old-86400000).toISOString()}}}}),async p=>{await settle(p);assert.deepEqual(await read(p),[item]);});
   let requests=0;
   await scenario('Fresh quotes skip automatic fetch, manual refresh still works',[{...item,priceUpdated:Date.now()}],r=>{requests++;return r.fulfill({json:{pricing:{cardmarket:{trend:15}}}});},async p=>{await settle(p);assert.equal(requests,0);await p.locator('#collectionRefreshBtn').click();await settle(p);assert.equal(requests,1);assert.equal((await read(p))[0].price,15);});
+  await scenario('First edition excludes generic quote but preserves stored data',[{...item,edition:'1ST'}],r=>r.fulfill({json:{pricing:{cardmarket:{trend:99}}}}),async p=>{await settle(p);assert.equal((await read(p))[0].price,10);assert.equal((await p.locator('#collectionMarket').textContent()).charCodeAt(0),8212);assert.match(await p.locator('.priceFreshness').textContent(),/1st edition/);assert.match(await p.locator('.stampBadge').textContent(),/1st Edition/);});
+  for(const confirmed of [false,true]){
+    await scenario('Stamped editor '+(confirmed?'accepts confirmed set-logo':'rejects unconfirmed variant'),[{...item,priceUpdated:Date.now()}],r=>r.fulfill({json:{variants:{reverse:false},variants_detailed:confirmed?[{stamp:['set-logo']}]:[],pricing:{cardmarket:{'trend-holo':20}}}}),async p=>{
+      await settle(p);await p.locator('.collectionCardOpen').click();await p.locator('[data-editor-variant="STAMPED"]').click();await p.locator('#collectionEditorSave').click();
+      await p.waitForFunction(()=>!document.querySelector('#collectionEditorSave').disabled);
+      assert.equal((await read(p))[0].variant,confirmed?'STAMPED':'NORMAL');
+      assert.equal(await p.locator('#collectionEditor').isVisible(),!confirmed);
+    });
+  }
   console.log(`${count} price freshness scenarios passed`);
  }finally{if(browser)await browser.close();await new Promise(r=>server.close(r));}
 })().catch(e=>{console.error(e);process.exitCode=1;});

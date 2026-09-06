@@ -93,7 +93,7 @@
     window.CardArtwork.mount(c,$('selectedCardArt'));
     const data=await lookup(c);if(version!==selectionGeneration)return;
     const stamped=$('stampedToggle')?.getAttribute('aria-pressed')==='true';
-    const quote=window.cardscoutCollectionUI.priceFrom(data,{variant:stamped?'STAMPED':'NORMAL'});
+    const quote=window.cardscoutCollectionUI.priceFrom(data,{variant:stamped?'STAMPED':'NORMAL',edition:$('editionSelect')?.value});
     const currency=new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR'});
     $('selectedCardPrice').textContent=quote.price?`${currency.format(quote.price)} · ${quote.source}`:'Geen marktindicatie beschikbaar';
   });

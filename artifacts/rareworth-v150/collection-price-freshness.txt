@@ -9,4 +9,7 @@ PASS Deleted card is not resurrected
 PASS Changed variant rejects old in-flight quote
 PASS Older source quote cannot replace newer saved quote
 PASS Fresh quotes skip automatic fetch, manual refresh still works
-11 price freshness scenarios passed
+PASS First edition excludes generic quote but preserves stored data
+PASS Stamped editor rejects unconfirmed variant
+PASS Stamped editor accepts confirmed set-logo
+14 price freshness scenarios passed

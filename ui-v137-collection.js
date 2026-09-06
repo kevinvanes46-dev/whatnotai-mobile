@@ -74,10 +74,11 @@
     });}
     notice.hidden=false;undoTimer=setTimeout(()=>{notice.hidden=true;undoAddition=null;},10000);
   }
-  const hasPrice=x=>Number.isFinite(Number(x.price))&&Number(x.price)>0;
+  const hasPrice=x=>x.edition!=='1ST'&&Number.isFinite(Number(x.price))&&Number(x.price)>0;
   const stalePrice=x=>!Number(x.priceUpdated)||Date.now()-Number(x.priceUpdated)>=PRICE_TTL;
   const priceIdentity=x=>[identityKey(x),x.sourceId||''].join('|');
   function priceAgeText(x){
+    if(x.edition==='1ST')return 'Geen bevestigde 1st edition-prijs';
     if(!hasPrice(x))return 'Prijs niet beschikbaar';
     const date=new Date(Number(x.priceUpdated));
     const label=Number(x.priceUpdated)>0&&Number.isFinite(date.getTime())
@@ -245,7 +246,23 @@
   editor?.querySelectorAll('[data-editor-condition]').forEach(b=>b.addEventListener('click',()=>{editorState.condition=b.dataset.editorCondition;syncEditorButtons()}));
   editor?.querySelectorAll('[data-editor-variant]').forEach(b=>b.addEventListener('click',()=>{editorState.variant=b.dataset.editorVariant;syncEditorButtons()}));
 
-  editorSave?.addEventListener('click',()=>{
+  editorSave?.addEventListener('click',async()=>{
+    if(editorSave.disabled)return;
+    const original=editingId?read().find(x=>x.uid===editingId):null;
+    let candidate=original;
+    if(!candidate){try{candidate=JSON.parse(editor.dataset.pending||'{}')}catch(_){candidate={}}}
+    const specialNew=(editorState.variant==='STAMPED'&&original?.variant!=='STAMPED')||(!original&&candidate.edition==='1ST');
+    if(specialNew){
+      const snapshot=JSON.stringify([editorMode,editingId,editor.dataset.pending,editorState]);
+      editorSave.disabled=true;
+      let metadata=null;
+      try{metadata=await resolveCard(candidate)}catch(_){}finally{editorSave.disabled=false}
+      if(editor.hidden||snapshot!==JSON.stringify([editorMode,editingId,editor.dataset.pending,editorState]))return;
+      const stamps=(metadata?.variants_detailed||[]).flatMap(v=>v.stamp||[]);
+      if(editorState.variant==='STAMPED'&&!stamps.includes('set-logo')){toast('Stamped is voor deze kaart niet bevestigd');return}
+      if(candidate.edition==='1ST'&&metadata?.variants?.firstEdition!==true&&!stamps.includes('1st-edition')){toast('1st edition is voor deze kaart niet bevestigd');return}
+    }
+
     const qty=Math.max(1,parseInt(editorQty?.value||'1',10)||1);
     let paid=null;
     if(editorState.list==='OWNED'){
@@ -380,7 +397,7 @@
 
     listEl.className='collectionList';
     listEl.innerHTML=rows.map(x=>{
-      const shownPrice=Number.isFinite(Number(x.price))&&Number(x.price)>0?Number(x.price):null;
+      const shownPrice=hasPrice(x)?Number(x.price):null;
       const isWish=x.listType==='WISHLIST';
       const variant=x.variant==='STAMPED'?'⚡ STAMPED':'Normaal';
       return `<article class="collectionCard collectionCardPro ${isWish?'wishlistCard':''}" data-id="${esc(x.uid)}">
@@ -389,6 +406,7 @@
             <div class="collectionCardBadges">
               ${isWish?'<span class="wishBadge">♡ Wishlist</span>':'<span class="ownedBadge">✓ In collectie</span>'}
               ${x.variant==='STAMPED'?'<span class="stampBadge">⚡ Stamped</span>':''}
+              ${x.edition==='1ST'?'<span class="stampBadge">1st Edition</span>':''}
               ${!isWish?`<span class="quantityBadge">${x.qty}×</span>`:''}
             </div>
             <h3>${esc(visibleCardTitle(x))}</h3>
@@ -495,6 +513,7 @@
     return null;
   }
   function priceFrom(card,item){
+    if(item.edition==='1ST')return {price:null,updated:0,source:''};
     const cm=card?.pricing?.cardmarket;
     if(!cm)return {price:null,updated:0,source:''};
     const updated=Date.parse(cm.updated||'')||Date.now();
