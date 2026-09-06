@@ -1,0 +1,12 @@
+PASS Missing price preserves old value and purchase data
+PASS Network failures preserve old value
+PASS New price updates total without changing paid amount
+PASS All missing prices show unknown total
+PASS Invalid imported price is excluded from a partial total
+PASS Partially priced collection shows coverage
+PASS Concurrent quantity and purchase edits survive refresh
+PASS Deleted card is not resurrected
+PASS Changed variant rejects old in-flight quote
+PASS Older source quote cannot replace newer saved quote
+PASS Fresh quotes skip automatic fetch, manual refresh still works
+11 price freshness scenarios passed

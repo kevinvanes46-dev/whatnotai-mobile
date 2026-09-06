@@ -1,0 +1,42 @@
+✔ Longest alias: Bagon Delta Species 43 EX Dragon Frontiers (26.8554ms)
+✔ Longest alias: Charizard 4 Base Set 2 (1.9645ms)
+✔ Longest alias: Dark Dragonite 5 EX Team Rocket Returns (1.8293ms)
+✔ Longest alias: Bagon 50 EX Dragon (2.1668ms)
+✔ Delta symbols, duplicate Delta Species and invisible characters cleaned only for routing (3.6599ms)
+✔ Bagon #43 uses existing exact special without API (1.554ms)
+✔ Bagon Delta Species mocked resolver returns exact product URL (3.5422ms)
+✔ Azumarill Δ mocked resolver returns exact product URL (2.3694ms)
+✔ Verified local route has priority over specials/API (1.5838ms)
+✔ Charizard CG4 remains exact (1.4597ms)
+✔ Duskull name-only fallback without filters (1.8784ms)
+✔ Igglybuff name-only fallback without filters (2.8999ms)
+✔ Dark Raticate name-only fallback without filters (3.6413ms)
+✔ JP fallback never calls EN resolver (2.0927ms)
+✔ API 404 and corrupt cache safely fall back (2.6067ms)
+✔ API timeout <= 3000ms even if fetch ignores abort (1.467ms)
+✔ Invalid JSON / network failure safely fall back (3.5047ms)
+✔ Valid cached direct route performs no API request (1.3265ms)
+✔ Expired, future, malformed and non-array cache entries are ignored (5.5592ms)
+✔ Reject API wrong ID (1.5101ms)
+✔ Reject API wrong number (2.6608ms)
+✔ Reject API wrong name (1.6189ms)
+✔ Reject API wrong set ID (1.329ms)
+✔ Reject API wrong set name (1.2468ms)
+✔ Reject API HTTP (1.2674ms)
+✔ Reject API other host (1.3105ms)
+✔ Reject API search URL (1.2859ms)
+✔ Reject API spoofed host (1.6466ms)
+✔ Reject API wrong redirect ID (1.279ms)
+✔ Official API Cardmarket redirect supported for exact source ID (1.6049ms)
+✔ Storage denial does not break successful resolver (1.4846ms)
+✔ Concurrent requests deduplicated (1.5858ms)
+✔ Pending blocks fallback and publishes only final selected URL (3.4274ms)
+✔ Late API result never overwrites another selection (3.4878ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 113.1984

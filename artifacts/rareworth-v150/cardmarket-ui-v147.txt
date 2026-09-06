@@ -1,0 +1,10 @@
+PASS 1280px pending/resolved: one CM button, collection visible/blocked until final, no overflow or layout jump, final editor URL
+PASS 390px pending/resolved: one CM button, collection visible/blocked until final, no overflow or layout jump, final editor URL
+PASS 375px pending/resolved: one CM button, collection visible/blocked until final, no overflow or layout jump, final editor URL
+PASS 320px pending/resolved: one CM button, collection visible/blocked until final, no overflow or layout jump, final editor URL
+PASS Stale response ignored by dock and collection selection
+PASS Actual collection save contains final URL; existing purchase/condition/stamped data unchanged
+PASS Cached route immediately active without API request
+PASS Duplicate selection deduplicates network and final-ready publication
+PASS No browser runtime errors
+9 v147 browser tests passed

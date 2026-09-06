@@ -1,0 +1,88 @@
+{
+  "category": "Pokemon",
+  "id": "ex15-43",
+  "illustrator": "Hajime Kusajima",
+  "image": "https://assets.tcgdex.net/en/ex/ex15/43",
+  "localId": "43",
+  "name": "Bagon δ",
+  "rarity": "Common",
+  "set": {
+    "cardCount": {
+      "official": 101,
+      "total": 101
+    },
+    "id": "ex15",
+    "logo": "https://assets.tcgdex.net/en/ex/ex15/logo",
+    "name": "Dragon Frontiers",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex15/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": false,
+    "normal": true,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "normal",
+      "size": "standard",
+      "variantId": "endfynwn4n10gzq"
+    },
+    {
+      "type": "normal",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "variantId": "3takscxpcqodqyjzqnsbuwq6"
+    }
+  ],
+  "dexId": [
+    371
+  ],
+  "hp": 40,
+  "types": [
+    "Water"
+  ],
+  "stage": "Basic",
+  "attacks": [
+    {
+      "cost": [
+        "Water"
+      ],
+      "name": "Granite Head",
+      "effect": "During your opponent's next turn, any damage done to Bagon by attacks is reduced by 10 (after applying Weakness and Resistance).",
+      "damage": 10
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-16T00:34:34+02:00",
+  "thirdParty": {
+    "cardmarket": 277248
+  },
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-05T21:35:33.635Z",
+      "unit": "EUR",
+      "idProduct": 277248,
+      "avg": 0.44,
+      "low": 0.02,
+      "trend": 0.36,
+      "avg1": 0.25,
+      "avg7": 0.49,
+      "avg30": 0.44,
+      "avg-holo": 5.26,
+      "low-holo": 1.89,
+      "trend-holo": 5.06,
+      "avg1-holo": 1.99,
+      "avg7-holo": 4.53,
+      "avg30-holo": 5.24
+    },
+    "tcgplayer": null
+  }
+}

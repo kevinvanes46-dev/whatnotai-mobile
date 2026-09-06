@@ -527,6 +527,7 @@
       const sourceNote = isRemote ? (lang === 'JP' ? ' · JP online' : ' · volledige catalogus') : '';
       const stampNote = (queryWantsStamped(quickInput?.value || '') && lang === 'EN' && STAMPED_SET_KEYS.has(card.set)) ? ' · ⚡ STAMPED-era' : '';
       btn.querySelector('.suggestionMeta').textContent = `${label} · ${lang}${card.rarity ? ' · '+card.rarity : ''}${stampNote}${sourceNote}`;
+      if(window.CardArtwork){const art=document.createElement('span');art.className='suggestionArt';btn.prepend(art);window.CardArtwork.mount(card,art);}
       btn.addEventListener('click', () => {
         nameInput.value = displayName;
         // TCGdex Japanese records use a cross-language set mapping. Do not pretend that number is the
@@ -671,6 +672,7 @@
       verified:false,
       direct:false,
       source:'tcgdex',
+      image:card.image||'',
       source_id:card.id
     };
   }

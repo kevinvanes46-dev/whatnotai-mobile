@@ -79,6 +79,7 @@ const pass=name=>{passed++;console.log('PASS '+name);};
   await page.locator('#langSelect').selectOption('EN',{force:true});
   await page.waitForFunction(url=>document.querySelector('#openBtn').href.startsWith(url),AZU);
   assert.equal(apiCalls,1);
+  await page.locator('#manualDetails summary').click();
   await page.locator('#nameInput').fill('Duskull');
   await page.waitForFunction(()=>document.querySelector('#openBtn').href.includes('searchString=Duskull'));
   await page.locator('#numberInput').fill('50');

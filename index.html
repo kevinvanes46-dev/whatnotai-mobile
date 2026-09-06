@@ -3,17 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#07111e" />
+  <meta name="theme-color" content="#0c1114" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="CardScout" />
-  <title>CardScout · Zoek. Bewaar. Check.</title>
+  <meta name="apple-mobile-web-app-title" content="Rareworth" />
+  <link rel="icon" href="icon-rareworth.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icon-rareworth-180.png" />
+  <title>Rareworth · Zoek. Bewaar. Check.</title>
   <link rel="stylesheet" href="style-v137-product.css?build=146-cm-resolver" />
-  <link rel="stylesheet" href="style-v148-polish.css?build=148-ui-polish" />
-  <link rel="manifest" href="manifest.json?build=137" />
+  <link rel="stylesheet" href="style-v148-polish.css?build=150-collector" />
+  <link rel="stylesheet" href="style-v150-minimal.css?build=150-minimal" />
+  <link rel="manifest" href="manifest.json?build=150" />
 </head>
 <body>
   <div class="ambient" aria-hidden="true"><span></span><span></span></div>
@@ -41,16 +44,9 @@
     <header class="topbar">
       <button type="button" class="brandCluster" id="brandHomeBtn" aria-label="Ga naar zoeken">
         <span class="brandMark" aria-hidden="true">
-          <svg class="brandIcon" viewBox="0 0 96 96">
-            <defs>
-              <linearGradient id="boltGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff36b"/><stop offset="55%" stop-color="#ffcc2e"/><stop offset="100%" stop-color="#ff8a00"/></linearGradient>
-              <linearGradient id="cardGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#203a63"/><stop offset="100%" stop-color="#0b1527"/></linearGradient>
-            </defs>
-            <rect x="18" y="10" width="60" height="76" rx="15" fill="url(#cardGrad)" stroke="#5c7dab" stroke-width="3"/>
-            <path d="M52 9 28 52h19l-7 35 29-48H50l2-30Z" fill="url(#boltGrad)" stroke="#fff4a2" stroke-width="2" stroke-linejoin="round"/>
-          </svg>
+          <svg class="brandIcon" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M11 30V10h10a7 7 0 0 1 0 14H11m9 0 9 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 8v25h25" stroke="currentColor" opacity=".35" stroke-width="1.5"/></svg>
         </span>
-        <span class="brandText"><strong>CardScout</strong><small>Pokémon TCG scout</small></span>
+        <span class="brandText"><strong>Rareworth</strong><small>Je kaarten. Goed bewaard.</small></span>
       </button>
       <div id="status" class="status statusChip" role="status" aria-live="polite">Klaar</div>
     </header>
@@ -59,7 +55,7 @@
       <!-- SCAN -->
       <section class="tabView" data-view="scan" aria-labelledby="navScan">
         <div class="scanHero">
-          <div><span class="eyebrow">Scanner</span><h1>Scan een kaart</h1><p>Maak een foto. CardScout doet de rest automatisch.</p></div>
+          <div><span class="eyebrow">Scanner</span><h1>Scan een kaart</h1><p>Maak een foto. Rareworth doet de rest automatisch.</p></div>
           <button type="button" class="prefsPill" id="scanPrefsBtn" aria-label="Open zoekvoorkeuren"><span id="scanPrefsText">EN · NM</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
         </div>
 
@@ -125,6 +121,7 @@
         <section class="searchBox" id="quickPanel">
           <svg class="searchIcon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
           <input id="quickInput" class="quick" aria-label="Zoek op kaartnaam, nummer of set" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="Bijv. Horsea 62 Neo" />
+          <button id="quickClear" class="quickClear" type="button" aria-label="Wis zoekopdracht" hidden>×</button>
           <button id="quickGo" class="quickGo" type="button" title="Zoeken" aria-label="Zoeken"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
         </section>
         <div class="searchModeRow" aria-label="Zoekmodi">
@@ -146,7 +143,14 @@
         <div id="smartSuggestions" class="smartSuggestions" hidden aria-live="polite"></div>
         <div id="exampleChips" class="examples utilityHidden"><button type="button" data-fill="4 charizard base nm">Base Charizard</button><button type="button" data-fill="12 vaporeon jungle nm">Jungle Vaporeon</button><button type="button" data-fill="5 gengar fossil nm">Fossil Gengar</button></div>
 
-        <section class="surface searchSettings">
+        <section id="selectedCardPanel" class="selectedCardPanel" hidden aria-labelledby="selectedCardTitle">
+          <div id="selectedCardArt" class="selectedCardArt"></div>
+          <div class="selectedCardInfo"><span class="eyebrow">Geselecteerde kaart</span><h2 id="selectedCardTitle"></h2><p id="selectedCardMeta"></p><p id="selectedCardRoute" role="status"></p><p class="detailPrice" id="selectedCardPrice">Marktindicatie ophalen…</p><small>Controleer set, nummer en variant. De marktindicatie is geen exacte prijs voor jouw kaartstaat.</small><button type="button" id="selectedCardEdit" class="ghost">Details aanpassen</button></div>
+        </section>
+        <section class="homeRecent" id="homeRecentPanel"><div class="sectionHeader"><h3>Recent bekeken</h3><button type="button" id="homeRecentAll" class="tinyBtn">Bekijk alles</button></div><div id="homeRecentCards" class="homeRecentCards"></div></section>
+
+        <details class="surface searchSettings" id="manualDetails">
+          <summary>Details aanpassen <span>Naam, nummer en voorkeuren</span></summary>
           <div class="sectionTitle"><div><span class="eyebrow">Handmatig</span><h3>Details corrigeren</h3></div><span class="autoTag">Set AUTO</span></div>
           <div class="row two"><div><label class="label" for="numberInput">Nummer</label><input id="numberInput" autocomplete="off" inputmode="numeric" enterkeyhint="next" placeholder="62" /></div><div><label class="label" for="nameInput">Naam</label><input id="nameInput" autocomplete="off" enterkeyhint="search" placeholder="Horsea" /></div></div>
           <div class="autoSetLine" id="setInfo">Set: <b>AUTO</b></div>
@@ -163,9 +167,8 @@
             <div><span>Staat</span><div class="choiceGrid fourChoices" data-choice-target="condSelect"><button type="button" class="choiceBtn" aria-pressed="false" data-value="NM">NM</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="EX">EX</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="GD">GD</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="PL">PL</button></div></div>
             <div><span>Editie</span><div class="choiceGrid twoChoices" data-choice-target="editionSelect"><button type="button" class="choiceBtn" aria-pressed="false" data-value="AUTO">Normaal</button><button type="button" class="choiceBtn editionFirstBtn" aria-pressed="false" data-value="1ST">1ST</button></div></div>
           </div>
-        </section>
-
-        <section class="searchActions"><button id="makeBtn" type="button" class="primary">Open Cardmarket</button><button id="clearBtn" type="button" class="ghost">Wis</button></section>
+        </details>
+        <section class="searchActions"><button id="makeBtn" type="button" class="primary">Open Cardmarket</button><button id="clearBtn" type="button" class="ghost">Nieuwe zoekopdracht</button></section>
         <details class="surface linkDetails"><summary>Technische linkdetails</summary><div class="statusLine"><span>Gegenereerde link</span><button id="copyBtn" type="button" class="tinyBtn">Kopieer</button></div><textarea id="urlBox" readonly placeholder="Cardmarket-link komt hier"></textarea><div id="matchBox" class="matchBox"></div></details>
       </section>
 
@@ -180,7 +183,7 @@
           <div><small>Kaarten</small><b id="collectionCount">0</b></div>
           <div><small>Wishlist</small><b id="wishlistCount">0</b></div>
           <div><small>Betaald</small><b id="collectionPaid">€0,00</b></div>
-          <div><small>CM trend</small><b id="collectionMarket">€0,00</b></div>
+          <div><small>CM trend</small><b id="collectionMarket">€0,00</b><span id="collectionPriceCoverage" class="priceCoverage" role="status"></span></div>
         </section>
 
         <section class="collectionControlPanel">
@@ -198,7 +201,7 @@
             <button type="button" data-filter-variant="STAMPED">⚡ Stamped</button>
           </div>
 
-          <div class="collectionFilterRow">
+          <details class="collectionTools"><summary>Filteren en sorteren</summary><div class="collectionFilterRow">
             <select id="collectionConditionFilter" aria-label="Filter op staat">
               <option value="">Alle staten</option>
               <option value="NM">NM</option><option value="EX">EX</option><option value="GD">GD</option><option value="PL">PL</option>
@@ -211,7 +214,7 @@
               <option value="paid-desc">Aankoopprijs hoog</option>
               <option value="paid-asc">Aankoopprijs laag</option>
             </select>
-          </div>
+          </div></details>
         </section>
 
         <div class="collectionToolbar">
@@ -219,8 +222,9 @@
           <span id="collectionPriceStatus">CM-trend is indicatief</span>
         </div>
 
+        <div class="collectionViewSwitch" role="group" aria-label="Collectieweergave"><button type="button" data-collection-view="grid" aria-pressed="true">Raster</button><button type="button" data-collection-view="list" aria-pressed="false">Lijst</button></div>
         <section id="collectionList" class="collectionList empty">Nog geen kaarten. Zoek een kaart en tik op <b>+ Collectie</b>.</section>
-        <p class="collectionFootnote">Aankoopprijs, staat en variant zijn jouw eigen gegevens. De CM-trend is een marktindicatie, geen exacte conditieprijs.</p>
+        <p class="collectionFootnote">Aankoopprijs, staat en variant zijn jouw eigen gegevens. De CM-trend is een marktindicatie, geen exacte conditieprijs. Kaartbeelden via TCGdex; de afgebeelde uitvoering kan verschillen.</p>
       </section>
 
       <!-- RECENT -->
@@ -237,7 +241,7 @@
 
       <!-- SETTINGS -->
       <section class="tabView" data-view="settings" aria-labelledby="navSettings">
-        <div class="screenIntro compact"><div><span class="eyebrow">CardScout</span><h2>Meer</h2><p>Voorkeuren, privacy en diagnose.</p></div></div>
+        <div class="screenIntro compact"><div><span class="eyebrow">Rareworth</span><h2>Meer</h2><p>Voorkeuren, privacy en diagnose.</p></div></div>
 
         <section class="surface settingsCard">
           <div class="settingsRow"><div class="settingsIcon"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.7 2.8 8 7 10 4.2-2 7-5.3 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></div><div><b>Privacy</b><small>Je collectie blijft lokaal op je toestel</small></div><span class="mutedBadge">Lokaal</span></div>
@@ -260,7 +264,7 @@
           <input type="file" id="collectionImportFile" accept="application/json,.json" hidden />
         </section>
 
-        <section class="surface aboutCard"><div><b>CardScout</b><small>Mobile Pokémon TCG scout</small></div><div class="aboutMeta"><span>UI 144</span><span>V137 CORE</span><span>COLLECTION PRO</span><span>APP READY</span></div></section>
+        <section class="surface aboutCard"><div><b>Rareworth</b><small>Mobile Je kaarten. Goed bewaard.</small></div><div class="aboutMeta"><span>UI 150</span><span>V137 CORE</span><span>COLLECTION PRO</span><span>LOKALE COLLECTIE</span></div></section>
       </section>
     </div>
   </main>
@@ -344,7 +348,8 @@
   </nav>
 
   <script src="app-v137.js?build=147-cm-engine"></script>
-  <script src="ui-v137-focus.js?build=147-cm-engine"></script>
-  <script src="ui-v137-collection.js?build=144-polish"></script>
+  <script src="ui-v137-focus.js?build=150-collector"></script>
+  <script src="ui-v137-collection.js?build=149-price-freshness"></script>
+  <script src="ui-v150-experience.js?build=150-collector"></script>
 </body>
 </html>

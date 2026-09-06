@@ -1,0 +1,106 @@
+{
+  "category": "Pokemon",
+  "id": "ex14-4",
+  "illustrator": "Kouki Saitou",
+  "image": "https://assets.tcgdex.net/en/ex/ex14/4",
+  "localId": "4",
+  "name": "Charizard δ",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 100,
+      "total": 100
+    },
+    "id": "ex14",
+    "logo": "https://assets.tcgdex.net/en/ex/ex14/logo",
+    "name": "Crystal Guardians",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex14/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "variantId": "jr7oetx1mqug9"
+    },
+    {
+      "type": "holo",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "variantId": "555jb0efopmyclvkikic41"
+    }
+  ],
+  "dexId": [
+    6
+  ],
+  "hp": 120,
+  "types": [
+    "Lightning",
+    "Metal"
+  ],
+  "evolveFrom": "Charmeleon",
+  "stage": "Stage2",
+  "abilities": [
+    {
+      "type": "Poke-POWER",
+      "name": "Peal of Thunder",
+      "effect": "Once during your turn, when you play Charizard from your hand to evolve 1 of your Pokémon, you may look at the top 5 cards of your deck, choose as many Energy cards as you like, and attach them to 1 of your Pokémon. Discard the other cards."
+    }
+  ],
+  "attacks": [
+    {
+      "cost": [
+        "Lightning",
+        "Metal",
+        "Metal",
+        "Colorless"
+      ],
+      "name": "Metal Burn",
+      "effect": "Discard all Metal Energy attached to Charizard.",
+      "damage": 120
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Water",
+      "value": "×2"
+    }
+  ],
+  "retreat": 2,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-16T00:34:34+02:00",
+  "thirdParty": {
+    "cardmarket": 277085
+  },
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-06T12:55:34.381Z",
+      "unit": "EUR",
+      "idProduct": 277085,
+      "avg": 98.78,
+      "low": 40,
+      "trend": 132,
+      "avg1": 105,
+      "avg7": 141.75,
+      "avg30": 163.98,
+      "avg-holo": 935.83,
+      "low-holo": 44.99,
+      "trend-holo": 1331.72,
+      "avg1-holo": 200,
+      "avg7-holo": 1200,
+      "avg30-holo": 570.09
+    },
+    "tcgplayer": null
+  }
+}

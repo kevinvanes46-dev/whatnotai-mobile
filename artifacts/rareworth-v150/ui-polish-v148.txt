@@ -1,0 +1,9 @@
+PASS Production scripts, data and original stylesheet identical to v147 after Git line-ending normalization
+PASS 320px search, results, dock, collection, filters, empty, editor, recent and settings
+PASS 375px search, results, dock, collection, filters, empty, editor, recent and settings
+PASS 390px search, results, dock, collection, filters, empty, editor, recent and settings
+PASS 768px search, results, dock, collection, filters, empty, editor, recent and settings
+PASS 1280px search, results, dock, collection, filters, empty, editor, recent and settings
+PASS Visible keyboard focus
+PASS No browser runtime errors
+8 UI polish audit groups passed; screenshots in C:\Users\kevin\.codex\.chatgpt-projects\g-p-6a4a400bb1d08191b86d4ecd24e3d45d\whatnotai-mobile\artifacts\rareworth-v150

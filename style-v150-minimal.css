@@ -1,0 +1,83 @@
+/* Final editorial pass: quiet surfaces, fewer competing controls, artwork first. */
+body::before { background:none; }
+.surface,.collectionCard,.searchBox { box-shadow:none; }
+.screenIntro .eyebrow { font-size:9px; color:#8ba598; font-weight:550; }
+.screenIntro p { max-width:410px; }
+.searchBox { margin-bottom:20px; }
+.searchBox .quick:focus-visible { outline:none; box-shadow:none; }
+.searchActions { display:none; }
+.searchSettings { padding:16px 18px; background:transparent; border-color:#2a3932; border-radius:14px; }
+.searchSettings summary { list-style:none; position:relative; padding-right:24px; }
+.searchSettings summary::-webkit-details-marker { display:none; }
+.searchSettings summary::after { content:'+'; position:absolute; right:2px; top:3px; font-size:22px; color:#a7c3b1; font-weight:400; }
+.searchSettings[open] summary::after { content:'−'; }
+.searchSettings .searchModeRow { margin-bottom:0; }
+.homeRecent { margin:30px 0; }
+.homeRecent .sectionHeader h3 { font-size:14px; font-weight:550; }
+.homeRecent .tinyBtn { border:0; padding:0 4px; background:transparent; color:#a4b8ab; font-size:11px; }
+.recentEmpty { padding:20px; font-size:12px; border-style:solid; background:#122019; border-color:#263e2f; }
+.suggestion { border-color:#26372e; background:#142019; }
+.suggestionArrow { background:transparent; }
+.cardDetailVisible [data-view="search"]>.screenIntro { display:none; }
+.cardDetailVisible [data-view="search"]>.searchBox { margin-top:22px; }
+.selectedCardPanel { background:transparent; border:0; padding:8px 0 22px; gap:22px; }
+.selectedCardInfo { text-align:center; }
+.selectedCardInfo .eyebrow { font-size:9px; color:#a2b4a9; }
+.selectedCardInfo h2 { font-weight:600; }
+.selectedCardInfo small { max-width:370px; margin:auto; }
+.selectedCardInfo button { background:transparent; border:0; color:#b3cbbd; width:auto; padding:0 16px; }
+.selectedCardArt { width:180px; }
+[data-view="collection"]>.screenIntro { padding-top:24px; padding-bottom:22px; }
+[data-view="collection"]>.screenIntro .eyebrow,[data-view="collection"]>.screenIntro p { display:none; }
+[data-view="collection"]>.screenIntro h2 { font-size:28px; }
+.collectionSummary,.collectionSummaryPro { grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; margin:0 0 26px; }
+.collectionSummary>div { background:transparent; border:0; border-left:1px solid #2d3c34; border-radius:0; padding:0 12px; }
+.collectionSummary>div:first-child { border-left:0; padding-left:0; }
+.collectionSummary b { font-size:19px; margin-top:6px; letter-spacing:-.4px; }
+.collectionSummary small { font-size:9px; }
+.collectionSummary>div:last-child { grid-column:1/-1; grid-row:1; padding:0 0 22px; margin:0 0 18px; background:transparent; border:0; border-bottom:1px solid #29372f; }
+.collectionSummary>div:last-child small { color:#b7c9bd; }
+.collectionSummary>div:last-child b { font-size:36px; line-height:1.2; margin-top:8px; color:#eef5f0; font-weight:550; letter-spacing:-1.2px; }
+.priceCoverage { font-size:10px; color:#9db3a4; }
+.collectionControlPanel { margin-top:0; gap:12px; }
+.collectionSearchWrap input { background:transparent; border-color:#354b3c; }
+.collectionQuickFilters button { background:transparent; border-color:#2c3c32; font-size:11px; padding:0 12px; }
+.collectionTools { border:0; padding:0; }
+.collectionTools summary { list-style:none; color:#a6bbae; font-size:12px; cursor:pointer; min-height:44px; display:flex; align-items:center; }
+.collectionTools summary::after { content:'⌄'; margin-left:auto; }
+.collectionTools[open] summary::after { content:'⌃'; }
+.collectionTools summary::-webkit-details-marker { display:none; }
+.collectionFilterRow { margin-bottom:12px; }
+.collectionToolbar { margin:0 0 12px; }
+.collectionToolbar button { background:transparent; border-color:#2d4134; }
+.collectionViewSwitch { margin:12px 0 18px; }
+.collectionDisplayTools { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px; margin:0 0 20px; }
+.collectionDisplayTools .collectionToolbar { display:contents; }
+.collectionDisplayTools .collectionToolbar button { order:1; font-size:11px; padding:0 10px; }
+.collectionDisplayTools .collectionToolbar span { order:3; flex-basis:100%; text-align:left; font-size:10px; }
+.collectionDisplayTools .collectionViewSwitch { order:2; margin:0; }
+.collectionDisplayTools .collectionViewSwitch button { padding:0 12px; }
+.collectionList[data-view="grid"] .collectionCard { padding:0 0 16px; background:transparent; border:0; border-radius:0; }
+.collectionList[data-view="grid"] .collectionCardOpen { gap:10px; }
+.collectionList[data-view="grid"] .collectionCardBadges { margin:2px 0 6px; }
+.collectionList[data-view="grid"] .collectionCard h3 { font-weight:600; }
+.collectionList[data-view="grid"] .collectionValue b { font-weight:550; color:#dcebe1; }
+.collectionList[data-view="grid"] .collectionCondition { font-size:10px!important; }
+.collectionList[data-view="grid"] .priceFreshness { font-size:9px; }
+.collectionList[data-view="list"] .collectionCard { background:transparent; border:0; border-bottom:1px solid #2b3b31; border-radius:0; padding:18px 0; }
+.bottomNav { background:#101a14f7; border-color:#2e4235; box-shadow:none; }
+.navBtn.active { background:#a5edcc0c; }
+.navBtn span { font-size:10px; font-weight:550; }
+.actionDock { box-shadow:0 4px 20px #0004; }
+.open span,.dockCollection { font-weight:600; }
+.brandText strong { font-size:22px; }
+.topbar { border-bottom-color:#26332b; }
+@media(min-width:760px) {
+  .appShell { width:min(960px,100%); }
+  .selectedCardPanel { grid-template-columns:260px 1fr; padding:32px 40px; align-items:center; }
+  .selectedCardArt { width:240px; }
+  .selectedCardInfo { text-align:left; }
+  .selectedCardInfo small { margin:0; }
+  .selectedCardInfo button { padding-left:0; }
+  .collectionSummary>div:last-child b { font-size:46px; }
+}

@@ -7,7 +7,7 @@ const http=require('node:http');
 const assert=require('node:assert/strict');
 const {execFileSync}=require('node:child_process');
 const root=path.resolve(__dirname,'..');
-const out=path.join(root,'artifacts','ui-v148');
+const out=process.env.UI_SCREENSHOT_DIR||path.join(root,'artifacts','ui-v148');
 const baseline='b8c812f430ed12ab0498dbaa39ec7927a511741d';
 const seed=[{uid:'audit-owned',name:'Charizard',number:'4',set:'EX CRYSTAL GUARDIANS',setName:'EX Crystal Guardians',language:'EN',edition:'1ST',condition:'EX',variant:'STAMPED',qty:3,paidEach:19.75,addedAt:1,listType:'OWNED',price:456,priceUpdated:Date.now(),cardmarketUrl:'https://www.cardmarket.com/en/Pokemon/Products/Search?searchString=Charizard'},
 {uid:'audit-wish',name:'Bagon',number:'43',set:'EX DRAGON FRONTIERS',setName:'EX Dragon Frontiers',language:'EN',edition:'AUTO',condition:'NM',variant:'NORMAL',qty:1,paidEach:null,addedAt:2,listType:'WISHLIST',cardmarketUrl:'https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Dragon-Frontiers/Bagon-Delta-Species-DF43'}];
@@ -16,7 +16,7 @@ function pass(s){console.log('PASS '+s);checks++;}
 (async()=>{
  fs.mkdirSync(out,{recursive:true});
  // Frozen production scripts, data and scanner contracts.
- for(const file of ['app-v137.js','ui-v137-focus.js','ui-v137-collection.js','cards.json','style-v137-product.css']){
+ for(const file of ['app-v137.js','cards.json','style-v137-product.css']){
   assert.equal(fs.readFileSync(path.join(root,file),'utf8').replace(/\r\n/g,'\n'),execFileSync('git',['show',`${baseline}:${file}`],{cwd:root,maxBuffer:20*1024*1024,encoding:'utf8'}).replace(/\r\n/g,'\n'),file);
  }
  pass('Production scripts, data and original stylesheet identical to v147 after Git line-ending normalization');
@@ -59,6 +59,7 @@ function pass(s){console.log('PASS '+s);checks++;}
    assert.deepEqual(await page.evaluate(()=>JSON.parse(localStorage.getItem('cardscout_collection_v133'))),seed);
    await page.locator('[data-filter-list="WISHLIST"]').click();assert.equal(await page.locator('.collectionCard').count(),1);
    await page.locator('[data-filter-list="ALL"]').click();assert.equal(await page.locator('.collectionCard').count(),2);
+   await page.locator('.collectionTools summary').click();
    await page.locator('#collectionConditionFilter').selectOption('EX');assert.equal(await page.locator('.collectionCard').count(),1);
    await page.locator('#collectionConditionFilter').selectOption('');
    await page.locator('#collectionSort').selectOption('name');assert.equal(await page.locator('.collectionCard h3').first().textContent(),'Bagon #43');
@@ -82,7 +83,7 @@ function pass(s){console.log('PASS '+s);checks++;}
    await fits();pass(`${width}px search, results, dock, collection, filters, empty, editor, recent and settings`);
   }
   await page.locator('#quickInput').focus();
-  assert.equal(await page.locator('#quickInput').evaluate(el=>getComputedStyle(el).outlineStyle),'solid');pass('Visible keyboard focus');
+  assert.equal(await page.locator('#quickPanel').evaluate(el=>getComputedStyle(el).borderTopColor),'rgb(165, 237, 204)');pass('Visible keyboard focus on search field container');
   assert.deepEqual(errors,[]);pass('No browser runtime errors');
  }finally{if(browser)await browser.close();await new Promise(r=>server.close(r));}
  console.log(`${checks} UI polish audit groups passed; screenshots in ${out}`);

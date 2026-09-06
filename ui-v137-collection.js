@@ -56,6 +56,35 @@
   let editingId=null;
   let editorState={list:'OWNED',condition:'NM',variant:'NORMAL'};
   let filterState={list:'ALL',language:'',variant:''};
+  const priceFailures=new Set();
+  const priceRequests=new Map();
+  let refreshingPrices=false;
+  let undoAddition=null,undoTimer;
+  const withoutPrice=x=>{const {price,priceUpdated,priceSource,...rest}=x;return JSON.stringify(rest);};
+  function offerUndo(before,after){
+    undoAddition={before,after};clearTimeout(undoTimer);
+    let notice=$('collectionUndo');
+    if(!notice){notice=document.createElement('div');notice.id='collectionUndo';notice.className='undoNotice';notice.innerHTML='<span role="status">Kaart toegevoegd</span><button type="button">Ongedaan maken</button>';document.body.append(notice);notice.querySelector('button').addEventListener('click',()=>{
+      if(!undoAddition)return;
+      const {before,after}=undoAddition,arr=read().map(normalizeItem).filter(Boolean),index=arr.findIndex(x=>x.uid===after.uid);
+      if(index<0||withoutPrice(arr[index])!==withoutPrice(after)){notice.hidden=true;undoAddition=null;toast('Kaart is inmiddels gewijzigd; pas deze aan in je collectie');return;}
+      if(before)arr[index]={...before,price:arr[index].price,priceUpdated:arr[index].priceUpdated,priceSource:arr[index].priceSource};else arr.splice(index,1);
+      if(!write(arr)){toast('Opslaan mislukt; probeer opnieuw');return;}
+      undoAddition=null;notice.hidden=true;render();toast('Toevoeging ongedaan gemaakt');
+    });}
+    notice.hidden=false;undoTimer=setTimeout(()=>{notice.hidden=true;undoAddition=null;},10000);
+  }
+  const hasPrice=x=>Number.isFinite(Number(x.price))&&Number(x.price)>0;
+  const stalePrice=x=>!Number(x.priceUpdated)||Date.now()-Number(x.priceUpdated)>=PRICE_TTL;
+  const priceIdentity=x=>[identityKey(x),x.sourceId||''].join('|');
+  function priceAgeText(x){
+    if(!hasPrice(x))return 'Prijs niet beschikbaar';
+    const date=new Date(Number(x.priceUpdated));
+    const label=Number(x.priceUpdated)>0&&Number.isFinite(date.getTime())
+      ?'Prijsdata: '+new Intl.DateTimeFormat('nl-NL',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(date)
+      :'Datum prijsdata onbekend';
+    return label+(priceFailures.has(x.uid)?' · Vernieuwen mislukt':stalePrice(x)?' · Verouderd':'');
+  }
 
   function read(){
     try{
@@ -242,6 +271,7 @@
       });
       const key=identityKey(item);
       const existing=arr.find(x=>identityKey(x)===key);
+      const before=existing?JSON.parse(JSON.stringify(existing)):null;
       if(existing){
         existing.qty+=qty;
         if(existing.paidEach==null&&paid!=null)existing.paidEach=paid;
@@ -252,7 +282,8 @@
         priceTargetId=item.uid;
         shouldRefreshPrice=item.listType==='OWNED';
       }
-      write(arr);
+      if(!write(arr)){toast('Opslaan mislukt; controleer de beschikbare opslag');return;}
+      offerUndo(before,JSON.parse(JSON.stringify(existing||item)));
       toast(editorState.list==='WISHLIST'?'Toegevoegd aan wishlist':'Toegevoegd aan collectie');
     }else{
       const x=arr.find(x=>x.uid===editingId);
@@ -319,12 +350,18 @@
     const wish=arr.filter(x=>x.listType==='WISHLIST');
     const qty=owned.reduce((n,x)=>n+x.qty,0);
     const paid=owned.reduce((sum,x)=>sum+(Number(x.paidEach)||0)*x.qty,0);
-    const market=owned.reduce((sum,x)=>sum+(Number(x.price)||0)*x.qty,0);
+    const market=owned.reduce((sum,x)=>sum+(hasPrice(x)?Number(x.price)*x.qty:0),0);
 
     if(countEl)countEl.textContent=String(qty);
     if(wishlistCountEl)wishlistCountEl.textContent=String(wish.length);
     if(paidEl)paidEl.textContent=eur(paid);
-    if(marketEl)marketEl.textContent=eur(market);
+    const missing=owned.filter(x=>!hasPrice(x)).reduce((n,x)=>n+x.qty,0);
+    const outdated=owned.some(x=>hasPrice(x)&&(stalePrice(x)||priceFailures.has(x.uid)));
+    if(marketEl)marketEl.textContent=owned.length&&missing===qty?'—':eur(market);
+    const coverage=$('collectionPriceCoverage');
+    if(coverage)coverage.textContent=missing
+      ?`Onvolledig · ${qty-missing} van ${qty} kaarten met prijs${outdated?' · bevat oudere prijzen':''}`
+      :outdated?'Bevat oudere prijzen · laatst bekende waarde':owned.length?'Alle kaarten hebben een prijsindicatie':'Voeg kaarten toe voor een marktindicatie';
 
     updateSetFilter(arr);
     const rows=filtered(arr);
@@ -347,11 +384,12 @@
       const isWish=x.listType==='WISHLIST';
       const variant=x.variant==='STAMPED'?'⚡ STAMPED':'Normaal';
       return `<article class="collectionCard collectionCardPro ${isWish?'wishlistCard':''}" data-id="${esc(x.uid)}">
-        <button type="button" class="collectionCardMain collectionCardOpen" data-act="edit">
+        <button type="button" class="collectionCardMain collectionCardOpen" data-act="edit" aria-label="${esc(visibleCardTitle(x))} bekijken en bewerken">
           <div>
             <div class="collectionCardBadges">
               ${isWish?'<span class="wishBadge">♡ Wishlist</span>':'<span class="ownedBadge">✓ In collectie</span>'}
               ${x.variant==='STAMPED'?'<span class="stampBadge">⚡ Stamped</span>':''}
+              ${!isWish?`<span class="quantityBadge">${x.qty}×</span>`:''}
             </div>
             <h3>${esc(visibleCardTitle(x))}</h3>
             <p>${esc(x.setName||x.set)} · ${esc(x.language)}</p>
@@ -362,7 +400,7 @@
             <small>${isWish?'nog niet gekocht':(shownPrice?esc(x.priceSource||'CM trend'):'—')}</small>
           </div>
         </button>
-
+        ${!isWish?`<p class="priceFreshness ${!hasPrice(x)||stalePrice(x)||priceFailures.has(x.uid)?'priceWarning':''}">${esc(priceAgeText(x))}</p>`:''}
         <div class="collectionCardRow">
           ${!isWish?`<div class="qtyControl"><button data-act="minus">−</button><span>${x.qty}</span><button data-act="plus">+</button></div>`:'<span class="wishHint">Bewaar voor later</span>'}
           ${!isWish?`<button class="paidBtn" data-act="edit">Betaald: ${x.paidEach!=null?eur(x.paidEach):'invullen'}</button>`:''}
@@ -372,6 +410,11 @@
         </div>
       </article>`;
     }).join('');
+    if(window.CardArtwork)listEl.querySelectorAll('.collectionCard').forEach(el=>{
+      const x=rows.find(x=>x.uid===el.dataset.id);
+      const art=document.createElement('span');art.className='collectionArtwork';
+      el.querySelector('.collectionCardOpen').prepend(art);window.CardArtwork.mount(x,art);
+    });
 
     listEl.querySelectorAll('[data-act]').forEach(btn=>btn.addEventListener('click',ev=>{
       if(btn.tagName==='A')return;
@@ -465,53 +508,54 @@
   async function refreshOnePrice(uid){
     const initial=read().map(normalizeItem).filter(Boolean).find(x=>x.uid===uid);
     if(!initial||initial.listType!=='OWNED')return;
-    if(priceStatus)priceStatus.textContent=`CM-trend ophalen voor ${cleanVisibleCardName(initial.name,initial.number)||'kaart'}…`;
-    try{
+    const requestKey=uid+'|'+priceIdentity(initial);
+    if(priceRequests.has(requestKey))return priceRequests.get(requestKey);
+    const request=(async()=>{try{
       const card=await resolveCard(initial);
       if(!card)throw new Error('unresolved');
       const arr=read().map(normalizeItem).filter(Boolean);
       const current=arr.find(x=>x.uid===uid);
-      if(!current||current.listType!=='OWNED')return;
+      if(!current||priceIdentity(current)!==priceIdentity(initial))return 'skipped';
       const p=priceFrom(card,current);
-      if(p.price===null){
-        current.price=null;
-        current.priceUpdated=0;
-        current.priceSource='';
-      }else{
-        current.price=p.price;
-        current.priceUpdated=p.updated||Date.now();
-        current.priceSource=p.source;
-      }
-      write(arr);render();
-      if(priceStatus)priceStatus.textContent=p.price!=null?'CM-trend voor nieuwe kaart bijgewerkt':'Geen betrouwbare CM-trend beschikbaar';
+      if(p.price===null)throw new Error('missing price');
+      if(hasPrice(current)&&Number(current.priceUpdated)>p.updated)return 'skipped';
+      current.price=p.price;
+      current.priceUpdated=p.updated||Date.now();
+      current.priceSource=p.source;
+      if(!write(arr))throw new Error('storage');
+      priceFailures.delete(uid);render();
+      if(!refreshingPrices&&priceStatus)priceStatus.textContent='Prijsindicatie bijgewerkt';
+      return 'updated';
     }catch(_){
-      if(priceStatus)priceStatus.textContent='CM-trend voor nieuwe kaart niet beschikbaar';
-    }
+      const current=read().find(x=>x.uid===uid);
+      if(!current||priceIdentity(current)!==priceIdentity(initial))return 'skipped';
+      priceFailures.add(uid);render();
+      if(!refreshingPrices&&priceStatus)priceStatus.textContent='Vernieuwen mislukt · bestaande prijs behouden';
+      return 'failed';
+    }finally{priceRequests.delete(requestKey);}})();
+    priceRequests.set(requestKey,request);
+    return request;
   }
   async function refreshPrices(force=false){
+    if(refreshingPrices)return;
     const arr=read().map(normalizeItem).filter(Boolean);
     const owned=arr.filter(x=>x.listType==='OWNED');
     if(!owned.length){toast('Collectie is leeg');return}
+    refreshingPrices=true;
     if(refreshBtn)refreshBtn.disabled=true;
     if(priceStatus)priceStatus.textContent='Prijsdata ophalen…';
     let changed=0,failed=0;
     for(const x of owned){
-      if(!force&&x.priceUpdated&&Date.now()-x.priceUpdated<PRICE_TTL)continue;
-      try{
-        const card=await resolveCard(x);
-        if(!card){failed++;continue}
-        const p=priceFrom(card,x);
-        if(p.price===null){
-          x.price=null;x.priceUpdated=0;x.priceSource='';failed++;
-        }else{
-          x.price=p.price;x.priceUpdated=p.updated||Date.now();x.priceSource=p.source;changed++;
-        }
-      }catch(_){failed++}
+      if(!force&&hasPrice(x)&&!stalePrice(x))continue;
+      const result=await refreshOnePrice(x.uid);
+      if(result==='updated')changed++;
+      if(result==='failed')failed++;
     }
-    write(arr);render();
+    refreshingPrices=false;
+    render();
     if(refreshBtn)refreshBtn.disabled=false;
-    if(priceStatus)priceStatus.textContent=`${changed} bijgewerkt${failed?' · '+failed+' zonder prijs':''}`;
-    toast('Marktindicatie bijgewerkt');
+    if(priceStatus)priceStatus.textContent=`${changed} bijgewerkt${failed?' · '+failed+' niet vernieuwd; bestaande prijzen behouden':''}`;
+    toast(failed?'Niet alle prijzen konden worden vernieuwd':'Prijscontrole afgerond');
   }
   refreshBtn?.addEventListener('click',()=>refreshPrices(true));
 
@@ -537,9 +581,10 @@
   $('navCollection')?.addEventListener('click',()=>{
     render();
     const a=read().map(normalizeItem).filter(Boolean).filter(x=>x.listType==='OWNED');
-    if(a.some(x=>!x.priceUpdated||Date.now()-x.priceUpdated>PRICE_TTL))refreshPrices(false);
+    if(a.some(x=>!hasPrice(x)||stalePrice(x)))refreshPrices(false);
   });
 
+  window.cardscoutCollectionUI={lookupCard:resolveCard,priceFrom,render};
   migrate();
   syncQuickFilterButtons();
   render();
