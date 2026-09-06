@@ -196,7 +196,7 @@
   function syncDock(){
     if(!actionDock) return;
     const relevant = activeTab === 'search';
-    const ready = relevant && linkReady() && !document.body.classList.contains('resultOpen');
+    const ready = relevant && (linkReady() || openBtn?.dataset.cmState === 'pending') && !document.body.classList.contains('resultOpen');
     actionDock.classList.toggle('ready', ready);
     actionDock.setAttribute('aria-hidden', String(!ready));
     document.body.classList.toggle('hasActionDock', ready);
@@ -544,14 +544,9 @@
         if(typeof selectCardmarketCard === 'function') selectCardmarketCard({...card,name:displayName,number:numberInput.value,set:setSelect.value});
         safelyRebuildLink();
         const stampedSelected = queryWantsStamped(quickInput?.value || '') && lang === 'EN' && STAMPED_SET_KEYS.has(card.set);
-        window.dispatchEvent(new CustomEvent('cardscout:card-selected',{detail:{
-          card:{...card,name:displayName}, stamped:stampedSelected,
-          condition:condSelect?.value || 'NM', edition:editionSelect?.value || 'AUTO',
-          cardmarketUrl:openBtn?.getAttribute('href') || card.url || ''
-        }}));
         showToast(stampedSelected ? `${displayName}: stamped/reverse variant geselecteerd` : (isRemote && lang === 'JP'
           ? `${displayName}: veilige JP Cardmarket-zoekroute klaar`
-          : `${displayName} klaar voor Cardmarket`));
+          : `${displayName} geselecteerd`));
       });
       smartSuggestions.appendChild(btn);
     }
@@ -778,6 +773,12 @@
   resultOpenBtn?.addEventListener('click', () => { if(resultOpenBtn.classList.contains('disabled')) showToast('Nog geen zekere Cardmarket-link'); });
 
   // Route updates also update the pending selection; saved collection entries are never rewritten.
+  window.addEventListener('cardscout:cm-route-state', ({detail}) => {
+    if(detail.state !== 'ready'){
+      window.dispatchEvent(new CustomEvent('cardscout:card-selected', {detail:null}));
+    }
+    syncDock();
+  });
   window.addEventListener('cardscout:cm-route-ready', ({detail}) => {
     const card = detail.card;
     window.dispatchEvent(new CustomEvent('cardscout:card-selected', {detail:{
@@ -816,6 +817,7 @@
 
   stampedToggle?.addEventListener('click', () => setStampedMode(!stampedToggleOn));
   quickInput?.addEventListener('input', () => {
+    if(typeof invalidateCardmarketSelection === 'function') invalidateCardmarketSelection();
     const typedStamp=normalize(quickInput.value).split(' ').some(t=>STAMP_TERMS.has(t));
     if(typedStamp && !stampedToggleOn) setStampedMode(true,false);
     syncStampedSetChips();
@@ -845,7 +847,7 @@
   if(ocrResult) new MutationObserver(scanResultChanged).observe(ocrResult,{attributes:true,attributeFilter:['hidden']});
   if(ocrProgressText) new MutationObserver(mirrorProgress).observe(ocrProgressText,{childList:true,subtree:true,characterData:true});
   if(ocrProgressFill) new MutationObserver(mirrorProgress).observe(ocrProgressFill,{attributes:true,attributeFilter:['style']});
-  if(openBtn) new MutationObserver(() => { syncResultSheet(); syncDock(); }).observe(openBtn,{attributes:true,attributeFilter:['href','class']});
+  if(openBtn) new MutationObserver(() => { syncResultSheet(); syncDock(); }).observe(openBtn,{attributes:true,attributeFilter:['href','class','data-cm-state']});
   ['recentList','favoriteList'].map($).filter(Boolean).forEach(el=>new MutationObserver(cleanSavedCardTitles).observe(el,{childList:true,subtree:true,characterData:true}));
 
   restorePrefs();

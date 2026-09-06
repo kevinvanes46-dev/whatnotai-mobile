@@ -48,6 +48,8 @@ test('Direct URL and offer filters preserved',()=>{
   assert.equal(c.withFilters(url,'EN','NM','1ST'),url+'&minCondition=1&language=1&isFirstEd=Y');
 });
 test('All existing direct mappings unchanged (EN, JP and specials)',()=>{
+  const literals=s=>[...new Set(s.slice(s.indexOf('const AUTO_VALUE_DIRECTS ='),s.indexOf('async function copyToClipboard(')).match(/https:\/\/www\.cardmarket\.com\/en\/Pokemon\/Products\/Singles\/[^'"`\s]+/g))].sort();
+  assert.deepEqual(literals(source),literals(baseline));
   const old=context(baseline,embedded(baseline));
   for(const card of c.DATA.knownCards){
     for(const ctx of [c,old]) for(const [k,v] of Object.entries({nameInput:card.name,numberInput:card.number,setSelect:card.set,langSelect:card.language,condSelect:'NM',editionSelect:'1ST'})) ctx[k].value=v;

@@ -108,7 +108,9 @@ function writeStore(key, arr){
 
 function matchingSetAliases(text){
   const lower = ' ' + String(text).toLowerCase().replace(/\s+/g,' ') + ' ';
-  return SET_ALIASES.flatMap(([set, aliases]) => aliases.map(alias => ({set, alias})))
+  const definitions = [...SET_ALIASES, ...Object.entries(DATA.sets || {}).map(([set, def]) =>
+    [set, [def.label, ...(def.aliases || [])].filter(Boolean)])];
+  return definitions.flatMap(([set, aliases]) => aliases.map(alias => ({set, alias:String(alias).toLowerCase().replace(/\s+/g,' ').trim()})))
     .filter(({alias}) => lower.includes(' '+alias+' '))
     .sort((a,b) => b.alias.length - a.alias.length || a.set.localeCompare(b.set));
 }
@@ -209,12 +211,12 @@ const AUTO_VALUE_DIRECTS = {
 };
 
 
-function legendaryCollectionDirect(lang, number, name, cond){
+function legendaryCollectionDirect(lang, number, name, cond, quickText=quickInput.value, edition=editionSelect?.value || 'AUTO'){
   if(lang !== 'EN') return null;
   const n = cleanNumber(number);
   const nm = normalizeName(name);
   if(nm === 'charizard' && n === '3'){
-    const q = normalizeName(quickInput.value);
+    const q = normalizeName(quickText);
     let url = 'https://www.cardmarket.com/en/Pokemon/Products/Singles/Legendary-Collection/Charizard-V1-LC3';
     let note = 'Legendary Collection Charizard holo: V1 / LC3';
     if(q.includes('reverse') || q.includes('rev') || q.includes('rh')){
@@ -224,13 +226,13 @@ function legendaryCollectionDirect(lang, number, name, cond){
       url = 'https://www.cardmarket.com/en/Pokemon/Products/Singles/Legendary-Collection/Charizard-V3-LC3';
       note = 'Legendary Collection Charizard non-holo: V3 / LC3';
     }
-    return {url:withFilters(url, lang, cond), exact:true, note, autoSet:'LEGENDARY COLLECTION', autoName:'Charizard'};
+    return {url:withFilters(url, lang, cond, edition), exact:true, note, autoSet:'LEGENDARY COLLECTION', autoName:'Charizard'};
   }
   return null;
 }
 
 
-function baseHitmonchanDirect(lang, number, name, cond){
+function baseHitmonchanDirect(lang, number, name, cond, edition=editionSelect?.value || 'AUTO'){
   if(lang !== 'EN') return null;
   const n = cleanNumber(number);
   const nm = normalizeName(name).replace(/\b(1st|first edition|holo|holorare|holo rare)\b/g,' ').replace(/\s+/g,' ').trim();
@@ -239,22 +241,22 @@ function baseHitmonchanDirect(lang, number, name, cond){
   const base = 'https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Hitmonchan-V1-BS7';
 
   return {
-    url: withFilters(base, lang, cond),
+    url: withFilters(base, lang, cond, edition),
     exact: true,
-    note: (editionSelect?.value === '1ST') ? 'Base Set Hitmonchan #7 · 1st Edition filter actief' : 'Base Set Hitmonchan #7 · Holo route',
+    note: (edition === '1ST') ? 'Base Set Hitmonchan #7 · 1st Edition filter actief' : 'Base Set Hitmonchan #7 · Holo route',
     autoSet: 'BASE',
     autoName: 'Hitmonchan'
   };
 }
 
-function autoValueDirect(lang, number, name, cond){
+function autoValueDirect(lang, number, name, cond, edition=editionSelect?.value || 'AUTO'){
   const n = cleanNumber(number);
   const nm = normalizeName(name);
   const key = `${lang}|${nm}|${n}`;
   const item = AUTO_VALUE_DIRECTS[key];
   if(!item) return null;
   return {
-    url: withFilters(item.url, lang, cond),
+    url: withFilters(item.url, lang, cond, edition),
     exact: true,
     note: item.note,
     autoSet: item.set,
@@ -311,8 +313,8 @@ function cleanCardmarketName(name, number=''){
     .replace(/(^|\s)[Δδ](?=\s|$)/gu, ' ')
     .replace(/\bdelta\s+species\b/gi, ' ').replace(/\s+/g, ' ').trim();
   // Remove a displayed trailing collector number, without damaging names like Porygon2.
-  const suffix = title.match(/\s+#?([a-z]*0*\d+[a-z]*)(?:\/\d+)?$/i);
-  if(n && suffix && cleanNumber(suffix[1]).toLowerCase() === n.toLowerCase()){
+  let suffix;
+  while(n && (suffix = title.match(/\s+#?([a-z]*0*\d+[a-z]*)(?:\/\d+)?$/i)) && cleanNumber(suffix[1]).toLowerCase() === n.toLowerCase()){
     title = title.slice(0, suffix.index).trim();
   }
   return title;
@@ -329,152 +331,169 @@ function searchUrl(name, number, lang, cond, set='AUTO', explicitQuery=''){
   return 'https://www.cardmarket.com/en/Pokemon/Products/Search?searchString=' + encodeURIComponent(term);
 }
 
-function buildUrl(){
-  const lang = langSelect.value;
-  const set = setSelect.value;
-  const number = cleanNumber(numberInput.value);
-  let name = cleanCardmarketName(nameInput.value, number);
-  const cond = condSelect.value;
-  if(!name && lang === 'JP' && number){
-    const dex = DATA.pokedex[pad3(number)];
-    if(dex){ name = dex; nameInput.value = dex; }
-  }
-  if(!name) return {url:'', exact:false, note:'Geen naam ingevuld.'};
+function buildLegacyCardmarketRoute(card){
+  // Local fields isolate legacy AUTO/variant decisions from the live UI and concurrent requests.
+  const nameInput = {value:card.name || ''}, numberInput = {value:card.number || ''};
+  const setSelect = {value:card.set || 'AUTO'}, langSelect = {value:card.language || 'EN'};
+  const condSelect = {value:card.condition || ''}, editionSelect = {value:card.edition || 'AUTO'};
+  const updateCustomSelects = () => {};
+  const route = (() => {
+    const lang = langSelect.value;
+    const set = setSelect.value;
+    const number = cleanNumber(numberInput.value);
+    let name = cleanCardmarketName(nameInput.value, number);
+    const cond = condSelect.value;
+    if(!name && lang === 'JP' && number){
+      const dex = DATA.pokedex[pad3(number)];
+      if(dex){ name = dex; nameInput.value = dex; }
+    }
+    if(!name) return {url:'', exact:false, note:'Geen naam ingevuld.'};
 
-  if(set === 'AUTO'){
-    const lcDirect = legendaryCollectionDirect(lang, number, name, cond);
-    if(lcDirect){
-      if(lcDirect.autoSet) setSelect.value = lcDirect.autoSet;
-      if(lcDirect.autoName) nameInput.value = lcDirect.autoName;
-      updateCustomSelects();
-      return lcDirect;
-    }
-    const autoDirect = autoValueDirect(lang, number, name, cond);
-    if(autoDirect){
-      if(autoDirect.autoSet) setSelect.value = autoDirect.autoSet;
-      if(autoDirect.autoName) nameInput.value = autoDirect.autoName;
-      updateCustomSelects();
-      return autoDirect;
-    }
-    const originalMatches = findAutoKnown(lang, number, nameInput.value.trim());
-    const matches = originalMatches.length ? originalMatches : findAutoKnown(lang, number, name);
-    if(matches.length === 1){
-      const exact = matches[0];
-      setSelect.value = exact.set;
-      updateCustomSelects();
-      if(exact.url){
+    if(set === 'AUTO'){
+      const lcDirect = legendaryCollectionDirect(lang, number, name, cond, card.quickText || '', editionSelect.value);
+      if(lcDirect){
+        if(lcDirect.autoSet) setSelect.value = lcDirect.autoSet;
+        if(lcDirect.autoName) nameInput.value = lcDirect.autoName;
+        updateCustomSelects();
+        return lcDirect;
+      }
+      const autoDirect = autoValueDirect(lang, number, name, cond, editionSelect.value);
+      if(autoDirect){
+        if(autoDirect.autoSet) setSelect.value = autoDirect.autoSet;
+        if(autoDirect.autoName) nameInput.value = autoDirect.autoName;
+        updateCustomSelects();
+        return autoDirect;
+      }
+      const originalMatches = findAutoKnown(lang, number, nameInput.value.trim());
+      const matches = originalMatches.length ? originalMatches : findAutoKnown(lang, number, name);
+      if(matches.length === 1){
+        const exact = matches[0];
+        setSelect.value = exact.set;
+        updateCustomSelects();
+        if(exact.url){
+          return {
+            url: withFilters(exact.url, langSelect.value, cond, editionSelect.value),
+            exact: true,
+            note: `Direct: ${exact.set_name || exact.set} · ${exact.rarity || 'kaart'} · ${exact.name}`
+          };
+        }
         return {
-          url: withFilters(exact.url, langSelect.value, cond),
-          exact: true,
-          note: `Direct: ${exact.set_name || exact.set} · ${exact.rarity || 'kaart'} · ${exact.name}`
+          url: searchUrl(exact.name, exact.number, langSelect.value, cond, exact.set, exact.query),
+          exact: false,
+          note: `Exacte Cardmarket zoekcode: ${exact.query}. Eén klik op het resultaat.`
+        };
+      }
+      if(matches.length > 1){
+        const candidateLanguage = [...new Set(matches.map(c => c.language).filter(Boolean))];
+        if(candidateLanguage.length === 1) langSelect.value = candidateLanguage[0];
+        updateCustomSelects();
+        return {
+          url: searchUrl(name, number, langSelect.value, cond, set),
+          exact: false,
+          candidates: matches,
+          note: `Meerdere matches voor ${name} #${number}. Kies hieronder de juiste set.`
         };
       }
       return {
-        url: searchUrl(exact.name, exact.number, langSelect.value, cond, exact.set, exact.query),
+        url: searchUrl(name, number, lang, cond, set),
         exact: false,
-        note: `Exacte Cardmarket zoekcode: ${exact.query}. Eén klik op het resultaat.`
+        note: number ? `Niet in directe database. Zoek op naam/nummer ${number}.` : 'Niet in directe database.'
       };
     }
-    if(matches.length > 1){
-      const candidateLanguage = [...new Set(matches.map(c => c.language).filter(Boolean))];
-      if(candidateLanguage.length === 1) langSelect.value = candidateLanguage[0];
+
+    // v41 special correction: "delta charizard 4" is EX Crystal Guardians CG4, not EX Delta Species DS4.
+    if(lang === 'EN' && (set === 'EX DELTA SPECIES' || set === 'EX CRYSTAL GUARDIANS') && cleanNumber(number) === '4' && normalizeName(name) === 'charizard'){
+      const url = withFilters('https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Crystal-Guardians/Charizard-Delta-Species-CG4', lang, cond, editionSelect.value);
+      return {url, exact:true, note:'Special: Delta Charizard #4 = EX Crystal Guardians / CG4'};
+    }
+
+    if(set === 'LEGENDARY COLLECTION'){
+      const lcDirect = legendaryCollectionDirect(lang, number, name, cond, card.quickText || '', editionSelect.value);
+      if(lcDirect) return lcDirect;
+    }
+
+    if(set === 'BASE'){
+      const hitmonchanDirect = baseHitmonchanDirect(lang, number, name, cond, editionSelect.value);
+      if(hitmonchanDirect) return hitmonchanDirect;
+    }
+
+    const verifiedExtraKey = `${lang}|${set}|${number}|${normalizeName(name)}`;
+    const VERIFIED_EXTRA_DIRECTS = {
+      'EN|FOSSIL|54|shellder':'https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Shellder-FO54',
+      'EN|FOSSIL|55|slowpoke':'https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Slowpoke-FO55',
+      'EN|FOSSIL|59|energy search':'https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Energy-Search-FO59',
+      'EN|ROCKET|30|dark vileplume':'https://www.cardmarket.com/en/Pokemon/Products/Singles/Team-Rocket/Dark-Vileplume-TR30',
+      'EN|NEO GENESIS|53|chikorita':'https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Chikorita-NG53',
+      'EN|EX DRAGON FRONTIERS|43|bagon':'https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Dragon-Frontiers/Bagon-Delta-Species-DF43',
+      'EN|EX TRAINER KIT 2|1|beldum':'https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Trainer-Kit-2/Beldum-TK2P1',
+      'EN|EX TRAINER KIT 2|5|metang':'https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Trainer-Kit-2/Metang-TK2P5'
+    };
+    if(VERIFIED_EXTRA_DIRECTS[verifiedExtraKey]){
+      return {
+        url: withFilters(VERIFIED_EXTRA_DIRECTS[verifiedExtraKey], lang, cond, editionSelect.value),
+        exact:true,
+        note:`Direct geverifieerd: ${set} · ${name} #${number}${editionSelect?.value === '1ST' ? ' · 1st Edition' : ''}`
+      };
+    }
+
+    const known = knownLookup(lang,set,number,nameInput.value.trim()) || knownLookup(lang,set,number,name);
+    if(known){
+      updateCustomSelects();
+      if(known.url){
+        return {
+          url: withFilters(known.url, langSelect.value, cond, editionSelect.value),
+          exact: true,
+          note: `Direct: ${known.set_name || known.set} · ${known.rarity || 'kaart'} · ${known.name}`
+        };
+      }
+      return {
+        url: searchUrl(known.name, known.number, langSelect.value, cond, known.set, known.query),
+        exact: false,
+        note: `Exacte Cardmarket zoekcode: ${known.query}. Eén klik op het resultaat.`
+      };
+    }
+
+    // v59 guaranteed WOTC holo fallback for the live test set.
+    const directKey = `${String(set).toUpperCase()}|${cleanNumber(number)}|${normalizeName(name)}`;
+    const guaranteedDirect = {
+      'JUNGLE|12|vaporeon': 'https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Vaporeon-V1-JU12',
+      'BASE|7|hitmonchan': 'https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Hitmonchan-V1-BS7',
+      'FOSSIL|5|gengar': 'https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Gengar-V1-FO5',
+      'FOSSIL|4|dragonite': 'https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Dragonite-V1-FO4'
+    };
+    if(lang === 'EN' && guaranteedDirect[directKey]){
       updateCustomSelects();
       return {
-        url: searchUrl(name, number, langSelect.value, cond, set),
-        exact: false,
-        candidates: matches,
-        note: `Meerdere matches voor ${name} #${number}. Kies hieronder de juiste set.`
+        url: withFilters(guaranteedDirect[directKey], 'EN', cond, editionSelect.value),
+        exact: true,
+        note: `Directe WOTC holo: ${set} · ${name} #${number}`
       };
     }
+
+    // v56: nooit meer een product-URL gokken.
+    // Cardmarket gebruikt per kaart soms V1/V2/V3 of afwijkende setcodes.
+    // Alleen geverifieerde database-URL's openen direct; de rest opent veilig zoeken.
+    const firstEd = editionSelect?.value === '1ST';
     return {
       url: searchUrl(name, number, lang, cond, set),
       exact: false,
-      note: number ? `Niet in directe database. Zoek op naam/nummer ${number}.` : 'Niet in directe database.'
+      note: firstEd
+        ? `1st Edition: nog geen geverifieerde directe productroute. Veilige zoekpagina op naam/set; kies het juiste resultaat.`
+        : (set && set !== 'AUTO'
+            ? `Veilige zoekpagina: ${set}. Controleer kaartnummer ${number || '-'}.`
+            : `Veilige zoekpagina. Controleer kaartnummer ${number || '-'}.`)
     };
-  }
+  })();
+  return {...route, autoSet:setSelect.value, autoName:nameInput.value};
+}
 
-  // v41 special correction: "delta charizard 4" is EX Crystal Guardians CG4, not EX Delta Species DS4.
-  if(lang === 'EN' && (set === 'EX DELTA SPECIES' || set === 'EX CRYSTAL GUARDIANS') && cleanNumber(number) === '4' && normalizeName(name) === 'charizard'){
-    const url = withFilters('https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Crystal-Guardians/Charizard-Delta-Species-CG4', lang, cond);
-    return {url, exact:true, note:'Special: Delta Charizard #4 = EX Crystal Guardians / CG4'};
-  }
-
-  if(set === 'LEGENDARY COLLECTION'){
-    const lcDirect = legendaryCollectionDirect(lang, number, name, cond);
-    if(lcDirect) return lcDirect;
-  }
-
-  if(set === 'BASE'){
-    const hitmonchanDirect = baseHitmonchanDirect(lang, number, name, cond);
-    if(hitmonchanDirect) return hitmonchanDirect;
-  }
-
-  const verifiedExtraKey = `${lang}|${set}|${number}|${normalizeName(name)}`;
-  const VERIFIED_EXTRA_DIRECTS = {
-    'EN|FOSSIL|54|shellder':'https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Shellder-FO54',
-    'EN|FOSSIL|55|slowpoke':'https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Slowpoke-FO55',
-    'EN|FOSSIL|59|energy search':'https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Energy-Search-FO59',
-    'EN|ROCKET|30|dark vileplume':'https://www.cardmarket.com/en/Pokemon/Products/Singles/Team-Rocket/Dark-Vileplume-TR30',
-    'EN|NEO GENESIS|53|chikorita':'https://www.cardmarket.com/en/Pokemon/Products/Singles/Neo-Genesis/Chikorita-NG53',
-    'EN|EX DRAGON FRONTIERS|43|bagon':'https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Dragon-Frontiers/Bagon-Delta-Species-DF43',
-    'EN|EX TRAINER KIT 2|1|beldum':'https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Trainer-Kit-2/Beldum-TK2P1',
-    'EN|EX TRAINER KIT 2|5|metang':'https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Trainer-Kit-2/Metang-TK2P5'
-  };
-  if(VERIFIED_EXTRA_DIRECTS[verifiedExtraKey]){
-    return {
-      url: withFilters(VERIFIED_EXTRA_DIRECTS[verifiedExtraKey], lang, cond),
-      exact:true,
-      note:`Direct geverifieerd: ${set} · ${name} #${number}${editionSelect?.value === '1ST' ? ' · 1st Edition' : ''}`
-    };
-  }
-
-  const known = knownLookup(lang,set,number,nameInput.value.trim()) || knownLookup(lang,set,number,name);
-  if(known){
-    updateCustomSelects();
-    if(known.url){
-      return {
-        url: withFilters(known.url, langSelect.value, cond),
-        exact: true,
-        note: `Direct: ${known.set_name || known.set} · ${known.rarity || 'kaart'} · ${known.name}`
-      };
-    }
-    return {
-      url: searchUrl(known.name, known.number, langSelect.value, cond, known.set, known.query),
-      exact: false,
-      note: `Exacte Cardmarket zoekcode: ${known.query}. Eén klik op het resultaat.`
-    };
-  }
-
-  // v59 guaranteed WOTC holo fallback for the live test set.
-  const directKey = `${String(set).toUpperCase()}|${cleanNumber(number)}|${normalizeName(name)}`;
-  const guaranteedDirect = {
-    'JUNGLE|12|vaporeon': 'https://www.cardmarket.com/en/Pokemon/Products/Singles/Jungle/Vaporeon-V1-JU12',
-    'BASE|7|hitmonchan': 'https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Hitmonchan-V1-BS7',
-    'FOSSIL|5|gengar': 'https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Gengar-V1-FO5',
-    'FOSSIL|4|dragonite': 'https://www.cardmarket.com/en/Pokemon/Products/Singles/Fossil/Dragonite-V1-FO4'
-  };
-  if(lang === 'EN' && guaranteedDirect[directKey]){
-    updateCustomSelects();
-    return {
-      url: withFilters(guaranteedDirect[directKey], 'EN', cond),
-      exact: true,
-      note: `Directe WOTC holo: ${set} · ${name} #${number}`
-    };
-  }
-
-  // v56: nooit meer een product-URL gokken.
-  // Cardmarket gebruikt per kaart soms V1/V2/V3 of afwijkende setcodes.
-  // Alleen geverifieerde database-URL's openen direct; de rest opent veilig zoeken.
-  const firstEd = editionSelect?.value === '1ST';
-  return {
-    url: searchUrl(name, number, lang, cond, set),
-    exact: false,
-    note: firstEd
-      ? `1st Edition: nog geen geverifieerde directe productroute. Veilige zoekpagina op naam/set; kies het juiste resultaat.`
-      : (set && set !== 'AUTO'
-          ? `Veilige zoekpagina: ${set}. Controleer kaartnummer ${number || '-'}.`
-          : `Veilige zoekpagina. Controleer kaartnummer ${number || '-'}.`)
-  };
+function buildUrl(){
+  const route = buildLegacyCardmarketRoute({name:nameInput.value, number:numberInput.value, set:setSelect.value, language:langSelect.value, condition:condSelect.value,
+    edition:editionSelect?.value || 'AUTO', quickText:quickInput.value});
+  setSelect.value = route.autoSet;
+  nameInput.value = route.autoName;
+  updateCustomSelects();
+  return route;
 }
 
 const CM_ROUTE_CACHE_KEY = 'cardscout_cm_route_cache_v146';
@@ -496,6 +515,12 @@ function currentCardmarketCard(){
 }
 function selectCardmarketCard(card){
   cmSelectedCard = {...card};
+  ++cmLinkGeneration;
+}
+function invalidateCardmarketSelection(){
+  cmSelectedCard = null;
+  ++cmLinkGeneration;
+  setCardmarketRouteState('idle');
 }
 function validCardmarketRoute(url, sourceId=''){
   if(typeof url !== 'string' || /[\s\p{Cc}\p{Cf}\uFFFD]/u.test(url)) return false;
@@ -539,12 +564,27 @@ function matchesCardmarketApiCard(card, data){
   const labels = [(DATA.sets || {})[card.set]?.label, card.set_name, card.source_set_name, card.set].filter(Boolean);
   return !!data.set?.name && labels.some(label => setKey(label) === setKey(data.set.name));
 }
+function resolveFinalCardmarketRoute(input){
+  const card = {...input, language:input.language || 'EN', edition:input.edition || 'AUTO'};
+  if(card.verified && card.direct && validCardmarketRoute(card.url)){
+    return {url:withFilters(card.url, card.language, card.condition, card.edition), exact:true, note:'Direct geverifieerd'};
+  }
+  const fallback = buildLegacyCardmarketRoute(card);
+  if(fallback.exact || !fallback.url) return fallback;
+  // v146 cache entries are EN-only: TCGdex can reuse an EN source ID for a JP record.
+  if(card.language !== 'EN' || !/^[a-z0-9]+-[a-z0-9]+$/i.test(card.source_id || '')) return fallback;
+  const cached = readCardmarketRouteCache().find(e => e.source_id === card.source_id);
+  if(cached) return {...fallback, url:withFilters(cached.url, card.language, card.condition, card.edition), exact:true, note:'Direct: gecachte Cardmarket-route'};
+  return resolveCardmarketRoute(card, fallback);
+}
+
+// Remote stage; production callers enter through resolveFinalCardmarketRoute.
 async function resolveCardmarketRoute(card, fallback){
   // An explicitly verified selected local URL takes precedence; legacy specials remain in buildUrl.
   if(card.verified && card.direct && validCardmarketRoute(card.url)){
     return {url:withFilters(card.url, card.language, card.condition, card.edition), exact:true, note:'Direct geverifieerd'};
   }
-  if(fallback.exact || card.language !== 'EN' || card.source !== 'tcgdex'
+  if(fallback.exact || card.language !== 'EN'
     || !/^[a-z0-9]+-[a-z0-9]+$/i.test(card.source_id || '')) return fallback;
   const cached = readCardmarketRouteCache().find(e => e.source_id === card.source_id);
   if(cached) return {url:withFilters(cached.url, card.language, card.condition, card.edition), exact:true, note:'Direct: gecachte Cardmarket-route'};
@@ -572,7 +612,21 @@ async function resolveCardmarketRoute(card, fallback){
   let url;
   try{ url = await cmPendingRoutes.get(key); }
   finally{ cmPendingRoutes.delete(key); }
-  return url ? {url:withFilters(url, card.language, card.condition, card.edition), exact:true, note:'Direct: Pokémon TCG API'} : fallback;
+  return url ? {...fallback, url:withFilters(url, card.language, card.condition, card.edition), exact:true, note:'Direct: Pokémon TCG API'} : fallback;
+}
+
+function setCardmarketRouteState(state){
+  openBtn.dataset.cmState = state;
+  openBtn.setAttribute('aria-disabled', String(state !== 'ready'));
+  const label = openBtn.querySelector('span');
+  if(label) label.textContent = state === 'pending' ? 'Cardmarket zoeken…' : 'Open Cardmarket';
+  if(state !== 'ready'){
+    openBtn.href = '#';
+    openBtn.classList.add('disabled');
+    urlBox.value = '';
+    lastBuilt = null;
+  }else openBtn.classList.remove('disabled');
+  window.dispatchEvent(new CustomEvent('cardscout:cm-route-state', {detail:{state}}));
 }
 
 async function copyToClipboard(text){
@@ -644,60 +698,49 @@ function bindCandidateButtons(candidates){
       nameInput.value = c.name;
       numberInput.value = c.number;
       updateCustomSelects();
-      const url = c.url
-        ? withFilters(c.url, langSelect.value, condSelect.value)
-        : searchUrl(c.name, c.number, langSelect.value, condSelect.value, c.set, c.query);
-      urlBox.value = url;
-      openBtn.href = url;
-      openBtn.classList.remove('disabled');
-      lastBuilt = {url, result:{exact:true, note:`Gekozen: ${c.set} / ${c.name}`}};
-      const ok = await copyToClipboard(url);
-      setStatus(ok ? `${c.set} gekozen en link gekopieerd.` : `${c.set} gekozen.`, ok ? 'ok' : 'warn');
+      selectCardmarketCard({...c, language:langSelect.value});
+      await makeLink(true);
     });
   });
 }
 
 async function makeLink(autoCopy=true){
   const generation = ++cmLinkGeneration;
-  let r = buildUrl();
-  const card = {...currentCardmarketCard(), condition:condSelect.value, edition:editionSelect?.value || 'AUTO'};
-  if(card.verified && card.direct && validCardmarketRoute(card.url)){
-    r = {url:withFilters(card.url, card.language, card.condition, card.edition), exact:true, note:'Direct geverifieerd'};
-  }
+  let card = {...currentCardmarketCard(), condition:condSelect.value, edition:editionSelect?.value || 'AUTO', quickText:quickInput.value};
   const snapshot = JSON.stringify(card);
   const stillCurrent = () => generation === cmLinkGeneration && snapshot === JSON.stringify({
-    ...currentCardmarketCard(), condition:condSelect.value, edition:editionSelect?.value || 'AUTO'
+    ...currentCardmarketCard(), condition:condSelect.value, edition:editionSelect?.value || 'AUTO', quickText:quickInput.value
   });
-  if(!r.url){
-    urlBox.value = '';
-    openBtn.href = '#';
-    openBtn.classList.add('disabled');
+  let route = resolveFinalCardmarketRoute(card);
+  if(route && typeof route.then === 'function'){
+    setCardmarketRouteState('pending');
+    matchBox.innerHTML = '<b>Cardmarket zoeken…</b>';
+    setStatus('Cardmarket zoeken…', '');
+    route = await route;
+    if(!stillCurrent()) return;
+  }
+  if(!route.url){
+    setCardmarketRouteState('idle');
     matchBox.innerHTML = '';
-    lastBuilt = null;
-    setStatus(r.note || 'Geen link.', 'warn');
+    setStatus(route.note || 'Geen link.', 'warn');
     return;
   }
-  urlBox.value = r.url;
-  openBtn.href = r.url;
-  openBtn.classList.remove('disabled');
-  matchBox.innerHTML = `<b>${r.exact ? 'Directe kaartpagina' : (r.candidates ? 'Kies de juiste set' : 'Zoekpagina')}</b><br>${escapeHtml(r.note)}<br>${escapeHtml(nameInput.value || '-')} · ${escapeHtml(numberInput.value || '-')} · ${escapeHtml(setSelect.value)} · ${escapeHtml(langSelect.value)}/${escapeHtml(condSelect.value)}${editionSelect?.value === '1ST' ? ' · 1ST' : ''}${candidateButtonsHtml(r.candidates, condSelect.value)}`;
-  bindCandidateButtons(r.candidates);
-  lastBuilt = {url:r.url, result:r};
-  // Publish a usable fallback immediately; resolving a direct route never blocks opening it.
-  window.dispatchEvent(new CustomEvent('cardscout:cm-route-ready', {detail:{card, cardmarketUrl:r.url}}));
-  const resolved = await resolveCardmarketRoute(card, r);
-  if(!stillCurrent()) return;
-  if(resolved.url !== r.url){
-    r = resolved;
-    urlBox.value = r.url;
-    openBtn.href = r.url;
-    matchBox.innerHTML = `<b>Directe kaartpagina</b><br>${escapeHtml(r.note)}`;
-    lastBuilt = {url:r.url, result:r};
-    window.dispatchEvent(new CustomEvent('cardscout:cm-route-ready', {detail:{card, cardmarketUrl:r.url}}));
-  }
-  addRecent(itemFromCurrent(r.url, r));
+  // Apply legacy AUTO corrections only for the current, final result.
+  if(route.autoSet) setSelect.value = route.autoSet;
+  if(route.autoName) nameInput.value = route.autoName;
+  updateCustomSelects();
+  card = {...card, name:nameInput.value, set:setSelect.value};
+  urlBox.value = route.url;
+  openBtn.href = route.url;
+  setCardmarketRouteState('ready');
+  matchBox.innerHTML = `<b>${route.exact ? 'Directe kaartpagina' : (route.candidates ? 'Kies de juiste set' : 'Zoekpagina')}</b><br>${escapeHtml(route.note || '')}<br>${escapeHtml(card.name || '-')} · ${escapeHtml(card.number || '-')} · ${escapeHtml(card.set)}${candidateButtonsHtml(route.candidates, card.condition)}`;
+  bindCandidateButtons(route.candidates);
+  lastBuilt = {url:route.url, result:route};
+  window.dispatchEvent(new CustomEvent('cardscout:cm-route-ready', {detail:{card, cardmarketUrl:route.url}}));
+  addRecent(itemFromCurrent(route.url, route));
   if(autoCopy){
-    const ok = await copyToClipboard(r.url);
+    const ok = await copyToClipboard(route.url);
+    if(generation !== cmLinkGeneration) return;
     setStatus(ok ? 'Link gemaakt en gekopieerd.' : 'Link gemaakt. Kopieer handmatig.', ok ? 'ok' : 'warn');
   } else {
     setStatus('Link gemaakt.', 'ok');
@@ -745,6 +788,7 @@ function renderSaved(){ renderList(recentList, STORAGE_RECENT); renderList(favor
 function clearAll(){
   cmSelectedCard = null;
   ++cmLinkGeneration;
+  setCardmarketRouteState('idle');
   quickInput.value=''; numberInput.value=''; nameInput.value=''; setSelect.value='AUTO'; langSelect.value='JP'; condSelect.value='NM'; if(editionSelect) editionSelect.value='AUTO';
   updateCustomSelects();
   urlBox.value=''; openBtn.href='#'; openBtn.classList.add('disabled'); matchBox.innerHTML=''; lastBuilt=null;

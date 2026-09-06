@@ -1,6 +1,5 @@
 'use strict';
 const fs = require('node:fs');
-const vm = require('node:vm');
 const assert = require('node:assert/strict');
 const {test} = require('node:test');
 const source = fs.readFileSync('app-v137.js','utf8');
@@ -10,29 +9,7 @@ const AZU = 'https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Delta-Spe
 const azumarill = {name:'Azumarill Δ',number:'19',set:'EX DELTA SPECIES',set_name:'EX Delta Species',language:'EN',source:'tcgdex',source_id:'ex11-19',condition:'NM',edition:'1ST'};
 const bagon = {...azumarill,name:'Bagon Delta Species',number:'43',set:'EX DRAGON FRONTIERS',set_name:'EX Dragon Frontiers',source_id:'ex15-43'};
 function api(card=azumarill, url=AZU){return {id:card.source_id,name:card.name,number:card.number,set:{id:card.source_id.split('-')[0],name:card.set_name.replace(/^EX /,'')},cardmarket:{url}};}
-function context(options={}){
-  const storage=new Map(options.storage || []);
-  const calls=[];
-  const events=[];
-  const c={URL,AbortController,Date,console,CustomEvent:class{constructor(type,init){this.type=type;this.detail=init.detail;}},
-    window:{dispatchEvent:e=>events.push(e)},DATA:JSON.parse(source.match(/const EMBEDDED_DATA = (.*);/)[1]),
-    CONDITION_IDS:{NM:1,EX:2},LANGUAGE_IDS:{EN:1,JP:7},updateCustomSelects(){},
-    localStorage:{getItem:key=>storage.get(key)||null,setItem:(key,value)=>storage.set(key,value)},
-    setTimeout:options.setTimeout || setTimeout,clearTimeout:options.clearTimeout || clearTimeout,
-    fetch:async (...args)=>{calls.push(args);return options.fetch ? options.fetch(...args) : {ok:false,status:404};},
-    setStatus(){},addRecent(){},bindCandidateButtons(){},candidateButtonsHtml(){return '';},escapeHtml:s=>s,copyToClipboard:async()=>true,itemFromCurrent:()=>({})};
-  for(const key of ['nameInput','numberInput','setSelect','langSelect','condSelect','editionSelect','quickInput','openBtn','urlBox','matchBox']) c[key]={value:'',classList:{add(){},remove(){}}};
-  vm.createContext(c);
-  vm.runInContext(source.match(/const SET_ALIASES = .*;/)[0]+
-    source.slice(source.indexOf('function cleanNumber('),source.indexOf('function slugifyName('))+
-    source.slice(source.indexOf('function matchingSetAliases('),source.indexOf('function inferLanguageFromKnown('))+
-    source.slice(source.indexOf('const AUTO_VALUE_DIRECTS ='),source.indexOf('async function copyToClipboard('))+
-    source.slice(source.indexOf('async function makeLink('),source.indexOf('function applyItem(')),c);
-  return {c,storage,calls,events};
-}
-function fallback(c,card){return {url:c.searchUrl(card.name,card.number,card.language,card.condition,card.set),exact:false};}
-function fields(c,card){for(const [k,v] of Object.entries({nameInput:card.name,numberInput:card.number,setSelect:card.set,langSelect:card.language,condSelect:card.condition,editionSelect:card.edition})) c[k].value=v;}
-function isFallback(result,name){assert.equal(result.exact,false);const u=new URL(result.url);assert.equal(u.searchParams.get('searchString'),name);assert.deepEqual([...u.searchParams.keys()],['searchString']);}
+const {context,fields,fallback,isFallback}=require('./helpers/cardmarket-harness.cjs');
 for(const [input,set,remaining] of [
  ['Bagon Delta Species 43 EX Dragon Frontiers','EX DRAGON FRONTIERS','bagon 43'],
  ['Charizard 4 Base Set 2','BASE SET 2','charizard 4'],
@@ -73,5 +50,5 @@ for(const [label,mutate] of [
 test('Official API Cardmarket redirect supported for exact source ID',async()=>{const url='https://prices.pokemontcg.io/cardmarket/ex11-19';const {c}=context({fetch:async()=>({ok:true,json:async()=>({data:api(azumarill,url)})})});const r=await c.resolveCardmarketRoute(azumarill,fallback(c,azumarill));assert.equal(r.exact,true);assert.equal(r.url.split('?')[0],url);});
 test('Storage denial does not break successful resolver',async()=>{const {c}=context({fetch:async()=>({ok:true,json:async()=>({data:api()})})});c.localStorage={getItem(){throw Error('denied');},setItem(){throw Error('denied');}};assert.equal((await c.resolveCardmarketRoute(azumarill,fallback(c,azumarill))).exact,true);});
 test('Concurrent requests deduplicated',async()=>{let done;const {c,calls}=context({fetch:()=>new Promise(resolve=>done=resolve)});const a=c.resolveCardmarketRoute(azumarill,fallback(c,azumarill));const b=c.resolveCardmarketRoute(azumarill,fallback(c,azumarill));assert.equal(calls.length,1);done({ok:true,json:async()=>({data:api()})});assert.equal((await a).exact,true);assert.equal((await b).exact,true);});
-test('Immediate fallback upgrades and publishes final selected URL',async()=>{let done;const {c,events}=context({fetch:()=>new Promise(resolve=>done=resolve)});fields(c,azumarill);c.selectCardmarketCard(azumarill);const pending=c.makeLink(false);assert.equal(new URL(c.openBtn.href).searchParams.get('searchString'),'Azumarill');done({ok:true,json:async()=>({data:api()})});await pending;assert.equal(c.openBtn.href.split('?')[0],AZU);assert.equal(events.at(-1).detail.cardmarketUrl,c.openBtn.href);});
+test('Pending blocks fallback and publishes only final selected URL',async()=>{let done;const {c,events}=context({fetch:()=>new Promise(resolve=>done=resolve)});fields(c,azumarill);c.selectCardmarketCard(azumarill);const pending=c.makeLink(false);assert.equal(c.openBtn.href,'#');assert.equal(c.openBtn.dataset.cmState,'pending');assert.equal(events.filter(e=>e.type==='cardscout:cm-route-ready').length,0);done({ok:true,json:async()=>({data:api()})});await pending;assert.equal(c.openBtn.href.split('?')[0],AZU);assert.equal(events.at(-1).detail.cardmarketUrl,c.openBtn.href);});
 test('Late API result never overwrites another selection',async()=>{let done;const {c}=context({fetch:()=>new Promise(resolve=>done=resolve)});fields(c,azumarill);c.selectCardmarketCard(azumarill);const pending=c.makeLink(false);const next={...azumarill,name:'Duskull',number:'50',set:'EX POWER KEEPERS',source_id:''};fields(c,next);await c.makeLink(false);const expected=c.openBtn.href;done({ok:true,json:async()=>({data:api()})});await pending;assert.equal(c.openBtn.href,expected);assert.equal(new URL(expected).searchParams.get('searchString'),'Duskull');});
