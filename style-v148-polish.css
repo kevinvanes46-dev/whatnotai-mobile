@@ -1,0 +1,146 @@
+/* Presentation-only layer. v147 state classes and layout visibility remain authoritative. */
+:root {
+  --bg:#0c1114; --bg2:#10181c; --panel:#141e23; --panel2:#1a272d;
+  --text:#f0f5f4; --muted:#a1b2b8; --muted2:#91a4ac;
+  --line:#2c3c43; --line2:#476069; --green:#a5edcc; --cyan:#a5edcc;
+  --radius:20px; --shadow:0 8px 28px #00000018;
+}
+html { background:var(--bg); }
+body { background:var(--bg); line-height:1.5; }
+body::before { background:radial-gradient(ellipse at 85% 0,#213f3638,transparent 55%); }
+.ambient { display:none; }
+.appShell { padding-left:20px; padding-right:20px; }
+.topbar { padding: max(20px,env(safe-area-inset-top)) 0 18px; background:#0c1114ed; border-bottom:1px solid #ffffff0d; }
+.brandMark { background:#1c292e; border-color:#3a4d52; box-shadow:none; }
+.brandText strong { font-size:21px; font-weight:750; letter-spacing:-.7px; }
+.brandText small { font-size:11px; font-weight:500; color:var(--muted); }
+.statusChip { background:#17251f; border-color:#314b3e; font-size:11px; font-weight:600; max-width:150px; }
+.screenIntro,.screenIntro.compact { padding:30px 0 23px; }
+.eyebrow { color:#a5edcc; font-size:10px; font-weight:700; letter-spacing:.16em; margin-bottom:10px; }
+.screenIntro h2 { font-size:36px; line-height:1.12; letter-spacing:-1.4px; font-weight:700; }
+.screenIntro p { max-width:470px; margin-top:12px; font-size:14px; line-height:1.6; color:var(--muted); }
+.surface { padding:20px; margin-bottom:16px; background:var(--panel); border-color:var(--line); box-shadow:var(--shadow); }
+.searchBox { grid-template-columns:30px minmax(0,1fr) 44px; padding:8px; gap:6px; border-radius:16px; background:#18242a; border-color:#4b6668; box-shadow:0 0 0 4px #a5edcc05; }
+.searchBox:focus-within { border-color:#a5edcc; box-shadow:0 0 0 3px #a5edcc20; }
+.quick { height:46px; font-size:16px; font-weight:500; }
+.quick::placeholder { color:#9caeb5; }
+.quickGo { width:44px; height:44px; background:#a5edcc; color:#13291f; border-radius:11px; }
+.searchIcon { stroke:#a5edcc; }
+.searchModeRow { gap:12px; margin:16px 0 23px; }
+.searchModeChip { min-height:44px; background:#192229; border-color:#36464c; color:#c2cfd0; font-size:11px; font-weight:650; }
+.searchModeHelp { font-size:11px; line-height:1.5; color:#9bafb5; }
+.stampedSetChips button { min-height:44px; }
+.sectionTitle { margin-bottom:18px; }
+.sectionTitle h3,.sectionHeader h3 { font-size:17px; font-weight:650; }
+.autoTag { font-size:10px; color:#b4ddcc; border-color:#3b564b; background:#20332b; }
+.label,.filterStrip>div>span { color:#abbcc1; font-size:12px; font-weight:550; margin-bottom:8px; }
+input,textarea { background:#10191d; border-color:#34464e; border-radius:11px; }
+input { height:48px; font-size:16px; font-weight:500; }
+.autoSetLine { padding:11px 12px; background:#1c2a2e; color:#a8bbc0; font-size:12px; }
+.autoSetLine b { color:#e1ece8; }
+.filterStrip { gap:16px; margin-top:20px; padding-top:18px; border-color:#ffffff10; }
+.choiceBtn { min-height:44px; font-size:12px; font-weight:600; border-color:#35464d; background:#172329; color:#b9c9ce; }
+.choiceBtn.active,.choiceBtn[aria-pressed="true"] { background:#2b473c; color:#cdf9e5; border:1px solid #669a82; box-shadow:none; }
+.searchActions { grid-template-columns:1fr; margin-bottom:16px; }
+#clearBtn { min-height:44px; background:transparent; border-color:#34444b; font-size:12px; font-weight:550; }
+.linkDetails summary { font-size:12px; min-height:24px; }
+.smartSuggestions { gap:10px; margin:16px 0 22px; }
+.suggestion { min-height:80px; padding:16px; background:#162228; border-color:#34464b; border-radius:15px; }
+.suggestionTitle { font-size:16px; font-weight:650; line-height:1.4; }
+.suggestionMeta { font-size:12px; color:#a2b5bc; line-height:1.5; }
+.suggestionArrow { background:#263c33; color:#a5edcc; width:32px; height:32px; }
+.suggestionSummary { background:#101b1ff5; color:#a9bcc2; border-color:#34464b; font-size:11px; min-height:44px; flex-wrap:wrap; }
+.suggestionSummary b { font-size:12px; color:#deece7; }
+.catalogLoading { border-left:3px solid #a5edcc; }
+.bottomNav { background:#111a1ef5; border:1px solid #34434b; border-bottom:0; border-radius:22px 22px 0 0; box-shadow:0 -8px 32px #0003; }
+.navBtn { color:#a0b1b9; gap:6px; }
+.navBtn span { font-size:11px; font-weight:600; }
+.navBtn.active { background:#a5edcc12; color:#a5edcc; }
+.navBtn.active span { color:#c5f6df; }
+.actionDock { background:#162027f5; border-color:#476157; box-shadow:0 12px 36px #0006; }
+.open { background:#a5edcc; color:#13291f; }
+.open span { font-size:13px; font-weight:750; }
+.open small { font-size:10px; opacity:.8; }
+.dockCollection { background:#233a31; color:#c5f6df; border-color:#5d8974; font-size:13px; font-weight:650; }
+.open.disabled { opacity:.7; }
+.dockCollection:disabled { opacity:.6; }
+#openBtn[data-cm-state="pending"] { background:#263c33; color:#c5f6df; }
+#openBtn[data-cm-state="pending"] small { opacity:.6; }
+.collectionSummary { gap:10px; margin-bottom:22px; }
+.collectionSummary>div { padding:18px 16px; background:#172329; border-color:#34454c; border-radius:16px; }
+.collectionSummary small { font-size:10px; color:#a7b9bf; font-weight:600; }
+.collectionSummary b { margin-top:10px; font-size:26px; font-weight:650; letter-spacing:-.7px; font-variant-numeric:tabular-nums; }
+.collectionSummary>div:last-child { background:#1e352c; border-color:#496f5c; }
+.collectionSummary>div:last-child b { color:#b5f2d6; }
+.collectionControlPanel { gap:14px; margin-bottom:18px; }
+.collectionSearchWrap input { background:#172329; border-color:#3b5058; font-size:16px; min-height:50px; }
+.collectionQuickFilters button { min-height:44px; font-size:12px; font-weight:550; background:#172329; border-color:#34454c; color:#b4c5cc; }
+.collectionQuickFilters button.active { background:#294639; border-color:#669a82; color:#cff9e5; }
+.collectionFilterRow select { min-height:44px; font-size:12px; background:#172329; border-color:#34454c; color:#cad7da; }
+.collectionToolbar { flex-wrap:wrap; margin:18px 0; }
+.collectionToolbar button { min-height:44px; font-size:12px; font-weight:600; background:#1c2c31; border-color:#3b5159; }
+.collectionToolbar span,.collectionFootnote { font-size:11px; color:#9bafb7; line-height:1.6; }
+.collectionList { gap:14px; }
+.collectionList.empty,.savedList.empty { display:block; padding:44px 24px; border:1px dashed #4c646b; border-radius:20px; background:#152126; color:#b4c5ca; font-size:14px; line-height:1.8; }
+.collectionList.empty::before { content:""; display:block; width:38px; height:48px; margin:0 auto 12px; border:2px solid #8ebca8; border-radius:8px; box-shadow:6px -5px 0 -1px #152126,6px -5px 0 1px #48665a; transform:rotate(-8deg); }
+.collectionCard { padding:18px; border-radius:18px; background:#162228; border-color:#34464b; }
+.collectionCard h3 { font-size:18px; line-height:1.35; font-weight:650; }
+.collectionCard p { font-size:12px; color:#a2b5bc; line-height:1.5; }
+.collectionCardBadges { margin-bottom:10px; }
+.collectionCardBadges span { font-size:9px; min-height:25px; }
+.collectionValue b { font-size:20px; color:#b5f2d6; }
+.collectionValue small { font-size:10px; color:#a4b6bd; }
+.collectionCondition,.collectionCondition strong { font-size:12px!important; }
+.collectionCardRow { margin-top:18px; gap:8px; grid-template-columns:auto minmax(0,1fr); }
+.collectionCardRow>a { grid-column:auto; }
+.qtyControl button { width:40px; height:44px; background:#223239; }
+.qtyControl span { font-size:12px; }
+.paidBtn,.collectionCardRow>a,.removeBtn,.boughtBtn,.editMiniBtn,.conditionBtn { min-height:44px; font-size:11px; background:#203138; border-color:#3d555e; }
+.removeBtn { width:44px; }
+.collectionCardRow>a { padding:0 10px; }
+.collectionEditorSheet { background:#152126; border-color:#40564f; }
+.editorHeader h2 { font-size:24px; letter-spacing:-.5px; }
+.editorHeader p { font-size:12px; color:#b1c2c7; }
+.editorClose { width:44px; height:44px; }
+.editorSection>label,.editorFields label { font-size:11px; color:#acbec4; }
+.editorChoiceGrid button { min-height:44px; font-size:12px; background:#1b2b31; border-color:#3b535b; }
+.editorChoiceGrid button.active { background:#294639; border-color:#669a82; color:#cff9e5; }
+.editorFields input { min-height:48px; font-size:16px; }
+.editorActions .primary { background:#a5edcc; color:#13291f; }
+.settingsCopy,.settingsRow small { font-size:12px; line-height:1.6; color:#a6bac1; }
+.backupActions button,.tinyBtn { min-height:44px; font-size:11px; font-weight:600; }
+.aboutCard { background:#152126; }
+/* The legacy initializer hides every select; collection controls already have native handlers. */
+.collectionFilterRow select.hiddenSelect { display:block!important; }
+.toast { top:calc(86px + env(safe-area-inset-top)); background:#20372e; color:#d4f6e4; border-color:#608671; font-size:12px; font-weight:550; }
+:is(button,a,input,select,textarea,summary):focus-visible { outline:2px solid #b5f2d6; outline-offset:3px; }
+@media(hover:hover) {
+  .suggestion:hover,.collectionCard:hover { border-color:#709887; background:#1b2d31; }
+  .navBtn:hover,.ghost:hover { background:#283b3b; }
+  .quickGo:hover,.open:not(.disabled):hover { background:#c7f8e2; }
+}
+@media(min-width:760px) {
+  .appShell { width:min(1040px,100%); padding-left:40px; padding-right:40px; }
+  .topbar { padding-top:28px; padding-bottom:22px; }
+  .screenIntro,.screenIntro.compact { padding-top:44px; padding-bottom:28px; }
+  .screenIntro h2 { font-size:46px; }
+  .searchSettings .filterStrip { grid-template-columns:1fr 1.4fr 1fr; }
+  .collectionSummaryPro { grid-template-columns:repeat(4,minmax(0,1fr)); }
+  .collectionList:not(.empty) { grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; }
+  .bottomNav { width:600px; }
+  .actionDock { width:600px; }
+  .settingsCard { padding:24px; }
+}
+@media(max-width:390px) {
+  .appShell { padding-left:16px; padding-right:16px; }
+  .screenIntro h2 { font-size:32px; }
+  .searchModeRow { gap:8px; }
+  .collectionSummary b { font-size:23px; }
+  .collectionCardRow { grid-template-columns:auto minmax(0,1fr); }
+  .collectionCardRow>a { grid-column:auto; }
+  .collectionCardRow .removeBtn { justify-self:end; }
+}
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+  *,*::before,*::after { animation:none!important; transition:none!important; }
+}

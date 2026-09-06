@@ -1,0 +1,9 @@
+PASS Bagon quick input selects Dragon Frontiers and exact DF43
+PASS One visible Cardmarket button, collection visible, no overflow at 1280px
+PASS One visible Cardmarket button, collection visible, no overflow at 390px
+PASS One visible Cardmarket button, collection visible, no overflow at 375px
+PASS One visible Cardmarket button, collection visible, no overflow at 320px
+PASS TCGdex selection resolves Azumarill; collection editor receives final URL
+PASS All six manual fields rebuild dock link without makeBtn; cached route avoids new request
+PASS Existing collection including purchase/stamped prices unchanged; no browser runtime errors
+8 browser tests passed

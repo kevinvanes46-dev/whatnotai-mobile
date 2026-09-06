@@ -1,0 +1,14 @@
+PASS Charizard Delta Species CG4 direct
+PASS Duskull online fallback
+PASS Igglybuff online fallback
+PASS Team Rocket search-only
+PASS JP broad fallback
+PASS Cached compact query ignored, invisible characters and duplicate number removed
+PASS Generic filter guard
+PASS Direct URL and offer filters preserved
+PASS All existing direct mappings unchanged (EN, JP and specials)
+PASS Collection v133 and selected final URL persistence contract unchanged
+AUDIT embedded {"direct":242,"fallback":16,"malformed":0}
+AUDIT cards.json {"direct":249,"fallback":16,"malformed":0}
+AUDIT routing literals {"direct":28,"malformed":0}
+10 tests passed
