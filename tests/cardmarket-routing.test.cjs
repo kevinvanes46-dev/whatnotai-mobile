@@ -30,13 +30,14 @@ function search(result,expected){
 test('Charizard Delta Species CG4 direct',()=>{
   assert.equal(new URL(route('Charizard','4','EX CRYSTAL GUARDIANS').url).pathname,'/en/Pokemon/Products/Singles/EX-Crystal-Guardians/Charizard-Delta-Species-CG4');
 });
-test('Duskull online fallback',()=>search(route('Duskull','50','EX POWER KEEPERS'),'Duskull EX Power Keepers 50'));
-test('Igglybuff online fallback',()=>search(route('Igglybuff','21','EX CRYSTAL GUARDIANS'),'Igglybuff EX Crystal Guardians 21'));
-test('Team Rocket search-only',()=>search(route('Dark Raticate','51','ROCKET'),'Dark Raticate Team Rocket 51'));
+// v146 deliberately broadens v145 fallbacks to the cleaned card name only.
+test('Duskull online fallback',()=>search(route('Duskull','50','EX POWER KEEPERS'),'Duskull'));
+test('Igglybuff online fallback',()=>search(route('Igglybuff','21','EX CRYSTAL GUARDIANS'),'Igglybuff'));
+test('Team Rocket search-only',()=>search(route('Dark Raticate','51','ROCKET'),'Dark Raticate'));
 test('JP broad fallback',()=>search(route('ピカチュウ','25','EX POWER KEEPERS','JP'),'ピカチュウ'));
 test('Cached compact query ignored, invisible characters and duplicate number removed',()=>{
   const u=new URL(c.searchUrl('Du\u200bskull\ufffd #050/108','050','EN','NM','EX POWER KEEPERS','Duskull PK50'));
-  assert.equal(u.searchParams.get('searchString'),'Duskull EX Power Keepers 50');
+  assert.equal(u.searchParams.get('searchString'),'Duskull');
 });
 test('Generic filter guard',()=>{
   const u=new URL(c.withFilters('https://www.cardmarket.com/en/Pokemon/Products/Search?searchString=Duskull&language=1&minCondition=1&isFirstEd=Y','EN','NM'));
@@ -56,10 +57,14 @@ test('All existing direct mappings unchanged (EN, JP and specials)',()=>{
   assert.deepEqual(embedded(source),embedded(baseline));
 });
 test('Collection v133 and selected final URL persistence contract unchanged',()=>{
-  for(const file of ['ui-v137-collection.js','ui-v137-focus.js']) assert.equal(fs.readFileSync(file,'utf8').replace(/\r\n/g,'\n'),execFileSync('git',['show',`80cbcfc:${file}`],{encoding:'utf8',maxBuffer:2000000}));
+  // The focus UI now supplies source_id and publishes async route updates; collection code stays frozen.
+  for(const file of ['ui-v137-collection.js']) assert.equal(fs.readFileSync(file,'utf8').replace(/\r\n/g,'\n'),execFileSync('git',['show',`80cbcfc:${file}`],{encoding:'utf8',maxBuffer:2000000}));
   const collection=fs.readFileSync('ui-v137-collection.js','utf8');
   assert.ok(collection.includes("const KEY='cardscout_collection_v133'"));
   assert.ok(collection.includes("cardmarketUrl:sel.cardmarketUrl||c.url||openBtn?.getAttribute('href')||''"));
+  const scannerMarker='// ---------------- Photo + Local OCR + Guided Scan v74 ----------------';
+  assert.ok(source.includes(scannerMarker) && baseline.includes(scannerMarker));
+  assert.equal(source.slice(source.indexOf(scannerMarker)).replace(/\r\n/g,'\n'),baseline.slice(baseline.indexOf(scannerMarker)).replace(/\r\n/g,'\n'));
 });
 function valid(url){try{const u=new URL(url);return u.protocol==='https:' && u.hostname==='www.cardmarket.com' && /^\/en\/Pokemon\/Products\/Singles\/[^/]+\/[^/]+$/.test(u.pathname) && !/[\s\p{Cf}\uFFFD]/u.test(url);}catch{return false;}}
 for(const [label,data] of [['embedded',embedded(source)],['cards.json',JSON.parse(fs.readFileSync('cards.json','utf8'))]]){

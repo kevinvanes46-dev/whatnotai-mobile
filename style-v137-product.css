@@ -125,7 +125,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 #actionDock #openBtn{display:flex!important;min-width:0}
 #actionDock.ready{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}
 #actionDock .dockCollection{width:100%;min-width:0}
-.searchActions #makeBtn::before{content:'↗ ';font-weight:900}
+/* v146: retain the legacy event target, but expose only the persistent action. */
+#makeBtn{display:none!important}
 
 
 /* v135 — correct reverse/stamped price source + editable purchase condition */

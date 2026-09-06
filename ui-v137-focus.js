@@ -541,6 +541,7 @@
         savePrefs();
         smartSuggestions.hidden = true;
         smartSuggestions.innerHTML='';
+        if(typeof selectCardmarketCard === 'function') selectCardmarketCard({...card,name:displayName,number:numberInput.value,set:setSelect.value});
         safelyRebuildLink();
         const stampedSelected = queryWantsStamped(quickInput?.value || '') && lang === 'EN' && STAMPED_SET_KEYS.has(card.set);
         window.dispatchEvent(new CustomEvent('cardscout:card-selected',{detail:{
@@ -776,7 +777,17 @@
   resultEditionChooser?.querySelectorAll('[data-edition]').forEach(btn => btn.addEventListener('click', () => setEdition(btn.dataset.edition)));
   resultOpenBtn?.addEventListener('click', () => { if(resultOpenBtn.classList.contains('disabled')) showToast('Nog geen zekere Cardmarket-link'); });
 
-  // v134: Cardmarket is ONE CLICK. The legacy hidden openBtn remains only as the link engine.
+  // Route updates also update the pending selection; saved collection entries are never rewritten.
+  window.addEventListener('cardscout:cm-route-ready', ({detail}) => {
+    const card = detail.card;
+    window.dispatchEvent(new CustomEvent('cardscout:card-selected', {detail:{
+      card, cardmarketUrl:detail.cardmarketUrl,
+      stamped:queryWantsStamped(quickInput?.value || '') && card.language === 'EN' && STAMPED_SET_KEYS.has(card.set),
+      condition:condSelect?.value || 'NM', edition:editionSelect?.value || 'AUTO'
+    }}));
+  });
+
+  // The persistent openBtn is the visible one-click Cardmarket action.
   const makeBtnDirect = $('makeBtn');
   makeBtnDirect?.addEventListener('click', (ev) => {
     ev.preventDefault();

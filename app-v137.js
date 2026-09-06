@@ -106,17 +106,18 @@ function writeStore(key, arr){
   catch(e) { setStatus('Opslaan lokaal geblokkeerd door browser.', 'warn'); return false; }
 }
 
-function detectSet(text){
+function matchingSetAliases(text){
   const lower = ' ' + String(text).toLowerCase().replace(/\s+/g,' ') + ' ';
-  for (const [set, aliases] of SET_ALIASES){
-    for (const a of aliases){ if (lower.includes(' '+a+' ')) return set; }
-  }
-  return 'AUTO';
+  return SET_ALIASES.flatMap(([set, aliases]) => aliases.map(alias => ({set, alias})))
+    .filter(({alias}) => lower.includes(' '+alias+' '))
+    .sort((a,b) => b.alias.length - a.alias.length || a.set.localeCompare(b.set));
+}
+function detectSet(text){
+  return matchingSetAliases(text)[0]?.set || 'AUTO';
 }
 function removeSetWords(text){
   let out = ' ' + String(text).toLowerCase().replace(/\s+/g,' ') + ' ';
-  const aliases = SET_ALIASES.flatMap(([, arr]) => arr).sort((a,b)=>b.length-a.length);
-  for (const a of aliases){ out = out.replaceAll(' '+a+' ', ' '); }
+  for (const {alias} of matchingSetAliases(text)){ out = out.replaceAll(' '+alias+' ', ' '); }
   return out.trim();
 }
 
@@ -304,23 +305,26 @@ function cleanCardmarketText(value){
   return String(value || '').normalize('NFKC')
     .replace(/[\p{Cc}\p{Cf}\uFFFD]/gu, '').replace(/\s+/g, ' ').trim();
 }
-function buildSearchTerm(name, number, set){
-  const def = (DATA.sets || {})[set || ''];
+function cleanCardmarketName(name, number=''){
   const n = cleanNumber(cleanCardmarketText(number).replace(/^#/, ''));
-  let title = cleanCardmarketText(name);
+  let title = cleanCardmarketText(name)
+    .replace(/(^|\s)[Δδ](?=\s|$)/gu, ' ')
+    .replace(/\bdelta\s+species\b/gi, ' ').replace(/\s+/g, ' ').trim();
   // Remove a displayed trailing collector number, without damaging names like Porygon2.
   const suffix = title.match(/\s+#?([a-z]*0*\d+[a-z]*)(?:\/\d+)?$/i);
   if(n && suffix && cleanNumber(suffix[1]).toLowerCase() === n.toLowerCase()){
     title = title.slice(0, suffix.index).trim();
   }
-  const label = cleanCardmarketText(def?.label || (set && set !== 'AUTO' ? set : ''));
-  return [title, label, n].filter(Boolean).join(' ') || 'pokemon';
+  return title;
+}
+function buildSearchTerm(name, number, set){
+  return cleanCardmarketName(name, number) || 'pokemon';
 }
 
 function searchUrl(name, number, lang, cond, set='AUTO', explicitQuery=''){
   // Ignore legacy compact queries, including cached TCGdex records. JP uses name only.
   const term = lang === 'JP'
-    ? (cleanCardmarketText(name) || 'pokemon')
+    ? (cleanCardmarketName(name, number) || 'pokemon')
     : buildSearchTerm(name, number, set);
   return 'https://www.cardmarket.com/en/Pokemon/Products/Search?searchString=' + encodeURIComponent(term);
 }
@@ -329,7 +333,7 @@ function buildUrl(){
   const lang = langSelect.value;
   const set = setSelect.value;
   const number = cleanNumber(numberInput.value);
-  let name = nameInput.value.trim();
+  let name = cleanCardmarketName(nameInput.value, number);
   const cond = condSelect.value;
   if(!name && lang === 'JP' && number){
     const dex = DATA.pokedex[pad3(number)];
@@ -352,7 +356,8 @@ function buildUrl(){
       updateCustomSelects();
       return autoDirect;
     }
-    const matches = findAutoKnown(lang, number, name);
+    const originalMatches = findAutoKnown(lang, number, nameInput.value.trim());
+    const matches = originalMatches.length ? originalMatches : findAutoKnown(lang, number, name);
     if(matches.length === 1){
       const exact = matches[0];
       setSelect.value = exact.set;
@@ -423,7 +428,7 @@ function buildUrl(){
     };
   }
 
-  const known = knownLookup(lang,set,number,name);
+  const known = knownLookup(lang,set,number,nameInput.value.trim()) || knownLookup(lang,set,number,name);
   if(known){
     updateCustomSelects();
     if(known.url){
@@ -470,6 +475,104 @@ function buildUrl(){
           ? `Veilige zoekpagina: ${set}. Controleer kaartnummer ${number || '-'}.`
           : `Veilige zoekpagina. Controleer kaartnummer ${number || '-'}.`)
   };
+}
+
+const CM_ROUTE_CACHE_KEY = 'cardscout_cm_route_cache_v146';
+const CM_ROUTE_TTL = 30 * 24 * 60 * 60 * 1000;
+let cmSelectedCard = null;
+let cmLinkGeneration = 0;
+const cmPendingRoutes = new Map();
+
+function cardmarketIdentity(card){
+  return JSON.stringify([
+    cleanCardmarketName(card.name, card.number).toLowerCase(), cleanNumber(card.number),
+    card.set, card.language || 'EN'
+  ]);
+}
+function currentCardmarketCard(){
+  const fields = {name:nameInput.value, number:numberInput.value, set:setSelect.value, language:langSelect.value};
+  return cmSelectedCard && cardmarketIdentity(cmSelectedCard) === cardmarketIdentity(fields)
+    ? {...cmSelectedCard, ...fields} : fields;
+}
+function selectCardmarketCard(card){
+  cmSelectedCard = {...card};
+}
+function validCardmarketRoute(url, sourceId=''){
+  if(typeof url !== 'string' || /[\s\p{Cc}\p{Cf}\uFFFD]/u.test(url)) return false;
+  try{
+    const u = new URL(url);
+    if(u.protocol !== 'https:' || u.username || u.password || u.port || u.hash) return false;
+    if(u.hostname === 'www.cardmarket.com' || u.hostname === 'cardmarket.com'){
+      return /^\/en\/Pokemon\/Products\/Singles\/[^/]+\/[^/]+$/.test(u.pathname);
+    }
+    // The API also returns its official, card-specific Cardmarket redirect URL.
+    return !!sourceId && u.hostname === 'prices.pokemontcg.io'
+      && u.pathname === '/cardmarket/'+sourceId && !u.search;
+  }catch(_){ return false; }
+}
+function readCardmarketRouteCache(){
+  try{
+    const entries = JSON.parse(localStorage.getItem(CM_ROUTE_CACHE_KEY) || '[]');
+    if(!Array.isArray(entries)) return [];
+    const now = Date.now();
+    return entries.filter(e => e && typeof e.source_id === 'string'
+      && /^[a-z0-9]+-[a-z0-9]+$/i.test(e.source_id) && validCardmarketRoute(e.url, e.source_id)
+      && Number.isFinite(e.timestamp) && e.timestamp <= now && now-e.timestamp < CM_ROUTE_TTL)
+      .map(e => ({source_id:e.source_id, url:e.url, timestamp:e.timestamp}));
+  }catch(_){ return []; }
+}
+function cacheCardmarketRoute(sourceId, url){
+  try{
+    const entries = readCardmarketRouteCache().filter(e => e.source_id !== sourceId);
+    entries.push({source_id:sourceId, url, timestamp:Date.now()});
+    localStorage.setItem(CM_ROUTE_CACHE_KEY, JSON.stringify(entries));
+  }catch(_){ /* Storage may be unavailable; the resolved link still works. */ }
+}
+function matchesCardmarketApiCard(card, data){
+  const source = String(card.source_id || '').match(/^([a-z0-9]+)-([a-z0-9]+)$/i);
+  if(!source || !data || data.id !== card.source_id || data.set?.id !== source[1]) return false;
+  const number = cleanNumber(card.number).toLowerCase();
+  if(!number || cleanNumber(source[2]).toLowerCase() !== number || cleanNumber(data.number).toLowerCase() !== number) return false;
+  const nameKey = name => cleanCardmarketName(name, number).toLowerCase().replace(/[^\p{L}\p{N}]/gu, '');
+  if(!nameKey(card.name) || nameKey(card.name) !== nameKey(data.name)) return false;
+  const setKey = name => cleanCardmarketText(name).toLowerCase().replace(/^ex\s+/, '').replace(/[^\p{L}\p{N}]/gu, '');
+  const labels = [(DATA.sets || {})[card.set]?.label, card.set_name, card.source_set_name, card.set].filter(Boolean);
+  return !!data.set?.name && labels.some(label => setKey(label) === setKey(data.set.name));
+}
+async function resolveCardmarketRoute(card, fallback){
+  // An explicitly verified selected local URL takes precedence; legacy specials remain in buildUrl.
+  if(card.verified && card.direct && validCardmarketRoute(card.url)){
+    return {url:withFilters(card.url, card.language, card.condition, card.edition), exact:true, note:'Direct geverifieerd'};
+  }
+  if(fallback.exact || card.language !== 'EN' || card.source !== 'tcgdex'
+    || !/^[a-z0-9]+-[a-z0-9]+$/i.test(card.source_id || '')) return fallback;
+  const cached = readCardmarketRouteCache().find(e => e.source_id === card.source_id);
+  if(cached) return {url:withFilters(cached.url, card.language, card.condition, card.edition), exact:true, note:'Direct: gecachte Cardmarket-route'};
+  const key = card.source_id+'|'+cardmarketIdentity(card);
+  if(!cmPendingRoutes.has(key)){
+    const request = (async () => {
+      const controller = new AbortController();
+      let timer;
+      try{
+        const data = await Promise.race([
+          (async () => {
+            const response = await fetch('https://api.pokemontcg.io/v2/cards/'+encodeURIComponent(card.source_id), {signal:controller.signal});
+            return response.ok ? (await response.json()).data : null;
+          })(),
+          new Promise(resolve => { timer = setTimeout(() => { controller.abort(); resolve(null); }, 3000); })
+        ]);
+        if(!matchesCardmarketApiCard(card, data) || !validCardmarketRoute(data?.cardmarket?.url, card.source_id)) return '';
+        cacheCardmarketRoute(card.source_id, data.cardmarket.url);
+        return data.cardmarket.url;
+      }catch(_){ return ''; }
+      finally{ clearTimeout(timer); }
+    })();
+    cmPendingRoutes.set(key, request);
+  }
+  let url;
+  try{ url = await cmPendingRoutes.get(key); }
+  finally{ cmPendingRoutes.delete(key); }
+  return url ? {url:withFilters(url, card.language, card.condition, card.edition), exact:true, note:'Direct: Pokémon TCG API'} : fallback;
 }
 
 async function copyToClipboard(text){
@@ -555,7 +658,16 @@ function bindCandidateButtons(candidates){
 }
 
 async function makeLink(autoCopy=true){
-  const r = buildUrl();
+  const generation = ++cmLinkGeneration;
+  let r = buildUrl();
+  const card = {...currentCardmarketCard(), condition:condSelect.value, edition:editionSelect?.value || 'AUTO'};
+  if(card.verified && card.direct && validCardmarketRoute(card.url)){
+    r = {url:withFilters(card.url, card.language, card.condition, card.edition), exact:true, note:'Direct geverifieerd'};
+  }
+  const snapshot = JSON.stringify(card);
+  const stillCurrent = () => generation === cmLinkGeneration && snapshot === JSON.stringify({
+    ...currentCardmarketCard(), condition:condSelect.value, edition:editionSelect?.value || 'AUTO'
+  });
   if(!r.url){
     urlBox.value = '';
     openBtn.href = '#';
@@ -571,6 +683,18 @@ async function makeLink(autoCopy=true){
   matchBox.innerHTML = `<b>${r.exact ? 'Directe kaartpagina' : (r.candidates ? 'Kies de juiste set' : 'Zoekpagina')}</b><br>${escapeHtml(r.note)}<br>${escapeHtml(nameInput.value || '-')} · ${escapeHtml(numberInput.value || '-')} · ${escapeHtml(setSelect.value)} · ${escapeHtml(langSelect.value)}/${escapeHtml(condSelect.value)}${editionSelect?.value === '1ST' ? ' · 1ST' : ''}${candidateButtonsHtml(r.candidates, condSelect.value)}`;
   bindCandidateButtons(r.candidates);
   lastBuilt = {url:r.url, result:r};
+  // Publish a usable fallback immediately; resolving a direct route never blocks opening it.
+  window.dispatchEvent(new CustomEvent('cardscout:cm-route-ready', {detail:{card, cardmarketUrl:r.url}}));
+  const resolved = await resolveCardmarketRoute(card, r);
+  if(!stillCurrent()) return;
+  if(resolved.url !== r.url){
+    r = resolved;
+    urlBox.value = r.url;
+    openBtn.href = r.url;
+    matchBox.innerHTML = `<b>Directe kaartpagina</b><br>${escapeHtml(r.note)}`;
+    lastBuilt = {url:r.url, result:r};
+    window.dispatchEvent(new CustomEvent('cardscout:cm-route-ready', {detail:{card, cardmarketUrl:r.url}}));
+  }
   addRecent(itemFromCurrent(r.url, r));
   if(autoCopy){
     const ok = await copyToClipboard(r.url);
@@ -619,6 +743,8 @@ function renderList(el, key){
 }
 function renderSaved(){ renderList(recentList, STORAGE_RECENT); renderList(favoriteList, STORAGE_FAV); }
 function clearAll(){
+  cmSelectedCard = null;
+  ++cmLinkGeneration;
   quickInput.value=''; numberInput.value=''; nameInput.value=''; setSelect.value='AUTO'; langSelect.value='JP'; condSelect.value='NM'; if(editionSelect) editionSelect.value='AUTO';
   updateCustomSelects();
   urlBox.value=''; openBtn.href='#'; openBtn.classList.add('disabled'); matchBox.innerHTML=''; lastBuilt=null;
@@ -689,6 +815,7 @@ function manualFieldChanged(){
   quickInput.value = '';
   setSelect.value = 'AUTO';
   updateCustomSelects();
+  makeLink(false);
 }
 
 function bind(){
