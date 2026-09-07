@@ -1,0 +1,208 @@
+{
+  "category": "Pokemon",
+  "id": "base2-25",
+  "illustrator": "Kagemaru Himeno",
+  "image": "https://assets.tcgdex.net/en/base/base2/25",
+  "localId": "25",
+  "name": "Pinsir",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 64,
+      "total": 64
+    },
+    "id": "base2",
+    "logo": "https://assets.tcgdex.net/en/base/base2/logo",
+    "name": "Jungle",
+    "symbol": "https://assets.tcgdex.net/univ/base/base2/symbol"
+  },
+  "variants": {
+    "firstEdition": true,
+    "holo": false,
+    "normal": true,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "normal",
+      "size": "standard",
+      "thirdParty": {
+        "cardmarket": 273806,
+        "tcgplayer": 106987
+      },
+      "variantId": "endfynwn4n10gzq",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-07T10:38:26.283Z",
+          "unit": "EUR",
+          "idProduct": 273806,
+          "avg": 29.14,
+          "low": 3,
+          "trend": 34.66,
+          "avg1": 22.74,
+          "avg7": 38.46,
+          "avg30": 32.22,
+          "avg-holo": null,
+          "low-holo": null,
+          "trend-holo": 15.99,
+          "avg1-holo": 7.74,
+          "avg7-holo": 11.86,
+          "avg30-holo": 14.3
+        },
+        "tcgplayer": {
+          "unit": "USD",
+          "updated": "2026-09-07T10:38:24.520Z",
+          "1st-edition": {
+            "productId": 106987,
+            "lowPrice": 11.24,
+            "midPrice": 20,
+            "highPrice": 9999,
+            "marketPrice": 19,
+            "directLowPrice": 369.8
+          },
+          "unlimited": {
+            "productId": 106987,
+            "lowPrice": 2.5,
+            "midPrice": 4.7,
+            "highPrice": 9999,
+            "marketPrice": 5.24,
+            "directLowPrice": null
+          }
+        }
+      }
+    },
+    {
+      "type": "normal",
+      "size": "standard",
+      "stamp": [
+        "1st-edition"
+      ],
+      "thirdParty": {
+        "cardmarket": 273806,
+        "tcgplayer": 106987
+      },
+      "variantId": "2fnyg4g532wu2uft0spaa3eefrz",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-07T10:38:26.283Z",
+          "unit": "EUR",
+          "idProduct": 273806,
+          "avg": 29.14,
+          "low": 3,
+          "trend": 34.66,
+          "avg1": 22.74,
+          "avg7": 38.46,
+          "avg30": 32.22,
+          "avg-holo": null,
+          "low-holo": null,
+          "trend-holo": 15.99,
+          "avg1-holo": 7.74,
+          "avg7-holo": 11.86,
+          "avg30-holo": 14.3
+        },
+        "tcgplayer": {
+          "unit": "USD",
+          "updated": "2026-09-07T10:38:24.520Z",
+          "1st-edition": {
+            "productId": 106987,
+            "lowPrice": 11.24,
+            "midPrice": 20,
+            "highPrice": 9999,
+            "marketPrice": 19,
+            "directLowPrice": 369.8
+          },
+          "unlimited": {
+            "productId": 106987,
+            "lowPrice": 2.5,
+            "midPrice": 4.7,
+            "highPrice": 9999,
+            "marketPrice": 5.24,
+            "directLowPrice": null
+          }
+        }
+      }
+    }
+  ],
+  "dexId": [
+    127
+  ],
+  "hp": 60,
+  "types": [
+    "Grass"
+  ],
+  "description": "If it fails to crush the victim in its pincers, it will swing its victim around and toss it hard.",
+  "stage": "Basic",
+  "attacks": [
+    {
+      "cost": [
+        "Grass",
+        "Grass"
+      ],
+      "name": "Irongrip",
+      "effect": "Flip a coin. If heads, the Defending Pokémon is now Paralyzed.",
+      "damage": 20
+    },
+    {
+      "cost": [
+        "Grass",
+        "Grass",
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Guillotine",
+      "damage": 50
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Fire",
+      "value": "×2"
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-14T19:45:37+01:00",
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-07T10:38:26.283Z",
+      "unit": "EUR",
+      "idProduct": 273806,
+      "avg": 29.14,
+      "low": 3,
+      "trend": 34.66,
+      "avg1": 22.74,
+      "avg7": 38.46,
+      "avg30": 32.22,
+      "avg-holo": null,
+      "low-holo": null,
+      "trend-holo": 15.99,
+      "avg1-holo": 7.74,
+      "avg7-holo": 11.86,
+      "avg30-holo": 14.3
+    },
+    "tcgplayer": {
+      "unit": "USD",
+      "updated": "2026-09-07T10:38:24.520Z",
+      "1st-edition": {
+        "productId": 106987,
+        "lowPrice": 11.24,
+        "midPrice": 20,
+        "highPrice": 9999,
+        "marketPrice": 19,
+        "directLowPrice": 369.8
+      },
+      "unlimited": {
+        "productId": 106987,
+        "lowPrice": 2.5,
+        "midPrice": 4.7,
+        "highPrice": 9999,
+        "marketPrice": 5.24,
+        "directLowPrice": null
+      }
+    }
+  }
+}

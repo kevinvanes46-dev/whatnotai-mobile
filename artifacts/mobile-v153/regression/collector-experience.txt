@@ -1,0 +1,6 @@
+PASS 320px real artwork, X clear, detail, editor keyboard, add/undo, duplicate undo, grid/list, preserved data
+PASS 375px real artwork, X clear, detail, editor keyboard, add/undo, duplicate undo, grid/list, preserved data
+PASS 390px real artwork, X clear, detail, editor keyboard, add/undo, duplicate undo, grid/list, preserved data
+PASS 768px real artwork, X clear, detail, editor keyboard, add/undo, duplicate undo, grid/list, preserved data
+PASS 1280px real artwork, X clear, detail, editor keyboard, add/undo, duplicate undo, grid/list, preserved data
+5 collector experience groups passed

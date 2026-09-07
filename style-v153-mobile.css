@@ -1,0 +1,32 @@
+/* Fixed controls keep their size; only the true page and results scrollports reserve space. */
+html { scroll-padding-bottom:var(--fixed-clearance,180px); }
+body { min-height:100svh; }
+.appShell { padding-bottom:var(--fixed-clearance,180px)!important; }
+.tabView { scroll-margin-bottom:var(--fixed-clearance,180px); }
+#smartSuggestions { max-height:min(52dvh,var(--results-room,52dvh),520px); overflow-y:auto; overflow-x:clip; padding-bottom:20px; scroll-padding-block:44px 20px; min-height:0; }
+#smartSuggestions .suggestion:last-child { margin-bottom:0; }
+.visiblePreferences #stampedSetChips { max-width:100%; min-width:0; flex-wrap:nowrap; overflow-x:auto; padding:6px 2px 8px; scroll-padding-inline:2px; }
+#stampedSetChips button { flex:0 0 auto; min-height:44px; border-radius:12px; background:#15231e; color:#c1d7ca; border:1px solid #344d41; }
+#stampedSetChips button.active { background:#284b3d; border-color:#91bda5; color:#e0f5e8; }
+#recentList .item { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px; padding:14px 0; border:0; border-bottom:1px solid #293e33; border-radius:0; background:transparent; box-shadow:none; }
+#recentList .useBtn { display:flex; align-items:center; gap:12px; width:100%; min-width:0; text-align:left; padding:0; background:transparent; border:0; color:inherit; min-height:72px; }
+.recentThumb { display:block; flex:0 0 46px; width:46px; min-height:64px; font-size:8px; }
+.recentThumb img { display:block; width:46px; height:64px; object-fit:contain; border-radius:5px; }
+.recentInfo { display:grid; gap:6px; min-width:0; }
+.recentName { font-size:14px; font-weight:600; line-height:1.4; overflow-wrap:anywhere; }
+.recentMeta { font-size:11px; color:#9fb6a7; line-height:1.5; overflow-wrap:anywhere; }
+#recentList .itemActions { display:flex; gap:2px; align-items:center; }
+#recentList .itemActions>* { display:grid; place-items:center; width:44px; min-width:44px; height:44px; padding:0; background:transparent; border:0; color:#a9c1b2; }
+#clearRecentBtn { background:transparent; color:#b7bfb9; border-color:#34473c; min-height:44px; }
+#homeRecentCards { min-width:0; }
+#homeRecentCards .recentCard { min-width:0; }
+#homeRecentCards .recentArt { overflow:visible; }
+.mobileKeyboard #actionDock,.mobileKeyboard .bottomNav { visibility:hidden!important; pointer-events:none!important; }
+@media(max-width:350px) { #recentList .itemActions { flex-direction:column; } }
+@supports(padding:max(0px)) { .topbar { padding-top:max(20px,env(safe-area-inset-top)); } }
+
+.savedPanel { background:#101b17; border-color:#2b4034; box-shadow:none; }
+#recentList .openMini,#recentList .delBtn { font-size:18px; }
+
+html { scroll-padding-top:var(--top-clearance,110px); }
+#actionDock .dockCollection { white-space:normal; overflow-wrap:anywhere; line-height:1.25; padding:8px; font-size:12px; }

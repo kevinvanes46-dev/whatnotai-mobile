@@ -135,7 +135,8 @@
       const setKey = btn.dataset.stampedSet || '';
       const def = setInfo?.[setKey] || {};
       const hay = normalize([setKey,def.label,def.code,...(def.aliases||[])].filter(Boolean).join(' '));
-      btn.classList.toggle('active', !!q && q.split(' ').filter(Boolean).some(t=>t.length>2 && hay.includes(t)));
+      const active=typeof detectSet==='function'&&detectSet(q)===setKey;
+      btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));
     });
   }
   function setStampedMode(on, rerender=true){
@@ -508,6 +509,15 @@
       merged.push(card);
     }
     catalog = merged;
+    window.CardCatalog={find(input){
+      const language=input.language||input.lang||'EN';
+      const name=cleanVisibleCardName(input.name||'',input.number||'').toLowerCase();
+      const number=String(input.number||'').replace(/^0+(?=\d)/,'');
+      const set=input.set;
+      const matches=catalog.filter(c=>(c.language||'EN')===language&&c.set===set&&String(c.number||'').replace(/^0+(?=\d)/,'')===number&&cleanVisibleCardName(c.name||'',c.number||'').toLowerCase()===name);
+      return matches.find(c=>c.image)||matches.find(c=>c.source_id)||matches[0]||null;
+    }};
+    window.dispatchEvent(new CustomEvent('cardscout:catalog-ready'));
   }
 
   function appendSuggestionBatch(){
@@ -813,6 +823,8 @@
     const def=setInfo?.[setKey] || {};
     const label=def.label || setKey;
     setStampedMode(true,false);
+    if(langSelect){langSelect.value='EN';updateCustomSelects();savePrefs();}
+    if(typeof invalidateCardmarketSelection==='function')invalidateCardmarketSelection();
     quickInput.value = `${label} stamp`;
     syncStampedSetChips();
     renderSuggestions(quickInput.value);
