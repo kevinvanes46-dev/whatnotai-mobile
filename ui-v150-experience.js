@@ -21,14 +21,16 @@
   const cache=new Map(),queue=[];
   let running=0,selectionGeneration=0;
   const normalize=c=>{
+    if(c.kind || c.quick || c.url) c=window.CardIdentity.normalize(c);
     const language=c.language||c.lang||'EN';
     const set=typeof CM_SOURCE_SETS!=='undefined'&&CM_SOURCE_SETS[c.set]?c.set:(typeof detectSet==='function'?detectSet(c.set||''):c.set);
     const item={...c,set:set&&set!=='AUTO'?set:c.set,number:typeof cleanNumber==='function'?cleanNumber(c.number):c.number,language,sourceId:c.sourceId||c.source_id||c.catalogId||''};
-    const match=window.CardCatalog?.find(item);
-    return {...item,sourceId:item.sourceId||match?.source_id||'',image:safeImage(item.image)?item.image:(match?.image||'')};
+    const match=(item.sourceId&&window.CardCatalog?.byId?.(item.sourceId,language))||window.CardCatalog?.find(item);
+    return {...item,sourceId:item.sourceId||match?.source_id||'',image:match?.image||(safeImage(item.image)?item.image:'')};
   };
   function lookup(card){
     const c=normalize(card);
+    if(c.kind==='query')return Promise.resolve(null);
     const key=[c.language,c.sourceId,c.set,c.number,c.name].join('|');
     const hit=cache.get(key);if(hit&&hit.expires>Date.now())return hit.result;
     const entry={expires:Infinity,result:null};
@@ -43,8 +45,15 @@
   function fallback(target){target.classList.remove('artLoading');target.classList.add('artUnavailable');target.textContent='Afbeelding niet beschikbaar';const retry=document.createElement('button');retry.type='button';retry.className='artRetry';retry.textContent='Opnieuw laden';retry.addEventListener('click',event=>{event.stopPropagation();target.classList.remove('artUnavailable');target.classList.add('artLoading');cache.clear();load(pending.get(target),target);});if(!target.closest('button'))target.append(retry);}
   async function load(card,target,hydrated=false){
     const enriched=normalize(card);
+    if(enriched.kind==='query'){
+      target.classList.remove('artLoading','artUnavailable');target.classList.add('queryArtwork');
+      target.setAttribute('aria-label','Zoekopdracht');
+      target.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg>';return;
+    }
+    target.classList.remove('queryArtwork');
     const data=!hydrated&&safeImage(enriched.image)?enriched:await lookup(enriched);
     if(!target.isConnected||pending.get(target)!==card)return;
+    if(data&&data!==enriched&&enriched.sourceId&&data.id!==enriched.sourceId){fallback(target);return;}
     if(data&&data!==enriched&&!enriched.sourceId&&enriched.name&&data.name&&typeof cleanCardmarketName==='function'&&cleanCardmarketName(enriched.name,enriched.number).toLowerCase()!==cleanCardmarketName(data.name,data.localId).toLowerCase()){fallback(target);return;}
     const url=safeImage(data?.image);
     if(!url||(card.language==='JP'&&!url.includes('/ja/'))){fallback(target);return;}
@@ -72,15 +81,23 @@
     const wrap=$('homeRecentCards');wrap.replaceChildren();
     const rows=typeof readStore==='function'?readStore(STORAGE_RECENT).slice(0,4):[];
     if(!rows.length){const p=document.createElement('p');p.className='recentEmpty';p.textContent='Je volgende vondst begint hier. Zoek bijvoorbeeld op “Bagon 43 Dragon Frontiers”.';wrap.append(p);return;}
-    rows.forEach(c=>{
+    rows.forEach(stored=>{
+      const c=window.CardIdentity.normalize(stored);
       const btn=document.createElement('button');btn.type='button';btn.className='recentCard';
       const art=document.createElement('span'),name=document.createElement('b'),meta=document.createElement('small');
-      art.className='recentArt';name.textContent=c.name;meta.textContent=[c.number?'#'+c.number:'',c.set].filter(Boolean).join(' · ');
+      art.className='recentArt';name.textContent=c.name;meta.textContent=[c.kind==='query'?'Zoekopdracht':'',c.number?'#'+c.number:'',c.kind==='card'?c.set:''].filter(Boolean).join(' · ');
       btn.append(art,name,meta);wrap.append(btn);window.CardArtwork.mount(c,art);
-      btn.addEventListener('click',()=>{applyItem(c,false);void makeLink(false);});
+      btn.addEventListener('click',async()=>{if(await applyItem(stored,false))void makeLink(false);});
     });
   }
   recent();new MutationObserver(recent).observe($('recentList'),{childList:true});
+  async function hydrateRecent(){
+    const rows=readStore(STORAGE_RECENT),before=JSON.stringify(rows.map(window.CardIdentity.normalize));
+    await Promise.all(rows.map(window.CardIdentity.hydrate));
+    if(before!==JSON.stringify(readStore(STORAGE_RECENT).map(window.CardIdentity.normalize)))renderSaved();
+  }
+  void hydrateRecent();
+  window.addEventListener('cardscout:catalog-ready',()=>{renderSaved();void hydrateRecent();});
   $('homeRecentAll').addEventListener('click',()=>$('navRecent').click());
   $('selectedCardEdit').addEventListener('click',()=>{$('manualDetails').open=true;$('manualDetails').scrollIntoView({block:'start',behavior:'smooth'});$('nameInput').focus({preventScroll:true});});
 
@@ -106,12 +123,15 @@
     document.body.classList.add('cardDetailVisible');
     const version=++selectionGeneration,c=detail.card;
     $('selectedCardPanel').hidden=false;$('homeRecentPanel').hidden=true;
+    $('selectedCardPanel').classList.toggle('querySelection',c.kind==='query');
     $('selectedCardTitle').textContent=c.name||'Geselecteerde kaart';
+    $('selectedCardPanel').querySelector('.eyebrow').textContent=c.kind==='query'?'Zoekopdracht':'Geselecteerde kaart';
     $('selectedCardMeta').textContent=[c.set_name||c.set,c.number?'#'+c.number:'',c.language,c.condition?'Staat '+c.condition:'',c.edition==='1ST'?'1st Edition':''].filter(Boolean).join(' · ');
     $('selectedCardRoute').textContent=(detail.cardmarketUrl.includes('/Products/Singles/')||detail.cardmarketUrl.includes('idProduct='))?'Directe Cardmarket-pagina beschikbaar':'Zoekresultaten op Cardmarket · controleer de juiste uitvoering';
-    $('selectedCardPrice').textContent='Marktindicatie ophalen…';
+    $('selectedCardPrice').textContent=c.kind==='query'?'Zoekopdracht: kies een kaart voor een marktindicatie.':'Marktindicatie ophalen…';
     $('selectedCardArt').replaceChildren();$('selectedCardArt').classList.remove('artUnavailable');
     window.CardArtwork.mount(c,$('selectedCardArt'));
+    if(c.kind==='query')return;
     const data=await lookup(c);if(version!==selectionGeneration)return;
     const stamped=$('stampedToggle')?.getAttribute('aria-pressed')==='true';
     const quote=window.cardscoutCollectionUI.priceFrom(data,{variant:stamped?'STAMPED':'NORMAL',edition:$('editionSelect')?.value});

@@ -21,7 +21,7 @@ function context(options={}){
     source.slice(source.indexOf('function cleanNumber('),source.indexOf('function slugifyName('))+
     source.slice(source.indexOf('function matchingSetAliases('),source.indexOf('function inferLanguageFromKnown('))+
     source.slice(source.indexOf('const AUTO_VALUE_DIRECTS ='),source.indexOf('async function copyToClipboard('))+
-    source.slice(source.indexOf('async function makeLink('),source.indexOf('function applyItem(')),c);
+    source.slice(source.indexOf('async function makeLink('),source.indexOf('async function applyItem(')),c);
   return {c,storage,calls,events};
 }
 function fallback(c,card){return {url:c.searchUrl(card.name,card.number,card.language,card.condition,card.set),exact:false};}

@@ -1,0 +1,6 @@
+# Full regression screenshots are reproducible; keep the focused v154 evidence in Git.
+identity/
+regression/**/*.png
+!regression/history-v154/*.png
+!regression/mobile-v153/recent-390.png
+!regression/mobile-v153/presets-390.png

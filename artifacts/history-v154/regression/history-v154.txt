@@ -1,0 +1,10 @@
+PASS ex15-43 real result selection, exact persisted image/identity, reload, Recent Use and direct Open
+PASS base2-25 real result selection, exact persisted image/identity, reload, Recent Use and direct Open
+PASS Condition, edition and stamped variant restore
+PASS Generic Bagon stays query and never overwrites exact Bagon
+PASS Selection persists before route resolution; stale response cannot overwrite a newer query
+PASS Late legacy metadata cannot replace a newer active selection
+PASS Legacy source and unique tuple hydrate in memory; ambiguous AUTO has no guessed art and storage is unchanged
+PASS Image recovery prefers source/catalog identity over inconsistent saved image
+PASS Collection storage byte-identical; mobile/desktop states without runtime errors
+9 history identity checks passed

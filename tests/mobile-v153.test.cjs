@@ -1,7 +1,7 @@
 'use strict';
 const fs=require('node:fs'),http=require('node:http'),path=require('node:path'),assert=require('node:assert/strict'),{execFileSync}=require('node:child_process');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
-const baseline='bb52604ea331567987d8d79cae94b1995153ad79',out='artifacts/mobile-v153';fs.mkdirSync(out,{recursive:true});
+const baseline='bb52604ea331567987d8d79cae94b1995153ad79',out=process.env.UI_SCREENSHOT_DIR||'artifacts/mobile-v153';fs.mkdirSync(out,{recursive:true});
 const fixtures=Object.fromEntries(['ex15-43','ex14-4','base2-25'].map(id=>[id,JSON.parse(fs.readFileSync('tests/fixtures/artwork/'+id+'.json'))]));
 const recentKey='whatnotai_mobile_recent_v37';
 const seed=Array.from({length:12},(_,i)=>({id:'recent-'+i,name:i%2?'Pinsir':'Bagon',number:i%2?'25':'43',set:i%2?'JUNGLE':'EX DRAGON FRONTIERS',lang:'EN',cond:'EX',edition:'AUTO',url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct=273945',exact:true,...(i===0?{source_id:'ex15-43'}:{})}));
@@ -9,7 +9,8 @@ seed.forEach(item=>item.quick=[item.name,item.number,item.set].join(' '));
 seed[11]={...seed[11],name:'Een uitzonderlijk lange kaartnaam voor de mobiele tekstweergave zonder horizontale overlap'};
 let checks=0;const pass=s=>{checks++;console.log('PASS '+s)};
 (async()=>{
- for(const file of ['app-v137.js','ui-v137-collection.js','cardmarket-products-v152.js','cards.json','manifest.json'])assert.equal(fs.readFileSync(file,'utf8').replace(/\r\n/g,'\n'),execFileSync('git',['show',baseline+':'+file],{encoding:'utf8',maxBuffer:20e6}).replace(/\r\n/g,'\n'));pass('Protected routing, pricing, storage/import-export module, mappings, scanner and data unchanged');
+ require('./helpers/history-protected.cjs')();
+ for(const file of ['ui-v137-collection.js','cardmarket-products-v152.js','cards.json','manifest.json'])assert.equal(fs.readFileSync(file,'utf8').replace(/\r\n/g,'\n'),execFileSync('git',['show',baseline+':'+file],{encoding:'utf8',maxBuffer:20e6}).replace(/\r\n/g,'\n'));pass('Protected routing, pricing, storage/import-export module, mappings, scanner and data unchanged');
  const server=http.createServer((req,res)=>{const file=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';try{res.setHeader('Content-Type',({'js':'text/javascript','css':'text/css','html':'text/html','json':'application/json','svg':'image/svg+xml'})[file.split('.').pop()]||'application/octet-stream');res.end(fs.readFileSync(path.resolve(file)));}catch{res.writeHead(404).end();}});await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;
  try{browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH});
  for(const width of [320,375,390,430]){

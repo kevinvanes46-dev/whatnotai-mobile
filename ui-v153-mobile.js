@@ -33,7 +33,7 @@
  function decorateRecent(){
   const rows=typeof readStore==='function'?readStore(STORAGE_RECENT):[];
   $('recentList').querySelectorAll(':scope > .item').forEach((tile,index)=>{
-   if(tile.dataset.polished)return;const item=rows[index],button=tile.querySelector('.useBtn');if(!item||!button)return;
+   if(tile.dataset.polished)return;const item=rows[index]&&window.CardIdentity.normalize(rows[index]),button=tile.querySelector('.useBtn');if(!item||!button)return;
    tile.dataset.polished='true';
    const old=tile.querySelector('.itemMain'),info=document.createElement('span'),art=document.createElement('span');
    info.className='recentInfo';art.className='recentThumb';
@@ -49,8 +49,8 @@
  new MutationObserver(decorateRecent).observe($('recentList'),{childList:true});decorateRecent();
  window.addEventListener('cardscout:catalog-ready',()=>{
   const rows=readStore(STORAGE_RECENT);
-  $('recentList').querySelectorAll(':scope > .item').forEach((tile,i)=>{const target=tile.querySelector('.recentThumb.artUnavailable');if(target&&rows[i])window.CardArtwork.mount(rows[i],target);});
-  $('homeRecentCards').querySelectorAll('.recentCard').forEach((tile,i)=>{const target=tile.querySelector('.recentArt.artUnavailable');if(target&&rows[i])window.CardArtwork.mount(rows[i],target);});
+  $('recentList').querySelectorAll(':scope > .item').forEach((tile,i)=>{const target=tile.querySelector('.recentThumb.artUnavailable');if(target&&rows[i])window.CardArtwork.mount(window.CardIdentity.normalize(rows[i]),target);});
+  $('homeRecentCards').querySelectorAll('.recentCard').forEach((tile,i)=>{const target=tile.querySelector('.recentArt.artUnavailable');if(target&&rows[i])window.CardArtwork.mount(window.CardIdentity.normalize(rows[i]),target);});
  });
  schedule();
 })();

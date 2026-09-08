@@ -554,8 +554,10 @@ function currentCardmarketCard(){
   return selected;
 }
 function selectCardmarketCard(card){
-  cmSelectedCard = {...card};
+  cmSelectedCard = window.CardIdentity ? window.CardIdentity.normalize(card) : {...card};
   ++cmLinkGeneration;
+  // Persist the actual selection even if a later query cancels its pending route.
+  if(window.CardIdentity&&cmSelectedCard.kind==='card')addRecent(itemFromCurrent('',{exact:false,note:''}));
 }
 function invalidateCardmarketSelection(){
   cmSelectedCard = null;
@@ -700,22 +702,30 @@ function currentQuickText(){
   if(typed) return typed;
   return `${langSelect.value.toLowerCase()} ${setSelect.value.toLowerCase()} ${numberInput.value} ${nameInput.value} ${editionSelect?.value === '1ST' ? '1st ' : ''}${condSelect.value.toLowerCase()}`.replace(/\s+/g,' ').trim();
 }
+function selectedCardIdentity(url){
+  const fields={name:nameInput.value,number:numberInput.value,set:setSelect.value,language:langSelect.value};
+  const selected=cmSelectedCard&&cardmarketIdentity(cmSelectedCard)===cardmarketIdentity(fields)?cmSelectedCard:fields;
+  return window.CardIdentity?.normalize({...selected,condition:condSelect.value,edition:editionSelect?.value||'AUTO',variant:window.CardSelectionUI?.variant()||'NORMAL',cardmarketUrl:url});
+}
 function itemFromCurrent(url, result){
+  const identity = selectedCardIdentity(url);
   return {
+    ...identity,
     id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
     quick: currentQuickText(),
-    url,
-    name: nameInput.value.trim(),
-    number: numberInput.value.trim(),
-    set: setSelect.value,
+    url:identity?.url || url,
+    name: identity?.name || nameInput.value.trim(),
+    number: identity ? identity.number : numberInput.value.trim(),
+    set: identity?.set || setSelect.value,
     lang: langSelect.value,
     cond: condSelect.value,
     edition: editionSelect?.value || 'AUTO',
-    exact: !!result.exact,
+    exact: identity?.kind === 'query' ? false : !!result.exact,
     note: result.note || ''
   };
 }
 function sameItem(a,b){
+  if(window.CardIdentity) return window.CardIdentity.key(a) === window.CardIdentity.key(b);
   return (a.quick || '').toLowerCase() === (b.quick || '').toLowerCase() || (a.url && b.url && a.url === b.url);
 }
 function addRecent(item){
@@ -797,6 +807,7 @@ async function makeLink(autoCopy=true){
   matchBox.innerHTML = `<b>${route.exact ? 'Directe kaartpagina' : (route.candidates ? 'Kies de juiste set' : 'Zoekpagina')}</b><br>${escapeHtml(route.note || '')}<br>${escapeHtml(card.name || '-')} · ${escapeHtml(card.number || '-')} · ${escapeHtml(card.set)}${candidateButtonsHtml(route.candidates, card.condition)}`;
   bindCandidateButtons(route.candidates);
   lastBuilt = {url:route.url, result:route};
+  if(window.CardIdentity) card = selectedCardIdentity(route.url);
   window.dispatchEvent(new CustomEvent('cardscout:cm-route-ready', {detail:{card, cardmarketUrl:route.url}}));
   addRecent(itemFromCurrent(route.url, route));
   if(autoCopy){
@@ -808,7 +819,10 @@ async function makeLink(autoCopy=true){
   }
 }
 
-function applyItem(item, make=true){
+async function applyItem(item, make=true){
+  const generation=++cmLinkGeneration;
+  item = window.CardIdentity ? await window.CardIdentity.hydrate(item) : item;
+  if(generation!==cmLinkGeneration)return false;
   quickInput.value = item.quick || '';
   numberInput.value = item.number || '';
   nameInput.value = item.name || '';
@@ -817,12 +831,30 @@ function applyItem(item, make=true){
   condSelect.value = item.cond || 'NM';
   if(editionSelect) editionSelect.value = item.edition || 'AUTO';
   updateCustomSelects();
-  if(make) makeLink(true);
+  window.CardSelectionUI?.restoreVariant(item.variant);
+  if(item.kind === 'query') invalidateCardmarketSelection();
+  else selectCardmarketCard({...item, language:item.lang});
+  if(make) await makeLink(true);
+  return true;
 }
 function deleteItem(key, id){
   const arr = readStore(key).filter(x => x.id !== id);
   writeStore(key, arr);
   renderSaved();
+}
+async function prepareHistoryLink(stored, div){
+  const link=div.querySelector('.openMini');
+  const item=await window.CardIdentity.hydrate(stored);
+  if(!div.isConnected)return;
+  const route=item.kind==='card' ? await resolveFinalCardmarketRoute({...item,quickText:item.quick||''}) : {url:item.url};
+  if(!div.isConnected)return;
+  link.href=route.url||item.url||'#';
+  link.removeAttribute('aria-disabled');
+  const title=div.querySelector('.recentName,.itemTitle'),meta=div.querySelector('.recentMeta,.itemMeta');
+  title.textContent=`${item.name || '-'} ${item.number ? '('+item.number+')' : ''}`;
+  meta.textContent=`${item.kind==='query'?'Zoekopdracht':item.set_name||item.set} · ${item.lang}/${item.cond}${item.edition==='1ST'?' · 1ST':''}${item.variant==='STAMPED'?' · Stamped':''}`;
+  const art=div.querySelector('.recentThumb');
+  if(art)window.CardArtwork?.mount(item,art);
 }
 function renderList(el, key){
   const arr = readStore(key);
@@ -833,16 +865,20 @@ function renderList(el, key){
   }
   el.className = 'savedList';
   el.innerHTML = '';
-  arr.forEach(item => {
+  arr.forEach(stored => {
+    const item = window.CardIdentity?.normalize(stored) || stored;
     const div = document.createElement('div');
     div.className = 'item';
     div.innerHTML = `<div class="itemMain"><div class="itemTitle"></div><div class="itemMeta"></div></div><div class="itemActions"><button type="button" class="useBtn">Gebruik</button><a class="openMini" target="_blank" rel="noopener">Open</a><button type="button" class="delBtn">×</button></div>`;
     div.querySelector('.itemTitle').textContent = `${item.name || '-'} ${item.number ? '('+item.number+')' : ''}`;
-    div.querySelector('.itemMeta').textContent = `${item.set || 'AUTO'} · ${item.lang}/${item.cond}${item.edition === '1ST' ? ' · 1ST' : ''} · ${item.exact ? 'direct' : 'search'}`;
-    div.querySelector('.useBtn').addEventListener('click', () => applyItem(item, true));
-    div.querySelector('.openMini').href = item.url || '#';
+    div.querySelector('.itemMeta').textContent = `${item.kind === 'query' ? 'Zoekopdracht' : (item.set_name || item.set || 'AUTO')} · ${item.lang}/${item.cond}${item.edition === '1ST' ? ' · 1ST' : ''} · ${item.exact ? 'direct' : 'search'}`;
+    div.querySelector('.useBtn').addEventListener('click', () => applyItem(stored, true));
+    const link=div.querySelector('.openMini');
+    if(item.url)link.href=item.url;
+    else link.setAttribute('aria-disabled','true');
     div.querySelector('.delBtn').addEventListener('click', () => deleteItem(key, item.id));
     el.appendChild(div);
+    if(window.CardIdentity&&item.kind==='card'&&(!stored.kind||!validCardmarketRoute(item.url,item.source_id)))void prepareHistoryLink(stored,div);
   });
 }
 function renderSaved(){ renderList(recentList, STORAGE_RECENT); renderList(favoriteList, STORAGE_FAV); }

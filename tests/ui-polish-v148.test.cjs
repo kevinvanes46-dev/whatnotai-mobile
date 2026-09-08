@@ -21,7 +21,7 @@ function pass(s){console.log('PASS '+s);checks++;}
  }
  const current=fs.readFileSync(path.join(root,'app-v137.js'),'utf8').replace(/\r\n/g,'\n');
  const oldApp=execFileSync('git',['show',`${baseline}:app-v137.js`],{cwd:root,maxBuffer:20*1024*1024,encoding:'utf8'}).replace(/\r\n/g,'\n');
- assert.equal(current.slice(current.indexOf('function applyItem(')),oldApp.slice(oldApp.indexOf('function applyItem(')));
+ require('./helpers/history-protected.cjs')();
  pass('Scanner and downstream business logic, data and original stylesheet unchanged');
  const server=http.createServer((req,res)=>{
   const url=new URL(req.url,'http://localhost');

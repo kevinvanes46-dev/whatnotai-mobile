@@ -1,0 +1,24 @@
+PASS Protected routing, pricing, storage/import-export module, mappings, scanner and data unchanged
+PASS 320px stamped presets visible, scrollable and preserve preferences
+PASS 320px last of 1/10/35 results fully above fixed controls
+PASS 320px recent tiles, images, long names and untouched storage
+PASS 320px recent actions and last home preview reachable
+PASS 320px one recent item and page-end clearance on Collection/More
+PASS 375px stamped presets visible, scrollable and preserve preferences
+PASS 375px last of 1/10/35 results fully above fixed controls
+PASS 375px recent tiles, images, long names and untouched storage
+PASS 375px recent actions and last home preview reachable
+PASS 375px one recent item and page-end clearance on Collection/More
+PASS Source ID, legacy Pinsir, invalid URL recovery and cached genuine missing image
+PASS Reduced viewport and simulated visualViewport keyboard restore (real iOS still needs device QA)
+PASS 390px stamped presets visible, scrollable and preserve preferences
+PASS 390px last of 1/10/35 results fully above fixed controls
+PASS 390px recent tiles, images, long names and untouched storage
+PASS 390px recent actions and last home preview reachable
+PASS 390px one recent item and page-end clearance on Collection/More
+PASS 430px stamped presets visible, scrollable and preserve preferences
+PASS 430px last of 1/10/35 results fully above fixed controls
+PASS 430px recent tiles, images, long names and untouched storage
+PASS 430px recent actions and last home preview reachable
+PASS 430px one recent item and page-end clearance on Collection/More
+23 mobile polish checks passed

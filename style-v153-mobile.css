@@ -30,3 +30,9 @@ body { min-height:100svh; }
 
 html { scroll-padding-top:var(--top-clearance,110px); }
 #actionDock .dockCollection { white-space:normal; overflow-wrap:anywhere; line-height:1.25; padding:8px; font-size:12px; }
+
+/* v154: a search is not a card preview. */
+.cardArtwork.queryArtwork { background:transparent; border:0; box-shadow:none; display:grid; place-items:center; }
+.queryArtwork svg { width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:1.5; opacity:.65; }
+.selectedCardPanel.querySelection { display:block; }
+.querySelection #selectedCardArt, .querySelection .selectedCardInfo > small { display:none; }

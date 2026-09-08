@@ -139,6 +139,7 @@
       btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));
     });
   }
+  window.CardSelectionUI={variant:()=>stampedToggleOn?'STAMPED':'NORMAL',restoreVariant:value=>setStampedMode(value==='STAMPED',false)};
   function setStampedMode(on, rerender=true){
     stampedToggleOn=!!on;
     if(stampedToggle){ stampedToggle.classList.toggle('active',stampedToggleOn); stampedToggle.setAttribute('aria-pressed',String(stampedToggleOn)); stampedToggle.textContent='Stamped'; }
@@ -509,12 +510,13 @@
       merged.push(card);
     }
     catalog = merged;
-    window.CardCatalog={find(input){
+    window.CardCatalog={byId(id,language){return catalog.find(c=>c.source_id===id&&(c.language||'EN')===language)||null;},find(input){
       const language=input.language||input.lang||'EN';
       const name=cleanVisibleCardName(input.name||'',input.number||'').toLowerCase();
       const number=String(input.number||'').replace(/^0+(?=\d)/,'');
       const set=input.set;
       const matches=catalog.filter(c=>(c.language||'EN')===language&&c.set===set&&String(c.number||'').replace(/^0+(?=\d)/,'')===number&&cleanVisibleCardName(c.name||'',c.number||'').toLowerCase()===name);
+      if(new Set(matches.map(c=>c.source_id).filter(Boolean)).size>1)return null;
       return matches.find(c=>c.image)||matches.find(c=>c.source_id)||matches[0]||null;
     }};
     window.dispatchEvent(new CustomEvent('cardscout:catalog-ready'));
@@ -795,6 +797,7 @@
   });
   window.addEventListener('cardscout:cm-route-ready', ({detail}) => {
     const card = detail.card;
+    if(card.kind==='query'){window.dispatchEvent(new CustomEvent('cardscout:card-selected',{detail:null}));return;}
     window.dispatchEvent(new CustomEvent('cardscout:card-selected', {detail:{
       card, cardmarketUrl:detail.cardmarketUrl,
       stamped:stampedToggleOn,
