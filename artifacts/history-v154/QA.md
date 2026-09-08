@@ -75,3 +75,7 @@ Other full-suite screenshots remain local, reproducible, and ignored by the arti
 - External artwork/metadata services may be unavailable; missing assets remain an honest unavailable state. Legacy name-only AUTO entries cannot reconstruct an identity that was never stored; the user must select the intended result again.
 - Cardmarket destinations are asserted through the existing engine using deterministic catalog/API fixtures. This task does not claim an exhaustive live check of Cardmarket availability or offers.
 - Existing price behavior and collection contracts are unchanged.
+
+## Keyboard follow-up
+
+The branch also includes the iPhone keyboard/scroll follow-up described in [keyboard QA](../keyboard-v154/QA.md). The combined runner now has 13 suites. Core matching, routing, scanner, price and collection modules remain unchanged by that follow-up.

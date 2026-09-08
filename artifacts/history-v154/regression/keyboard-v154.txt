@@ -1,0 +1,3 @@
+PASS 320px: 26 results; vertical swipe blur; tap/horizontal preserved; viewport/Done/Enter and scroll state retained
+PASS 390px: 26 results; vertical swipe blur; tap/horizontal preserved; viewport/Done/Enter and scroll state retained
+PASS 430px: 26 results; vertical swipe blur; tap/horizontal preserved; viewport/Done/Enter and scroll state retained

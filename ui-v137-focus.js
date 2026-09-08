@@ -63,6 +63,7 @@
   let remoteCatalog = [];
   let activeSuggestionResults = [];
   let renderedSuggestionCount = 0;
+  let renderedSearchContext='',renderedSearchKey='';
   let enCatalogState = 'idle';
   let jpCatalogState = 'idle';
 
@@ -187,7 +188,7 @@
     closeResult(false);
     syncDock();
     window.scrollTo({top:0, behavior:focus ? 'smooth' : 'auto'});
-    if(focus && tab === 'search') setTimeout(() => quickInput?.focus({preventScroll:true}), 220);
+    // Tab navigation must not reopen a keyboard that the user just dismissed.
     try{ history.replaceState(null,'',`#${tab}`); }catch(_){ }
   }
 
@@ -603,6 +604,16 @@
       return;
     }
 
+    const context=JSON.stringify([query,langSelect?.value,stampedOnly]);
+    const renderKey=JSON.stringify([context,results.map(({card})=>[card.key,card.source_id,card.name,card.number,card.set,card.image])]);
+    // Background catalog notifications must not rebuild an unchanged visible list.
+    if(!smartSuggestions.hidden&&smartSuggestions.querySelector('.suggestion')&&renderKey===renderedSearchKey){
+      const hint=smartSuggestions.querySelector('.suggestionSummary span');
+      if(hint)hint.textContent=catalogLoadingText()||'scroll voor alle matches';
+      return;
+    }
+    const previousTop=!smartSuggestions.hidden&&context===renderedSearchContext?smartSuggestions.scrollTop:0;
+    renderedSearchContext=context;renderedSearchKey=renderKey;
     activeSuggestionResults = results;
     renderedSuggestionCount = 0;
     smartSuggestions.innerHTML = '';
@@ -613,7 +624,7 @@
     summary.innerHTML = `<b>${results.length} ${results.length === 1 ? 'kaart' : 'kaarten'}${stampedOnly ? ' · ⚡ STAMPED' : ''}</b><span>${loading || 'scroll voor alle matches'}</span>`;
     smartSuggestions.appendChild(summary);
     appendSuggestionBatch();
-    smartSuggestions.scrollTop = 0;
+    smartSuggestions.scrollTop = previousTop;
     smartSuggestions.hidden = false;
   }
 
@@ -842,11 +853,11 @@
     syncStampedSetChips();
     renderSuggestions(quickInput.value);
   });
-  quickInput?.addEventListener('focus', () => renderSuggestions(quickInput.value));
+  quickInput?.addEventListener('focus', () => { if(smartSuggestions.hidden) renderSuggestions(quickInput.value); });
   smartSuggestions?.addEventListener('scroll', () => {
     if(smartSuggestions.scrollTop + smartSuggestions.clientHeight >= smartSuggestions.scrollHeight - 180) appendSuggestionBatch();
   }, {passive:true});
-  document.addEventListener('pointerdown', e => {
+  document.addEventListener('click', e => {
     if(!smartSuggestions || smartSuggestions.hidden) return;
     const inSearch = quickInput?.closest('.searchBox')?.contains(e.target);
     if(!inSearch && !smartSuggestions.contains(e.target)) hideSuggestions();

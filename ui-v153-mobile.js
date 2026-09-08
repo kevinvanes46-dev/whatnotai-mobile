@@ -5,7 +5,7 @@
  function measure(){
   scheduled=false;
   const vv=window.visualViewport,bottom=vv?vv.offsetTop+vv.height:innerHeight;
-  const keyboard=!!vv&&innerHeight-vv.height>150&&/INPUT|TEXTAREA/.test(document.activeElement?.tagName||'');
+  const keyboard=window.RareWorthKeyboard?.isKeyboardVisible() ?? (!!vv&&innerHeight-vv.height>150&&/INPUT|TEXTAREA/.test(document.activeElement?.tagName||''));
   document.body.classList.toggle('mobileKeyboard',keyboard);
   let obstacle=bottom;
   for(const el of [document.querySelector('.bottomNav'),$('actionDock')]){
@@ -28,6 +28,7 @@
  new MutationObserver(schedule).observe($('actionDock'),{attributes:true,attributeFilter:['class','style']});
  new MutationObserver(schedule).observe($('smartSuggestions'),{attributes:true,attributeFilter:['hidden'],childList:true});
  for(const name of ['scroll','resize','focusin','focusout'])window.addEventListener(name,schedule,{passive:true});
+ window.addEventListener('rareworth:keyboard-settle',schedule);
  window.visualViewport?.addEventListener('resize',schedule);
  window.visualViewport?.addEventListener('scroll',schedule);
  function decorateRecent(){

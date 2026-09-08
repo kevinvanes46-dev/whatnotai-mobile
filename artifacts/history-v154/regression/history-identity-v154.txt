@@ -1,10 +1,10 @@
-✔ Source metadata wins; language namespaces stay separate (3.1636ms)
-✔ Name-only AUTO never becomes a card and never requests metadata (1ms)
-✔ Exact and query dedupe keys are distinct even with identical quick text and URL (1.3876ms)
-✔ Unknown source ID hydrates exact metadata in memory without modifying input (0.9998ms)
-✔ Unique tuple metadata recovery validates name, number and source set (1.4643ms)
-✔ Ambiguous shared-set tuple never picks the first candidate (0.7157ms)
-✔ Wrong source metadata is rejected (0.8386ms)
+✔ Source metadata wins; language namespaces stay separate (2.2961ms)
+✔ Name-only AUTO never becomes a card and never requests metadata (0.8077ms)
+✔ Exact and query dedupe keys are distinct even with identical quick text and URL (1.2532ms)
+✔ Unknown source ID hydrates exact metadata in memory without modifying input (0.8759ms)
+✔ Unique tuple metadata recovery validates name, number and source set (1.3522ms)
+✔ Ambiguous shared-set tuple never picks the first candidate (0.7851ms)
+✔ Wrong source metadata is rejected (0.8047ms)
 ℹ tests 7
 ℹ suites 0
 ℹ pass 7
@@ -12,4 +12,4 @@
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 15.3138
+ℹ duration_ms 13.5909
