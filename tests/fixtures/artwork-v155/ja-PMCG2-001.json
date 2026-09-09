@@ -1,0 +1,72 @@
+{
+  "category": "Pokemon",
+  "id": "PMCG2-001",
+  "illustrator": "Ken Sugimori",
+  "localId": "001",
+  "name": "ニドラン♀",
+  "rarity": "Common",
+  "set": {
+    "cardCount": {
+      "official": 48,
+      "total": 48
+    },
+    "id": "PMCG2",
+    "name": "ポケモンジャングル"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": false,
+    "normal": true,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "normal",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 576631
+      },
+      "variantId": "endfynwn4n10gzq",
+      "pricing": {
+        "cardmarket": null,
+        "tcgplayer": null
+      }
+    }
+  ],
+  "dexId": [
+    29
+  ],
+  "hp": 60,
+  "types": [
+    "Grass"
+  ],
+  "stage": "Basic",
+  "attacks": [
+    {
+      "cost": [
+        "Grass"
+      ],
+      "name": "フューリースワイプ",
+      "effect": "3コインをフリップします。この攻撃は、ヘッド数の10倍のダメージを与えます。"
+    },
+    {
+      "cost": [
+        "Grass",
+        "Grass"
+      ],
+      "name": "家族を呼びます",
+      "effect": "Nidoranという名前の基本的なポケモンをデッキを検索しますか？またはニドラン？そして、それをあなたのベンチに置きます。その後、デッキをシャッフルします。 （ベンチがいっぱいの場合、この攻撃を使用できません。）"
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-09-03T15:29:09.307Z",
+  "pricing": {
+    "cardmarket": null,
+    "tcgplayer": null
+  }
+}

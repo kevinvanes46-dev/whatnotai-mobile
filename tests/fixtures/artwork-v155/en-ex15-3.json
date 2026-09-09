@@ -1,0 +1,109 @@
+{
+  "category": "Pokemon",
+  "id": "ex15-3",
+  "illustrator": "Mitsuhiro Arita",
+  "image": "https://assets.tcgdex.net/en/ex/ex15/3",
+  "localId": "3",
+  "name": "Heracross δ",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 101,
+      "total": 101
+    },
+    "id": "ex15",
+    "logo": "https://assets.tcgdex.net/en/ex/ex15/logo",
+    "name": "Dragon Frontiers",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex15/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "variantId": "jr7oetx1mqug9"
+    },
+    {
+      "type": "holo",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "variantId": "555jb0efopmyclvkikic41"
+    }
+  ],
+  "dexId": [
+    214
+  ],
+  "hp": 70,
+  "types": [
+    "Fire"
+  ],
+  "stage": "Basic",
+  "abilities": [
+    {
+      "type": "Poke-BODY",
+      "name": "Shining Horn",
+      "effect": "As long as Heracross is the only Pokémon you have in play, your opponent's Basic Pokémon can't attack."
+    }
+  ],
+  "attacks": [
+    {
+      "cost": [
+        "Colorless"
+      ],
+      "name": "Dig Deep",
+      "effect": "Search your discard pile for an Energy card, show it to your opponent, and put it into your hand."
+    },
+    {
+      "cost": [
+        "Fire",
+        "Colorless"
+      ],
+      "name": "Extra Claws",
+      "effect": "If the Defending Pokémon is Pokémon-ex, this attack does 30 damage plus 20 more damage.",
+      "damage": "30+"
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Fire",
+      "value": "×2"
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-15T23:34:34+01:00",
+  "thirdParty": {
+    "cardmarket": 277208
+  },
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-08T19:42:28.034Z",
+      "unit": "EUR",
+      "idProduct": 277208,
+      "avg": 11.33,
+      "low": 3.5,
+      "trend": 6.83,
+      "avg1": 5,
+      "avg7": 8.77,
+      "avg30": 14.22,
+      "avg-holo": 22.9,
+      "low-holo": 7,
+      "trend-holo": 21.56,
+      "avg1-holo": 24.99,
+      "avg7-holo": 24.78,
+      "avg30-holo": 21.47
+    },
+    "tcgplayer": null
+  }
+}

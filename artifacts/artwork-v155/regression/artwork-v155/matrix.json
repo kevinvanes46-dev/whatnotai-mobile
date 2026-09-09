@@ -1,0 +1,198 @@
+{
+  "stamped": [
+    {
+      "set": "EX TEAM ROCKET RETURNS",
+      "status": "PASS",
+      "cards": [
+        "ex7-1",
+        "ex7-2",
+        "ex7-3"
+      ]
+    },
+    {
+      "set": "EX DEOXYS",
+      "status": "PASS",
+      "cards": [
+        "ex8-1",
+        "ex8-2",
+        "ex8-3"
+      ]
+    },
+    {
+      "set": "EX EMERALD",
+      "status": "PASS",
+      "cards": [
+        "ex9-1",
+        "ex9-2",
+        "ex9-3"
+      ]
+    },
+    {
+      "set": "EX UNSEEN FORCES",
+      "status": "PASS",
+      "cards": [
+        "ex10-1",
+        "ex10-2",
+        "ex10-3"
+      ]
+    },
+    {
+      "set": "EX DELTA SPECIES",
+      "status": "PASS",
+      "cards": [
+        "ex11-1",
+        "ex11-2",
+        "ex11-3"
+      ]
+    },
+    {
+      "set": "EX LEGEND MAKER",
+      "status": "PASS",
+      "cards": [
+        "ex12-1",
+        "ex12-2",
+        "ex12-3"
+      ]
+    },
+    {
+      "set": "EX HOLON PHANTOMS",
+      "status": "PASS",
+      "cards": [
+        "ex13-1",
+        "ex13-2",
+        "ex13-3"
+      ]
+    },
+    {
+      "set": "EX CRYSTAL GUARDIANS",
+      "status": "PASS",
+      "cards": [
+        "ex14-1",
+        "ex14-2",
+        "ex14-3"
+      ]
+    },
+    {
+      "set": "EX DRAGON FRONTIERS",
+      "status": "PASS",
+      "cards": [
+        "ex15-1",
+        "ex15-2",
+        "ex15-3"
+      ]
+    },
+    {
+      "set": "EX POWER KEEPERS",
+      "status": "PASS",
+      "cards": [
+        "ex16-1",
+        "ex16-2",
+        "ex16-3"
+      ]
+    }
+  ],
+  "jp": [
+    {
+      "set": "neo1",
+      "id": "neo1-001",
+      "name": "奇妙な",
+      "status": "PASS honest unavailable",
+      "sourceImage": null
+    },
+    {
+      "set": "neo1",
+      "id": "neo1-002",
+      "name": "チコリータ",
+      "status": "PASS honest unavailable",
+      "sourceImage": null
+    },
+    {
+      "set": "neo1",
+      "id": "neo1-003",
+      "name": "レディバ",
+      "status": "PASS honest unavailable",
+      "sourceImage": null
+    },
+    {
+      "set": "PMCG1",
+      "id": "PMCG1-001",
+      "name": "フシギダネ",
+      "status": "PASS honest unavailable",
+      "sourceImage": null
+    },
+    {
+      "set": "PMCG1",
+      "id": "PMCG1-002",
+      "name": "キャタピー",
+      "status": "PASS honest unavailable",
+      "sourceImage": null
+    },
+    {
+      "set": "PMCG1",
+      "id": "PMCG1-003",
+      "name": "トランセル",
+      "status": "PASS honest unavailable",
+      "sourceImage": null
+    },
+    {
+      "set": "PMCG2",
+      "id": "PMCG2-001",
+      "name": "ニドラン♀",
+      "status": "PASS honest unavailable",
+      "sourceImage": null
+    },
+    {
+      "set": "PMCG2",
+      "id": "PMCG2-002",
+      "name": "ナゾノクサ",
+      "status": "PASS honest unavailable",
+      "sourceImage": null
+    },
+    {
+      "set": "PMCG2",
+      "id": "PMCG2-003",
+      "name": "パラス",
+      "status": "PASS honest unavailable",
+      "sourceImage": null
+    },
+    {
+      "set": "PMCG3",
+      "id": "PMCG3-001",
+      "name": "アーボ",
+      "status": "PASS honest unavailable",
+      "sourceImage": null
+    },
+    {
+      "set": "PMCG3",
+      "id": "PMCG3-002",
+      "name": "ズバット",
+      "status": "PASS honest unavailable",
+      "sourceImage": null
+    },
+    {
+      "set": "PMCG3",
+      "id": "PMCG3-003",
+      "name": "ベトベター",
+      "status": "PASS honest unavailable",
+      "sourceImage": null
+    }
+  ],
+  "contracts": [
+    {
+      "id": "neo1-001",
+      "status": "PASS neutral URL with exact JP catalog provenance"
+    },
+    {
+      "id": "PMCG1-001",
+      "status": "PASS neutral URL with exact JP catalog provenance"
+    },
+    {
+      "id": "PMCG2-001",
+      "status": "PASS neutral URL with exact JP catalog provenance"
+    },
+    {
+      "id": "PMCG3-001",
+      "status": "PASS neutral URL with exact JP catalog provenance"
+    }
+  ]
+}

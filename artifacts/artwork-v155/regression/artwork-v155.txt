@@ -1,0 +1,26 @@
+PASS EX TEAM ROCKET RETURNS 3 real card images, preset without Enter
+PASS EX DEOXYS 3 real card images, preset without Enter
+PASS EX EMERALD 3 real card images, preset without Enter
+PASS EX UNSEEN FORCES 3 real card images, preset without Enter
+PASS EX DELTA SPECIES 3 real card images, preset without Enter
+PASS EX LEGEND MAKER 3 real card images, preset without Enter
+PASS EX HOLON PHANTOMS 3 real card images, preset without Enter
+PASS EX CRYSTAL GUARDIANS 3 real card images, preset without Enter
+PASS EX DRAGON FRONTIERS 3 real card images, preset without Enter
+PASS EX POWER KEEPERS 3 real card images, preset without Enter
+PASS JP neo1-001 identity/Recent; live API has no image
+PASS JP neo1-002 identity/Recent; live API has no image
+PASS JP neo1-003 identity/Recent; live API has no image
+PASS JP PMCG1-001 identity/Recent; live API has no image
+PASS JP PMCG1-002 identity/Recent; live API has no image
+PASS JP PMCG1-003 identity/Recent; live API has no image
+PASS JP PMCG2-001 identity/Recent; live API has no image
+PASS JP PMCG2-002 identity/Recent; live API has no image
+PASS JP PMCG2-003 identity/Recent; live API has no image
+PASS JP PMCG3-001 identity/Recent; live API has no image
+PASS JP PMCG3-002 identity/Recent; live API has no image
+PASS JP PMCG3-003 identity/Recent; live API has no image
+PASS JP rejects unverified saved English artwork
+PASS verified local alias uses exact set/number source
+PASS exact JA metadata accepts a language-neutral URL without /ja/
+PASS 10/10 Stamped sets (30 real artworks), 12 real JP missing-image cases, 4 synthetic JP availability contracts

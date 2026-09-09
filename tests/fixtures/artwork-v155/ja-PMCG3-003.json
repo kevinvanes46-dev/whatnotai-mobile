@@ -1,0 +1,72 @@
+{
+  "category": "Pokemon",
+  "id": "PMCG3-003",
+  "illustrator": "Mitsuhiro Arita",
+  "localId": "003",
+  "name": "ベトベター",
+  "rarity": "Common",
+  "set": {
+    "cardCount": {
+      "official": 48,
+      "total": 48
+    },
+    "id": "PMCG3",
+    "name": "化石の秘密"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": false,
+    "normal": true,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "normal",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 575667
+      },
+      "variantId": "endfynwn4n10gzq",
+      "pricing": {
+        "cardmarket": null,
+        "tcgplayer": null
+      }
+    }
+  ],
+  "dexId": [
+    88
+  ],
+  "hp": 50,
+  "types": [
+    "Grass"
+  ],
+  "stage": "Basic",
+  "attacks": [
+    {
+      "cost": [
+        "Colorless"
+      ],
+      "name": "厄介なグー",
+      "effect": "コインをひっくり返します。頭の場合、防御ポケモンは麻痺しています。",
+      "damage": 10
+    },
+    {
+      "cost": [
+        "Grass"
+      ],
+      "name": "最小化します",
+      "effect": "相手の次のターン中にグリマーへの攻撃によって与えられたすべての損害は、衰弱と抵抗を適用した後）20増加します。"
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-09-03T15:29:09.738Z",
+  "pricing": {
+    "cardmarket": null,
+    "tcgplayer": null
+  }
+}

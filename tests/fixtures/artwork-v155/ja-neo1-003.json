@@ -1,0 +1,64 @@
+{
+  "category": "Pokemon",
+  "id": "neo1-003",
+  "localId": "003",
+  "name": "レディバ",
+  "rarity": "Common",
+  "set": {
+    "cardCount": {
+      "official": 96,
+      "total": 96
+    },
+    "id": "neo1",
+    "name": "金、銀、新世界へ...",
+    "symbol": "https://assets.tcgdex.net/univ/neo/neo1/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": false,
+    "normal": true,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "normal",
+      "size": "standard",
+      "variantId": "endfynwn4n10gzq"
+    }
+  ],
+  "dexId": [
+    165
+  ],
+  "hp": 40,
+  "types": [
+    "Grass"
+  ],
+  "stage": "Basic",
+  "attacks": [
+    {
+      "cost": [
+        "Grass"
+      ],
+      "name": "超音速",
+      "effect": "コインをひっくり返します。頭の場合、防御ポケモンは混乱しています。"
+    },
+    {
+      "cost": [
+        "Grass",
+        "Grass"
+      ],
+      "name": "彗星パンチ",
+      "effect": "4コインをひっくり返します。この攻撃は、ヘッド数の10倍のダメージを与えます。"
+    }
+  ],
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-09-03T15:29:09.651Z",
+  "pricing": {
+    "cardmarket": null,
+    "tcgplayer": null
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "category": "Pokemon",
+  "id": "ex9-3",
+  "illustrator": "Hajime Kusajima",
+  "image": "https://assets.tcgdex.net/en/ex/ex9/3",
+  "localId": "3",
+  "name": "Exploud",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 106,
+      "total": 107
+    },
+    "id": "ex9",
+    "logo": "https://assets.tcgdex.net/en/ex/ex9/logo",
+    "name": "Emerald",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex9/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": true,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 85371,
+        "cardmarket": 276514
+      },
+      "variantId": "jr7oetx1mqug9",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-08T19:42:28.034Z",
+          "unit": "EUR",
+          "idProduct": 276514,
+          "avg": 5.81,
+          "low": 1.1,
+          "trend": 6.41,
+          "avg1": 2.49,
+          "avg7": 6.69,
+          "avg30": 7.36,
+          "avg-holo": 20,
+          "low-holo": 2.99,
+          "trend-holo": 21.76,
+          "avg1-holo": 25,
+          "avg7-holo": 14.41,
+          "avg30-holo": 12.37
+        },
+        "tcgplayer": null
+      }
+    },
+    {
+      "type": "reverse",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "thirdParty": {
+        "tcgplayer": 85371,
+        "cardmarket": 276514
+      },
+      "variantId": "3a83wf50tyyzu7r7ryiw8tit7",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-08T19:42:28.034Z",
+          "unit": "EUR",
+          "idProduct": 276514,
+          "avg": 5.81,
+          "low": 1.1,
+          "trend": 6.41,
+          "avg1": 2.49,
+          "avg7": 6.69,
+          "avg30": 7.36,
+          "avg-holo": 20,
+          "low-holo": 2.99,
+          "trend-holo": 21.76,
+          "avg1-holo": 25,
+          "avg7-holo": 14.41,
+          "avg30-holo": 12.37
+        },
+        "tcgplayer": null
+      }
+    },
+    {
+      "type": "holo",
+      "size": "standard",
+      "stamp": [
+        "national-championships"
+      ],
+      "thirdParty": {
+        "tcgplayer": 251243,
+        "cardmarket": 449503
+      },
+      "variantId": "mtltux8quoybg6sqpseowvljqvcdi7bvbro",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-08T19:42:28.034Z",
+          "unit": "EUR",
+          "idProduct": 449503,
+          "avg": 5.38,
+          "low": 99.9,
+          "trend": 12.1,
+          "avg1": 3.75,
+          "avg7": 9.97,
+          "avg30": 14.25,
+          "avg-holo": null,
+          "low-holo": null,
+          "trend-holo": 0,
+          "avg1-holo": null,
+          "avg7-holo": null,
+          "avg30-holo": null
+        },
+        "tcgplayer": null
+      }
+    },
+    {
+      "type": "holo",
+      "size": "standard",
+      "stamp": [
+        "national-championships",
+        "staff"
+      ],
+      "variantId": "at0bsq1t2iwsrlus39ygr9aov3505y2cg54aivx4"
+    }
+  ],
+  "dexId": [
+    295
+  ],
+  "hp": 120,
+  "types": [
+    "Colorless"
+  ],
+  "evolveFrom": "Loudred",
+  "stage": "Stage2",
+  "attacks": [
+    {
+      "cost": [
+        "Colorless"
+      ],
+      "name": "Collect",
+      "effect": "Draw 3 cards."
+    },
+    {
+      "cost": [
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Body Slam",
+      "effect": "Flip a coin. If heads, the Defending Pokémon is now Paralyzed.",
+      "damage": 30
+    },
+    {
+      "cost": [
+        "Colorless",
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Hyper Voice",
+      "damage": 50
+    },
+    {
+      "cost": [
+        "Colorless",
+        "Colorless",
+        "Colorless",
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Mega Throw",
+      "effect": "If the Defending Pokémon is Pokémon-ex, this attack does 60 damage plus 40 more damage.",
+      "damage": "60+"
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Fighting",
+      "value": "×2"
+    }
+  ],
+  "retreat": 2,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-03T19:01:44+01:00",
+  "thirdParty": {
+    "tcgplayer": 85371,
+    "cardmarket": 276514
+  },
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-08T19:42:28.034Z",
+      "unit": "EUR",
+      "idProduct": 276514,
+      "avg": 5.81,
+      "low": 1.1,
+      "trend": 6.41,
+      "avg1": 2.49,
+      "avg7": 6.69,
+      "avg30": 7.36,
+      "avg-holo": 20,
+      "low-holo": 2.99,
+      "trend-holo": 21.76,
+      "avg1-holo": 25,
+      "avg7-holo": 14.41,
+      "avg30-holo": 12.37
+    },
+    "tcgplayer": null
+  }
+}

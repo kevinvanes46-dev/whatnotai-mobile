@@ -1,0 +1,112 @@
+{
+  "category": "Pokemon",
+  "id": "ex14-2",
+  "illustrator": "Masakazu Fukuda",
+  "image": "https://assets.tcgdex.net/en/ex/ex14/2",
+  "localId": "2",
+  "name": "Blastoise δ",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 100,
+      "total": 100
+    },
+    "id": "ex14",
+    "logo": "https://assets.tcgdex.net/en/ex/ex14/logo",
+    "name": "Crystal Guardians",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex14/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "variantId": "jr7oetx1mqug9"
+    },
+    {
+      "type": "holo",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "variantId": "555jb0efopmyclvkikic41"
+    }
+  ],
+  "dexId": [
+    9
+  ],
+  "hp": 110,
+  "types": [
+    "Fighting",
+    "Metal"
+  ],
+  "evolveFrom": "Wartortle",
+  "stage": "Stage2",
+  "abilities": [
+    {
+      "type": "Poke-BODY",
+      "name": "Shield Veil",
+      "effect": "Each of your Active Pokémon has no Weakness."
+    }
+  ],
+  "attacks": [
+    {
+      "cost": [
+        "Fighting",
+        "Colorless"
+      ],
+      "name": "Enraged Linear Attack",
+      "effect": "Choose 1 of your opponent's Pokémon. This attack does 10 damage for each damage counter on Blastoise to that Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.)"
+    },
+    {
+      "cost": [
+        "Metal",
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Skull Bash",
+      "damage": 60
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Lightning",
+      "value": "×2"
+    }
+  ],
+  "retreat": 3,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-15T23:34:34+01:00",
+  "thirdParty": {
+    "cardmarket": 277083
+  },
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-09T19:42:39.890Z",
+      "unit": "EUR",
+      "idProduct": 277083,
+      "avg": 36.56,
+      "low": 7.99,
+      "trend": 37.84,
+      "avg1": 9.99,
+      "avg7": 38.17,
+      "avg30": 52.52,
+      "avg-holo": 61.49,
+      "low-holo": 19.98,
+      "trend-holo": 244.48,
+      "avg1-holo": 520,
+      "avg7-holo": 120.44,
+      "avg30-holo": 84.89
+    },
+    "tcgplayer": null
+  }
+}

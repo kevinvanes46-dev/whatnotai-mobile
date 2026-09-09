@@ -1,0 +1,73 @@
+{
+  "category": "Pokemon",
+  "id": "PMCG3-002",
+  "illustrator": "Kagemaru Himeno",
+  "localId": "002",
+  "name": "ズバット",
+  "rarity": "Common",
+  "set": {
+    "cardCount": {
+      "official": 48,
+      "total": 48
+    },
+    "id": "PMCG3",
+    "name": "化石の秘密"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": false,
+    "normal": true,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "normal",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 575678
+      },
+      "variantId": "endfynwn4n10gzq",
+      "pricing": {
+        "cardmarket": null,
+        "tcgplayer": null
+      }
+    }
+  ],
+  "dexId": [
+    41
+  ],
+  "hp": 40,
+  "types": [
+    "Grass"
+  ],
+  "stage": "Basic",
+  "attacks": [
+    {
+      "cost": [
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "超音速",
+      "effect": "コインをひっくり返します。頭の場合、防御ポケモンは混乱しています。"
+    },
+    {
+      "cost": [
+        "Grass",
+        "Colorless"
+      ],
+      "name": "リーチライフ",
+      "effect": "防御ポケモンに与えられた損傷に等しいZubatから多くのダメージカウンターを削除します（脱力と抵抗を適用した後）。 Zubatのダメージカウンターがそれよりも少ない場合は、それらすべてを削除します。",
+      "damage": 10
+    }
+  ],
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-09-03T15:29:09.895Z",
+  "pricing": {
+    "cardmarket": null,
+    "tcgplayer": null
+  }
+}

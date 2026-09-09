@@ -1,0 +1,78 @@
+{
+  "category": "Pokemon",
+  "id": "PMCG1-002",
+  "illustrator": "Ken Sugimori",
+  "localId": "002",
+  "name": "キャタピー",
+  "rarity": "Common",
+  "set": {
+    "cardCount": {
+      "official": 102,
+      "total": 102
+    },
+    "id": "PMCG1",
+    "name": "拡張パック"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": false,
+    "normal": true,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "normal",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 575572
+      },
+      "variantId": "endfynwn4n10gzq",
+      "pricing": {
+        "cardmarket": null,
+        "tcgplayer": null
+      }
+    },
+    {
+      "type": "normal",
+      "subtype": "no-rarity",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 576999
+      },
+      "variantId": "3a83wf50tygukdw4gyjguc5gr",
+      "pricing": {
+        "cardmarket": null,
+        "tcgplayer": null
+      }
+    }
+  ],
+  "dexId": [
+    10
+  ],
+  "hp": 40,
+  "types": [
+    "Grass"
+  ],
+  "stage": "Basic",
+  "attacks": [
+    {
+      "cost": [
+        "Grass"
+      ],
+      "name": "ストリングショット",
+      "effect": "コインをひっくり返します。頭の場合、相手のアクティブなポケモンが麻痺しています。",
+      "damage": 10
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-09-03T15:29:09.889Z",
+  "pricing": {
+    "cardmarket": null,
+    "tcgplayer": null
+  }
+}

@@ -1,0 +1,9 @@
+PASS 3285 verified product routes without network
+PASS independent provider resolves both reported cards after server failure
+PASS 320px links, EX offers, manual stamped, JP invalidation, readable detail and no overflow
+PASS preview lower-resolution fallback and explicit retry
+PASS export, confirmed clear, import restore and invalid backup preservation
+PASS 375px links, EX offers, manual stamped, JP invalidation, readable detail and no overflow
+PASS 390px links, EX offers, manual stamped, JP invalidation, readable detail and no overflow
+PASS 768px links, EX offers, manual stamped, JP invalidation, readable detail and no overflow
+PASS 1280px links, EX offers, manual stamped, JP invalidation, readable detail and no overflow

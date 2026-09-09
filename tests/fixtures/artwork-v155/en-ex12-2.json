@@ -1,0 +1,114 @@
+{
+  "category": "Pokemon",
+  "id": "ex12-2",
+  "illustrator": "Hisao Nakamura",
+  "image": "https://assets.tcgdex.net/en/ex/ex12/2",
+  "localId": "2",
+  "name": "Aggron",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 92,
+      "total": 93
+    },
+    "id": "ex12",
+    "logo": "https://assets.tcgdex.net/en/ex/ex12/logo",
+    "name": "Legend Maker",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex12/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "variantId": "jr7oetx1mqug9"
+    },
+    {
+      "type": "holo",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "variantId": "555jb0efopmyclvkikic41"
+    }
+  ],
+  "dexId": [
+    306
+  ],
+  "hp": 110,
+  "types": [
+    "Metal"
+  ],
+  "evolveFrom": "Lairon",
+  "stage": "Stage2",
+  "attacks": [
+    {
+      "cost": [
+        "Fighting",
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Heavy Blow",
+      "effect": "Does 70 damage minus 10 damage for each damage counter on Aggron. If Aggron has any React Energy cards attached to it, this attack does 70 damage instead.",
+      "damage": "70-"
+    },
+    {
+      "cost": [
+        "Fighting",
+        "Metal",
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Bound Crush",
+      "effect": "Choose 1 of your opponent's Pokémon. This attack does 60 damage to that Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.) During your next turn, Aggron can't use Bound Crush."
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Fire",
+      "value": "×2"
+    }
+  ],
+  "resistances": [
+    {
+      "type": "Grass",
+      "value": "-30"
+    }
+  ],
+  "retreat": 4,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-13T21:03:30+01:00",
+  "thirdParty": {
+    "cardmarket": 276879,
+    "tcgplayer": 83476
+  },
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-09T19:42:41.467Z",
+      "unit": "EUR",
+      "idProduct": 276879,
+      "avg": 9.67,
+      "low": 1.8,
+      "trend": 8.82,
+      "avg1": 12.46,
+      "avg7": 8.32,
+      "avg30": 8.63,
+      "avg-holo": 41,
+      "low-holo": 3.99,
+      "trend-holo": 26.58,
+      "avg1-holo": 12.95,
+      "avg7-holo": 32.21,
+      "avg30-holo": 26.11
+    },
+    "tcgplayer": null
+  }
+}

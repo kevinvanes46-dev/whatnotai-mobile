@@ -1,0 +1,73 @@
+{
+  "category": "Pokemon",
+  "id": "PMCG3-001",
+  "illustrator": "Kagemaru Himeno",
+  "localId": "001",
+  "name": "アーボ",
+  "rarity": "Common",
+  "set": {
+    "cardCount": {
+      "official": 48,
+      "total": 48
+    },
+    "id": "PMCG3",
+    "name": "化石の秘密"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": false,
+    "normal": true,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "normal",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 575663
+      },
+      "variantId": "endfynwn4n10gzq",
+      "pricing": {
+        "cardmarket": null,
+        "tcgplayer": null
+      }
+    }
+  ],
+  "dexId": [
+    23
+  ],
+  "hp": 40,
+  "types": [
+    "Grass"
+  ],
+  "stage": "Basic",
+  "attacks": [
+    {
+      "cost": [
+        "Grass"
+      ],
+      "name": "スピット毒",
+      "effect": "コインをひっくり返します。頭の場合、防御ポケモンは現在毒されています。"
+    },
+    {
+      "cost": [
+        "Grass",
+        "Colorless"
+      ],
+      "name": "包む",
+      "effect": "コインをひっくり返します。頭の場合、防御ポケモンは麻痺しています。",
+      "damage": 20
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-09-03T15:29:09.369Z",
+  "pricing": {
+    "cardmarket": null,
+    "tcgplayer": null
+  }
+}

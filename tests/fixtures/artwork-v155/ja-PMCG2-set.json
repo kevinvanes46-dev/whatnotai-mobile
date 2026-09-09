@@ -1,0 +1,263 @@
+{
+  "cardCount": {
+    "firstEd": 0,
+    "holo": 16,
+    "normal": 32,
+    "official": 48,
+    "reverse": 0,
+    "total": 48
+  },
+  "cards": [
+    {
+      "id": "PMCG2-001",
+      "localId": "001",
+      "name": "ニドラン♀"
+    },
+    {
+      "id": "PMCG2-002",
+      "localId": "002",
+      "name": "ナゾノクサ"
+    },
+    {
+      "id": "PMCG2-003",
+      "localId": "003",
+      "name": "パラス"
+    },
+    {
+      "id": "PMCG2-004",
+      "localId": "004",
+      "name": "コンパン"
+    },
+    {
+      "id": "PMCG2-005",
+      "localId": "005",
+      "name": "マダツボミ"
+    },
+    {
+      "id": "PMCG2-006",
+      "localId": "006",
+      "name": "タマタマ"
+    },
+    {
+      "id": "PMCG2-007",
+      "localId": "007",
+      "name": "バタフリー"
+    },
+    {
+      "id": "PMCG2-008",
+      "localId": "008",
+      "name": "ニドリーナ"
+    },
+    {
+      "id": "PMCG2-009",
+      "localId": "009",
+      "name": "クサイハナ"
+    },
+    {
+      "id": "PMCG2-010",
+      "localId": "010",
+      "name": "パラセクト"
+    },
+    {
+      "id": "PMCG2-011",
+      "localId": "011",
+      "name": "ウツドン"
+    },
+    {
+      "id": "PMCG2-012",
+      "localId": "012",
+      "name": "ナッシー"
+    },
+    {
+      "id": "PMCG2-013",
+      "localId": "013",
+      "name": "ニドクイン"
+    },
+    {
+      "id": "PMCG2-014",
+      "localId": "014",
+      "name": "ラフレシア"
+    },
+    {
+      "id": "PMCG2-015",
+      "localId": "015",
+      "name": "モルフォン"
+    },
+    {
+      "id": "PMCG2-016",
+      "localId": "016",
+      "name": "ウツボット"
+    },
+    {
+      "id": "PMCG2-017",
+      "localId": "017",
+      "name": "ストライク"
+    },
+    {
+      "id": "PMCG2-018",
+      "localId": "018",
+      "name": "カイロス"
+    },
+    {
+      "id": "PMCG2-019",
+      "localId": "019",
+      "name": "ギャロップ"
+    },
+    {
+      "id": "PMCG2-020",
+      "localId": "020",
+      "name": "ブースター"
+    },
+    {
+      "id": "PMCG2-021",
+      "localId": "021",
+      "name": "トサキント"
+    },
+    {
+      "id": "PMCG2-022",
+      "localId": "022",
+      "name": "アズマオウ"
+    },
+    {
+      "id": "PMCG2-023",
+      "localId": "023",
+      "name": "シャワーズ"
+    },
+    {
+      "id": "PMCG2-024",
+      "localId": "024",
+      "name": "ピカチュウ"
+    },
+    {
+      "id": "PMCG2-025",
+      "localId": "025",
+      "name": "マルマイン"
+    },
+    {
+      "id": "PMCG2-026",
+      "localId": "026",
+      "name": "サンダース"
+    },
+    {
+      "id": "PMCG2-027",
+      "localId": "027",
+      "name": "バリヤード"
+    },
+    {
+      "id": "PMCG2-028",
+      "localId": "028",
+      "name": "マンキー"
+    },
+    {
+      "id": "PMCG2-029",
+      "localId": "029",
+      "name": "カラカラ"
+    },
+    {
+      "id": "PMCG2-030",
+      "localId": "030",
+      "name": "サイホーン"
+    },
+    {
+      "id": "PMCG2-031",
+      "localId": "031",
+      "name": "オコリザル"
+    },
+    {
+      "id": "PMCG2-032",
+      "localId": "032",
+      "name": "ガラガラ"
+    },
+    {
+      "id": "PMCG2-033",
+      "localId": "033",
+      "name": "サイドン"
+    },
+    {
+      "id": "PMCG2-034",
+      "localId": "034",
+      "name": "オニスズメ"
+    },
+    {
+      "id": "PMCG2-035",
+      "localId": "035",
+      "name": "プリン"
+    },
+    {
+      "id": "PMCG2-036",
+      "localId": "036",
+      "name": "ニャース"
+    },
+    {
+      "id": "PMCG2-037",
+      "localId": "037",
+      "name": "イーブイ"
+    },
+    {
+      "id": "PMCG2-038",
+      "localId": "038",
+      "name": "オニドリル"
+    },
+    {
+      "id": "PMCG2-039",
+      "localId": "039",
+      "name": "ペルシアン"
+    },
+    {
+      "id": "PMCG2-040",
+      "localId": "040",
+      "name": "ドードリオ"
+    },
+    {
+      "id": "PMCG2-041",
+      "localId": "041",
+      "name": "ベロリンガ"
+    },
+    {
+      "id": "PMCG2-042",
+      "localId": "042",
+      "name": "ケンタロス"
+    },
+    {
+      "id": "PMCG2-043",
+      "localId": "043",
+      "name": "ピジョット"
+    },
+    {
+      "id": "PMCG2-044",
+      "localId": "044",
+      "name": "ピクシー"
+    },
+    {
+      "id": "PMCG2-045",
+      "localId": "045",
+      "name": "プクリン"
+    },
+    {
+      "id": "PMCG2-046",
+      "localId": "046",
+      "name": "ガルーラ"
+    },
+    {
+      "id": "PMCG2-047",
+      "localId": "047",
+      "name": "カビゴン"
+    },
+    {
+      "id": "PMCG2-048",
+      "localId": "048",
+      "name": "モンスターボール"
+    }
+  ],
+  "id": "PMCG2",
+  "legal": {
+    "expanded": false,
+    "standard": false
+  },
+  "name": "ポケモンジャングル",
+  "releaseDate": "1997-03-05",
+  "serie": {
+    "id": "PMCG",
+    "name": "ポケットモンスターカードゲーム"
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "category": "Pokemon",
+  "id": "ex8-3",
+  "illustrator": "Hajime Kusajima",
+  "image": "https://assets.tcgdex.net/en/ex/ex8/3",
+  "localId": "3",
+  "name": "Breloom",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 107,
+      "total": 108
+    },
+    "id": "ex8",
+    "logo": "https://assets.tcgdex.net/en/ex/ex8/logo",
+    "name": "Deoxys",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex8/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": true,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 83955,
+        "cardmarket": 276406
+      },
+      "variantId": "jr7oetx1mqug9",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-09T19:44:24.605Z",
+          "unit": "EUR",
+          "idProduct": 276406,
+          "avg": 9.1,
+          "low": 1.9,
+          "trend": 19.57,
+          "avg1": 7,
+          "avg7": 9.1,
+          "avg30": 11.83,
+          "avg-holo": 9.5,
+          "low-holo": 4.79,
+          "trend-holo": 13.21,
+          "avg1-holo": 17,
+          "avg7-holo": 10.72,
+          "avg30-holo": 14.01
+        },
+        "tcgplayer": {
+          "unit": "USD",
+          "updated": "2026-09-09T19:44:25.440Z",
+          "normal": {
+            "productId": 83955,
+            "lowPrice": 17.95,
+            "midPrice": 22.46,
+            "highPrice": 40.99,
+            "marketPrice": 26.93,
+            "directLowPrice": null
+          },
+          "holofoil": {
+            "productId": 83955,
+            "lowPrice": 32.53,
+            "midPrice": 47.78,
+            "highPrice": 300,
+            "marketPrice": 30.37,
+            "directLowPrice": null
+          },
+          "reverse-holofoil": {
+            "productId": 83955,
+            "lowPrice": 33.95,
+            "midPrice": 38.27,
+            "highPrice": 509.9,
+            "marketPrice": 180,
+            "directLowPrice": null
+          }
+        }
+      }
+    },
+    {
+      "type": "reverse",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "thirdParty": {
+        "tcgplayer": 83955,
+        "cardmarket": 276406
+      },
+      "variantId": "3a83wf50tyyzu7r7ryiw8tit7",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-09T19:44:24.605Z",
+          "unit": "EUR",
+          "idProduct": 276406,
+          "avg": 9.1,
+          "low": 1.9,
+          "trend": 19.57,
+          "avg1": 7,
+          "avg7": 9.1,
+          "avg30": 11.83,
+          "avg-holo": 9.5,
+          "low-holo": 4.79,
+          "trend-holo": 13.21,
+          "avg1-holo": 17,
+          "avg7-holo": 10.72,
+          "avg30-holo": 14.01
+        },
+        "tcgplayer": {
+          "unit": "USD",
+          "updated": "2026-09-09T19:44:25.440Z",
+          "normal": {
+            "productId": 83955,
+            "lowPrice": 17.95,
+            "midPrice": 22.46,
+            "highPrice": 40.99,
+            "marketPrice": 26.93,
+            "directLowPrice": null
+          },
+          "holofoil": {
+            "productId": 83955,
+            "lowPrice": 32.53,
+            "midPrice": 47.78,
+            "highPrice": 300,
+            "marketPrice": 30.37,
+            "directLowPrice": null
+          },
+          "reverse-holofoil": {
+            "productId": 83955,
+            "lowPrice": 33.95,
+            "midPrice": 38.27,
+            "highPrice": 509.9,
+            "marketPrice": 180,
+            "directLowPrice": null
+          }
+        }
+      }
+    }
+  ],
+  "dexId": [
+    286
+  ],
+  "hp": 80,
+  "types": [
+    "Fighting"
+  ],
+  "evolveFrom": "Shroomish",
+  "stage": "Stage1",
+  "attacks": [
+    {
+      "cost": [
+        "Colorless"
+      ],
+      "name": "Leaf Poison",
+      "effect": "If Breloom has any Grass Energy attached to it, the Defending Pokémon is now Poisoned.",
+      "damage": 20
+    },
+    {
+      "cost": [
+        "Fighting",
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Hustle Punch",
+      "effect": "During your next turn, Hustle Punch attack's base damage is 50 instead of 70.",
+      "damage": "70-"
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Psychic",
+      "value": "×2"
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-27T17:21:35+01:00",
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-09T19:44:24.605Z",
+      "unit": "EUR",
+      "idProduct": 276406,
+      "avg": 9.1,
+      "low": 1.9,
+      "trend": 19.57,
+      "avg1": 7,
+      "avg7": 9.1,
+      "avg30": 11.83,
+      "avg-holo": 9.5,
+      "low-holo": 4.79,
+      "trend-holo": 13.21,
+      "avg1-holo": 17,
+      "avg7-holo": 10.72,
+      "avg30-holo": 14.01
+    },
+    "tcgplayer": {
+      "unit": "USD",
+      "updated": "2026-09-09T19:44:25.440Z",
+      "normal": {
+        "productId": 83955,
+        "lowPrice": 17.95,
+        "midPrice": 22.46,
+        "highPrice": 40.99,
+        "marketPrice": 26.93,
+        "directLowPrice": null
+      },
+      "holofoil": {
+        "productId": 83955,
+        "lowPrice": 32.53,
+        "midPrice": 47.78,
+        "highPrice": 300,
+        "marketPrice": 30.37,
+        "directLowPrice": null
+      },
+      "reverse-holofoil": {
+        "productId": 83955,
+        "lowPrice": 33.95,
+        "midPrice": 38.27,
+        "highPrice": 509.9,
+        "marketPrice": 180,
+        "directLowPrice": null
+      }
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "category": "Pokemon",
+  "id": "neo1-001",
+  "localId": "001",
+  "name": "奇妙な",
+  "rarity": "Common",
+  "set": {
+    "cardCount": {
+      "official": 96,
+      "total": 96
+    },
+    "id": "neo1",
+    "name": "金、銀、新世界へ...",
+    "symbol": "https://assets.tcgdex.net/univ/neo/neo1/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": false,
+    "normal": true,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "normal",
+      "size": "standard",
+      "variantId": "endfynwn4n10gzq"
+    }
+  ],
+  "dexId": [
+    43
+  ],
+  "hp": 40,
+  "types": [
+    "Grass"
+  ],
+  "stage": "Basic",
+  "attacks": [
+    {
+      "cost": [
+        "Colorless"
+      ],
+      "name": "隠れる",
+      "effect": "コインをひっくり返します。ヘッドの場合、対戦相手の次のターン中に、ダメージを含む攻撃のすべての影響がオッディッシュに行われます。"
+    },
+    {
+      "cost": [
+        "Grass",
+        "Grass"
+      ],
+      "name": "吸収する",
+      "effect": "防御ポケモンに行われたダメージの半分に等しいOddishから多数のダメージカウンターを削除します（衰弱と抵抗を適用した後）（最も近い10に丸められます）。 Oddishのダメージカウンターがそれよりも少ない場合は、それらすべてを削除します。",
+      "damage": 20
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-09-03T15:29:09.192Z",
+  "pricing": {
+    "cardmarket": null,
+    "tcgplayer": null
+  }
+}

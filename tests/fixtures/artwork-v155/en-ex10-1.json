@@ -1,0 +1,212 @@
+{
+  "category": "Pokemon",
+  "id": "ex10-1",
+  "illustrator": "Kyoko Umemoto",
+  "image": "https://assets.tcgdex.net/en/ex/ex10/1",
+  "localId": "1",
+  "name": "Ampharos",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 115,
+      "total": 117
+    },
+    "id": "ex10",
+    "logo": "https://assets.tcgdex.net/en/ex/ex10/logo",
+    "name": "Unseen Forces",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex10/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": true,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 83540,
+        "cardmarket": 276647
+      },
+      "variantId": "jr7oetx1mqug9",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-09T19:44:24.596Z",
+          "unit": "EUR",
+          "idProduct": 276647,
+          "avg": 15.23,
+          "low": 1.5,
+          "trend": 10.97,
+          "avg1": 9.95,
+          "avg7": 7.68,
+          "avg30": 13.12,
+          "avg-holo": 24.78,
+          "low-holo": 4,
+          "trend-holo": 30.82,
+          "avg1-holo": 20,
+          "avg7-holo": 27.7,
+          "avg30-holo": 32.86
+        },
+        "tcgplayer": {
+          "unit": "USD",
+          "updated": "2026-09-09T19:44:25.512Z",
+          "holofoil": {
+            "productId": 83540,
+            "lowPrice": 83.99,
+            "midPrice": 92,
+            "highPrice": 980,
+            "marketPrice": 103.69,
+            "directLowPrice": null
+          },
+          "reverse-holofoil": {
+            "productId": 83540,
+            "lowPrice": 279.99,
+            "midPrice": 299.99,
+            "highPrice": 1698.5,
+            "marketPrice": 109.99,
+            "directLowPrice": null
+          }
+        }
+      }
+    },
+    {
+      "type": "reverse",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "thirdParty": {
+        "tcgplayer": 83540,
+        "cardmarket": 276647
+      },
+      "variantId": "3a83wf50tyyzu7r7ryiw8tit7",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-09T19:44:24.596Z",
+          "unit": "EUR",
+          "idProduct": 276647,
+          "avg": 15.23,
+          "low": 1.5,
+          "trend": 10.97,
+          "avg1": 9.95,
+          "avg7": 7.68,
+          "avg30": 13.12,
+          "avg-holo": 24.78,
+          "low-holo": 4,
+          "trend-holo": 30.82,
+          "avg1-holo": 20,
+          "avg7-holo": 27.7,
+          "avg30-holo": 32.86
+        },
+        "tcgplayer": {
+          "unit": "USD",
+          "updated": "2026-09-09T19:44:25.512Z",
+          "holofoil": {
+            "productId": 83540,
+            "lowPrice": 83.99,
+            "midPrice": 92,
+            "highPrice": 980,
+            "marketPrice": 103.69,
+            "directLowPrice": null
+          },
+          "reverse-holofoil": {
+            "productId": 83540,
+            "lowPrice": 279.99,
+            "midPrice": 299.99,
+            "highPrice": 1698.5,
+            "marketPrice": 109.99,
+            "directLowPrice": null
+          }
+        }
+      }
+    }
+  ],
+  "dexId": [
+    181
+  ],
+  "hp": 120,
+  "types": [
+    "Lightning"
+  ],
+  "evolveFrom": "Flaaffy",
+  "stage": "Stage2",
+  "abilities": [
+    {
+      "type": "Poke-POWER",
+      "name": "Energy Connect",
+      "effect": "As often as you like during your turn (before your attack), you may move a basic Energy card attached to 1 of your Benched Pokémon to your Active Pokémon. This power can't be used if Ampharos is affected by a Special Condition."
+    }
+  ],
+  "attacks": [
+    {
+      "cost": [
+        "Lightning",
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Miraculous Thunder",
+      "effect": "You may discard all Lightning Energy attached to Ampharos. If you do, the Defending Pokémon is now Burned and Confused.",
+      "damage": 50
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Fighting",
+      "value": "×2"
+    }
+  ],
+  "resistances": [
+    {
+      "type": "Metal",
+      "value": "-30"
+    }
+  ],
+  "retreat": 2,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-09-03T16:13:33+01:00",
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-09T19:44:24.596Z",
+      "unit": "EUR",
+      "idProduct": 276647,
+      "avg": 15.23,
+      "low": 1.5,
+      "trend": 10.97,
+      "avg1": 9.95,
+      "avg7": 7.68,
+      "avg30": 13.12,
+      "avg-holo": 24.78,
+      "low-holo": 4,
+      "trend-holo": 30.82,
+      "avg1-holo": 20,
+      "avg7-holo": 27.7,
+      "avg30-holo": 32.86
+    },
+    "tcgplayer": {
+      "unit": "USD",
+      "updated": "2026-09-09T19:44:25.512Z",
+      "holofoil": {
+        "productId": 83540,
+        "lowPrice": 83.99,
+        "midPrice": 92,
+        "highPrice": 980,
+        "marketPrice": 103.69,
+        "directLowPrice": null
+      },
+      "reverse-holofoil": {
+        "productId": 83540,
+        "lowPrice": 279.99,
+        "midPrice": 299.99,
+        "highPrice": 1698.5,
+        "marketPrice": 109.99,
+        "directLowPrice": null
+      }
+    }
+  }
+}

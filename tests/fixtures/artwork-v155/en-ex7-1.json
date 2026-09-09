@@ -1,0 +1,160 @@
+{
+  "category": "Pokemon",
+  "id": "ex7-1",
+  "illustrator": "Sumiyoshi Kizuki",
+  "image": "https://assets.tcgdex.net/en/ex/ex7/1",
+  "localId": "1",
+  "name": "Azumarill",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 109,
+      "total": 111
+    },
+    "id": "ex7",
+    "logo": "https://assets.tcgdex.net/en/ex/ex7/logo",
+    "name": "Team Rocket Returns",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex7/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": true,
+    "reverse": true,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "thirdParty": {
+        "cardmarket": 276293,
+        "tcgplayer": 83682
+      },
+      "variantId": "jr7oetx1mqug9",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-09T19:42:41.467Z",
+          "unit": "EUR",
+          "idProduct": 276293,
+          "avg": 11.75,
+          "low": 2.9,
+          "trend": 14.78,
+          "avg1": 20,
+          "avg7": 16.23,
+          "avg30": 13.44,
+          "avg-holo": 29,
+          "low-holo": 13.94,
+          "trend-holo": 24.95,
+          "avg1-holo": 39,
+          "avg7-holo": 21.42,
+          "avg30-holo": 27.62
+        },
+        "tcgplayer": null
+      }
+    },
+    {
+      "type": "reverse",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "thirdParty": {
+        "cardmarket": 276293,
+        "tcgplayer": 83682
+      },
+      "variantId": "3a83wf50tyyzu7r7ryiw8tit7",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-09T19:42:41.467Z",
+          "unit": "EUR",
+          "idProduct": 276293,
+          "avg": 11.75,
+          "low": 2.9,
+          "trend": 14.78,
+          "avg1": 20,
+          "avg7": 16.23,
+          "avg30": 13.44,
+          "avg-holo": 29,
+          "low-holo": 13.94,
+          "trend-holo": 24.95,
+          "avg1-holo": 39,
+          "avg7-holo": 21.42,
+          "avg30-holo": 27.62
+        },
+        "tcgplayer": null
+      }
+    },
+    {
+      "type": "normal",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 125066
+      },
+      "variantId": "endfynwn4n10gzq",
+      "pricing": {
+        "cardmarket": null,
+        "tcgplayer": null
+      }
+    }
+  ],
+  "dexId": [
+    184
+  ],
+  "hp": 80,
+  "types": [
+    "Water"
+  ],
+  "evolveFrom": "Marill",
+  "stage": "Stage1",
+  "abilities": [
+    {
+      "type": "Poke-POWER",
+      "name": "Froth",
+      "effect": "Once during your turn, when you play Azumarill from your hand to evolve 1 of your Active Pokémon, you may use this power. Each Defending Pokémon is now Paralyzed."
+    }
+  ],
+  "attacks": [
+    {
+      "cost": [
+        "Water",
+        "Colorless"
+      ],
+      "name": "Water Punch",
+      "effect": "Flip a coin for each Water Energy attached to Azumarill. This attack does 20 damage plus 20 more damage for each heads.",
+      "damage": "20+"
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Lightning",
+      "value": "×2"
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-03T19:06:51+01:00",
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-09T19:42:41.467Z",
+      "unit": "EUR",
+      "idProduct": 276293,
+      "avg": 11.75,
+      "low": 2.9,
+      "trend": 14.78,
+      "avg1": 20,
+      "avg7": 16.23,
+      "avg30": 13.44,
+      "avg-holo": 29,
+      "low-holo": 13.94,
+      "trend-holo": 24.95,
+      "avg1-holo": 39,
+      "avg7-holo": 21.42,
+      "avg30-holo": 27.62
+    },
+    "tcgplayer": null
+  }
+}

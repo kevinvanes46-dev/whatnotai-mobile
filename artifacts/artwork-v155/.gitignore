@@ -1,0 +1,2 @@
+# Keep focused artwork evidence; full legacy-suite screenshots remain reproducible locally.
+regression/**/*.png

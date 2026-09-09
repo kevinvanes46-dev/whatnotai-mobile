@@ -25,8 +25,14 @@
     const language=c.language||c.lang||'EN';
     const set=typeof CM_SOURCE_SETS!=='undefined'&&CM_SOURCE_SETS[c.set]?c.set:(typeof detectSet==='function'?detectSet(c.set||''):c.set);
     const item={...c,set:set&&set!=='AUTO'?set:c.set,number:typeof cleanNumber==='function'?cleanNumber(c.number):c.number,language,sourceId:c.sourceId||c.source_id||c.catalogId||''};
-    const match=(item.sourceId&&window.CardCatalog?.byId?.(item.sourceId,language))||window.CardCatalog?.find(item);
-    return {...item,sourceId:item.sourceId||match?.source_id||'',image:match?.image||(safeImage(item.image)?item.image:'')};
+    const ids=typeof CM_SOURCE_SETS!=='undefined'?CM_SOURCE_SETS[item.set]:null;
+    // Curated local aliases can differ from API titles (e.g. rarity labels).
+    // A verified set + collector number, rather than that display alias, identifies the artwork.
+    if(!item.sourceId&&item.verified&&language==='EN'&&ids?.length===1&&item.number)item.sourceId=ids[0]+'-'+item.number;
+    const match=item.sourceId?window.CardCatalog?.byId?.(item.sourceId,language):window.CardCatalog?.find(item);
+    const sourceId=item.sourceId||match?.source_id||'';
+    const jpCatalogImage=language==='JP'&&sourceId&&match?.source_id===sourceId&&match.language==='JP'&&safeImage(match.image);
+    return {...item,sourceId,image:language==='JP'?(jpCatalogImage||''):(match?.image||(safeImage(item.image)?item.image:'')),jpCatalogImage:!!jpCatalogImage};
   };
   function lookup(card){
     const c=normalize(card);
@@ -56,7 +62,11 @@
     if(data&&data!==enriched&&enriched.sourceId&&data.id!==enriched.sourceId){fallback(target);return;}
     if(data&&data!==enriched&&!enriched.sourceId&&enriched.name&&data.name&&typeof cleanCardmarketName==='function'&&cleanCardmarketName(enriched.name,enriched.number).toLowerCase()!==cleanCardmarketName(data.name,data.localId).toLowerCase()){fallback(target);return;}
     const url=safeImage(data?.image);
-    if(!url||(card.language==='JP'&&!url.includes('/ja/'))){fallback(target);return;}
+    // Japanese provenance comes from an exact JP catalog record or the JA metadata
+    // request above, never from a language substring in an arbitrary saved image.
+    const jpIdentity=enriched.sourceId&&(data===enriched?enriched.jpCatalogImage:data?.id===enriched.sourceId);
+    const foreignImage=url&&/^\/(en|fr|de|es|it|pt|zh)(\/|$)/i.test(new URL(url).pathname);
+    if(!url||(enriched.language==='JP'&&(!jpIdentity||foreignImage))){fallback(target);return;}
     const img=new Image();img.alt=card.name||'Kaart';img.decoding='async';
     img.onload=()=>{if(pending.get(target)===card)target.classList.remove('artLoading');};
     let retried=false;img.onerror=()=>{if(pending.get(target)!==card)return;if(!retried&&!/\.(webp|png|jpe?g)$/i.test(url)){retried=true;img.src=url+'/low.webp';return;}if(!hydrated){load(card,target,true);return;}fallback(target);};

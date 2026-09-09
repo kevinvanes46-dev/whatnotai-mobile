@@ -1,0 +1,107 @@
+{
+  "category": "Pokemon",
+  "id": "ex13-2",
+  "illustrator": "Kouki Saitou",
+  "image": "https://assets.tcgdex.net/en/ex/ex13/2",
+  "localId": "2",
+  "name": "Cradily δ",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 110,
+      "total": 111
+    },
+    "id": "ex13",
+    "logo": "https://assets.tcgdex.net/en/ex/ex13/logo",
+    "name": "Holon Phantoms",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex13/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "variantId": "jr7oetx1mqug9"
+    },
+    {
+      "type": "holo",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "variantId": "555jb0efopmyclvkikic41"
+    }
+  ],
+  "dexId": [
+    346
+  ],
+  "hp": 100,
+  "types": [
+    "Darkness",
+    "Metal"
+  ],
+  "evolveFrom": "Lileep",
+  "stage": "Stage2",
+  "attacks": [
+    {
+      "cost": [
+        "Darkness",
+        "Colorless"
+      ],
+      "name": "Harsh Fluid",
+      "effect": "Put 5 damage counters on the Defending Pokémon at the end of your opponent's next turn.",
+      "damage": 20
+    },
+    {
+      "cost": [
+        "Metal",
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Poison Tentacles",
+      "effect": "The Defending Pokémon is now Poisoned.",
+      "damage": 50
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Fire",
+      "value": "×2"
+    }
+  ],
+  "retreat": 2,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-15T23:34:34+01:00",
+  "thirdParty": {
+    "cardmarket": 276972
+  },
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-09T19:44:24.564Z",
+      "unit": "EUR",
+      "idProduct": 276972,
+      "avg": 7.11,
+      "low": 3,
+      "trend": 6.92,
+      "avg1": 12.5,
+      "avg7": 7.11,
+      "avg30": 7.52,
+      "avg-holo": 38.27,
+      "low-holo": 3,
+      "trend-holo": 32.4,
+      "avg1-holo": 5,
+      "avg7-holo": 40.74,
+      "avg30-holo": 23.19
+    },
+    "tcgplayer": null
+  }
+}

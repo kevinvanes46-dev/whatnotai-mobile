@@ -1,0 +1,79 @@
+{
+  "category": "Pokemon",
+  "id": "PMCG1-001",
+  "illustrator": "Mitsuhiro Arita",
+  "localId": "001",
+  "name": "フシギダネ",
+  "rarity": "Common",
+  "set": {
+    "cardCount": {
+      "official": 102,
+      "total": 102
+    },
+    "id": "PMCG1",
+    "name": "拡張パック"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": false,
+    "normal": true,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "normal",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 575571
+      },
+      "variantId": "endfynwn4n10gzq",
+      "pricing": {
+        "cardmarket": null,
+        "tcgplayer": null
+      }
+    },
+    {
+      "type": "normal",
+      "subtype": "no-rarity",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 576998
+      },
+      "variantId": "3a83wf50tygukdw4gyjguc5gr",
+      "pricing": {
+        "cardmarket": null,
+        "tcgplayer": null
+      }
+    }
+  ],
+  "dexId": [
+    1
+  ],
+  "hp": 40,
+  "types": [
+    "Grass"
+  ],
+  "stage": "Basic",
+  "attacks": [
+    {
+      "cost": [
+        "Grass",
+        "Grass"
+      ],
+      "name": "リーチシード",
+      "effect": "このポケモンから10ダメージを癒します。",
+      "damage": 20
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-09-03T15:29:09.378Z",
+  "pricing": {
+    "cardmarket": null,
+    "tcgplayer": null
+  }
+}

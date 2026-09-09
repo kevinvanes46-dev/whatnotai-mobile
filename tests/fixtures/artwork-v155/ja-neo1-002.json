@@ -1,0 +1,64 @@
+{
+  "category": "Pokemon",
+  "id": "neo1-002",
+  "localId": "002",
+  "name": "チコリータ",
+  "rarity": "Common",
+  "set": {
+    "cardCount": {
+      "official": 96,
+      "total": 96
+    },
+    "id": "neo1",
+    "name": "金、銀、新世界へ...",
+    "symbol": "https://assets.tcgdex.net/univ/neo/neo1/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": false,
+    "normal": true,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "normal",
+      "size": "standard",
+      "variantId": "endfynwn4n10gzq"
+    }
+  ],
+  "dexId": [
+    152
+  ],
+  "hp": 40,
+  "types": [
+    "Grass"
+  ],
+  "stage": "Basic",
+  "attacks": [
+    {
+      "cost": [
+        "Colorless"
+      ],
+      "name": "取り組む",
+      "damage": 10
+    },
+    {
+      "cost": [
+        "Grass"
+      ],
+      "name": "デフレクター",
+      "effect": "対戦相手の次のターン中、チコリータがダメージを受けるときはいつでも、そのダメージを半分に分けます（最も近い10に丸められます）。 （他の効果はまだ発生します。）"
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-09-03T15:29:09.576Z",
+  "pricing": {
+    "cardmarket": null,
+    "tcgplayer": null
+  }
+}

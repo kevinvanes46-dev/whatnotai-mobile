@@ -1,0 +1,118 @@
+{
+  "category": "Pokemon",
+  "id": "ex14-1",
+  "illustrator": "Kyoko Umemoto",
+  "image": "https://assets.tcgdex.net/en/ex/ex14/1",
+  "localId": "1",
+  "name": "Banette",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 100,
+      "total": 100
+    },
+    "id": "ex14",
+    "logo": "https://assets.tcgdex.net/en/ex/ex14/logo",
+    "name": "Crystal Guardians",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex14/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "variantId": "jr7oetx1mqug9"
+    },
+    {
+      "type": "holo",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "variantId": "555jb0efopmyclvkikic41"
+    },
+    {
+      "type": "holo",
+      "size": "standard",
+      "stamp": [
+        "jeremy-scharff-kim"
+      ],
+      "variantId": "15i9grynjdtg3y6j7oiql6i8g960vl4f"
+    }
+  ],
+  "dexId": [
+    354
+  ],
+  "hp": 70,
+  "types": [
+    "Psychic"
+  ],
+  "evolveFrom": "Shuppet",
+  "stage": "Stage1",
+  "abilities": [
+    {
+      "type": "Poke-BODY",
+      "name": "Safeguard",
+      "effect": "Prevent all effects of attacks, including damage, done to Banette by your opponent's Pokémon-ex."
+    }
+  ],
+  "attacks": [
+    {
+      "cost": [
+        "Psychic",
+        "Colorless"
+      ],
+      "name": "Night Murmurs",
+      "effect": "If the Defending Pokémon is a Basic Pokémon, that Pokémon is now Confused.",
+      "damage": 30
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Darkness",
+      "value": "×2"
+    }
+  ],
+  "resistances": [
+    {
+      "type": "Fighting",
+      "value": "-30"
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-14T19:26:39+01:00",
+  "thirdParty": {
+    "cardmarket": 277082,
+    "tcgplayer": 83720
+  },
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-09T19:42:40.487Z",
+      "unit": "EUR",
+      "idProduct": 277082,
+      "avg": 4.39,
+      "low": 0.9,
+      "trend": 4.25,
+      "avg1": 4.48,
+      "avg7": 3.24,
+      "avg30": 6.09,
+      "avg-holo": 11.69,
+      "low-holo": 2,
+      "trend-holo": 12.47,
+      "avg1-holo": 6,
+      "avg7-holo": 9.47,
+      "avg30-holo": 11.49
+    },
+    "tcgplayer": null
+  }
+}

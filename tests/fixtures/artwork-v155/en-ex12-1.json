@@ -1,0 +1,119 @@
+{
+  "category": "Pokemon",
+  "id": "ex12-1",
+  "illustrator": "Hajime Kusajima",
+  "image": "https://assets.tcgdex.net/en/ex/ex12/1",
+  "localId": "1",
+  "name": "Aerodactyl",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 92,
+      "total": 93
+    },
+    "id": "ex12",
+    "logo": "https://assets.tcgdex.net/en/ex/ex12/logo",
+    "name": "Legend Maker",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex12/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "variantId": "jr7oetx1mqug9"
+    },
+    {
+      "type": "holo",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "variantId": "555jb0efopmyclvkikic41"
+    }
+  ],
+  "dexId": [
+    142
+  ],
+  "hp": 70,
+  "types": [
+    "Colorless"
+  ],
+  "evolveFrom": "Mysterious Fossil",
+  "stage": "Stage1",
+  "abilities": [
+    {
+      "type": "Poke-BODY",
+      "name": "Reactive Protection",
+      "effect": "Any damage done to Aerodactyl by attacks from your opponent's Pokémon is reduced by 10 for each React Energy card attached to Aerodactyl (after applying Weakness and Resistance)."
+    }
+  ],
+  "attacks": [
+    {
+      "cost": [
+        "Colorless"
+      ],
+      "name": "Power Blow",
+      "effect": "Does 10 damage plus 10 more damage for each Energy attached to Aerodactyl.",
+      "damage": "10+"
+    },
+    {
+      "cost": [
+        "Colorless",
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Speed Stroke",
+      "effect": "During your opponent's next turn, prevent all effects, including damage, done to Aerodactyl by attacks from your opponent's Pokémon-ex.",
+      "damage": 40
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Lightning",
+      "value": "×2"
+    }
+  ],
+  "resistances": [
+    {
+      "type": "Fighting",
+      "value": "-30"
+    }
+  ],
+  "retreat": 0,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-19T20:52:03Z",
+  "thirdParty": {
+    "cardmarket": 276878,
+    "tcgplayer": 83468
+  },
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-09T19:42:41.467Z",
+      "unit": "EUR",
+      "idProduct": 276878,
+      "avg": 21.59,
+      "low": 6.45,
+      "trend": 23.01,
+      "avg1": 6,
+      "avg7": 23.44,
+      "avg30": 19.46,
+      "avg-holo": 38.65,
+      "low-holo": 8,
+      "trend-holo": 33.1,
+      "avg1-holo": 17.5,
+      "avg7-holo": 33.33,
+      "avg30-holo": 32.38
+    },
+    "tcgplayer": null
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "category": "Pokemon",
+  "id": "PMCG2-003",
+  "illustrator": "Ken Sugimori",
+  "localId": "003",
+  "name": "パラス",
+  "rarity": "Common",
+  "set": {
+    "cardCount": {
+      "official": 48,
+      "total": 48
+    },
+    "id": "PMCG2",
+    "name": "ポケモンジャングル"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": false,
+    "normal": true,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "normal",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 576634
+      },
+      "variantId": "endfynwn4n10gzq",
+      "pricing": {
+        "cardmarket": null,
+        "tcgplayer": null
+      }
+    }
+  ],
+  "dexId": [
+    46
+  ],
+  "hp": 40,
+  "types": [
+    "Grass"
+  ],
+  "stage": "Basic",
+  "attacks": [
+    {
+      "cost": [
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "傷",
+      "damage": 20
+    },
+    {
+      "cost": [
+        "Grass",
+        "Grass"
+      ],
+      "name": "胞子",
+      "effect": "防御ポケモンは今眠っています。"
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-09-03T15:29:09.662Z",
+  "pricing": {
+    "cardmarket": null,
+    "tcgplayer": null
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "category": "Pokemon",
+  "id": "ex11-3",
+  "illustrator": "Ryo Ueda",
+  "image": "https://assets.tcgdex.net/en/ex/ex11/3",
+  "localId": "3",
+  "name": "Dragonite δ",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 113,
+      "total": 114
+    },
+    "id": "ex11",
+    "logo": "https://assets.tcgdex.net/en/ex/ex11/logo",
+    "name": "Delta Species",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex11/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "variantId": "jr7oetx1mqug9"
+    },
+    {
+      "type": "holo",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "variantId": "555jb0efopmyclvkikic41"
+    }
+  ],
+  "dexId": [
+    149
+  ],
+  "hp": 100,
+  "types": [
+    "Lightning",
+    "Metal"
+  ],
+  "evolveFrom": "Dragonair",
+  "stage": "Stage2",
+  "abilities": [
+    {
+      "type": "Poke-POWER",
+      "name": "Delta Charge",
+      "effect": "Once during your turn (before your attack), you may attach a Lightning Energy card from your discard pile to 1 of your Benched Pokémon. This power can't be used if Dragonite is affected by a Special Condition."
+    }
+  ],
+  "attacks": [
+    {
+      "cost": [
+        "Colorless",
+        "Lightning"
+      ],
+      "name": "Agility",
+      "effect": "Flip a coin. If heads, prevent all effects of an attack, including damage, done to Dragonite during your opponent's next turn.",
+      "damage": 30
+    },
+    {
+      "cost": [
+        "Colorless",
+        "Colorless",
+        "Lightning",
+        "Metal"
+      ],
+      "name": "Heavy Impact",
+      "damage": 70
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Colorless",
+      "value": "×2"
+    }
+  ],
+  "resistances": [
+    {
+      "type": "Grass",
+      "value": "-30"
+    },
+    {
+      "type": "Fighting",
+      "value": "-30"
+    }
+  ],
+  "retreat": 2,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-09-03T16:14:47+01:00",
+  "thirdParty": {
+    "cardmarket": 276766
+  },
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-09T19:44:24.610Z",
+      "unit": "EUR",
+      "idProduct": 276766,
+      "avg": 96.25,
+      "low": 10,
+      "trend": 128.86,
+      "avg1": 175,
+      "avg7": 99.98,
+      "avg30": 81.57,
+      "avg-holo": 133.48,
+      "low-holo": 25,
+      "trend-holo": 133.14,
+      "avg1-holo": 179,
+      "avg7-holo": 113.68,
+      "avg30-holo": 121.16
+    },
+    "tcgplayer": null
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "category": "Pokemon",
+  "id": "ex11-2",
+  "illustrator": "Ryo Ueda",
+  "image": "https://assets.tcgdex.net/en/ex/ex11/2",
+  "localId": "2",
+  "name": "Crobat δ",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 113,
+      "total": 114
+    },
+    "id": "ex11",
+    "logo": "https://assets.tcgdex.net/en/ex/ex11/logo",
+    "name": "Delta Species",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex11/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "variantId": "jr7oetx1mqug9"
+    },
+    {
+      "type": "holo",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "variantId": "555jb0efopmyclvkikic41"
+    }
+  ],
+  "dexId": [
+    169
+  ],
+  "hp": 90,
+  "types": [
+    "Grass",
+    "Metal"
+  ],
+  "evolveFrom": "Golbat",
+  "stage": "Stage2",
+  "attacks": [
+    {
+      "cost": [
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Radar Jam",
+      "effect": "Your opponent can't play any Trainer cards (except for Supporter cards) from his or her hand during your opponent's next turn.",
+      "damage": 30
+    },
+    {
+      "cost": [
+        "Colorless",
+        "Grass",
+        "Metal"
+      ],
+      "name": "Target Attack",
+      "effect": "Choose 1 of your opponent's Pokémon. This attack does 40 damage to that Pokémon. If that Pokémon already has damage counters on it, this attack does 60 damage instead. (Don't apply Weakness and Resistance for Benched Pokémon.)"
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Psychic",
+      "value": "×2"
+    }
+  ],
+  "retreat": 0,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-15T23:34:34+01:00",
+  "thirdParty": {
+    "cardmarket": 276765
+  },
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-08T19:42:27.734Z",
+      "unit": "EUR",
+      "idProduct": 276765,
+      "avg": 6.46,
+      "low": 0.85,
+      "trend": 6.38,
+      "avg1": 6.5,
+      "avg7": 6.79,
+      "avg30": 6.85,
+      "avg-holo": 6.19,
+      "low-holo": 0.99,
+      "trend-holo": 6.04,
+      "avg1-holo": 2.89,
+      "avg7-holo": 5.39,
+      "avg30-holo": 11.09
+    },
+    "tcgplayer": null
+  }
+}

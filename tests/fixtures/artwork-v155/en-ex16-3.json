@@ -1,0 +1,105 @@
+{
+  "category": "Pokemon",
+  "id": "ex16-3",
+  "illustrator": "Ken Sugimori",
+  "image": "https://assets.tcgdex.net/en/ex/ex16/3",
+  "localId": "3",
+  "name": "Armaldo",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 108,
+      "total": 108
+    },
+    "id": "ex16",
+    "logo": "https://assets.tcgdex.net/en/ex/ex16/logo",
+    "name": "Power Keepers",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex16/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "variantId": "jr7oetx1mqug9"
+    },
+    {
+      "type": "holo",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "variantId": "555jb0efopmyclvkikic41"
+    }
+  ],
+  "dexId": [
+    348
+  ],
+  "hp": 120,
+  "types": [
+    "Fighting"
+  ],
+  "evolveFrom": "Anorith",
+  "stage": "Stage2",
+  "attacks": [
+    {
+      "cost": [
+        "Fighting"
+      ],
+      "name": "Rock Blast",
+      "effect": "Discard up to 5 Fighting Energy cards attached to Armaldo. For each Energy card you discarded, choose an opponent's Pokémon in play and this attack does 20 damage to those Pokémon. (You may choose the same Pokémon more than once.) This attack's damage isn't affected by Weakness or Resistance."
+    },
+    {
+      "cost": [
+        "Colorless",
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Mach Claw",
+      "effect": "This attack's damage isn't affected by Resistance.",
+      "damage": 60
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Grass",
+      "value": "×2"
+    }
+  ],
+  "retreat": 3,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-27T17:20:02+01:00",
+  "thirdParty": {
+    "cardmarket": 277309,
+    "tcgplayer": 83620
+  },
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-09T19:42:40.487Z",
+      "unit": "EUR",
+      "idProduct": 277309,
+      "avg": 4.2,
+      "low": 1,
+      "trend": 8.37,
+      "avg1": 20,
+      "avg7": 7.31,
+      "avg30": 5.4,
+      "avg-holo": 5.06,
+      "low-holo": 2,
+      "trend-holo": 4.53,
+      "avg1-holo": 6.5,
+      "avg7-holo": 5.96,
+      "avg30-holo": 7.32
+    },
+    "tcgplayer": null
+  }
+}

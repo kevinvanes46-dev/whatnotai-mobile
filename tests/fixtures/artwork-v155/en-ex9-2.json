@@ -1,0 +1,151 @@
+{
+  "category": "Pokemon",
+  "id": "ex9-2",
+  "illustrator": "Hironobu Yoshida",
+  "image": "https://assets.tcgdex.net/en/ex/ex9/2",
+  "localId": "2",
+  "name": "Deoxys",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 106,
+      "total": 107
+    },
+    "id": "ex9",
+    "logo": "https://assets.tcgdex.net/en/ex/ex9/logo",
+    "name": "Emerald",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex9/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": true,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 84766,
+        "cardmarket": 276513
+      },
+      "variantId": "jr7oetx1mqug9",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-08T19:42:28.034Z",
+          "unit": "EUR",
+          "idProduct": 276513,
+          "avg": 24.89,
+          "low": 6.48,
+          "trend": 90.36,
+          "avg1": 31,
+          "avg7": 74.4,
+          "avg30": 37.21,
+          "avg-holo": 114.72,
+          "low-holo": 10,
+          "trend-holo": 132.72,
+          "avg1-holo": 100,
+          "avg7-holo": 108.98,
+          "avg30-holo": 70.84
+        },
+        "tcgplayer": null
+      }
+    },
+    {
+      "type": "reverse",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "thirdParty": {
+        "tcgplayer": 84766,
+        "cardmarket": 276513
+      },
+      "variantId": "3a83wf50tyyzu7r7ryiw8tit7",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-08T19:42:28.034Z",
+          "unit": "EUR",
+          "idProduct": 276513,
+          "avg": 24.89,
+          "low": 6.48,
+          "trend": 90.36,
+          "avg1": 31,
+          "avg7": 74.4,
+          "avg30": 37.21,
+          "avg-holo": 114.72,
+          "low-holo": 10,
+          "trend-holo": 132.72,
+          "avg1-holo": 100,
+          "avg7-holo": 108.98,
+          "avg30-holo": 70.84
+        },
+        "tcgplayer": null
+      }
+    }
+  ],
+  "dexId": [
+    386
+  ],
+  "hp": 70,
+  "types": [
+    "Psychic"
+  ],
+  "stage": "Basic",
+  "abilities": [
+    {
+      "type": "Poke-POWER",
+      "name": "Form Change",
+      "effect": "Once during your turn (before your attack), you may search your deck for another Deoxys and switch it with Deoxys. (Any cards attached to Deoxys, damage counters, Special Conditions, and effects on it are now on the new Pokémon.) If you do, put Deoxys on top of your deck. Shuffle your deck afterward. You can't use more than 1 Form Change Poké-Power each turn."
+    }
+  ],
+  "attacks": [
+    {
+      "cost": [
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Swift",
+      "effect": "This attack's damage isn't affected by Weakness, Resistance, Poké-Powers, Poké-Bodies, or any other effects on the Defending Pokémon.",
+      "damage": 30
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Psychic",
+      "value": "×2"
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-03T19:01:44+01:00",
+  "thirdParty": {
+    "cardmarket": 276513,
+    "tcgplayer": 84766
+  },
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-08T19:42:28.034Z",
+      "unit": "EUR",
+      "idProduct": 276513,
+      "avg": 24.89,
+      "low": 6.48,
+      "trend": 90.36,
+      "avg1": 31,
+      "avg7": 74.4,
+      "avg30": 37.21,
+      "avg-holo": 114.72,
+      "low-holo": 10,
+      "trend-holo": 132.72,
+      "avg1-holo": 100,
+      "avg7-holo": 108.98,
+      "avg30-holo": 70.84
+    },
+    "tcgplayer": null
+  }
+}

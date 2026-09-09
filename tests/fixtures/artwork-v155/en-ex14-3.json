@@ -1,0 +1,112 @@
+{
+  "category": "Pokemon",
+  "id": "ex14-3",
+  "illustrator": "Mitsuhiro Arita",
+  "image": "https://assets.tcgdex.net/en/ex/ex14/3",
+  "localId": "3",
+  "name": "Camerupt",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 100,
+      "total": 100
+    },
+    "id": "ex14",
+    "logo": "https://assets.tcgdex.net/en/ex/ex14/logo",
+    "name": "Crystal Guardians",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex14/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "variantId": "jr7oetx1mqug9"
+    },
+    {
+      "type": "holo",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "variantId": "555jb0efopmyclvkikic41"
+    }
+  ],
+  "dexId": [
+    323
+  ],
+  "hp": 80,
+  "types": [
+    "Fire"
+  ],
+  "evolveFrom": "Numel",
+  "stage": "Stage1",
+  "abilities": [
+    {
+      "type": "Poke-BODY",
+      "name": "Delta Protection",
+      "effect": "Any damage done to Camerupt by attacks from your opponent's Pokémon that has δ on its card is reduced by 40 (after applying Weakness and Resistance)."
+    }
+  ],
+  "attacks": [
+    {
+      "cost": [
+        "Fire",
+        "Colorless"
+      ],
+      "name": "Linear Attack",
+      "effect": "Choose 1 of your opponent's Pokémon. This attack does 30 damage to that Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.)"
+    },
+    {
+      "cost": [
+        "Fire",
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Combustion",
+      "damage": 50
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Water",
+      "value": "×2"
+    }
+  ],
+  "retreat": 2,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-19T20:52:03Z",
+  "thirdParty": {
+    "cardmarket": 277084,
+    "tcgplayer": 84092
+  },
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-09T19:42:42.157Z",
+      "unit": "EUR",
+      "idProduct": 277084,
+      "avg": 3.72,
+      "low": 0.99,
+      "trend": 4.13,
+      "avg1": 4.95,
+      "avg7": 3.83,
+      "avg30": 3.57,
+      "avg-holo": 7.98,
+      "low-holo": 1.5,
+      "trend-holo": 9.83,
+      "avg1-holo": 4.95,
+      "avg7-holo": 8.61,
+      "avg30-holo": 7.64
+    },
+    "tcgplayer": null
+  }
+}

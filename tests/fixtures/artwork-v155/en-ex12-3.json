@@ -1,0 +1,113 @@
+{
+  "category": "Pokemon",
+  "id": "ex12-3",
+  "illustrator": "Hajime Kusajima",
+  "image": "https://assets.tcgdex.net/en/ex/ex12/3",
+  "localId": "3",
+  "name": "Cradily",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 92,
+      "total": 93
+    },
+    "id": "ex12",
+    "logo": "https://assets.tcgdex.net/en/ex/ex12/logo",
+    "name": "Legend Maker",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex12/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "variantId": "jr7oetx1mqug9"
+    },
+    {
+      "type": "holo",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "variantId": "555jb0efopmyclvkikic41"
+    }
+  ],
+  "dexId": [
+    346
+  ],
+  "hp": 100,
+  "types": [
+    "Grass"
+  ],
+  "evolveFrom": "Lileep",
+  "stage": "Stage2",
+  "attacks": [
+    {
+      "cost": [
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Devolution Wave",
+      "effect": "Count the number of React Energy cards attached to Cradily and choose up to that number of your opponent's Evolved Pokémon. Remove the highest Stage Evolution card from each of those Pokémon, then have your opponent shuffle those cards into his or her deck."
+    },
+    {
+      "cost": [
+        "Grass",
+        "Colorless"
+      ],
+      "name": "Linear Attack",
+      "effect": "Choose 1 of your opponent's Pokémon. This attack does 30 damage to that Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.)"
+    },
+    {
+      "cost": [
+        "Colorless",
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Mud Shot",
+      "damage": 50
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Fire",
+      "value": "×2"
+    }
+  ],
+  "retreat": 2,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-13T21:03:30+01:00",
+  "thirdParty": {
+    "cardmarket": 276880,
+    "tcgplayer": 84452
+  },
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-09T19:42:41.467Z",
+      "unit": "EUR",
+      "idProduct": 276880,
+      "avg": 6.23,
+      "low": 0.99,
+      "trend": 6.06,
+      "avg1": 12,
+      "avg7": 6.8,
+      "avg30": 5.64,
+      "avg-holo": 4.67,
+      "low-holo": 0.99,
+      "trend-holo": 8.86,
+      "avg1-holo": 6,
+      "avg7-holo": 9.18,
+      "avg30-holo": 9.17
+    },
+    "tcgplayer": null
+  }
+}

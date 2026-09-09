@@ -860,7 +860,8 @@
   document.addEventListener('click', e => {
     if(!smartSuggestions || smartSuggestions.hidden) return;
     const inSearch = quickInput?.closest('.searchBox')?.contains(e.target);
-    if(!inSearch && !smartSuggestions.contains(e.target)) hideSuggestions();
+    const inPresets=stampedSetChips?.contains(e.target)||stampedToggle?.contains(e.target)||$('normalVariant')?.contains(e.target);
+    if(!inSearch && !inPresets && !smartSuggestions.contains(e.target)) hideSuggestions();
   });
 
   [langSelect,condSelect,editionSelect].filter(Boolean).forEach(el => el.addEventListener('change', () => {

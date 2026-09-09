@@ -1,0 +1,533 @@
+{
+  "cardCount": {
+    "firstEd": 0,
+    "holo": 28,
+    "normal": 176,
+    "official": 102,
+    "reverse": 0,
+    "total": 102
+  },
+  "cards": [
+    {
+      "id": "PMCG1-001",
+      "localId": "001",
+      "name": "フシギダネ"
+    },
+    {
+      "id": "PMCG1-002",
+      "localId": "002",
+      "name": "キャタピー"
+    },
+    {
+      "id": "PMCG1-003",
+      "localId": "003",
+      "name": "トランセル"
+    },
+    {
+      "id": "PMCG1-004",
+      "localId": "004",
+      "name": "ビードル"
+    },
+    {
+      "id": "PMCG1-005",
+      "localId": "005",
+      "name": "ニドラン♂"
+    },
+    {
+      "id": "PMCG1-006",
+      "localId": "006",
+      "name": "ドガース"
+    },
+    {
+      "id": "PMCG1-007",
+      "localId": "007",
+      "name": "モンジャラ"
+    },
+    {
+      "id": "PMCG1-008",
+      "localId": "008",
+      "name": "フシギソウ"
+    },
+    {
+      "id": "PMCG1-009",
+      "localId": "009",
+      "name": "コクーン"
+    },
+    {
+      "id": "PMCG1-010",
+      "localId": "010",
+      "name": "ニドリーノ"
+    },
+    {
+      "id": "PMCG1-011",
+      "localId": "011",
+      "name": "フシギバナ"
+    },
+    {
+      "id": "PMCG1-012",
+      "localId": "012",
+      "name": "スピアー"
+    },
+    {
+      "id": "PMCG1-013",
+      "localId": "013",
+      "name": "ニドキング"
+    },
+    {
+      "id": "PMCG1-014",
+      "localId": "014",
+      "name": "ヒトカゲ"
+    },
+    {
+      "id": "PMCG1-015",
+      "localId": "015",
+      "name": "ロコン"
+    },
+    {
+      "id": "PMCG1-016",
+      "localId": "016",
+      "name": "ポニータ"
+    },
+    {
+      "id": "PMCG1-017",
+      "localId": "017",
+      "name": "リザード"
+    },
+    {
+      "id": "PMCG1-018",
+      "localId": "018",
+      "name": "ガーディ"
+    },
+    {
+      "id": "PMCG1-019",
+      "localId": "019",
+      "name": "ウィンディ"
+    },
+    {
+      "id": "PMCG1-020",
+      "localId": "020",
+      "name": "ブーバー"
+    },
+    {
+      "id": "PMCG1-021",
+      "localId": "021",
+      "name": "リザードン"
+    },
+    {
+      "id": "PMCG1-022",
+      "localId": "022",
+      "name": "キュウコン"
+    },
+    {
+      "id": "PMCG1-023",
+      "localId": "023",
+      "name": "ゼニガメ"
+    },
+    {
+      "id": "PMCG1-024",
+      "localId": "024",
+      "name": "ニョロモ"
+    },
+    {
+      "id": "PMCG1-025",
+      "localId": "025",
+      "name": "ヒトデマン"
+    },
+    {
+      "id": "PMCG1-026",
+      "localId": "026",
+      "name": "スターミー"
+    },
+    {
+      "id": "PMCG1-027",
+      "localId": "027",
+      "name": "カメール"
+    },
+    {
+      "id": "PMCG1-028",
+      "localId": "028",
+      "name": "ニョロゾ"
+    },
+    {
+      "id": "PMCG1-029",
+      "localId": "029",
+      "name": "パウワウ"
+    },
+    {
+      "id": "PMCG1-030",
+      "localId": "030",
+      "name": "ジュゴン"
+    },
+    {
+      "id": "PMCG1-031",
+      "localId": "031",
+      "name": "コイキング"
+    },
+    {
+      "id": "PMCG1-032",
+      "localId": "032",
+      "name": "カメックス"
+    },
+    {
+      "id": "PMCG1-033",
+      "localId": "033",
+      "name": "ニョロボン"
+    },
+    {
+      "id": "PMCG1-034",
+      "localId": "034",
+      "name": "ギャラドス"
+    },
+    {
+      "id": "PMCG1-035",
+      "localId": "035",
+      "name": "ピカチュウ"
+    },
+    {
+      "id": "PMCG1-036",
+      "localId": "036",
+      "name": "コイル"
+    },
+    {
+      "id": "PMCG1-037",
+      "localId": "037",
+      "name": "ビリリダマ"
+    },
+    {
+      "id": "PMCG1-038",
+      "localId": "038",
+      "name": "ライチュウ"
+    },
+    {
+      "id": "PMCG1-039",
+      "localId": "039",
+      "name": "レアコイル"
+    },
+    {
+      "id": "PMCG1-040",
+      "localId": "040",
+      "name": "マルマイン"
+    },
+    {
+      "id": "PMCG1-041",
+      "localId": "041",
+      "name": "エレブー"
+    },
+    {
+      "id": "PMCG1-042",
+      "localId": "042",
+      "name": "サンダー"
+    },
+    {
+      "id": "PMCG1-043",
+      "localId": "043",
+      "name": "ケーシィ"
+    },
+    {
+      "id": "PMCG1-044",
+      "localId": "044",
+      "name": "ゴース"
+    },
+    {
+      "id": "PMCG1-045",
+      "localId": "045",
+      "name": "スリープ"
+    },
+    {
+      "id": "PMCG1-046",
+      "localId": "046",
+      "name": "ユンゲラー"
+    },
+    {
+      "id": "PMCG1-047",
+      "localId": "047",
+      "name": "ゴースト"
+    },
+    {
+      "id": "PMCG1-048",
+      "localId": "048",
+      "name": "ルージュラ"
+    },
+    {
+      "id": "PMCG1-049",
+      "localId": "049",
+      "name": "フーディン"
+    },
+    {
+      "id": "PMCG1-050",
+      "localId": "050",
+      "name": "ミュウツー"
+    },
+    {
+      "id": "PMCG1-051",
+      "localId": "051",
+      "name": "サンド"
+    },
+    {
+      "id": "PMCG1-052",
+      "localId": "052",
+      "name": "ディグダ"
+    },
+    {
+      "id": "PMCG1-053",
+      "localId": "053",
+      "name": "ワンリキー"
+    },
+    {
+      "id": "PMCG1-054",
+      "localId": "054",
+      "name": "イワーク"
+    },
+    {
+      "id": "PMCG1-055",
+      "localId": "055",
+      "name": "ゴーリキー"
+    },
+    {
+      "id": "PMCG1-056",
+      "localId": "056",
+      "name": "ダグトリオ"
+    },
+    {
+      "id": "PMCG1-057",
+      "localId": "057",
+      "name": "カイリキー"
+    },
+    {
+      "id": "PMCG1-058",
+      "localId": "058",
+      "name": "エビワラー"
+    },
+    {
+      "id": "PMCG1-059",
+      "localId": "059",
+      "name": "ポッポ"
+    },
+    {
+      "id": "PMCG1-060",
+      "localId": "060",
+      "name": "コラッタ"
+    },
+    {
+      "id": "PMCG1-061",
+      "localId": "061",
+      "name": "ドードー"
+    },
+    {
+      "id": "PMCG1-062",
+      "localId": "062",
+      "name": "ラッタ"
+    },
+    {
+      "id": "PMCG1-063",
+      "localId": "063",
+      "name": "カモネギ"
+    },
+    {
+      "id": "PMCG1-064",
+      "localId": "064",
+      "name": "ポリゴン"
+    },
+    {
+      "id": "PMCG1-065",
+      "localId": "065",
+      "name": "ミニリュウ"
+    },
+    {
+      "id": "PMCG1-066",
+      "localId": "066",
+      "name": "ピジョン"
+    },
+    {
+      "id": "PMCG1-067",
+      "localId": "067",
+      "name": "ピッピ"
+    },
+    {
+      "id": "PMCG1-068",
+      "localId": "068",
+      "name": "ラッキー"
+    },
+    {
+      "id": "PMCG1-069",
+      "localId": "069",
+      "name": "ハクリュー"
+    },
+    {
+      "id": "PMCG1-070",
+      "localId": "070",
+      "name": "エネルギー・リムーブ"
+    },
+    {
+      "id": "PMCG1-071",
+      "localId": "071",
+      "name": "きずぐすり"
+    },
+    {
+      "id": "PMCG1-072",
+      "localId": "072",
+      "name": "突風"
+    },
+    {
+      "id": "PMCG1-073",
+      "localId": "073",
+      "name": "ポケモンいれかえ"
+    },
+    {
+      "id": "PMCG1-074",
+      "localId": "074",
+      "name": "マサキ"
+    },
+    {
+      "id": "PMCG1-075",
+      "localId": "075",
+      "name": "いいきずぐすり"
+    },
+    {
+      "id": "PMCG1-076",
+      "localId": "076",
+      "name": "エネルギー回収"
+    },
+    {
+      "id": "PMCG1-077",
+      "localId": "077",
+      "name": "オーキドはかせ"
+    },
+    {
+      "id": "PMCG1-078",
+      "localId": "078",
+      "name": "げんきのかけら"
+    },
+    {
+      "id": "PMCG1-079",
+      "localId": "079",
+      "name": "ディフェンダー"
+    },
+    {
+      "id": "PMCG1-080",
+      "localId": "080",
+      "name": "なんでもなおし"
+    },
+    {
+      "id": "PMCG1-081",
+      "localId": "081",
+      "name": "プラスパワー"
+    },
+    {
+      "id": "PMCG1-082",
+      "localId": "082",
+      "name": "ポケモン図鑑"
+    },
+    {
+      "id": "PMCG1-083",
+      "localId": "083",
+      "name": "ポケモンセンター"
+    },
+    {
+      "id": "PMCG1-084",
+      "localId": "084",
+      "name": "ポケモンの笛"
+    },
+    {
+      "id": "PMCG1-085",
+      "localId": "085",
+      "name": "メンテナンス"
+    },
+    {
+      "id": "PMCG1-086",
+      "localId": "086",
+      "name": "退化スプレー"
+    },
+    {
+      "id": "PMCG1-087",
+      "localId": "087",
+      "name": "ダウジングマシーン"
+    },
+    {
+      "id": "PMCG1-088",
+      "localId": "088",
+      "name": "超エネルギーリムーブ"
+    },
+    {
+      "id": "PMCG1-089",
+      "localId": "089",
+      "name": "詐欺師オーク教授"
+    },
+    {
+      "id": "PMCG1-090",
+      "localId": "090",
+      "name": "パソコン通信"
+    },
+    {
+      "id": "PMCG1-091",
+      "localId": "091",
+      "name": "ピッピ人形"
+    },
+    {
+      "id": "PMCG1-092",
+      "localId": "092",
+      "name": "ポケモン回収"
+    },
+    {
+      "id": "PMCG1-093",
+      "localId": "093",
+      "name": "ポケモン交換おじさん"
+    },
+    {
+      "id": "PMCG1-094",
+      "localId": "094",
+      "name": "ポケモン育て屋さん"
+    },
+    {
+      "id": "PMCG1-095",
+      "localId": "095",
+      "name": "ミニスカート"
+    },
+    {
+      "id": "PMCG1-096",
+      "localId": "096",
+      "name": "ダブル無色エネルギー"
+    },
+    {
+      "id": "PMCG1-097",
+      "localId": "097",
+      "name": "基本草エネルギー"
+    },
+    {
+      "id": "PMCG1-098",
+      "localId": "098",
+      "name": "基本炎エネルギー"
+    },
+    {
+      "id": "PMCG1-099",
+      "localId": "099",
+      "name": "基本水エネルギー"
+    },
+    {
+      "id": "PMCG1-100",
+      "localId": "100",
+      "name": "基本雷エネルギー"
+    },
+    {
+      "id": "PMCG1-101",
+      "localId": "101",
+      "name": "基本超エネルギー"
+    },
+    {
+      "id": "PMCG1-102",
+      "localId": "102",
+      "name": "基本闘エネルギー"
+    }
+  ],
+  "id": "PMCG1",
+  "legal": {
+    "expanded": false,
+    "standard": false
+  },
+  "name": "拡張パック",
+  "releaseDate": "1996-10-20",
+  "serie": {
+    "id": "PMCG",
+    "name": "ポケットモンスターカードゲーム"
+  }
+}

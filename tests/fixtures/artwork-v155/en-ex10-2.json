@@ -1,0 +1,147 @@
+{
+  "category": "Pokemon",
+  "id": "ex10-2",
+  "illustrator": "Mitsuhiro Arita",
+  "image": "https://assets.tcgdex.net/en/ex/ex10/2",
+  "localId": "2",
+  "name": "Ariados",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 115,
+      "total": 117
+    },
+    "id": "ex10",
+    "logo": "https://assets.tcgdex.net/en/ex/ex10/logo",
+    "name": "Unseen Forces",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex10/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": true,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 83616,
+        "cardmarket": 276648
+      },
+      "variantId": "jr7oetx1mqug9",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-08T19:42:27.562Z",
+          "unit": "EUR",
+          "idProduct": 276648,
+          "avg": 17.34,
+          "low": 1.89,
+          "trend": 15.1,
+          "avg1": 70,
+          "avg7": 16.97,
+          "avg30": 11.59,
+          "avg-holo": 13.28,
+          "low-holo": 2.88,
+          "trend-holo": 13.99,
+          "avg1-holo": 13.28,
+          "avg7-holo": 11.43,
+          "avg30-holo": 10.77
+        },
+        "tcgplayer": null
+      }
+    },
+    {
+      "type": "reverse",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "thirdParty": {
+        "tcgplayer": 83616,
+        "cardmarket": 276648
+      },
+      "variantId": "3a83wf50tyyzu7r7ryiw8tit7",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-08T19:42:27.562Z",
+          "unit": "EUR",
+          "idProduct": 276648,
+          "avg": 17.34,
+          "low": 1.89,
+          "trend": 15.1,
+          "avg1": 70,
+          "avg7": 16.97,
+          "avg30": 11.59,
+          "avg-holo": 13.28,
+          "low-holo": 2.88,
+          "trend-holo": 13.99,
+          "avg1-holo": 13.28,
+          "avg7-holo": 11.43,
+          "avg30-holo": 10.77
+        },
+        "tcgplayer": null
+      }
+    }
+  ],
+  "dexId": [
+    168
+  ],
+  "hp": 70,
+  "types": [
+    "Grass"
+  ],
+  "evolveFrom": "Spinarak",
+  "stage": "Stage1",
+  "attacks": [
+    {
+      "cost": [
+        "Colorless"
+      ],
+      "name": "Reactive Poison",
+      "effect": "Does 10 damage plus 30 more damage for each Special Condition affecting the Defending Pokémon.",
+      "damage": "10+"
+    },
+    {
+      "cost": [
+        "Grass"
+      ],
+      "name": "Spider Trap",
+      "effect": "The Defending Pokémon is now Asleep and Poisoned. Before applying this effect, you may switch 1 of your opponent's Benched Pokémon with 1 of the Defending Pokémon. If you do, the new Defending Pokémon is now Asleep and Poisoned. Your opponent chooses the Defending Pokémon to switch."
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Psychic",
+      "value": "×2"
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-03T19:00:37+01:00",
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-08T19:42:27.562Z",
+      "unit": "EUR",
+      "idProduct": 276648,
+      "avg": 17.34,
+      "low": 1.89,
+      "trend": 15.1,
+      "avg1": 70,
+      "avg7": 16.97,
+      "avg30": 11.59,
+      "avg-holo": 13.28,
+      "low-holo": 2.88,
+      "trend-holo": 13.99,
+      "avg1-holo": 13.28,
+      "avg7-holo": 11.43,
+      "avg30-holo": 10.77
+    },
+    "tcgplayer": null
+  }
+}

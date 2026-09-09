@@ -1,0 +1,219 @@
+{
+  "category": "Pokemon",
+  "id": "ex7-3",
+  "illustrator": "Kyoko Koizumi",
+  "image": "https://assets.tcgdex.net/en/ex/ex7/3",
+  "localId": "3",
+  "name": "Dark Crobat",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 109,
+      "total": 111
+    },
+    "id": "ex7",
+    "logo": "https://assets.tcgdex.net/en/ex/ex7/logo",
+    "name": "Team Rocket Returns",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex7/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": true,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "thirdParty": {
+        "cardmarket": 276295,
+        "tcgplayer": 84577
+      },
+      "variantId": "jr7oetx1mqug9",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-09T19:44:24.612Z",
+          "unit": "EUR",
+          "idProduct": 276295,
+          "avg": 29.37,
+          "low": 7,
+          "trend": 22.19,
+          "avg1": 28.9,
+          "avg7": 29.15,
+          "avg30": 19.42,
+          "avg-holo": 37,
+          "low-holo": 16.99,
+          "trend-holo": 42.6,
+          "avg1-holo": 39,
+          "avg7-holo": 42.97,
+          "avg30-holo": 31.58
+        },
+        "tcgplayer": {
+          "unit": "USD",
+          "updated": "2026-09-09T19:44:25.412Z",
+          "holofoil": {
+            "productId": 84577,
+            "lowPrice": 26.8,
+            "midPrice": 169,
+            "highPrice": 1199.94,
+            "marketPrice": 31.35,
+            "directLowPrice": null
+          },
+          "reverse-holofoil": {
+            "productId": 84577,
+            "lowPrice": 94.95,
+            "midPrice": 186.3,
+            "highPrice": 1899.8,
+            "marketPrice": 175.58,
+            "directLowPrice": null
+          }
+        }
+      }
+    },
+    {
+      "type": "reverse",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "thirdParty": {
+        "cardmarket": 276295,
+        "tcgplayer": 84577
+      },
+      "variantId": "3a83wf50tyyzu7r7ryiw8tit7",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-09T19:44:24.612Z",
+          "unit": "EUR",
+          "idProduct": 276295,
+          "avg": 29.37,
+          "low": 7,
+          "trend": 22.19,
+          "avg1": 28.9,
+          "avg7": 29.15,
+          "avg30": 19.42,
+          "avg-holo": 37,
+          "low-holo": 16.99,
+          "trend-holo": 42.6,
+          "avg1-holo": 39,
+          "avg7-holo": 42.97,
+          "avg30-holo": 31.58
+        },
+        "tcgplayer": {
+          "unit": "USD",
+          "updated": "2026-09-09T19:44:25.412Z",
+          "holofoil": {
+            "productId": 84577,
+            "lowPrice": 26.8,
+            "midPrice": 169,
+            "highPrice": 1199.94,
+            "marketPrice": 31.35,
+            "directLowPrice": null
+          },
+          "reverse-holofoil": {
+            "productId": 84577,
+            "lowPrice": 94.95,
+            "midPrice": 186.3,
+            "highPrice": 1899.8,
+            "marketPrice": 175.58,
+            "directLowPrice": null
+          }
+        }
+      }
+    }
+  ],
+  "dexId": [
+    169
+  ],
+  "hp": 90,
+  "types": [
+    "Grass",
+    "Darkness"
+  ],
+  "evolveFrom": "Dark Golbat",
+  "stage": "Stage2",
+  "abilities": [
+    {
+      "type": "Poke-POWER",
+      "name": "Black Beam",
+      "effect": "Once during your turn (before your attack), if Dark Crobat is your Active Pokémon, you may choose 1 of the Defending Pokémon. That Pokémon is now Poisoned. This power can't be used if Dark Crobat is affected by a Special Condition."
+    }
+  ],
+  "attacks": [
+    {
+      "cost": [
+        "Grass",
+        "Darkness"
+      ],
+      "name": "Dark Drain",
+      "effect": "Does 10 damage to each of your opponent's Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.) Remove from Dark Crobat a number of damage counters equal to the number of your opponent's Pokémon in play."
+    },
+    {
+      "cost": [
+        "Grass",
+        "Colorless"
+      ],
+      "name": "Skill Dive",
+      "effect": "Does 30 damage to 1 of your opponent's Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.)"
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Lightning",
+      "value": "×2"
+    }
+  ],
+  "resistances": [
+    {
+      "type": "Fighting",
+      "value": "-30"
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-03T19:06:51+01:00",
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-09T19:44:24.612Z",
+      "unit": "EUR",
+      "idProduct": 276295,
+      "avg": 29.37,
+      "low": 7,
+      "trend": 22.19,
+      "avg1": 28.9,
+      "avg7": 29.15,
+      "avg30": 19.42,
+      "avg-holo": 37,
+      "low-holo": 16.99,
+      "trend-holo": 42.6,
+      "avg1-holo": 39,
+      "avg7-holo": 42.97,
+      "avg30-holo": 31.58
+    },
+    "tcgplayer": {
+      "unit": "USD",
+      "updated": "2026-09-09T19:44:25.412Z",
+      "holofoil": {
+        "productId": 84577,
+        "lowPrice": 26.8,
+        "midPrice": 169,
+        "highPrice": 1199.94,
+        "marketPrice": 31.35,
+        "directLowPrice": null
+      },
+      "reverse-holofoil": {
+        "productId": 84577,
+        "lowPrice": 94.95,
+        "midPrice": 186.3,
+        "highPrice": 1899.8,
+        "marketPrice": 175.58,
+        "directLowPrice": null
+      }
+    }
+  }
+}

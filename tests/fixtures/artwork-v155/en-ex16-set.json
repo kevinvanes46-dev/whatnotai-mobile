@@ -1,0 +1,677 @@
+{
+  "cardCount": {
+    "firstEd": 0,
+    "holo": 47,
+    "normal": 175,
+    "official": 108,
+    "reverse": 0,
+    "total": 108
+  },
+  "cards": [
+    {
+      "id": "ex16-1",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/1",
+      "localId": "1",
+      "name": "Aggron"
+    },
+    {
+      "id": "ex16-2",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/2",
+      "localId": "2",
+      "name": "Altaria"
+    },
+    {
+      "id": "ex16-3",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/3",
+      "localId": "3",
+      "name": "Armaldo"
+    },
+    {
+      "id": "ex16-4",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/4",
+      "localId": "4",
+      "name": "Banette"
+    },
+    {
+      "id": "ex16-5",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/5",
+      "localId": "5",
+      "name": "Blaziken"
+    },
+    {
+      "id": "ex16-6",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/6",
+      "localId": "6",
+      "name": "Charizard"
+    },
+    {
+      "id": "ex16-7",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/7",
+      "localId": "7",
+      "name": "Cradily"
+    },
+    {
+      "id": "ex16-8",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/8",
+      "localId": "8",
+      "name": "Delcatty"
+    },
+    {
+      "id": "ex16-9",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/9",
+      "localId": "9",
+      "name": "Gardevoir"
+    },
+    {
+      "id": "ex16-10",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/10",
+      "localId": "10",
+      "name": "Kabutops"
+    },
+    {
+      "id": "ex16-11",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/11",
+      "localId": "11",
+      "name": "Machamp"
+    },
+    {
+      "id": "ex16-12",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/12",
+      "localId": "12",
+      "name": "Raichu"
+    },
+    {
+      "id": "ex16-13",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/13",
+      "localId": "13",
+      "name": "Slaking"
+    },
+    {
+      "id": "ex16-14",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/14",
+      "localId": "14",
+      "name": "Dusclops"
+    },
+    {
+      "id": "ex16-15",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/15",
+      "localId": "15",
+      "name": "Lanturn"
+    },
+    {
+      "id": "ex16-16",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/16",
+      "localId": "16",
+      "name": "Magneton"
+    },
+    {
+      "id": "ex16-17",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/17",
+      "localId": "17",
+      "name": "Mawile"
+    },
+    {
+      "id": "ex16-18",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/18",
+      "localId": "18",
+      "name": "Mightyena"
+    },
+    {
+      "id": "ex16-19",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/19",
+      "localId": "19",
+      "name": "Ninetales"
+    },
+    {
+      "id": "ex16-20",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/20",
+      "localId": "20",
+      "name": "Omastar"
+    },
+    {
+      "id": "ex16-21",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/21",
+      "localId": "21",
+      "name": "Pichu"
+    },
+    {
+      "id": "ex16-22",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/22",
+      "localId": "22",
+      "name": "Sableye"
+    },
+    {
+      "id": "ex16-23",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/23",
+      "localId": "23",
+      "name": "Seviper"
+    },
+    {
+      "id": "ex16-24",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/24",
+      "localId": "24",
+      "name": "Wobbuffet"
+    },
+    {
+      "id": "ex16-25",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/25",
+      "localId": "25",
+      "name": "Zangoose"
+    },
+    {
+      "id": "ex16-26",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/26",
+      "localId": "26",
+      "name": "Anorith"
+    },
+    {
+      "id": "ex16-27",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/27",
+      "localId": "27",
+      "name": "Cacturne"
+    },
+    {
+      "id": "ex16-28",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/28",
+      "localId": "28",
+      "name": "Charmeleon"
+    },
+    {
+      "id": "ex16-29",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/29",
+      "localId": "29",
+      "name": "Combusken"
+    },
+    {
+      "id": "ex16-30",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/30",
+      "localId": "30",
+      "name": "Glalie"
+    },
+    {
+      "id": "ex16-31",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/31",
+      "localId": "31",
+      "name": "Kirlia"
+    },
+    {
+      "id": "ex16-32",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/32",
+      "localId": "32",
+      "name": "Lairon"
+    },
+    {
+      "id": "ex16-33",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/33",
+      "localId": "33",
+      "name": "Machoke"
+    },
+    {
+      "id": "ex16-34",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/34",
+      "localId": "34",
+      "name": "Medicham"
+    },
+    {
+      "id": "ex16-35",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/35",
+      "localId": "35",
+      "name": "Metang"
+    },
+    {
+      "id": "ex16-36",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/36",
+      "localId": "36",
+      "name": "Nuzleaf"
+    },
+    {
+      "id": "ex16-37",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/37",
+      "localId": "37",
+      "name": "Sealeo"
+    },
+    {
+      "id": "ex16-38",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/38",
+      "localId": "38",
+      "name": "Sharpedo"
+    },
+    {
+      "id": "ex16-39",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/39",
+      "localId": "39",
+      "name": "Shelgon"
+    },
+    {
+      "id": "ex16-40",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/40",
+      "localId": "40",
+      "name": "Vibrava"
+    },
+    {
+      "id": "ex16-41",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/41",
+      "localId": "41",
+      "name": "Vigoroth"
+    },
+    {
+      "id": "ex16-42",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/42",
+      "localId": "42",
+      "name": "Aron"
+    },
+    {
+      "id": "ex16-43",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/43",
+      "localId": "43",
+      "name": "Bagon"
+    },
+    {
+      "id": "ex16-44",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/44",
+      "localId": "44",
+      "name": "Baltoy"
+    },
+    {
+      "id": "ex16-45",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/45",
+      "localId": "45",
+      "name": "Beldum"
+    },
+    {
+      "id": "ex16-46",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/46",
+      "localId": "46",
+      "name": "Cacnea"
+    },
+    {
+      "id": "ex16-47",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/47",
+      "localId": "47",
+      "name": "Carvanha"
+    },
+    {
+      "id": "ex16-48",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/48",
+      "localId": "48",
+      "name": "Charmander"
+    },
+    {
+      "id": "ex16-49",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/49",
+      "localId": "49",
+      "name": "Chinchou"
+    },
+    {
+      "id": "ex16-50",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/50",
+      "localId": "50",
+      "name": "Duskull"
+    },
+    {
+      "id": "ex16-51",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/51",
+      "localId": "51",
+      "name": "Kabuto"
+    },
+    {
+      "id": "ex16-52",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/52",
+      "localId": "52",
+      "name": "Lileep"
+    },
+    {
+      "id": "ex16-53",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/53",
+      "localId": "53",
+      "name": "Machop"
+    },
+    {
+      "id": "ex16-54",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/54",
+      "localId": "54",
+      "name": "Magnemite"
+    },
+    {
+      "id": "ex16-55",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/55",
+      "localId": "55",
+      "name": "Meditite"
+    },
+    {
+      "id": "ex16-56",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/56",
+      "localId": "56",
+      "name": "Omanyte"
+    },
+    {
+      "id": "ex16-57",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/57",
+      "localId": "57",
+      "name": "Pikachu"
+    },
+    {
+      "id": "ex16-58",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/58",
+      "localId": "58",
+      "name": "Poochyena"
+    },
+    {
+      "id": "ex16-59",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/59",
+      "localId": "59",
+      "name": "Ralts"
+    },
+    {
+      "id": "ex16-60",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/60",
+      "localId": "60",
+      "name": "Seedot"
+    },
+    {
+      "id": "ex16-61",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/61",
+      "localId": "61",
+      "name": "Shuppet"
+    },
+    {
+      "id": "ex16-62",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/62",
+      "localId": "62",
+      "name": "Skitty"
+    },
+    {
+      "id": "ex16-63",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/63",
+      "localId": "63",
+      "name": "Slakoth"
+    },
+    {
+      "id": "ex16-64",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/64",
+      "localId": "64",
+      "name": "Snorunt"
+    },
+    {
+      "id": "ex16-65",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/65",
+      "localId": "65",
+      "name": "Spheal"
+    },
+    {
+      "id": "ex16-66",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/66",
+      "localId": "66",
+      "name": "Swablu"
+    },
+    {
+      "id": "ex16-67",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/67",
+      "localId": "67",
+      "name": "Torchic"
+    },
+    {
+      "id": "ex16-68",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/68",
+      "localId": "68",
+      "name": "Trapinch"
+    },
+    {
+      "id": "ex16-69",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/69",
+      "localId": "69",
+      "name": "Vulpix"
+    },
+    {
+      "id": "ex16-70",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/70",
+      "localId": "70",
+      "name": "Wynaut"
+    },
+    {
+      "id": "ex16-71",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/71",
+      "localId": "71",
+      "name": "Battle Frontier"
+    },
+    {
+      "id": "ex16-72",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/72",
+      "localId": "72",
+      "name": "Drake's Stadium"
+    },
+    {
+      "id": "ex16-73",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/73",
+      "localId": "73",
+      "name": "Energy Recycle System"
+    },
+    {
+      "id": "ex16-74",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/74",
+      "localId": "74",
+      "name": "Energy Removal 2"
+    },
+    {
+      "id": "ex16-75",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/75",
+      "localId": "75",
+      "name": "Energy Switch"
+    },
+    {
+      "id": "ex16-76",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/76",
+      "localId": "76",
+      "name": "Glacia's Stadium"
+    },
+    {
+      "id": "ex16-77",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/77",
+      "localId": "77",
+      "name": "Great Ball"
+    },
+    {
+      "id": "ex16-78",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/78",
+      "localId": "78",
+      "name": "Master Ball"
+    },
+    {
+      "id": "ex16-79",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/79",
+      "localId": "79",
+      "name": "Phoebe's Stadium"
+    },
+    {
+      "id": "ex16-80",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/80",
+      "localId": "80",
+      "name": "Professor Birch"
+    },
+    {
+      "id": "ex16-81",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/81",
+      "localId": "81",
+      "name": "Scott"
+    },
+    {
+      "id": "ex16-82",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/82",
+      "localId": "82",
+      "name": "Sidney's Stadium"
+    },
+    {
+      "id": "ex16-83",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/83",
+      "localId": "83",
+      "name": "Steven's Advice"
+    },
+    {
+      "id": "ex16-84",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/84",
+      "localId": "84",
+      "name": "Claw Fossil"
+    },
+    {
+      "id": "ex16-85",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/85",
+      "localId": "85",
+      "name": "Mysterious Fossil"
+    },
+    {
+      "id": "ex16-86",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/86",
+      "localId": "86",
+      "name": "Root Fossil"
+    },
+    {
+      "id": "ex16-87",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/87",
+      "localId": "87",
+      "name": "Darkness Energy"
+    },
+    {
+      "id": "ex16-88",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/88",
+      "localId": "88",
+      "name": "Metal Energy"
+    },
+    {
+      "id": "ex16-89",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/89",
+      "localId": "89",
+      "name": "Multi Energy"
+    },
+    {
+      "id": "ex16-90",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/90",
+      "localId": "90",
+      "name": "Cyclone Energy"
+    },
+    {
+      "id": "ex16-91",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/91",
+      "localId": "91",
+      "name": "Warp Energy"
+    },
+    {
+      "id": "ex16-92",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/92",
+      "localId": "92",
+      "name": "Absol ex"
+    },
+    {
+      "id": "ex16-93",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/93",
+      "localId": "93",
+      "name": "Claydol ex"
+    },
+    {
+      "id": "ex16-94",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/94",
+      "localId": "94",
+      "name": "Flygon ex"
+    },
+    {
+      "id": "ex16-95",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/95",
+      "localId": "95",
+      "name": "Metagross ex"
+    },
+    {
+      "id": "ex16-96",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/96",
+      "localId": "96",
+      "name": "Salamence ex"
+    },
+    {
+      "id": "ex16-97",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/97",
+      "localId": "97",
+      "name": "Shiftry ex"
+    },
+    {
+      "id": "ex16-98",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/98",
+      "localId": "98",
+      "name": "Skarmory ex"
+    },
+    {
+      "id": "ex16-99",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/99",
+      "localId": "99",
+      "name": "Walrein ex"
+    },
+    {
+      "id": "ex16-100",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/100",
+      "localId": "100",
+      "name": "Flareon ☆"
+    },
+    {
+      "id": "ex16-101",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/101",
+      "localId": "101",
+      "name": "Jolteon ☆"
+    },
+    {
+      "id": "ex16-102",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/102",
+      "localId": "102",
+      "name": "Vaporeon ☆"
+    },
+    {
+      "id": "ex16-103",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/103",
+      "localId": "103",
+      "name": "Grass Energy"
+    },
+    {
+      "id": "ex16-104",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/104",
+      "localId": "104",
+      "name": "Fire Energy"
+    },
+    {
+      "id": "ex16-105",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/105",
+      "localId": "105",
+      "name": "Water Energy"
+    },
+    {
+      "id": "ex16-106",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/106",
+      "localId": "106",
+      "name": "Lightning Energy"
+    },
+    {
+      "id": "ex16-107",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/107",
+      "localId": "107",
+      "name": "Psychic Energy"
+    },
+    {
+      "id": "ex16-108",
+      "image": "https://assets.tcgdex.net/en/ex/ex16/108",
+      "localId": "108",
+      "name": "Fighting Energy"
+    }
+  ],
+  "id": "ex16",
+  "legal": {
+    "expanded": false,
+    "standard": false
+  },
+  "logo": "https://assets.tcgdex.net/en/ex/ex16/logo",
+  "name": "Power Keepers",
+  "releaseDate": "2007-02-17",
+  "serie": {
+    "id": "ex",
+    "name": "EX"
+  },
+  "symbol": "https://assets.tcgdex.net/univ/ex/ex16/symbol",
+  "tcgOnline": "PK",
+  "abbreviation": {
+    "official": "PK"
+  }
+}

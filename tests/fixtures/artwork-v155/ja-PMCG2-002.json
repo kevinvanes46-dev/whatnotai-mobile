@@ -1,0 +1,73 @@
+{
+  "category": "Pokemon",
+  "id": "PMCG2-002",
+  "illustrator": "Keiji Kinebuchi",
+  "localId": "002",
+  "name": "ナゾノクサ",
+  "rarity": "Common",
+  "set": {
+    "cardCount": {
+      "official": 48,
+      "total": 48
+    },
+    "id": "PMCG2",
+    "name": "ポケモンジャングル"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": false,
+    "normal": true,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "normal",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 576633
+      },
+      "variantId": "endfynwn4n10gzq",
+      "pricing": {
+        "cardmarket": null,
+        "tcgplayer": null
+      }
+    }
+  ],
+  "dexId": [
+    43
+  ],
+  "hp": 50,
+  "types": [
+    "Grass"
+  ],
+  "stage": "Basic",
+  "attacks": [
+    {
+      "cost": [
+        "Grass"
+      ],
+      "name": "スタン胞子",
+      "effect": "コインをひっくり返します。頭の場合、防御ポケモンは麻痺しています。",
+      "damage": 10
+    },
+    {
+      "cost": [
+        "Grass",
+        "Grass"
+      ],
+      "name": "芽",
+      "effect": "Oddishという名前の基本的なポケモンをデッキで検索し、ベンチに置きます。その後、デッキをシャッフルします。 （ベンチがいっぱいの場合、この攻撃を使用できません。）"
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-09-03T15:29:09.585Z",
+  "pricing": {
+    "cardmarket": null,
+    "tcgplayer": null
+  }
+}

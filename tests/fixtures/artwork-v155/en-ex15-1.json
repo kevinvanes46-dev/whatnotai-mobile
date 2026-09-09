@@ -1,0 +1,112 @@
+{
+  "category": "Pokemon",
+  "id": "ex15-1",
+  "illustrator": "Kagemaru Himeno",
+  "image": "https://assets.tcgdex.net/en/ex/ex15/1",
+  "localId": "1",
+  "name": "Ampharos δ",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 101,
+      "total": 101
+    },
+    "id": "ex15",
+    "logo": "https://assets.tcgdex.net/en/ex/ex15/logo",
+    "name": "Dragon Frontiers",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex15/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "variantId": "jr7oetx1mqug9"
+    },
+    {
+      "type": "holo",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "variantId": "555jb0efopmyclvkikic41"
+    },
+    {
+      "type": "holo",
+      "size": "standard",
+      "stamp": [
+        "tom-roos"
+      ],
+      "variantId": "555jb0efoputpmn5f0kytn"
+    }
+  ],
+  "dexId": [
+    181
+  ],
+  "hp": 120,
+  "types": [
+    "Colorless"
+  ],
+  "evolveFrom": "Flaaffy",
+  "stage": "Stage2",
+  "abilities": [
+    {
+      "type": "Poke-BODY",
+      "name": "Holon Veil",
+      "effect": "Treat each Basic Pokémon and Evolution card in your deck, in your discard pile, in your hand, and in play as a Pokémon that has δ on its card."
+    }
+  ],
+  "attacks": [
+    {
+      "cost": [
+        "Colorless",
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Delta Circle",
+      "effect": "Does 20 damage plus 10 more damage for each Pokémon you have in play that has δ on its card.",
+      "damage": "20+"
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Fighting",
+      "value": "×2"
+    }
+  ],
+  "retreat": 2,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-15T23:34:34+01:00",
+  "thirdParty": {
+    "cardmarket": 277206
+  },
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-08T19:42:27.734Z",
+      "unit": "EUR",
+      "idProduct": 277206,
+      "avg": 9.6,
+      "low": 2,
+      "trend": 8.05,
+      "avg1": 30,
+      "avg7": 11.57,
+      "avg30": 16.84,
+      "avg-holo": 72.5,
+      "low-holo": 4,
+      "trend-holo": 57.35,
+      "avg1-holo": 50,
+      "avg7-holo": 47.13,
+      "avg30-holo": 30.75
+    },
+    "tcgplayer": null
+  }
+}

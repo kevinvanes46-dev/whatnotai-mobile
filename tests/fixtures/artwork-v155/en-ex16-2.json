@@ -1,0 +1,123 @@
+{
+  "category": "Pokemon",
+  "id": "ex16-2",
+  "illustrator": "Ken Sugimori",
+  "image": "https://assets.tcgdex.net/en/ex/ex16/2",
+  "localId": "2",
+  "name": "Altaria",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 108,
+      "total": 108
+    },
+    "id": "ex16",
+    "logo": "https://assets.tcgdex.net/en/ex/ex16/logo",
+    "name": "Power Keepers",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex16/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "variantId": "jr7oetx1mqug9"
+    },
+    {
+      "type": "holo",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "variantId": "555jb0efopmyclvkikic41"
+    }
+  ],
+  "dexId": [
+    334
+  ],
+  "hp": 80,
+  "types": [
+    "Colorless"
+  ],
+  "evolveFrom": "Swablu",
+  "stage": "Stage1",
+  "abilities": [
+    {
+      "type": "Poke-BODY",
+      "name": "Synergy Effect",
+      "effect": "If Drake's Stadium is in play, remove 1 damage counter from Altaria between turns."
+    }
+  ],
+  "attacks": [
+    {
+      "cost": [
+        "Water",
+        "Colorless"
+      ],
+      "name": "Surprise",
+      "effect": "Choose 1 card from your opponent's hand without looking. Look at the card you chose, then have your opponent shuffle that card into his or her deck.",
+      "damage": 30
+    },
+    {
+      "cost": [
+        "Lightning",
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Gust",
+      "damage": 50
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Colorless",
+      "value": "×2"
+    }
+  ],
+  "resistances": [
+    {
+      "type": "Grass",
+      "value": "-30"
+    },
+    {
+      "type": "Fighting",
+      "value": "-30"
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-20T08:33:40+01:00",
+  "thirdParty": {
+    "cardmarket": 277308,
+    "tcgplayer": 83515
+  },
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-08T19:42:28.034Z",
+      "unit": "EUR",
+      "idProduct": 277308,
+      "avg": 6.78,
+      "low": 2,
+      "trend": 13.21,
+      "avg1": 55,
+      "avg7": 9.48,
+      "avg30": 8,
+      "avg-holo": 15.23,
+      "low-holo": 3.99,
+      "trend-holo": 17.58,
+      "avg1-holo": 13.45,
+      "avg7-holo": 13.98,
+      "avg30-holo": 10.65
+    },
+    "tcgplayer": null
+  }
+}

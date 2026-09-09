@@ -1,0 +1,87 @@
+{
+  "category": "Pokemon",
+  "id": "PMCG1-003",
+  "illustrator": "Ken Sugimori",
+  "localId": "003",
+  "name": "トランセル",
+  "rarity": "Common",
+  "set": {
+    "cardCount": {
+      "official": 102,
+      "total": 102
+    },
+    "id": "PMCG1",
+    "name": "拡張パック"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": false,
+    "normal": true,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "normal",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 575583
+      },
+      "variantId": "endfynwn4n10gzq",
+      "pricing": {
+        "cardmarket": null,
+        "tcgplayer": null
+      }
+    },
+    {
+      "type": "normal",
+      "subtype": "no-rarity",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 577010
+      },
+      "variantId": "3a83wf50tygukdw4gyjguc5gr",
+      "pricing": {
+        "cardmarket": null,
+        "tcgplayer": null
+      }
+    }
+  ],
+  "dexId": [
+    11
+  ],
+  "hp": 70,
+  "types": [
+    "Grass"
+  ],
+  "stage": "Stage1",
+  "attacks": [
+    {
+      "cost": [
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "硬直",
+      "effect": "コインをひっくり返します。頭の場合は、相手の次のターン中にメタポッドに与えられたすべての損傷を防ぎます。 （攻撃の他の影響はまだ発生しています。）"
+    },
+    {
+      "cost": [
+        "Grass",
+        "Grass"
+      ],
+      "name": "スタン胞子",
+      "effect": "コインをひっくり返します。頭の場合、防御ポケモンは麻痺しています。",
+      "damage": 20
+    }
+  ],
+  "retreat": 2,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-09-03T15:29:09.730Z",
+  "pricing": {
+    "cardmarket": null,
+    "tcgplayer": null
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "category": "Pokemon",
+  "id": "ex10-3",
+  "illustrator": "Kouki Saitou",
+  "image": "https://assets.tcgdex.net/en/ex/ex10/3",
+  "localId": "3",
+  "name": "Bellossom",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 115,
+      "total": 117
+    },
+    "id": "ex10",
+    "logo": "https://assets.tcgdex.net/en/ex/ex10/logo",
+    "name": "Unseen Forces",
+    "symbol": "https://assets.tcgdex.net/univ/ex/ex10/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": true,
+    "normal": false,
+    "reverse": true,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 83799,
+        "cardmarket": 276649
+      },
+      "variantId": "jr7oetx1mqug9",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-08T19:42:27.562Z",
+          "unit": "EUR",
+          "idProduct": 276649,
+          "avg": 7.91,
+          "low": 2.7,
+          "trend": 18.8,
+          "avg1": 15,
+          "avg7": 21.08,
+          "avg30": 11.35,
+          "avg-holo": 13.66,
+          "low-holo": 2.99,
+          "trend-holo": 9.49,
+          "avg1-holo": 8,
+          "avg7-holo": 12.28,
+          "avg30-holo": 15.24
+        },
+        "tcgplayer": null
+      }
+    },
+    {
+      "type": "reverse",
+      "size": "standard",
+      "stamp": [
+        "set-logo"
+      ],
+      "thirdParty": {
+        "tcgplayer": 83799,
+        "cardmarket": 276649
+      },
+      "variantId": "3a83wf50tyyzu7r7ryiw8tit7",
+      "pricing": {
+        "cardmarket": {
+          "updated": "2026-09-08T19:42:27.562Z",
+          "unit": "EUR",
+          "idProduct": 276649,
+          "avg": 7.91,
+          "low": 2.7,
+          "trend": 18.8,
+          "avg1": 15,
+          "avg7": 21.08,
+          "avg30": 11.35,
+          "avg-holo": 13.66,
+          "low-holo": 2.99,
+          "trend-holo": 9.49,
+          "avg1-holo": 8,
+          "avg7-holo": 12.28,
+          "avg30-holo": 15.24
+        },
+        "tcgplayer": null
+      }
+    }
+  ],
+  "dexId": [
+    182
+  ],
+  "hp": 90,
+  "types": [
+    "Grass"
+  ],
+  "evolveFrom": "Gloom",
+  "stage": "Stage2",
+  "attacks": [
+    {
+      "cost": [
+        "Grass"
+      ],
+      "name": "Green Dance",
+      "effect": "Search your deck for up to 2 Grass Pokémon, show them to your opponent, and put them into your hand. Shuffle your deck afterward. If you put any Grass Pokémon into your hand, you may switch Bellossom with 1 of your Benched Pokémon."
+    },
+    {
+      "cost": [
+        "Colorless",
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Full Bloom",
+      "effect": "If you have at least 3 Bellossom in play, this attack does 50 damage plus 50 more damage.",
+      "damage": "50+"
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Fire",
+      "value": "×2"
+    }
+  ],
+  "resistances": [
+    {
+      "type": "Water",
+      "value": "-30"
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-09-03T16:13:33+01:00",
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-09-08T19:42:27.562Z",
+      "unit": "EUR",
+      "idProduct": 276649,
+      "avg": 7.91,
+      "low": 2.7,
+      "trend": 18.8,
+      "avg1": 15,
+      "avg7": 21.08,
+      "avg30": 11.35,
+      "avg-holo": 13.66,
+      "low-holo": 2.99,
+      "trend-holo": 9.49,
+      "avg1-holo": 8,
+      "avg7-holo": 12.28,
+      "avg30-holo": 15.24
+    },
+    "tcgplayer": null
+  }
+}
