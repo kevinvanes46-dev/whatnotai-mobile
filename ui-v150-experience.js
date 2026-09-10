@@ -125,7 +125,7 @@
   $('quickInput').addEventListener('input',()=>{clearSelection();$('homeRecentPanel').hidden=!!$('quickInput').value.trim();});
   $('clearBtn').addEventListener('click',()=>{clearSelection();$('manualDetails').open=false;$('homeRecentPanel').hidden=false;$('quickInput').focus();});
   window.addEventListener('cardscout:cm-route-state',({detail})=>{
-    if(detail.state==='pending'){clearSelection();$('selectedCardRoute').textContent='Cardmarket-link controleren…';}
+    if(detail.state==='pending'){clearSelection();$('selectedCardRoute').textContent=window.CardmarketUI.copy.PENDING.detail;}
     else if(detail.state!=='ready')clearSelection();
   });
   window.addEventListener('cardscout:cm-route-ready',async({detail})=>{
@@ -137,7 +137,7 @@
     $('selectedCardTitle').textContent=c.name||'Geselecteerde kaart';
     $('selectedCardPanel').querySelector('.eyebrow').textContent=c.kind==='query'?'Zoekopdracht':'Geselecteerde kaart';
     $('selectedCardMeta').textContent=[c.set_name||c.set,c.number?'#'+c.number:'',c.language,c.condition?'Staat '+c.condition:'',c.edition==='1ST'?'1st Edition':''].filter(Boolean).join(' · ');
-    $('selectedCardRoute').textContent=(detail.cardmarketUrl.includes('/Products/Singles/')||detail.cardmarketUrl.includes('idProduct='))?'Directe Cardmarket-pagina beschikbaar':'Zoekresultaten op Cardmarket · controleer de juiste uitvoering';
+    $('selectedCardRoute').textContent=window.CardmarketUI.copy[window.CardmarketUI.classify(detail.cardmarketUrl)].detail;
     $('selectedCardPrice').textContent=c.kind==='query'?'Zoekopdracht: kies een kaart voor een marktindicatie.':'Marktindicatie ophalen…';
     $('selectedCardArt').replaceChildren();$('selectedCardArt').classList.remove('artUnavailable');
     window.CardArtwork.mount(c,$('selectedCardArt'));

@@ -296,9 +296,7 @@
       resultOpenBtn.classList.toggle('disabled', !ready);
       resultOpenBtn.setAttribute('aria-disabled', String(!ready));
     }
-    if(resultHint) resultHint.textContent = complete
-      ? 'Controleer bij twijfel altijd de kaart op Cardmarket.'
-      : 'CardScout gokt niet. Bewerk de kaart of scan opnieuw.';
+    if(resultHint) resultHint.textContent = window.CardmarketUI.copy[window.CardmarketUI.current].detail;
   }
 
   function openResult(){
