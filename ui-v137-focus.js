@@ -509,7 +509,7 @@
       merged.push(card);
     }
     catalog = merged;
-    window.CardCatalog={byId(id,language){return catalog.find(c=>c.source_id===id&&(c.language||'EN')===language)||null;},find(input){
+    window.CardCatalog={marketplaceCards(){return remoteCatalog.filter(c=>c.language==='EN');},byId(id,language){return catalog.find(c=>c.source_id===id&&(c.language||'EN')===language)||null;},find(input){
       const language=input.language||input.lang||'EN';
       const name=cleanVisibleCardName(input.name||'',input.number||'').toLowerCase();
       const number=String(input.number||'').replace(/^0+(?=\d)/,'');
@@ -528,7 +528,8 @@
       const card = activeSuggestionResults[i].card;
       const btn = document.createElement('button');
       btn.type='button'; btn.className='suggestion';
-      const label = card.set_name || setInfo?.[card.set]?.label || prettySet(card.set);
+      const canonical = window.JPCardmarketTwin.canonicalSet(card);
+      const label = canonical ? (setInfo?.[canonical]?.label || prettySet(canonical)) : (card.set_name || setInfo?.[card.set]?.label || prettySet(card.set));
       const lang = card.language || 'EN';
       const isRemote = card.source === 'tcgdex';
       const displayNumber = lang === 'JP' && isRemote ? '' : String(card.number || '').trim();
@@ -666,18 +667,17 @@
     }catch(_){ }
   }
 
-  function makeOnlineCard(card,setKey,lang,enNameById,sourceSetName){
+  function makeOnlineCard(card,setKey,lang,sourceSetName){
     if(!card || !card.id) return null;
-    const englishName = lang === 'JP' ? (enNameById?.get(card.id) || '') : '';
+    // EN and JA can reuse IDs for different cards; do not borrow names by ID.
     const localizedName = cleanVisibleCardName(card.name || '');
-    const rawName = localizedName || englishName;
+    const rawName = localizedName;
     if(!rawName) return null;
     const def=setInfo?.[setKey] || {};
     const jp = lang === 'JP';
     const number = jp ? '' : String(card.localId || '').trim();
     const name = cleanVisibleCardName(rawName,number);
     const aliases=[];
-    if(jp && englishName) aliases.push(englishName);
     return {
       key:`online|${lang.toLowerCase()}|${setKey}|${card.id}`,
       name,
@@ -699,11 +699,11 @@
     };
   }
 
-  async function fetchSetVariant(lang,setKey,setId,enNameById){
+  async function fetchSetVariant(lang,setKey,setId){
     try{
       const setData=await fetchJson(`${TCGDEX_API}/${lang.toLowerCase()==='jp'?'ja':'en'}/sets/${encodeURIComponent(setId)}`);
       const rows=Array.isArray(setData?.cards) ? setData.cards : [];
-      return rows.map(c=>makeOnlineCard(c,setKey,lang,enNameById,setData?.name)).filter(Boolean);
+      return rows.map(c=>makeOnlineCard(c,setKey,lang,setData?.name)).filter(Boolean);
     }catch(_){ return []; }
   }
 
@@ -722,17 +722,10 @@
     }
 
     const jobs=[];
-    const japaneseSets={'BASE':['PMCG1'],'JUNGLE':['PMCG2'],'FOSSIL':['PMCG3'],'ROCKET':['PMCG4'],'GYM HEROES':['PMCG5'],'GYM CHALLENGE':['PMCG6'],'NEO GENESIS':['neo1'],'NEO DISCOVERY':['neo2'],'NEO REVELATION':['neo3'],'NEO DESTINY':['neo4']};
+    const japaneseSets=window.JPCardmarketTwin.sourceSets;
     Object.entries(lang==='JP'?japaneseSets:TCGDEX_SET_IDS).forEach(([setKey,ids])=>ids.forEach(setId=>jobs.push({setKey,setId})));
 
-    // English is fetched first. Japanese uses the English IDs/names as aliases wherever TCGdex shares IDs.
-    let enNameById = new Map();
-    if(lang === 'JP'){
-      const enCards=remoteCatalog.filter(c=>c.language==='EN' && c.source_id);
-      enNameById = new Map(enCards.map(c=>[c.source_id,c.name]));
-    }
-
-    const chunks=await mapLimit(jobs,6,job=>fetchSetVariant(lang,job.setKey,job.setId,enNameById));
+    const chunks=await mapLimit(jobs,6,job=>fetchSetVariant(lang,job.setKey,job.setId));
     const cards=chunks.flat().filter(Boolean);
     remoteCatalog = remoteCatalog.filter(c=>c.language!==lang).concat(cards);
     writeCatalogCache(lang,cards);

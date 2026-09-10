@@ -13,6 +13,8 @@ const recent='whatnotai_mobile_recent_v37',collection='cardscout_collection_v133
   await page.goto('http://127.0.0.1:'+server.address().port);
   await page.locator('.visiblePreferences [data-value="JP"]').click();
   await page.waitForFunction(()=>window.CardCatalog?.byId('neo1-061','JP'));
+  // Preserve the v156 SEARCH scenario: this fixture has no marketplace counterpart.
+  await page.evaluate(()=>{delete window.CM_PRODUCT_CATALOG['neo1-74'];});
   await page.locator('#quickInput').fill('Snubbull');
   await page.locator('.suggestion').filter({hasText:'Snubbull'}).first().click();
   await page.waitForFunction(()=>document.querySelector('#openBtn').dataset.cmRoute==='SEARCH');
@@ -31,7 +33,7 @@ const recent='whatnotai_mobile_recent_v37',collection='cardscout_collection_v133
   await page.evaluate(()=>makeLink(false));
   const saved=await page.evaluate(k=>JSON.parse(localStorage.getItem(k))[0],recent);
   assert.equal(saved.kind,'card');assert.equal(saved.source_id,'neo1-061');assert.equal(saved.language,'JP');assert.equal(saved.condition,'EX');assert.equal(saved.edition,'1ST');
-  await page.reload();await page.locator('#navRecent').click();
+  await page.reload();await page.evaluate(()=>{delete window.CM_PRODUCT_CATALOG['neo1-74'];});await page.locator('#navRecent').click();
   await page.waitForFunction(()=>document.querySelector('#recentList .openMini')?.dataset.cmRoute==='SEARCH');
   assert.match(await page.locator('#recentList .openMini').first().getAttribute('aria-label'),/Bekijk zoekresultaten/);
   await page.locator('#recentList .useBtn').first().click();
