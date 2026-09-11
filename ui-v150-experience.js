@@ -40,13 +40,19 @@
     const key=[c.language,c.sourceId,c.set,c.number,c.name].join('|');
     const hit=cache.get(key);if(hit&&hit.expires>Date.now())return hit.result;
     const entry={expires:Infinity,result:null};
-    entry.result=new Promise(resolve=>{queue.push(async()=>{let data=null;try{data=await window.cardscoutCollectionUI.lookupCard(c);}catch{}entry.expires=Date.now()+(data?300000:60000);resolve(data);});pump();});
+    entry.result=new Promise(resolve=>{queue.push(async()=>{let data=null;try{data=await window.cardscoutCollectionUI.lookupCard(c);}catch{}
+      const jp=c.language==='JP'&&(!data?.id||data.id===c.sourceId)&&!safeImage(data?.image)?window.JPArtwork?.resolve?.({...c,source_id:c.sourceId}):null;
+      if(jp&&safeJpImage(jp.image))data={...(data||{}),id:data?.id||c.sourceId,name:data?.name||c.name,image:jp.image,jpArtwork:jp};
+      entry.expires=Date.now()+(data?300000:60000);resolve(data);});pump();});
     cache.set(key,entry);return entry.result;
   }
 
   function pump(){while(running<4&&queue.length){running++;queue.shift()().finally(()=>{running--;pump();});}}
   function safeImage(value){
     try{const u=new URL(value);return u.protocol==='https:'&&u.hostname==='assets.tcgdex.net'?u.href.replace(/\/$/,''):'';}catch{return '';}
+  }
+  function safeJpImage(value){
+    try{const u=new URL(value);return u.protocol==='https:'&&u.hostname==='cdn.artofpkm.com'&&/^\/[a-z0-9]+$/.test(u.pathname)&&!u.search&&!u.hash?u.href:'';}catch{return '';}
   }
   function fallback(target){target.classList.remove('artLoading');target.classList.add('artUnavailable');target.textContent='Afbeelding niet beschikbaar';const retry=document.createElement('button');retry.type='button';retry.className='artRetry';retry.textContent='Opnieuw laden';retry.addEventListener('click',event=>{event.stopPropagation();target.classList.remove('artUnavailable');target.classList.add('artLoading');cache.clear();load(pending.get(target),target);});if(!target.closest('button'))target.append(retry);}
   async function load(card,target,hydrated=false){
@@ -61,17 +67,26 @@
     if(!target.isConnected||pending.get(target)!==card)return;
     if(data&&data!==enriched&&enriched.sourceId&&data.id!==enriched.sourceId){fallback(target);return;}
     if(data&&data!==enriched&&!enriched.sourceId&&enriched.name&&data.name&&typeof cleanCardmarketName==='function'&&cleanCardmarketName(enriched.name,enriched.number).toLowerCase()!==cleanCardmarketName(data.name,data.localId).toLowerCase()){fallback(target);return;}
-    const url=safeImage(data?.image);
+    let url=safeImage(data?.image),jpArt=data?.jpArtwork||null;
+    if(enriched.language==='JP'&&!url){jpArt=jpArt||window.JPArtwork?.resolve?.({...enriched,source_id:enriched.sourceId});url=safeJpImage(jpArt?.image);}
     // Japanese provenance comes from an exact JP catalog record or the JA metadata
     // request above, never from a language substring in an arbitrary saved image.
-    const jpIdentity=enriched.sourceId&&(data===enriched?enriched.jpCatalogImage:data?.id===enriched.sourceId);
+    const directJp=!!safeJpImage(jpArt?.image)&&url===safeJpImage(jpArt?.image);
+    const jpIdentity=enriched.sourceId&&(directJp?jpArt?.source_id===enriched.sourceId:(data===enriched?enriched.jpCatalogImage:data?.id===enriched.sourceId));
     const foreignImage=url&&/^\/(en|fr|de|es|it|pt|zh)(\/|$)/i.test(new URL(url).pathname);
     if(!url||(enriched.language==='JP'&&(!jpIdentity||foreignImage))){fallback(target);return;}
-    const img=new Image();img.alt=card.name||'Kaart';img.decoding='async';
-    img.onload=()=>{if(pending.get(target)===card)target.classList.remove('artLoading');};
-    let retried=false;img.onerror=()=>{if(pending.get(target)!==card)return;if(!retried&&!/\.(webp|png|jpe?g)$/i.test(url)){retried=true;img.src=url+'/low.webp';return;}if(!hydrated){load(card,target,true);return;}fallback(target);};
-    img.src=/\.(webp|png|jpe?g)$/i.test(url)?url:url+'/high.webp';
-    target.replaceChildren(img);
+    const render=(source,isDirect)=>{
+      const img=new Image();img.alt=card.name||'Kaart';img.decoding='async';
+      img.onload=()=>{if(pending.get(target)===card)target.classList.remove('artLoading');};
+      let retried=false;img.onerror=()=>{if(pending.get(target)!==card)return;
+        if(!isDirect&&!retried&&!/\.(webp|png|jpe?g)$/i.test(source)){retried=true;img.src=source+'/low.webp';return;}
+        const fallbackArt=enriched.language==='JP'?window.JPArtwork?.resolve?.({...enriched,source_id:enriched.sourceId}):null,fallbackUrl=safeJpImage(fallbackArt?.image);
+        if(!isDirect&&fallbackUrl&&fallbackArt.source_id===enriched.sourceId){jpArt=fallbackArt;render(fallbackUrl,true);return;}
+        if(!hydrated){load(card,target,true);return;}fallback(target);
+      };
+      img.src=isDirect||/\.(webp|png|jpe?g)$/i.test(source)?source:source+'/high.webp';target.replaceChildren(img);
+    };
+    render(url,directJp);
   }
   const pending=new WeakMap();
   const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){observer.unobserve(e.target);load(pending.get(e.target),e.target);}}),{rootMargin:'160px'});
