@@ -487,28 +487,60 @@
     return parts.join(' · ');
   }
 
+  // v159: only a unique, verified source tuple can displace a source-less fallback.
+  function prioritizeSourceIdentity(cards){
+    const sourceId=c=>c.source_id||c.sourceId||c.catalogId||'';
+    const language=c=>c.language||c.lang||'EN';
+    const names=c=>[c.name,...(c.aliases||[])].map(n=>normalize(cleanVisibleCardName(n||''))).filter(Boolean);
+    const edition=c=>c.edition||'AUTO';
+    const variant=c=>c.variant||(c.stamped?'STAMPED':'NORMAL');
+    const trusted=c=>{
+      if(c.source!=='tcgdex'||!sourceId(c))return false;
+      const prefix=sourceId(c).slice(0,sourceId(c).lastIndexOf('-'));
+      if(c.source_set_id&&c.source_set_id!==prefix)return false;
+      return language(c)==='JP'
+        ? window.JPCardmarketTwin.canonicalSet(c)===c.set
+        : language(c)==='EN'&&TCGDEX_SET_IDS[c.set]?.includes(prefix);
+    };
+    const sources=cards.filter(trusted);
+    const routes=new Map();
+    const retained=cards.filter(card=>{
+      if(sourceId(card))return true;
+      const matches=sources.filter(source=>language(source)===language(card)&&source.set===card.set
+        &&edition(source)===edition(card)&&variant(source)===variant(card)
+        &&names(source).some(name=>names(card).includes(name))
+        &&(language(card)==='JP'||String(source.number||'').replace(/^0+(?=\d)/,'')===String(card.number||'').replace(/^0+(?=\d)/,'')));
+      if(new Set(matches.map(sourceId)).size!==1)return true;
+      // Keep the equivalent local record's verified JP route, never its legacy number or identity.
+      if(language(card)==='JP'&&card.verified&&card.direct&&validCardmarketRoute(card.url)){
+        const source=matches[0],urls=routes.get(source)||new Set();urls.add(card.url);routes.set(source,urls);
+      }
+      return false;
+    });
+    return retained.map(card=>{
+      const urls=routes.get(card);
+      return urls?.size===1?{...card,url:[...urls][0],verified:true,direct:true}:card;
+    });
+  }
+
   function rebuildCatalog(){
     const merged=[];
     const seen=new Set();
-    const localNameSetLang = new Set();
 
     for(const card of localCatalog){
       const id = card.key || `${card.language}|${card.set}|${card.number}|${normalize(card.name)}`;
       if(seen.has(id)) continue;
       seen.add(id);
       merged.push(card);
-      localNameSetLang.add(`${card.language || 'EN'}|${card.set}|${normalize(card.name)}`);
     }
 
     for(const card of remoteCatalog){
-      // If an authentic local JP route already exists, keep it and suppress the generic online duplicate.
-      if(card.language === 'JP' && localNameSetLang.has(`JP|${card.set}|${normalize(card.name)}`)) continue;
       const id = card.key || `${card.language}|${card.set}|${card.number}|${normalize(card.name)}|${card.source_id || ''}`;
       if(seen.has(id)) continue;
       seen.add(id);
       merged.push(card);
     }
-    catalog = merged;
+    catalog = prioritizeSourceIdentity(merged);
     window.CardCatalog={marketplaceCards(){return remoteCatalog.filter(c=>c.language==='EN');},byId(id,language){return catalog.find(c=>c.source_id===id&&(c.language||'EN')===language)||null;},find(input){
       const language=input.language||input.lang||'EN';
       const name=cleanVisibleCardName(input.name||'',input.number||'').toLowerCase();
@@ -695,7 +727,8 @@
       direct:false,
       source:'tcgdex',
       image:card.image||'',
-      source_id:card.id
+      source_id:card.id,
+      source_set_id:card.id.slice(0,card.id.lastIndexOf('-'))
     };
   }
 
