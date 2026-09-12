@@ -53,13 +53,19 @@ test('batch importer validates pixels and IDs, reports duplicates and never over
   fs.writeFileSync(path.join(folder,'PMCG1-035.png'),png);
   fs.writeFileSync(path.join(folder,'PMCG1-999.png'),png);
   fs.writeFileSync(path.join(folder,'PMCG9-001.png'),png);
-  fs.writeFileSync(path.join(folder,'pmcg1-035.png'),png);
+  // Keep case-only filenames apart on case-insensitive filesystems (Windows).
+  const lowercaseFolder=path.join(root,'input-lowercase');fs.mkdirSync(lowercaseFolder);
+  fs.writeFileSync(path.join(lowercaseFolder,'pmcg1-035.png'),png);
   fs.writeFileSync(path.join(folder,'neo1-036.png'),'broken');
   fs.writeFileSync(path.join(folder,'PMCG2-024.jpg'),png); // extension differs from decoded format
   fs.writeFileSync(path.join(folder,'PMCG5-036.png'),png.subarray(0,45)); // truncated data
   fs.writeFileSync(path.join(folder,'neo3-038.png'),png);
   fs.writeFileSync(path.join(folder,'neo3-038.webp'),png); // duplicate identity: neither wins
-  let report=await importImages(folder,{root});assert.equal(report.imported.length,1);assert.equal(report.rejected.length,6);assert.equal(report.duplicates.length,2);
+  let report=await importImages(folder,{root});assert.equal(report.imported.length,1);assert.equal(report.imported[0].source_id,'PMCG1-035');assert.equal(report.duplicates.length,2);
+  const lowercaseReport=await importImages(lowercaseFolder,{root});
+  assert.equal(lowercaseReport.imported.length,0);assert.equal(lowercaseReport.duplicates.length,0);assert.equal(lowercaseReport.rejected.length,1);
+  assert.equal(lowercaseReport.rejected[0].file,'pmcg1-035.png');assert.match(lowercaseReport.rejected[0].reason,/Unknown source_id/);
+  assert.equal(report.rejected.length+lowercaseReport.rejected.length,6);
   assert.equal(report.coverage.totals.OWN,1);assert.equal(report.coverage.totals.EXTERNAL_BETA,412);
   const dest=path.join(root,'assets/cards/jp/PMCG1-035.webp'),before=fs.readFileSync(dest);
   assert.equal((await sharp(before).metadata()).format,'webp');
