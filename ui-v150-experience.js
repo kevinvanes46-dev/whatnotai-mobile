@@ -31,17 +31,17 @@
     if(!item.sourceId&&item.verified&&language==='EN'&&ids?.length===1&&item.number)item.sourceId=ids[0]+'-'+item.number;
     const match=item.sourceId?window.CardCatalog?.byId?.(item.sourceId,language):window.CardCatalog?.find(item);
     const sourceId=item.sourceId||match?.source_id||'';
-    const jpCatalogImage=language==='JP'&&sourceId&&match?.source_id===sourceId&&match.language==='JP'&&safeImage(match.image);
+    const jpCatalogImage=language==='JP'&&sourceId&&match?.source_id===sourceId&&match.language==='JP'&&safeArtworkImage(match.image,language);
     return {...item,sourceId,image:language==='JP'?(jpCatalogImage||''):(match?.image||(safeImage(item.image)?item.image:'')),jpCatalogImage:!!jpCatalogImage};
   };
   function lookup(card){
     const c=normalize(card);
     if(c.kind==='query')return Promise.resolve(null);
-    const key=[c.language,c.sourceId,c.set,c.number,c.name].join('|');
+    const key=[c.language,c.sourceId,c.source_set_id,c.set,c.number,c.name,window.RareWorthJPImageLibrary?.config.allowExternalBeta].join('|');
     const hit=cache.get(key);if(hit&&hit.expires>Date.now())return hit.result;
     const entry={expires:Infinity,result:null};
     entry.result=new Promise(resolve=>{queue.push(async()=>{let data=null;try{data=await window.cardscoutCollectionUI.lookupCard(c);}catch{}
-      const jp=c.language==='JP'&&(!data?.id||data.id===c.sourceId)&&!safeImage(data?.image)?window.JPArtwork?.resolve?.({...c,source_id:c.sourceId}):null;
+      const jp=c.language==='JP'&&(!data?.id||data.id===c.sourceId)&&!safeArtworkImage(data?.image,c.language)?externalJp({...c,source_id:c.sourceId}):null;
       if(jp&&safeJpImage(jp.image))data={...(data||{}),id:data?.id||c.sourceId,name:data?.name||c.name,image:jp.image,jpArtwork:jp};
       entry.expires=Date.now()+(data?300000:60000);resolve(data);});pump();});
     cache.set(key,entry);return entry.result;
@@ -51,11 +51,13 @@
   function safeImage(value){
     try{const u=new URL(value);return u.protocol==='https:'&&u.hostname==='assets.tcgdex.net'?u.href.replace(/\/$/,''):'';}catch{return '';}
   }
+  function safeArtworkImage(value,language){const url=safeImage(value);return url&&language==='JP'&&!new URL(url).pathname.startsWith('/ja/')?'':url;}
+  function externalJp(card){return window.RareWorthJPImageLibrary?window.RareWorthJPImageLibrary.external(card):window.JPArtwork?.resolve?.(card);}
   function safeJpImage(value){
     try{const u=new URL(value);return u.protocol==='https:'&&u.hostname==='cdn.artofpkm.com'&&/^\/[a-z0-9]+$/.test(u.pathname)&&!u.search&&!u.hash?u.href:'';}catch{return '';}
   }
-  function fallback(target){target.classList.remove('artLoading');target.classList.add('artUnavailable');target.textContent='Afbeelding niet beschikbaar';const retry=document.createElement('button');retry.type='button';retry.className='artRetry';retry.textContent='Opnieuw laden';retry.addEventListener('click',event=>{event.stopPropagation();target.classList.remove('artUnavailable');target.classList.add('artLoading');cache.clear();load(pending.get(target),target);});if(!target.closest('button'))target.append(retry);}
-  async function load(card,target,hydrated=false){
+  function fallback(target){target.dataset.imageStatus='MISSING';target.classList.remove('artLoading');target.classList.add('artUnavailable');target.textContent='Afbeelding niet beschikbaar';const retry=document.createElement('button');retry.type='button';retry.className='artRetry';retry.textContent='Opnieuw laden';retry.addEventListener('click',event=>{event.stopPropagation();target.classList.remove('artUnavailable');target.classList.add('artLoading');cache.clear();load(pending.get(target),target);});if(!target.closest('button'))target.append(retry);}
+  async function load(card,target,hydrated=false,skipOwn=false){
     const enriched=normalize(card);
     if(enriched.kind==='query'){
       target.classList.remove('artLoading','artUnavailable');target.classList.add('queryArtwork');
@@ -63,12 +65,23 @@
       target.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg>';return;
     }
     target.classList.remove('queryArtwork');
-    const data=!hydrated&&safeImage(enriched.image)?enriched:await lookup(enriched);
+    const library=window.RareWorthJPImageLibrary;
+    if(enriched.language==='JP'&&/^(?:PMCG[1-6]|neo[1-4])-/.test(enriched.sourceId)&&library&&!library.identity(enriched)){fallback(target);return;}
+    const own=!skipOwn&&library?.own(enriched);
+    if(own){
+      if(!target.isConnected||pending.get(target)!==card)return;
+      const img=new Image();img.alt=card.name||'Kaart';img.decoding='async';
+      target.dataset.imageStatus='OWN';
+      img.onload=()=>{if(pending.get(target)===card)target.classList.remove('artLoading','artUnavailable');};
+      img.onerror=()=>{if(pending.get(target)===card)load(card,target,false,true);};
+      img.src=own.image;target.replaceChildren(img);return;
+    }
+    const data=!hydrated&&safeArtworkImage(enriched.image,enriched.language)?enriched:await lookup(enriched);
     if(!target.isConnected||pending.get(target)!==card)return;
     if(data&&data!==enriched&&enriched.sourceId&&data.id!==enriched.sourceId){fallback(target);return;}
     if(data&&data!==enriched&&!enriched.sourceId&&enriched.name&&data.name&&typeof cleanCardmarketName==='function'&&cleanCardmarketName(enriched.name,enriched.number).toLowerCase()!==cleanCardmarketName(data.name,data.localId).toLowerCase()){fallback(target);return;}
-    let url=safeImage(data?.image),jpArt=data?.jpArtwork||null;
-    if(enriched.language==='JP'&&!url){jpArt=jpArt||window.JPArtwork?.resolve?.({...enriched,source_id:enriched.sourceId});url=safeJpImage(jpArt?.image);}
+    let url=safeArtworkImage(data?.image,enriched.language),jpArt=window.RareWorthJPImageLibrary?.config.allowExternalBeta===false?null:data?.jpArtwork||null;
+    if(enriched.language==='JP'&&!url){jpArt=jpArt||externalJp({...enriched,source_id:enriched.sourceId});url=safeJpImage(jpArt?.image);}
     // Japanese provenance comes from an exact JP catalog record or the JA metadata
     // request above, never from a language substring in an arbitrary saved image.
     const directJp=!!safeJpImage(jpArt?.image)&&url===safeJpImage(jpArt?.image);
@@ -80,10 +93,11 @@
       img.onload=()=>{if(pending.get(target)===card)target.classList.remove('artLoading');};
       let retried=false;img.onerror=()=>{if(pending.get(target)!==card)return;
         if(!isDirect&&!retried&&!/\.(webp|png|jpe?g)$/i.test(source)){retried=true;img.src=source+'/low.webp';return;}
-        const fallbackArt=enriched.language==='JP'?window.JPArtwork?.resolve?.({...enriched,source_id:enriched.sourceId}):null,fallbackUrl=safeJpImage(fallbackArt?.image);
+        const fallbackArt=enriched.language==='JP'?externalJp({...enriched,source_id:enriched.sourceId}):null,fallbackUrl=safeJpImage(fallbackArt?.image);
         if(!isDirect&&fallbackUrl&&fallbackArt.source_id===enriched.sourceId){jpArt=fallbackArt;render(fallbackUrl,true);return;}
-        if(!hydrated){load(card,target,true);return;}fallback(target);
+        if(!hydrated){load(card,target,true,skipOwn);return;}fallback(target);
       };
+      target.dataset.imageStatus=isDirect?'EXTERNAL_BETA':'TCGDEX';
       img.src=isDirect||/\.(webp|png|jpe?g)$/i.test(source)?source:source+'/high.webp';target.replaceChildren(img);
     };
     render(url,directJp);

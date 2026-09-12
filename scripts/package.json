@@ -1,0 +1,7 @@
+{
+  "name": "rareworth-jp-image-tools",
+  "private": true,
+  "version": "161.0.0",
+  "engines": { "node": ">=22" },
+  "dependencies": { "sharp": "0.35.4" }
+}
