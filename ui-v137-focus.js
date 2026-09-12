@@ -431,6 +431,7 @@
     const aliasList = [
       ...(setInfo?.[card.set]?.aliases || []),
       ...(card.aliases || []),
+      ...(card.search_aliases || []),
       card.source_set_name || ''
     ].map(normalize).filter(Boolean);
     const aliases = aliasList.join(' ');
@@ -499,7 +500,7 @@
       const prefix=sourceId(c).slice(0,sourceId(c).lastIndexOf('-'));
       if(c.source_set_id&&c.source_set_id!==prefix)return false;
       return language(c)==='JP'
-        ? window.JPCardmarketTwin.canonicalSet(c)===c.set
+        ? (window.JPSetCatalog?.identity(c)?.key||window.JPCardmarketTwin.canonicalSet(c))===c.set
         : language(c)==='EN'&&TCGDEX_SET_IDS[c.set]?.includes(prefix);
     };
     const sources=cards.filter(trusted);
@@ -560,8 +561,9 @@
       const card = activeSuggestionResults[i].card;
       const btn = document.createElement('button');
       btn.type='button'; btn.className='suggestion';
+      const jpSet=window.JPSetCatalog.identity(card);
       const canonical = window.JPCardmarketTwin.canonicalSet(card);
-      const label = canonical ? (setInfo?.[canonical]?.label || prettySet(canonical)) : (card.set_name || setInfo?.[card.set]?.label || prettySet(card.set));
+      const label = jpSet?.label || (canonical ? (setInfo?.[canonical]?.label || prettySet(canonical)) : (card.set_name || setInfo?.[card.set]?.label || prettySet(card.set)));
       const lang = card.language || 'EN';
       const isRemote = card.source === 'tcgdex';
       const displayNumber = lang === 'JP' && isRemote ? '' : String(card.number || '').trim();
@@ -570,7 +572,8 @@
       btn.querySelector('.suggestionTitle').textContent = `${displayName}${displayNumber ? ` #${displayNumber}` : ''}`;
       const sourceNote = isRemote ? (lang === 'JP' ? ' · JP online' : ' · volledige catalogus') : '';
       const stampNote = (queryWantsStamped(quickInput?.value || '') && lang === 'EN' && STAMPED_SET_KEYS.has(card.set)) ? ' · ⚡ STAMPED-era' : '';
-      btn.querySelector('.suggestionMeta').textContent = `${label} · ${lang}${card.rarity ? ' · '+card.rarity : ''}${stampNote}${sourceNote}`;
+      btn.querySelector('.suggestionMeta').textContent = `${label} · ${lang}${card.rarity ? ' · '+card.rarity : ''}${stampNote}${sourceNote}${jpSet&&card.source_id?' · '+card.source_id:''}`;
+      if(card.search_aliases?.length)btn.querySelector('.suggestionTitle').textContent += ' · '+card.search_aliases.join(' / ');
       if(window.CardArtwork){const art=document.createElement('span');art.className='suggestionArt';btn.prepend(art);window.CardArtwork.mount(card,art);}
       btn.addEventListener('click', () => {
         nameInput.value = displayName;
@@ -685,7 +688,7 @@
 
   function readCatalogCache(lang){
     try{
-      const raw=localStorage.getItem(`${ONLINE_CACHE_PREFIX}${lang}`);
+      const raw=localStorage.getItem(`${ONLINE_CACHE_PREFIX}${lang==='JP'?'JP_v160':lang}`);
       if(!raw) return null;
       const obj=JSON.parse(raw);
       if(!obj || !Array.isArray(obj.cards) || Date.now()-Number(obj.savedAt||0)>ONLINE_CACHE_TTL) return null;
@@ -695,7 +698,7 @@
 
   function writeCatalogCache(lang,cards){
     try{
-      localStorage.setItem(`${ONLINE_CACHE_PREFIX}${lang}`, JSON.stringify({savedAt:Date.now(),cards}));
+      localStorage.setItem(`${ONLINE_CACHE_PREFIX}${lang==='JP'?'JP_v160':lang}`, JSON.stringify({savedAt:Date.now(),cards}));
     }catch(_){ }
   }
 
@@ -710,7 +713,7 @@
     const number = jp ? '' : String(card.localId || '').trim();
     const name = cleanVisibleCardName(rawName,number);
     const aliases=[];
-    return {
+    const result={
       key:`online|${lang.toLowerCase()}|${setKey}|${card.id}`,
       name,
       number,
@@ -730,6 +733,8 @@
       source_id:card.id,
       source_set_id:card.id.slice(0,card.id.lastIndexOf('-'))
     };
+    if(jp&&!window.JPSetCatalog.identity(result))return null;
+    return jp?window.JPSetCatalog.normalize(result):result;
   }
 
   async function fetchSetVariant(lang,setKey,setId){
@@ -747,7 +752,7 @@
 
     const cached=readCatalogCache(lang);
     if(cached?.length){
-      remoteCatalog = remoteCatalog.filter(c=>c.language!==lang).concat(cached);
+      remoteCatalog = remoteCatalog.filter(c=>c.language!==lang).concat(lang==='JP'?cached.filter(c=>window.JPSetCatalog.identity(c)).map(c=>window.JPSetCatalog.normalize(c)):cached);
       rebuildCatalog();
       if(lang === 'JP') jpCatalogState='ready'; else enCatalogState='ready';
       if(quickInput?.value.trim()) renderSuggestions(quickInput.value);
@@ -755,7 +760,7 @@
     }
 
     const jobs=[];
-    const japaneseSets=window.JPCardmarketTwin.sourceSets;
+    const japaneseSets=window.JPSetCatalog.sourceSets;
     Object.entries(lang==='JP'?japaneseSets:TCGDEX_SET_IDS).forEach(([setKey,ids])=>ids.forEach(setId=>jobs.push({setKey,setId})));
 
     const chunks=await mapLimit(jobs,6,job=>fetchSetVariant(lang,job.setKey,job.setId));
@@ -776,6 +781,10 @@
       const data = await res.json();
       localCatalog = Array.isArray(data.knownCards) ? data.knownCards : [];
       setInfo = data.sets || {};
+      // Dedicated Japanese Gym options prevent selection falling back to AUTO or western Gym sets.
+      for(const set of window.JPSetCatalog.sets){
+        if(![...setSelect.options].some(option=>option.value===set.key))setSelect.add(new Option(set.label+' · JP',set.key));
+      }
       rebuildCatalog();
 
       // EN first for fastest English-name search. JP then fills quietly in the background.

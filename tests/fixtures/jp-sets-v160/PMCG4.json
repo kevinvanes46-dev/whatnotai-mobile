@@ -1,0 +1,348 @@
+{
+  "cardCount": {
+    "firstEd": 0,
+    "holo": 17,
+    "normal": 49,
+    "official": 65,
+    "reverse": 0,
+    "total": 65
+  },
+  "cards": [
+    {
+      "id": "PMCG4-001",
+      "localId": "001",
+      "name": "アーボ"
+    },
+    {
+      "id": "PMCG4-002",
+      "localId": "002",
+      "name": "ズバット"
+    },
+    {
+      "id": "PMCG4-003",
+      "localId": "003",
+      "name": "ナゾノクサ"
+    },
+    {
+      "id": "PMCG4-004",
+      "localId": "004",
+      "name": "ベトベター"
+    },
+    {
+      "id": "PMCG4-005",
+      "localId": "005",
+      "name": "ドガース"
+    },
+    {
+      "id": "PMCG4-006",
+      "localId": "006",
+      "name": "わるいクサイハナ"
+    },
+    {
+      "id": "PMCG4-007",
+      "localId": "007",
+      "name": "わるいベトベトン"
+    },
+    {
+      "id": "PMCG4-008",
+      "localId": "008",
+      "name": "わるいアーボック"
+    },
+    {
+      "id": "PMCG4-009",
+      "localId": "009",
+      "name": "わるいゴルバット"
+    },
+    {
+      "id": "PMCG4-010",
+      "localId": "010",
+      "name": "ラフレシア"
+    },
+    {
+      "id": "PMCG4-011",
+      "localId": "011",
+      "name": "わるいマタドガス"
+    },
+    {
+      "id": "PMCG4-012",
+      "localId": "012",
+      "name": "ヒトカゲ"
+    },
+    {
+      "id": "PMCG4-013",
+      "localId": "013",
+      "name": "ポニータ"
+    },
+    {
+      "id": "PMCG4-014",
+      "localId": "014",
+      "name": "わるいギャロップ"
+    },
+    {
+      "id": "PMCG4-015",
+      "localId": "015",
+      "name": "わるいリザード"
+    },
+    {
+      "id": "PMCG4-016",
+      "localId": "016",
+      "name": "わるいブースター"
+    },
+    {
+      "id": "PMCG4-017",
+      "localId": "017",
+      "name": "わるいリザードン"
+    },
+    {
+      "id": "PMCG4-018",
+      "localId": "018",
+      "name": "ゼニガメ"
+    },
+    {
+      "id": "PMCG4-019",
+      "localId": "019",
+      "name": "コダック"
+    },
+    {
+      "id": "PMCG4-020",
+      "localId": "020",
+      "name": "コイキング"
+    },
+    {
+      "id": "PMCG4-021",
+      "localId": "021",
+      "name": "わるいカメール"
+    },
+    {
+      "id": "PMCG4-022",
+      "localId": "022",
+      "name": "わるいゴルダック"
+    },
+    {
+      "id": "PMCG4-023",
+      "localId": "023",
+      "name": "わるいシャワーズ"
+    },
+    {
+      "id": "PMCG4-024",
+      "localId": "024",
+      "name": "わるいカメックス"
+    },
+    {
+      "id": "PMCG4-025",
+      "localId": "025",
+      "name": "わるいギャラドス"
+    },
+    {
+      "id": "PMCG4-026",
+      "localId": "026",
+      "name": "コイル"
+    },
+    {
+      "id": "PMCG4-027",
+      "localId": "027",
+      "name": "ビリリダマ"
+    },
+    {
+      "id": "PMCG4-028",
+      "localId": "028",
+      "name": "わるいマルマイン"
+    },
+    {
+      "id": "PMCG4-029",
+      "localId": "029",
+      "name": "わるいサンダース"
+    },
+    {
+      "id": "PMCG4-030",
+      "localId": "030",
+      "name": "わるいレアコイル"
+    },
+    {
+      "id": "PMCG4-031",
+      "localId": "031",
+      "name": "ケーシィ"
+    },
+    {
+      "id": "PMCG4-032",
+      "localId": "032",
+      "name": "ヤドン"
+    },
+    {
+      "id": "PMCG4-033",
+      "localId": "033",
+      "name": "スリープ"
+    },
+    {
+      "id": "PMCG4-034",
+      "localId": "034",
+      "name": "わるいユンゲラー"
+    },
+    {
+      "id": "PMCG4-035",
+      "localId": "035",
+      "name": "わるいフーディン"
+    },
+    {
+      "id": "PMCG4-036",
+      "localId": "036",
+      "name": "わるいヤドラン"
+    },
+    {
+      "id": "PMCG4-037",
+      "localId": "037",
+      "name": "わるいスリーパー"
+    },
+    {
+      "id": "PMCG4-038",
+      "localId": "038",
+      "name": "ディグダ"
+    },
+    {
+      "id": "PMCG4-039",
+      "localId": "039",
+      "name": "マンキー"
+    },
+    {
+      "id": "PMCG4-040",
+      "localId": "040",
+      "name": "ワンリキー"
+    },
+    {
+      "id": "PMCG4-041",
+      "localId": "041",
+      "name": "わるいオコリザル"
+    },
+    {
+      "id": "PMCG4-042",
+      "localId": "042",
+      "name": "わるいゴーリキー"
+    },
+    {
+      "id": "PMCG4-043",
+      "localId": "043",
+      "name": "わるいダグトリオ"
+    },
+    {
+      "id": "PMCG4-044",
+      "localId": "044",
+      "name": "わるいカイリキー"
+    },
+    {
+      "id": "PMCG4-045",
+      "localId": "045",
+      "name": "コラッタ"
+    },
+    {
+      "id": "PMCG4-046",
+      "localId": "046",
+      "name": "わるいラッタ"
+    },
+    {
+      "id": "PMCG4-047",
+      "localId": "047",
+      "name": "ニャース"
+    },
+    {
+      "id": "PMCG4-048",
+      "localId": "048",
+      "name": "わるいペルシアン"
+    },
+    {
+      "id": "PMCG4-049",
+      "localId": "049",
+      "name": "イーブイ"
+    },
+    {
+      "id": "PMCG4-050",
+      "localId": "050",
+      "name": "ポリゴン"
+    },
+    {
+      "id": "PMCG4-051",
+      "localId": "051",
+      "name": "ミニリュウ"
+    },
+    {
+      "id": "PMCG4-052",
+      "localId": "052",
+      "name": "わるいハクリュー"
+    },
+    {
+      "id": "PMCG4-053",
+      "localId": "053",
+      "name": "わるいカイリュー"
+    },
+    {
+      "id": "PMCG4-054",
+      "localId": "054",
+      "name": "ねむれ!ねむれ!"
+    },
+    {
+      "id": "PMCG4-055",
+      "localId": "055",
+      "name": "バトル場は穴だらけ!"
+    },
+    {
+      "id": "PMCG4-056",
+      "localId": "056",
+      "name": "まきちらせ!ベトベトガス"
+    },
+    {
+      "id": "PMCG4-057",
+      "localId": "057",
+      "name": "夜の廃品回収"
+    },
+    {
+      "id": "PMCG4-058",
+      "localId": "058",
+      "name": "たたきつけろ!挑戦状"
+    },
+    {
+      "id": "PMCG4-059",
+      "localId": "059",
+      "name": "にせオーキドの逆襲"
+    },
+    {
+      "id": "PMCG4-060",
+      "localId": "060",
+      "name": "ボスのやりかた"
+    },
+    {
+      "id": "PMCG4-061",
+      "localId": "061",
+      "name": "ロケット団のおねーさん"
+    },
+    {
+      "id": "PMCG4-062",
+      "localId": "062",
+      "name": "ロケット団参上!"
+    },
+    {
+      "id": "PMCG4-063",
+      "localId": "063",
+      "name": "きずぐすり配合エネルギー"
+    },
+    {
+      "id": "PMCG4-064",
+      "localId": "064",
+      "name": "なんでもなおし配合エネルギー"
+    },
+    {
+      "id": "PMCG4-065",
+      "localId": "065",
+      "name": "レインボーエネルギー"
+    }
+  ],
+  "id": "PMCG4",
+  "legal": {
+    "expanded": false,
+    "standard": false
+  },
+  "name": "ロケット団",
+  "releaseDate": "1997-11-21",
+  "serie": {
+    "id": "PMCG",
+    "name": "ポケットモンスターカードゲーム"
+  }
+}

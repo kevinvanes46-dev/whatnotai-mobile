@@ -1,0 +1,309 @@
+{
+  "cardCount": {
+    "firstEd": 0,
+    "holo": 17,
+    "normal": 38,
+    "official": 57,
+    "reverse": 0,
+    "total": 57
+  },
+  "cards": [
+    {
+      "id": "neo3-001",
+      "localId": "001",
+      "name": "Zubat"
+    },
+    {
+      "id": "neo3-002",
+      "localId": "002",
+      "name": "パラ"
+    },
+    {
+      "id": "neo3-003",
+      "localId": "003",
+      "name": "スキプルーム"
+    },
+    {
+      "id": "neo3-004",
+      "localId": "004",
+      "name": "ゴルバット"
+    },
+    {
+      "id": "neo3-005",
+      "localId": "005",
+      "name": "パラセクト"
+    },
+    {
+      "id": "neo3-006",
+      "localId": "006",
+      "name": "クロバット"
+    },
+    {
+      "id": "neo3-007",
+      "localId": "007",
+      "name": "ジャンプラフ"
+    },
+    {
+      "id": "neo3-008",
+      "localId": "008",
+      "name": "slugma"
+    },
+    {
+      "id": "neo3-009",
+      "localId": "009",
+      "name": "マグカルゴ"
+    },
+    {
+      "id": "neo3-010",
+      "localId": "010",
+      "name": "entei"
+    },
+    {
+      "id": "neo3-011",
+      "localId": "011",
+      "name": "ho-oh"
+    },
+    {
+      "id": "neo3-012",
+      "localId": "012",
+      "name": "ゴールデン"
+    },
+    {
+      "id": "neo3-013",
+      "localId": "013",
+      "name": "staryu"
+    },
+    {
+      "id": "neo3-014",
+      "localId": "014",
+      "name": "quagsire"
+    },
+    {
+      "id": "neo3-015",
+      "localId": "015",
+      "name": "qwilfish"
+    },
+    {
+      "id": "neo3-016",
+      "localId": "016",
+      "name": "REMORAID"
+    },
+    {
+      "id": "neo3-017",
+      "localId": "017",
+      "name": "航海"
+    },
+    {
+      "id": "neo3-018",
+      "localId": "018",
+      "name": "ジンクス"
+    },
+    {
+      "id": "neo3-019",
+      "localId": "019",
+      "name": "オクリリー"
+    },
+    {
+      "id": "neo3-020",
+      "localId": "020",
+      "name": "キングドラ"
+    },
+    {
+      "id": "neo3-021",
+      "localId": "021",
+      "name": "suicune"
+    },
+    {
+      "id": "neo3-022",
+      "localId": "022",
+      "name": "輝くマジカルプ"
+    },
+    {
+      "id": "neo3-023",
+      "localId": "023",
+      "name": "輝くギャラドス"
+    },
+    {
+      "id": "neo3-024",
+      "localId": "024",
+      "name": "チンチョウ"
+    },
+    {
+      "id": "neo3-025",
+      "localId": "025",
+      "name": "ライチュ"
+    },
+    {
+      "id": "neo3-026",
+      "localId": "026",
+      "name": "ラントン"
+    },
+    {
+      "id": "neo3-027",
+      "localId": "027",
+      "name": "フラフィー"
+    },
+    {
+      "id": "neo3-028",
+      "localId": "028",
+      "name": "アンファロス"
+    },
+    {
+      "id": "neo3-029",
+      "localId": "029",
+      "name": "ライコウ"
+    },
+    {
+      "id": "neo3-030",
+      "localId": "030",
+      "name": "k"
+    },
+    {
+      "id": "neo3-031",
+      "localId": "031",
+      "name": "スムーチュム"
+    },
+    {
+      "id": "neo3-032",
+      "localId": "032",
+      "name": "b"
+    },
+    {
+      "id": "neo3-033",
+      "localId": "033",
+      "name": "yなしy"
+    },
+    {
+      "id": "neo3-034",
+      "localId": "034",
+      "name": "スターミー"
+    },
+    {
+      "id": "neo3-035",
+      "localId": "035",
+      "name": "ミスレアヴァス"
+    },
+    {
+      "id": "neo3-036",
+      "localId": "036",
+      "name": "セレビ"
+    },
+    {
+      "id": "neo3-037",
+      "localId": "037",
+      "name": "ジオドード"
+    },
+    {
+      "id": "neo3-038",
+      "localId": "038",
+      "name": "swinub"
+    },
+    {
+      "id": "neo3-039",
+      "localId": "039",
+      "name": "砂利"
+    },
+    {
+      "id": "neo3-040",
+      "localId": "040",
+      "name": "シャックル"
+    },
+    {
+      "id": "neo3-041",
+      "localId": "041",
+      "name": "ピロスワイン"
+    },
+    {
+      "id": "neo3-042",
+      "localId": "042",
+      "name": "アエロダクチル"
+    },
+    {
+      "id": "neo3-043",
+      "localId": "043",
+      "name": "マークロウ"
+    },
+    {
+      "id": "neo3-044",
+      "localId": "044",
+      "name": "猟犬"
+    },
+    {
+      "id": "neo3-045",
+      "localId": "045",
+      "name": "マグネトン"
+    },
+    {
+      "id": "neo3-046",
+      "localId": "046",
+      "name": "Farfetch'd"
+    },
+    {
+      "id": "neo3-047",
+      "localId": "047",
+      "name": "aipom"
+    },
+    {
+      "id": "neo3-048",
+      "localId": "048",
+      "name": "Snubbull"
+    },
+    {
+      "id": "neo3-049",
+      "localId": "049",
+      "name": "スタントラー"
+    },
+    {
+      "id": "neo3-050",
+      "localId": "050",
+      "name": "Delibird"
+    },
+    {
+      "id": "neo3-051",
+      "localId": "051",
+      "name": "Porygon2"
+    },
+    {
+      "id": "neo3-052",
+      "localId": "052",
+      "name": "ブリッシー"
+    },
+    {
+      "id": "neo3-053",
+      "localId": "053",
+      "name": "古い棒"
+    },
+    {
+      "id": "neo3-054",
+      "localId": "054",
+      "name": "ヒーリングフィールド"
+    },
+    {
+      "id": "neo3-055",
+      "localId": "055",
+      "name": "バルーンベリー"
+    },
+    {
+      "id": "neo3-056",
+      "localId": "056",
+      "name": "ポケモンブリーダーフィールド"
+    },
+    {
+      "id": "neo3-057",
+      "localId": "057",
+      "name": "ロケットの隠れ家"
+    }
+  ],
+  "id": "neo3",
+  "legal": {
+    "expanded": false,
+    "standard": false
+  },
+  "name": "めざめる伝説",
+  "releaseDate": "2000-11-23",
+  "serie": {
+    "id": "neo",
+    "name": "ポケモンカード★neo"
+  },
+  "symbol": "https://assets.tcgdex.net/univ/neo/neo3/symbol"
+}

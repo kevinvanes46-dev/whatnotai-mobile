@@ -1,0 +1,309 @@
+{
+  "cardCount": {
+    "firstEd": 0,
+    "holo": 20,
+    "normal": 37,
+    "official": 56,
+    "reverse": 0,
+    "total": 57
+  },
+  "cards": [
+    {
+      "id": "neo2-001",
+      "localId": "001",
+      "name": "キャタピー"
+    },
+    {
+      "id": "neo2-002",
+      "localId": "002",
+      "name": "雑草"
+    },
+    {
+      "id": "neo2-003",
+      "localId": "003",
+      "name": "スパラク"
+    },
+    {
+      "id": "neo2-004",
+      "localId": "004",
+      "name": "ホッピップ"
+    },
+    {
+      "id": "neo2-005",
+      "localId": "005",
+      "name": "Pineco"
+    },
+    {
+      "id": "neo2-006",
+      "localId": "006",
+      "name": "メタポッド"
+    },
+    {
+      "id": "neo2-007",
+      "localId": "007",
+      "name": "カクナ"
+    },
+    {
+      "id": "neo2-008",
+      "localId": "008",
+      "name": "スキスター"
+    },
+    {
+      "id": "neo2-009",
+      "localId": "009",
+      "name": "蝶"
+    },
+    {
+      "id": "neo2-010",
+      "localId": "010",
+      "name": "beedrill"
+    },
+    {
+      "id": "neo2-011",
+      "localId": "011",
+      "name": "ヤンマ"
+    },
+    {
+      "id": "neo2-012",
+      "localId": "012",
+      "name": "ハウンドア（HR）"
+    },
+    {
+      "id": "neo2-013",
+      "localId": "013",
+      "name": "poliwag"
+    },
+    {
+      "id": "neo2-014",
+      "localId": "014",
+      "name": "カブト"
+    },
+    {
+      "id": "neo2-015",
+      "localId": "015",
+      "name": "ウーパー"
+    },
+    {
+      "id": "neo2-016",
+      "localId": "016",
+      "name": "PoliWhirl"
+    },
+    {
+      "id": "neo2-017",
+      "localId": "017",
+      "name": "コルサラ"
+    },
+    {
+      "id": "neo2-018",
+      "localId": "018",
+      "name": "カブトップス"
+    },
+    {
+      "id": "neo2-019",
+      "localId": "019",
+      "name": "政治"
+    },
+    {
+      "id": "neo2-020",
+      "localId": "020",
+      "name": "Mareep"
+    },
+    {
+      "id": "neo2-021",
+      "localId": "021",
+      "name": "ダークライチュ"
+    },
+    {
+      "id": "neo2-022",
+      "localId": "022",
+      "name": "natu"
+    },
+    {
+      "id": "neo2-023",
+      "localId": "023",
+      "name": "未作外"
+    },
+    {
+      "id": "neo2-024",
+      "localId": "024",
+      "name": "xatu"
+    },
+    {
+      "id": "neo2-025",
+      "localId": "025",
+      "name": "d"
+    },
+    {
+      "id": "neo2-026",
+      "localId": "026",
+      "name": "f"
+    },
+    {
+      "id": "neo2-027",
+      "localId": "027",
+      "name": "未定のm"
+    },
+    {
+      "id": "neo2-028",
+      "localId": "028",
+      "name": "Unown u"
+    },
+    {
+      "id": "neo2-029",
+      "localId": "029",
+      "name": "エスペオン"
+    },
+    {
+      "id": "neo2-030",
+      "localId": "030",
+      "name": "a"
+    },
+    {
+      "id": "neo2-031",
+      "localId": "031",
+      "name": "ウォブバフェット"
+    },
+    {
+      "id": "neo2-032",
+      "localId": "032",
+      "name": "オマニテ"
+    },
+    {
+      "id": "neo2-033",
+      "localId": "033",
+      "name": "タイログ"
+    },
+    {
+      "id": "neo2-034",
+      "localId": "034",
+      "name": "幼虫"
+    },
+    {
+      "id": "neo2-035",
+      "localId": "035",
+      "name": "Omastar"
+    },
+    {
+      "id": "neo2-036",
+      "localId": "036",
+      "name": "Pupitar"
+    },
+    {
+      "id": "neo2-037",
+      "localId": "037",
+      "name": "Poliwrath"
+    },
+    {
+      "id": "neo2-038",
+      "localId": "038",
+      "name": "ヒットモントップ"
+    },
+    {
+      "id": "neo2-039",
+      "localId": "039",
+      "name": "houndour（u）"
+    },
+    {
+      "id": "neo2-040",
+      "localId": "040",
+      "name": "Umbreon"
+    },
+    {
+      "id": "neo2-041",
+      "localId": "041",
+      "name": "猟犬"
+    },
+    {
+      "id": "neo2-042",
+      "localId": "042",
+      "name": "タイラニター"
+    },
+    {
+      "id": "neo2-043",
+      "localId": "043",
+      "name": "マグナイト"
+    },
+    {
+      "id": "neo2-044",
+      "localId": "044",
+      "name": "forretress"
+    },
+    {
+      "id": "neo2-045",
+      "localId": "045",
+      "name": "Scizor"
+    },
+    {
+      "id": "neo2-046",
+      "localId": "046",
+      "name": "セントレット"
+    },
+    {
+      "id": "neo2-047",
+      "localId": "047",
+      "name": "ダンズパース"
+    },
+    {
+      "id": "neo2-048",
+      "localId": "048",
+      "name": "Teddiursa"
+    },
+    {
+      "id": "neo2-049",
+      "localId": "049",
+      "name": "Eevee"
+    },
+    {
+      "id": "neo2-050",
+      "localId": "050",
+      "name": "Igglybuff"
+    },
+    {
+      "id": "neo2-051",
+      "localId": "051",
+      "name": "ウルサリング"
+    },
+    {
+      "id": "neo2-052",
+      "localId": "052",
+      "name": "Smeargle"
+    },
+    {
+      "id": "neo2-053",
+      "localId": "053",
+      "name": "エネルギーアーク"
+    },
+    {
+      "id": "neo2-054",
+      "localId": "054",
+      "name": "壁を台無しにする[カブト]"
+    },
+    {
+      "id": "neo2-055",
+      "localId": "055",
+      "name": "化石卵"
+    },
+    {
+      "id": "neo2-056",
+      "localId": "056",
+      "name": "ハイパーデボルブスプレー"
+    },
+    {
+      "id": "neo2-057",
+      "localId": "057",
+      "name": "壁を台無しにする[aerodactyl]"
+    }
+  ],
+  "id": "neo2",
+  "legal": {
+    "expanded": false,
+    "standard": false
+  },
+  "name": "遺跡をこえて...",
+  "releaseDate": "2000-07-07",
+  "serie": {
+    "id": "neo",
+    "name": "ポケモンカード★neo"
+  },
+  "symbol": "https://assets.tcgdex.net/univ/neo/neo2/symbol"
+}

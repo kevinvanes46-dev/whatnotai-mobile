@@ -34,7 +34,7 @@ async function loadedArtwork(target,source_id){
   await page.locator('.visiblePreferences [data-value="JP"]').click();await page.waitForFunction(()=>window.CardCatalog?.byId('neo3-038','JP'));
   // Existing routing maps EX to 3 (NM maps to 2).
   await page.locator('.visiblePreferences [data-value="EX"]').click();await page.locator('#quickInput').fill('swinub');
-  const row=page.locator('.suggestion').filter({hasText:/Swinub/i}).filter({hasText:'Neo Revelation'});await row.waitFor();assert.equal(await row.count(),1);await loadedArtwork(row.locator('.suggestionArt'),'neo3-038 search');await row.click();
+  const row=page.locator('.suggestion').filter({hasText:/Swinub/i}).filter({hasText:'Awakening Legends'});await row.waitFor();assert.equal(await row.count(),1);await loadedArtwork(row.locator('.suggestionArt'),'neo3-038 search');await row.click();
   const selected=await page.evaluate(()=>selectedCardIdentity(document.querySelector('#openBtn').href));
   for(const [key,value] of Object.entries({source_id:'neo3-038',source_set_id:'neo3',language:'JP',set:'NEO REVELATION',condition:'EX',edition:'AUTO',variant:'NORMAL'}))assert.equal(selected[key],value,key);
   await loadedArtwork(page.locator('#selectedCardArt'),'neo3-038 selected');const art=await page.locator('#selectedCardArt img').getAttribute('src');assert.equal(art,'https://cdn.artofpkm.com/ki7p3hj3p3phx6tjwmi4av5x0tm6');

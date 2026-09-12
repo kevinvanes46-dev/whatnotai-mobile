@@ -1,0 +1,589 @@
+{
+  "cardCount": {
+    "firstEd": 0,
+    "holo": 16,
+    "normal": 82,
+    "official": 113,
+    "reverse": 0,
+    "total": 113
+  },
+  "cards": [
+    {
+      "id": "neo4-001",
+      "localId": "001",
+      "name": "ヴェノナト"
+    },
+    {
+      "id": "neo4-002",
+      "localId": "002",
+      "name": "レディバ"
+    },
+    {
+      "id": "neo4-003",
+      "localId": "003",
+      "name": "サンカーン"
+    },
+    {
+      "id": "neo4-004",
+      "localId": "004",
+      "name": "軽いサンフロラ"
+    },
+    {
+      "id": "neo4-005",
+      "localId": "005",
+      "name": "Pineco"
+    },
+    {
+      "id": "neo4-006",
+      "localId": "006",
+      "name": "軽い毒"
+    },
+    {
+      "id": "neo4-007",
+      "localId": "007",
+      "name": "スキスター"
+    },
+    {
+      "id": "neo4-008",
+      "localId": "008",
+      "name": "暗いforretress"
+    },
+    {
+      "id": "neo4-009",
+      "localId": "009",
+      "name": "ヘラクロス"
+    },
+    {
+      "id": "neo4-010",
+      "localId": "010",
+      "name": "軽いレディアン"
+    },
+    {
+      "id": "neo4-011",
+      "localId": "011",
+      "name": "ダークアリアドス"
+    },
+    {
+      "id": "neo4-012",
+      "localId": "012",
+      "name": "暗いクロバット"
+    },
+    {
+      "id": "neo4-013",
+      "localId": "013",
+      "name": "輝くセレビ"
+    },
+    {
+      "id": "neo4-014",
+      "localId": "014",
+      "name": "Vulpix"
+    },
+    {
+      "id": "neo4-015",
+      "localId": "015",
+      "name": "うなり声"
+    },
+    {
+      "id": "neo4-016",
+      "localId": "016",
+      "name": "シンダキル"
+    },
+    {
+      "id": "neo4-017",
+      "localId": "017",
+      "name": "slugma"
+    },
+    {
+      "id": "neo4-018",
+      "localId": "018",
+      "name": "軽いニネタール"
+    },
+    {
+      "id": "neo4-019",
+      "localId": "019",
+      "name": "軽いフレアロン"
+    },
+    {
+      "id": "neo4-020",
+      "localId": "020",
+      "name": "ダークキラバ"
+    },
+    {
+      "id": "neo4-021",
+      "localId": "021",
+      "name": "軽アルカニン"
+    },
+    {
+      "id": "neo4-022",
+      "localId": "022",
+      "name": "暗い染色"
+    },
+    {
+      "id": "neo4-023",
+      "localId": "023",
+      "name": "ダークマグカルゴ"
+    },
+    {
+      "id": "neo4-025",
+      "localId": "025",
+      "name": "輝くチャリザード"
+    },
+    {
+      "id": "neo4-026",
+      "localId": "026",
+      "name": "Psyduck"
+    },
+    {
+      "id": "neo4-027",
+      "localId": "027",
+      "name": "シール"
+    },
+    {
+      "id": "neo4-028",
+      "localId": "028",
+      "name": "totodile"
+    },
+    {
+      "id": "neo4-029",
+      "localId": "029",
+      "name": "swinub"
+    },
+    {
+      "id": "neo4-030",
+      "localId": "030",
+      "name": "REMORAID"
+    },
+    {
+      "id": "neo4-031",
+      "localId": "031",
+      "name": "マンティン"
+    },
+    {
+      "id": "neo4-032",
+      "localId": "032",
+      "name": "ライトゴルダック"
+    },
+    {
+      "id": "neo4-033",
+      "localId": "033",
+      "name": "軽いデューゴン"
+    },
+    {
+      "id": "neo4-034",
+      "localId": "034",
+      "name": "軽いvaporeon"
+    },
+    {
+      "id": "neo4-035",
+      "localId": "035",
+      "name": "暗いオマニテ"
+    },
+    {
+      "id": "neo4-036",
+      "localId": "036",
+      "name": "暗いワニ"
+    },
+    {
+      "id": "neo4-037",
+      "localId": "037",
+      "name": "ダークオクタリリー"
+    },
+    {
+      "id": "neo4-038",
+      "localId": "038",
+      "name": "ダークオマスター"
+    },
+    {
+      "id": "neo4-039",
+      "localId": "039",
+      "name": "暗いferaligatr"
+    },
+    {
+      "id": "neo4-040",
+      "localId": "040",
+      "name": "軽いアズマリル"
+    },
+    {
+      "id": "neo4-041",
+      "localId": "041",
+      "name": "軽いピロスワイン"
+    },
+    {
+      "id": "neo4-042",
+      "localId": "042",
+      "name": "Mareep"
+    },
+    {
+      "id": "neo4-043",
+      "localId": "043",
+      "name": "ライトジョルテオン"
+    },
+    {
+      "id": "neo4-044",
+      "localId": "044",
+      "name": "暗いフラフィ"
+    },
+    {
+      "id": "neo4-045",
+      "localId": "045",
+      "name": "ライトラントン"
+    },
+    {
+      "id": "neo4-046",
+      "localId": "046",
+      "name": "暗いアンファロ"
+    },
+    {
+      "id": "neo4-047",
+      "localId": "047",
+      "name": "輝くライチュ"
+    },
+    {
+      "id": "neo4-048",
+      "localId": "048",
+      "name": "ガストリー"
+    },
+    {
+      "id": "neo4-049",
+      "localId": "049",
+      "name": "exeggcute"
+    },
+    {
+      "id": "neo4-050",
+      "localId": "050",
+      "name": "l"
+    },
+    {
+      "id": "neo4-051",
+      "localId": "051",
+      "name": "s"
+    },
+    {
+      "id": "neo4-052",
+      "localId": "052",
+      "name": "未定のt"
+    },
+    {
+      "id": "neo4-053",
+      "localId": "053",
+      "name": "v"
+    },
+    {
+      "id": "neo4-054",
+      "localId": "054",
+      "name": "軽いスローブロ"
+    },
+    {
+      "id": "neo4-055",
+      "localId": "055",
+      "name": "暗いハンター"
+    },
+    {
+      "id": "neo4-056",
+      "localId": "056",
+      "name": "暗いexeggutor"
+    },
+    {
+      "id": "neo4-057",
+      "localId": "057",
+      "name": "c"
+    },
+    {
+      "id": "neo4-058",
+      "localId": "058",
+      "name": "未定のp"
+    },
+    {
+      "id": "neo4-059",
+      "localId": "059",
+      "name": "Q"
+    },
+    {
+      "id": "neo4-060",
+      "localId": "060",
+      "name": "ZなしZ"
+    },
+    {
+      "id": "neo4-061",
+      "localId": "061",
+      "name": "暗いスローキング"
+    },
+    {
+      "id": "neo4-062",
+      "localId": "062",
+      "name": "g"
+    },
+    {
+      "id": "neo4-063",
+      "localId": "063",
+      "name": "hなしh"
+    },
+    {
+      "id": "neo4-064",
+      "localId": "064",
+      "name": "w"
+    },
+    {
+      "id": "neo4-065",
+      "localId": "065",
+      "name": "未作たx"
+    },
+    {
+      "id": "neo4-066",
+      "localId": "066",
+      "name": "ダークジェンガー"
+    },
+    {
+      "id": "neo4-067",
+      "localId": "067",
+      "name": "暗いエスペオン"
+    },
+    {
+      "id": "neo4-068",
+      "localId": "068",
+      "name": "輝くミュウツー"
+    },
+    {
+      "id": "neo4-069",
+      "localId": "069",
+      "name": "マチョップ"
+    },
+    {
+      "id": "neo4-070",
+      "localId": "070",
+      "name": "ヒットモンチャン"
+    },
+    {
+      "id": "neo4-071",
+      "localId": "071",
+      "name": "グリガー"
+    },
+    {
+      "id": "neo4-072",
+      "localId": "072",
+      "name": "ファンピー"
+    },
+    {
+      "id": "neo4-073",
+      "localId": "073",
+      "name": "幼虫"
+    },
+    {
+      "id": "neo4-074",
+      "localId": "074",
+      "name": "ライトマチョーク"
+    },
+    {
+      "id": "neo4-075",
+      "localId": "075",
+      "name": "Hitmonlee"
+    },
+    {
+      "id": "neo4-076",
+      "localId": "076",
+      "name": "ダークプリター"
+    },
+    {
+      "id": "neo4-077",
+      "localId": "077",
+      "name": "軽いマチャンプ"
+    },
+    {
+      "id": "neo4-078",
+      "localId": "078",
+      "name": "ダークドンファン"
+    },
+    {
+      "id": "neo4-079",
+      "localId": "079",
+      "name": "ダークタイラナター"
+    },
+    {
+      "id": "neo4-080",
+      "localId": "080",
+      "name": "輝くカブトップ"
+    },
+    {
+      "id": "neo4-081",
+      "localId": "081",
+      "name": "猟犬"
+    },
+    {
+      "id": "neo4-082",
+      "localId": "082",
+      "name": "輝くタイラニター"
+    },
+    {
+      "id": "neo4-083",
+      "localId": "083",
+      "name": "ダークシゾール"
+    },
+    {
+      "id": "neo4-084",
+      "localId": "084",
+      "name": "Shining Steelix"
+    },
+    {
+      "id": "neo4-085",
+      "localId": "085",
+      "name": "jigglypuff"
+    },
+    {
+      "id": "neo4-086",
+      "localId": "086",
+      "name": "ポリゴン"
+    },
+    {
+      "id": "neo4-087",
+      "localId": "087",
+      "name": "ドラチーニ"
+    },
+    {
+      "id": "neo4-088",
+      "localId": "088",
+      "name": "togepi"
+    },
+    {
+      "id": "neo4-089",
+      "localId": "089",
+      "name": "Girafarig"
+    },
+    {
+      "id": "neo4-090",
+      "localId": "090",
+      "name": "軽いウィグリティフ"
+    },
+    {
+      "id": "neo4-091",
+      "localId": "091",
+      "name": "ダークウィッグラット"
+    },
+    {
+      "id": "neo4-092",
+      "localId": "092",
+      "name": "チャンジー"
+    },
+    {
+      "id": "neo4-093",
+      "localId": "093",
+      "name": "ライトドラゴンエア"
+    },
+    {
+      "id": "neo4-094",
+      "localId": "094",
+      "name": "軽いドラゴナイト"
+    },
+    {
+      "id": "neo4-095",
+      "localId": "095",
+      "name": "光から光"
+    },
+    {
+      "id": "neo4-096",
+      "localId": "096",
+      "name": "暗いウルサリング"
+    },
+    {
+      "id": "neo4-097",
+      "localId": "097",
+      "name": "Dark Porygon2"
+    },
+    {
+      "id": "neo4-098",
+      "localId": "098",
+      "name": "輝くノクトウル"
+    },
+    {
+      "id": "neo4-099",
+      "localId": "099",
+      "name": "粉末を癒します"
+    },
+    {
+      "id": "neo4-100",
+      "localId": "100",
+      "name": "ビルからのメール"
+    },
+    {
+      "id": "neo4-101",
+      "localId": "101",
+      "name": "エネルギースタジアム"
+    },
+    {
+      "id": "neo4-102",
+      "localId": "102",
+      "name": "エネルギー増幅器"
+    },
+    {
+      "id": "neo4-103",
+      "localId": "103",
+      "name": "反撃の爪"
+    },
+    {
+      "id": "neo4-104",
+      "localId": "104",
+      "name": "拡大鏡"
+    },
+    {
+      "id": "neo4-105",
+      "localId": "105",
+      "name": "ポケモンパーソナリティテスト"
+    },
+    {
+      "id": "neo4-106",
+      "localId": "106",
+      "name": "ラッキースタジアム"
+    },
+    {
+      "id": "neo4-107",
+      "localId": "107",
+      "name": "チームロケットの邪悪な行為"
+    },
+    {
+      "id": "neo4-108",
+      "localId": "108",
+      "name": "思考ウェーブマシン"
+    },
+    {
+      "id": "neo4-109",
+      "localId": "109",
+      "name": "exp。共有"
+    },
+    {
+      "id": "neo4-110",
+      "localId": "110",
+      "name": "壊れた地上ジム"
+    },
+    {
+      "id": "neo4-111",
+      "localId": "111",
+      "name": "詐欺師オーク教授の発明"
+    },
+    {
+      "id": "neo4-112",
+      "localId": "112",
+      "name": "ラジオタワー"
+    },
+    {
+      "id": "neo4-113",
+      "localId": "113",
+      "name": "奇跡のエネルギー"
+    },
+    {
+      "id": "neo4-229",
+      "localId": "229",
+      "name": "暗い猟犬"
+    }
+  ],
+  "id": "neo4",
+  "legal": {
+    "expanded": false,
+    "standard": false
+  },
+  "name": "闇、そして光へ...",
+  "releaseDate": "2001-04-20",
+  "serie": {
+    "id": "neo",
+    "name": "ポケモンカード★neo"
+  },
+  "symbol": "https://assets.tcgdex.net/univ/neo/neo4/symbol"
+}

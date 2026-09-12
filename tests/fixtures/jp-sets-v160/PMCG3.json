@@ -1,0 +1,263 @@
+{
+  "cardCount": {
+    "firstEd": 0,
+    "holo": 16,
+    "normal": 32,
+    "official": 48,
+    "reverse": 0,
+    "total": 48
+  },
+  "cards": [
+    {
+      "id": "PMCG3-001",
+      "localId": "001",
+      "name": "アーボ"
+    },
+    {
+      "id": "PMCG3-002",
+      "localId": "002",
+      "name": "ズバット"
+    },
+    {
+      "id": "PMCG3-003",
+      "localId": "003",
+      "name": "ベトベター"
+    },
+    {
+      "id": "PMCG3-004",
+      "localId": "004",
+      "name": "アーボック"
+    },
+    {
+      "id": "PMCG3-005",
+      "localId": "005",
+      "name": "ゴルバット"
+    },
+    {
+      "id": "PMCG3-006",
+      "localId": "006",
+      "name": "マタドガス"
+    },
+    {
+      "id": "PMCG3-007",
+      "localId": "007",
+      "name": "ベトベトン"
+    },
+    {
+      "id": "PMCG3-008",
+      "localId": "008",
+      "name": "ブーバー"
+    },
+    {
+      "id": "PMCG3-009",
+      "localId": "009",
+      "name": "ファイヤー"
+    },
+    {
+      "id": "PMCG3-010",
+      "localId": "010",
+      "name": "コダック"
+    },
+    {
+      "id": "PMCG3-011",
+      "localId": "011",
+      "name": "メノクラゲ"
+    },
+    {
+      "id": "PMCG3-012",
+      "localId": "012",
+      "name": "シェルダー"
+    },
+    {
+      "id": "PMCG3-013",
+      "localId": "013",
+      "name": "クラブ"
+    },
+    {
+      "id": "PMCG3-014",
+      "localId": "014",
+      "name": "タッツ"
+    },
+    {
+      "id": "PMCG3-015",
+      "localId": "015",
+      "name": "オムナイト"
+    },
+    {
+      "id": "PMCG3-016",
+      "localId": "016",
+      "name": "ゴルダック"
+    },
+    {
+      "id": "PMCG3-017",
+      "localId": "017",
+      "name": "ドククラゲ"
+    },
+    {
+      "id": "PMCG3-018",
+      "localId": "018",
+      "name": "パルシェン"
+    },
+    {
+      "id": "PMCG3-019",
+      "localId": "019",
+      "name": "キングラー"
+    },
+    {
+      "id": "PMCG3-020",
+      "localId": "020",
+      "name": "シードラ"
+    },
+    {
+      "id": "PMCG3-021",
+      "localId": "021",
+      "name": "オムスター"
+    },
+    {
+      "id": "PMCG3-022",
+      "localId": "022",
+      "name": "ラプラス"
+    },
+    {
+      "id": "PMCG3-023",
+      "localId": "023",
+      "name": "フリーザー"
+    },
+    {
+      "id": "PMCG3-024",
+      "localId": "024",
+      "name": "ライチュウ"
+    },
+    {
+      "id": "PMCG3-025",
+      "localId": "025",
+      "name": "レアコイル"
+    },
+    {
+      "id": "PMCG3-026",
+      "localId": "026",
+      "name": "サンダー"
+    },
+    {
+      "id": "PMCG3-027",
+      "localId": "027",
+      "name": "ヤドン"
+    },
+    {
+      "id": "PMCG3-028",
+      "localId": "028",
+      "name": "ヤドラン"
+    },
+    {
+      "id": "PMCG3-029",
+      "localId": "029",
+      "name": "ゴース"
+    },
+    {
+      "id": "PMCG3-030",
+      "localId": "030",
+      "name": "ゴースト"
+    },
+    {
+      "id": "PMCG3-031",
+      "localId": "031",
+      "name": "ゲンガー"
+    },
+    {
+      "id": "PMCG3-032",
+      "localId": "032",
+      "name": "スリーパー"
+    },
+    {
+      "id": "PMCG3-033",
+      "localId": "033",
+      "name": "ミュウ"
+    },
+    {
+      "id": "PMCG3-034",
+      "localId": "034",
+      "name": "イシツブテ"
+    },
+    {
+      "id": "PMCG3-035",
+      "localId": "035",
+      "name": "カブト"
+    },
+    {
+      "id": "PMCG3-036",
+      "localId": "036",
+      "name": "サンドパン"
+    },
+    {
+      "id": "PMCG3-037",
+      "localId": "037",
+      "name": "ゴローン"
+    },
+    {
+      "id": "PMCG3-038",
+      "localId": "038",
+      "name": "ゴローニャ"
+    },
+    {
+      "id": "PMCG3-039",
+      "localId": "039",
+      "name": "サワムラー"
+    },
+    {
+      "id": "PMCG3-040",
+      "localId": "040",
+      "name": "カブトプス"
+    },
+    {
+      "id": "PMCG3-041",
+      "localId": "041",
+      "name": "プテラ"
+    },
+    {
+      "id": "PMCG3-042",
+      "localId": "042",
+      "name": "メタモン"
+    },
+    {
+      "id": "PMCG3-043",
+      "localId": "043",
+      "name": "カイリュー"
+    },
+    {
+      "id": "PMCG3-044",
+      "localId": "044",
+      "name": "エネルギー転送"
+    },
+    {
+      "id": "PMCG3-045",
+      "localId": "045",
+      "name": "ギャンブラー"
+    },
+    {
+      "id": "PMCG3-046",
+      "localId": "046",
+      "name": "なにかの化石"
+    },
+    {
+      "id": "PMCG3-047",
+      "localId": "047",
+      "name": "リサイクル"
+    },
+    {
+      "id": "PMCG3-048",
+      "localId": "048",
+      "name": "フジろうじん"
+    }
+  ],
+  "id": "PMCG3",
+  "legal": {
+    "expanded": false,
+    "standard": false
+  },
+  "name": "化石の秘密",
+  "releaseDate": "1997-06-21",
+  "serie": {
+    "id": "PMCG",
+    "name": "ポケットモンスターカードゲーム"
+  }
+}

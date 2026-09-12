@@ -1,0 +1,503 @@
+{
+  "cardCount": {
+    "firstEd": 0,
+    "holo": 16,
+    "normal": 80,
+    "official": 96,
+    "reverse": 0,
+    "total": 96
+  },
+  "cards": [
+    {
+      "id": "PMCG5-001",
+      "localId": "001",
+      "name": "タケシのズバット"
+    },
+    {
+      "id": "PMCG5-002",
+      "localId": "002",
+      "name": "エリカのナゾノクサ"
+    },
+    {
+      "id": "PMCG5-003",
+      "localId": "003",
+      "name": "エリカのナゾノクサ"
+    },
+    {
+      "id": "PMCG5-004",
+      "localId": "004",
+      "name": "エリカのパラス"
+    },
+    {
+      "id": "PMCG5-005",
+      "localId": "005",
+      "name": "エリカのマダツボミ"
+    },
+    {
+      "id": "PMCG5-006",
+      "localId": "006",
+      "name": "エリカのモンジャラ"
+    },
+    {
+      "id": "PMCG5-007",
+      "localId": "007",
+      "name": "エリカのフシギダネ"
+    },
+    {
+      "id": "PMCG5-008",
+      "localId": "008",
+      "name": "タケシのゴルバット"
+    },
+    {
+      "id": "PMCG5-009",
+      "localId": "009",
+      "name": "エリカのクサイハナ"
+    },
+    {
+      "id": "PMCG5-010",
+      "localId": "010",
+      "name": "エリカのマダツボミ"
+    },
+    {
+      "id": "PMCG5-011",
+      "localId": "011",
+      "name": "エリカのウツドン"
+    },
+    {
+      "id": "PMCG5-012",
+      "localId": "012",
+      "name": "エリカのタマタマ"
+    },
+    {
+      "id": "PMCG5-013",
+      "localId": "013",
+      "name": "エリカのナッシー"
+    },
+    {
+      "id": "PMCG5-014",
+      "localId": "014",
+      "name": "エリカのラフレシア"
+    },
+    {
+      "id": "PMCG5-015",
+      "localId": "015",
+      "name": "エリカのウツボット"
+    },
+    {
+      "id": "PMCG5-016",
+      "localId": "016",
+      "name": "R団のストライク"
+    },
+    {
+      "id": "PMCG5-017",
+      "localId": "017",
+      "name": "タケシのロコン"
+    },
+    {
+      "id": "PMCG5-018",
+      "localId": "018",
+      "name": "タケシのロコン"
+    },
+    {
+      "id": "PMCG5-019",
+      "localId": "019",
+      "name": "タケシのキュウコン"
+    },
+    {
+      "id": "PMCG5-020",
+      "localId": "020",
+      "name": "R団のファイヤー"
+    },
+    {
+      "id": "PMCG5-021",
+      "localId": "021",
+      "name": "カスミのコダック"
+    },
+    {
+      "id": "PMCG5-022",
+      "localId": "022",
+      "name": "カスミのニョロモ"
+    },
+    {
+      "id": "PMCG5-023",
+      "localId": "023",
+      "name": "カスミのパウワウ"
+    },
+    {
+      "id": "PMCG5-024",
+      "localId": "024",
+      "name": "カスミのタッツー"
+    },
+    {
+      "id": "PMCG5-025",
+      "localId": "025",
+      "name": "カスミのタッツー"
+    },
+    {
+      "id": "PMCG5-026",
+      "localId": "026",
+      "name": "カスミのトサキント"
+    },
+    {
+      "id": "PMCG5-027",
+      "localId": "027",
+      "name": "カスミのヒトデマン"
+    },
+    {
+      "id": "PMCG5-028",
+      "localId": "028",
+      "name": "カスミのコイキング"
+    },
+    {
+      "id": "PMCG5-029",
+      "localId": "029",
+      "name": "カスミのニョロゾ"
+    },
+    {
+      "id": "PMCG5-030",
+      "localId": "030",
+      "name": "カスミのメノクラゲ"
+    },
+    {
+      "id": "PMCG5-031",
+      "localId": "031",
+      "name": "カスミのジュゴン"
+    },
+    {
+      "id": "PMCG5-032",
+      "localId": "032",
+      "name": "カスミのゴルダック"
+    },
+    {
+      "id": "PMCG5-033",
+      "localId": "033",
+      "name": "カスミのドククラゲ"
+    },
+    {
+      "id": "PMCG5-034",
+      "localId": "034",
+      "name": "カスミのシードラ"
+    },
+    {
+      "id": "PMCG5-035",
+      "localId": "035",
+      "name": "カスミのギャラドス"
+    },
+    {
+      "id": "PMCG5-036",
+      "localId": "036",
+      "name": "マチスのピカチュウ"
+    },
+    {
+      "id": "PMCG5-037",
+      "localId": "037",
+      "name": "マチスのコイル"
+    },
+    {
+      "id": "PMCG5-038",
+      "localId": "038",
+      "name": "マチスのビリリダマ"
+    },
+    {
+      "id": "PMCG5-039",
+      "localId": "039",
+      "name": "マチスのコイル"
+    },
+    {
+      "id": "PMCG5-040",
+      "localId": "040",
+      "name": "マチスのレアコイル"
+    },
+    {
+      "id": "PMCG5-041",
+      "localId": "041",
+      "name": "マチスのエレブー"
+    },
+    {
+      "id": "PMCG5-042",
+      "localId": "042",
+      "name": "マチスのサンダース"
+    },
+    {
+      "id": "PMCG5-043",
+      "localId": "043",
+      "name": "タケシサンド"
+    },
+    {
+      "id": "PMCG5-044",
+      "localId": "044",
+      "name": "タケシのディグダ"
+    },
+    {
+      "id": "PMCG5-045",
+      "localId": "045",
+      "name": "タケシのマンキー"
+    },
+    {
+      "id": "PMCG5-046",
+      "localId": "046",
+      "name": "タケシのイシツブテ"
+    },
+    {
+      "id": "PMCG5-047",
+      "localId": "047",
+      "name": "タケシのイシツブテ"
+    },
+    {
+      "id": "PMCG5-048",
+      "localId": "048",
+      "name": "タケシのイワーク"
+    },
+    {
+      "id": "PMCG5-049",
+      "localId": "049",
+      "name": "タケシのサイホーン"
+    },
+    {
+      "id": "PMCG5-050",
+      "localId": "050",
+      "name": "タケシのサンドパン"
+    },
+    {
+      "id": "PMCG5-051",
+      "localId": "051",
+      "name": "タケシのオコリザル"
+    },
+    {
+      "id": "PMCG5-052",
+      "localId": "052",
+      "name": "タケシのゴローン"
+    },
+    {
+      "id": "PMCG5-053",
+      "localId": "053",
+      "name": "タケシのゴローニャ"
+    },
+    {
+      "id": "PMCG5-054",
+      "localId": "054",
+      "name": "R団のエビワラー"
+    },
+    {
+      "id": "PMCG5-055",
+      "localId": "055",
+      "name": "タケシのサイドン"
+    },
+    {
+      "id": "PMCG5-056",
+      "localId": "056",
+      "name": "マチスのコラッタ"
+    },
+    {
+      "id": "PMCG5-057",
+      "localId": "057",
+      "name": "マチスのオニスズメ"
+    },
+    {
+      "id": "PMCG5-058",
+      "localId": "058",
+      "name": "エリカのプリン"
+    },
+    {
+      "id": "PMCG5-059",
+      "localId": "059",
+      "name": "マチスのラッタ"
+    },
+    {
+      "id": "PMCG5-060",
+      "localId": "060",
+      "name": "エリカのピッピ"
+    },
+    {
+      "id": "PMCG5-061",
+      "localId": "061",
+      "name": "タケシのベロリンガ"
+    },
+    {
+      "id": "PMCG5-062",
+      "localId": "062",
+      "name": "マチスのイーブイ"
+    },
+    {
+      "id": "PMCG5-063",
+      "localId": "063",
+      "name": "エリカのミニリュウ"
+    },
+    {
+      "id": "PMCG5-064",
+      "localId": "064",
+      "name": "マチスのオニドリル"
+    },
+    {
+      "id": "PMCG5-065",
+      "localId": "065",
+      "name": "エリカのピクシー"
+    },
+    {
+      "id": "PMCG5-066",
+      "localId": "066",
+      "name": "エリカのハクリュー"
+    },
+    {
+      "id": "PMCG5-067",
+      "localId": "067",
+      "name": "エネルギーサーキュレート"
+    },
+    {
+      "id": "PMCG5-068",
+      "localId": "068",
+      "name": "カスミの勝負"
+    },
+    {
+      "id": "PMCG5-069",
+      "localId": "069",
+      "name": "カスミのなみだ"
+    },
+    {
+      "id": "PMCG5-070",
+      "localId": "070",
+      "name": "せまいジム"
+    },
+    {
+      "id": "PMCG5-071",
+      "localId": "071",
+      "name": "思い出させる"
+    },
+    {
+      "id": "PMCG5-072",
+      "localId": "072",
+      "name": "エリカのお付き"
+    },
+    {
+      "id": "PMCG5-073",
+      "localId": "073",
+      "name": "エリカの香水"
+    },
+    {
+      "id": "PMCG5-074",
+      "localId": "074",
+      "name": "お上品攻撃"
+    },
+    {
+      "id": "PMCG5-075",
+      "localId": "075",
+      "name": "カスミのいかり"
+    },
+    {
+      "id": "PMCG5-076",
+      "localId": "076",
+      "name": "クチバシティジム"
+    },
+    {
+      "id": "PMCG5-077",
+      "localId": "077",
+      "name": "タケシの育て方"
+    },
+    {
+      "id": "PMCG5-078",
+      "localId": "078",
+      "name": "タマムシシティジム"
+    },
+    {
+      "id": "PMCG5-079",
+      "localId": "079",
+      "name": "ニビシティジム"
+    },
+    {
+      "id": "PMCG5-080",
+      "localId": "080",
+      "name": "ハナダシティジム"
+    },
+    {
+      "id": "PMCG5-081",
+      "localId": "081",
+      "name": "マチスの交渉"
+    },
+    {
+      "id": "PMCG5-082",
+      "localId": "082",
+      "name": "礼儀作法"
+    },
+    {
+      "id": "PMCG5-083",
+      "localId": "083",
+      "name": "エリカ"
+    },
+    {
+      "id": "PMCG5-084",
+      "localId": "084",
+      "name": "エリカの親切"
+    },
+    {
+      "id": "PMCG5-085",
+      "localId": "085",
+      "name": "カスミ"
+    },
+    {
+      "id": "PMCG5-086",
+      "localId": "086",
+      "name": "カスミのわがまま"
+    },
+    {
+      "id": "PMCG5-087",
+      "localId": "087",
+      "name": "錯乱ジム"
+    },
+    {
+      "id": "PMCG5-088",
+      "localId": "088",
+      "name": "スパイ作戦"
+    },
+    {
+      "id": "PMCG5-089",
+      "localId": "089",
+      "name": "タケシ"
+    },
+    {
+      "id": "PMCG5-090",
+      "localId": "090",
+      "name": "タケシの保護"
+    },
+    {
+      "id": "PMCG5-091",
+      "localId": "091",
+      "name": "抵抗力低下ジム"
+    },
+    {
+      "id": "PMCG5-092",
+      "localId": "092",
+      "name": "マチス"
+    },
+    {
+      "id": "PMCG5-093",
+      "localId": "093",
+      "name": "マチスの秘策"
+    },
+    {
+      "id": "PMCG5-094",
+      "localId": "094",
+      "name": "リムーブ禁止ジム"
+    },
+    {
+      "id": "PMCG5-095",
+      "localId": "095",
+      "name": "ロケット団の特訓ジム"
+    },
+    {
+      "id": "PMCG5-096",
+      "localId": "096",
+      "name": "ロケット団のワナ"
+    }
+  ],
+  "id": "PMCG5",
+  "legal": {
+    "expanded": false,
+    "standard": false
+  },
+  "name": "リーダーズスタジアム",
+  "releaseDate": "1998-10-24",
+  "serie": {
+    "id": "PMCG",
+    "name": "ポケットモンスターカードゲーム"
+  }
+}
