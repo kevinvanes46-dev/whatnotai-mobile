@@ -37,6 +37,9 @@
       image:card?(match?.image||raw.image||''):'',
       cardmarketUrl:raw.cardmarketUrl||raw.url||'',url:raw.cardmarketUrl||raw.url||''};
     value.sourceId=value.catalogId=value.source_id;
+    // Remote set titles are metadata; JP display identity belongs to the v160 catalog.
+    const jpSet=card&&window.JPSetCatalog?.identity(value);
+    if(jpSet){value.set=jpSet.key;value.set_name=jpSet.label;value.source_set_id=jpSet.source;}
     value.setName=value.set_name;
     if(!card){value.sourceId='';value.catalogId='';value.exact=false;value.url=value.cardmarketUrl='https://www.cardmarket.com/en/Pokemon/Products/Search?searchString='+encodeURIComponent(value.name);}
     return value;

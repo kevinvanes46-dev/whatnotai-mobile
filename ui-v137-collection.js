@@ -138,6 +138,8 @@
     x.condition=CONDITIONS.includes(String(x.condition||'').toUpperCase())?String(x.condition).toUpperCase():'NM';
     x.variant=VARIANTS.includes(String(x.variant||'').toUpperCase())?String(x.variant).toUpperCase():'NORMAL';
     x.language=String(x.language||'EN').toUpperCase()==='JP'?'JP':'EN';
+    const jpSet=window.JPSetCatalog?.identity(x);
+    if(jpSet){x.set=jpSet.key;x.setName=jpSet.label;}
     x.qty=Math.max(1,Number(x.qty)||1);
     x.paidEach=(x.paidEach===null||x.paidEach===''||x.paidEach===undefined)?null:Number(x.paidEach);
     if(!Number.isFinite(x.paidEach))x.paidEach=null;
