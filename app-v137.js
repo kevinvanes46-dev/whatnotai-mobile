@@ -848,7 +848,7 @@ async function prepareHistoryLink(stored, div){
   if(!div.isConnected)return;
   const route=item.kind==='card' ? await resolveFinalCardmarketRoute({...item,quickText:item.quick||''}) : {url:item.url};
   if(!div.isConnected)return;
-  link.href=route.url||item.url||'#';
+  link.href=route.url||(item.language==='JP'?'#':item.url)||'#';
   link.removeAttribute('aria-disabled');
   const title=div.querySelector('.recentName,.itemTitle'),meta=div.querySelector('.recentMeta,.itemMeta');
   title.textContent=`${item.name || '-'} ${item.number ? '('+item.number+')' : ''}`;
@@ -867,6 +867,11 @@ function renderList(el, key){
   el.innerHTML = '';
   arr.forEach(stored => {
     const item = window.CardIdentity?.normalize(stored) || stored;
+    // A saved Western product URL is not proof of a Japanese product identity.
+    if(item.language==='JP'&&window.JPCardmarketNative){
+      const route=window.JPCardmarketNative.route(item);
+      item.url=route.url;item.cardmarketUrl=route.url;item.exact=route.exact;
+    }
     const div = document.createElement('div');
     div.className = 'item';
     div.innerHTML = `<div class="itemMain"><div class="itemTitle"></div><div class="itemMeta"></div></div><div class="itemActions"><button type="button" class="useBtn">Gebruik</button><a class="openMini" target="_blank" rel="noopener">Open</a><button type="button" class="delBtn">×</button></div>`;

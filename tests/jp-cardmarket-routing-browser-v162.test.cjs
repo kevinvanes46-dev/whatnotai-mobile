@@ -1,7 +1,8 @@
 'use strict';
 const fs=require('node:fs'),http=require('node:http'),path=require('node:path'),assert=require('node:assert/strict');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
-const cases=[['PMCG1-035','BASE','Expansion Pack',273753],['PMCG2-024','JUNGLE','Pokémon Jungle',273857],['neo1-036','NEO GENESIS','Neo Genesis',274470],['PMCG5-036','JP GYM 1',"Leader's Stadium",null]];
+// v162 identity/UI regression, with the corrected v163 Japanese product contract.
+const cases=[['PMCG1-035','BASE','Expansion Pack','Expansion-Pack/Pikachu'],['PMCG2-024','JUNGLE','Pokémon Jungle','Pokemon-Jungle/Pikachu'],['neo1-036','NEO GENESIS','Neo Genesis','Gold-Silver-to-a-New-World/Pikachu-GSNW'],['PMCG5-036','JP GYM 1',"Leader's Stadium",'Leaders-Stadium/Lt-Surges-Pikachu-LST']];
 (async()=>{
   const server=http.createServer((req,res)=>{try{const file=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';res.setHeader('Content-Type',({js:'text/javascript',html:'text/html',css:'text/css',json:'application/json'})[file.split('.').pop()]||'application/octet-stream');res.end(fs.readFileSync(path.resolve(file)));}catch{res.writeHead(404).end();}});
   await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;
@@ -29,9 +30,8 @@ const cases=[['PMCG1-035','BASE','Expansion Pack',273753],['PMCG2-024','JUNGLE',
       assert.equal(await page.locator('#resultOpenBtn').getAttribute('data-cm-route'),state);
       const selected=await page.evaluate(()=>selectedCardIdentity(document.querySelector('#openBtn').href)),url=new URL(selected.url);
       for(const [key,value] of Object.entries({source_id:id,source_set_id:id.split('-')[0],set,set_name:label,language:'JP',condition:'EX',edition:'AUTO',variant:'NORMAL'}))assert.equal(selected[key],value,key);
-      assert.equal(selected.name,product?'ピカチュウ':'マチスのピカチュウ');assert.equal(selected.number,'');
-      if(product){assert.equal(url.pathname,'/en/Pokemon/Products');assert.equal(url.searchParams.get('idProduct'),String(product));assert.equal(url.searchParams.get('language'),'7');assert.equal(url.searchParams.get('minCondition'),'3');}
-      else{assert.equal(url.pathname,'/en/Pokemon/Products/Search');assert.equal(url.searchParams.get('idProduct'),null);}
+      assert.equal(selected.name,id==='PMCG5-036'?'マチスのピカチュウ':'ピカチュウ');assert.equal(selected.number,'');
+      assert.equal(url.pathname,'/en/Pokemon/Products/Singles/'+product);assert.equal(url.searchParams.has('idProduct'),false);assert.equal(url.searchParams.has('language'),false);assert.equal(url.searchParams.get('minCondition'),'3');
       await page.evaluate(()=>makeLink(false));await page.reload();await page.locator('#navRecent').click();
       const recent=page.locator('#recentList .item').first();await recent.locator('.useBtn').waitFor();
       assert.equal(await recent.locator('.openMini').getAttribute('href'),selected.url);await recent.locator('.useBtn').click();
@@ -43,8 +43,31 @@ const cases=[['PMCG1-035','BASE','Expansion Pack',273753],['PMCG2-024','JUNGLE',
       const stored=await page.evaluate(id=>JSON.parse(localStorage.getItem('cardscout_collection_v133')).find(c=>c.sourceId===id),id);
       assert.equal(stored.sourceId,id);assert.equal(stored.language,'JP');assert.equal(stored.set,set);assert.equal(stored.condition,'EX');assert.equal(stored.cardmarketUrl,selected.url);
       assert.ok((await page.locator('#collectionList a').evaluateAll(els=>els.map(el=>el.href))).includes(selected.url));
+      // Persisted v162 links must also recover to native JP routes, without changing identity.
+      await page.evaluate(id=>{
+        const wrong='https://www.cardmarket.com/en/Pokemon/Products?idProduct=273753&language=7';
+        for(const key of ['whatnotai_mobile_recent_v37','cardscout_collection_v133']){
+          const items=JSON.parse(localStorage.getItem(key));for(const item of items)if((item.source_id||item.sourceId)===id){item.url=wrong;item.cardmarketUrl=wrong;item.exact=true;item.verified=true;item.direct=true;}localStorage.setItem(key,JSON.stringify(items));
+        }
+      },id);
+      await page.reload();await page.locator('#navCollection').click();
+      assert.ok((await page.locator('#collectionList a').evaluateAll(els=>els.map(el=>el.href))).includes(selected.url));
+      assert.equal((await page.locator('#collectionList a').evaluateAll(els=>els.map(el=>el.href))).some(url=>url.includes('idProduct=')),false);
+      await page.locator('#navRecent').click();
+      await page.waitForFunction(expected=>document.querySelector('#recentList .item .openMini')?.href===expected,selected.url);
+      await page.locator('#recentList .item .useBtn').first().click();
+      await page.waitForFunction(expected=>document.querySelector('#openBtn')?.href===expected,selected.url);
+      await page.locator('.visiblePreferences [data-value="NM"]').click();
+      await page.waitForFunction(()=>new URL(document.querySelector('#openBtn').href).searchParams.get('minCondition')==='2');
+      assert.equal(new URL(await page.locator('#openBtn').getAttribute('href')).searchParams.has('language'),false);
+      await page.locator('.visiblePreferences [data-value="EX"]').click();
       console.log(`PASS ${id} ${state} ${selected.url}; JP identity, Recent and collection reload`);
     }
+    // An unproven Japanese card remains truthful SEARCH even with a usable Western twin.
+    await page.locator('#quickInput').fill('Bulbasaur');await page.locator('.suggestion').filter({hasText:'PMCG1-001'}).click();
+    await page.waitForFunction(()=>document.querySelector('#openBtn').dataset.cmRoute==='SEARCH');
+    assert.equal(await page.locator('#openBtn span').textContent(),'Bekijk zoekresultaten');
+    assert.equal(new URL(await page.locator('#openBtn').getAttribute('href')).pathname,'/en/Pokemon/Products/Search');
     assert.deepEqual(errors,[]);
   }finally{await browser?.close();await new Promise(r=>server.close(r));}
 })().catch(error=>{console.error(error);process.exitCode=1;});

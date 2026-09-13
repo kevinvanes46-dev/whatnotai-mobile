@@ -124,6 +124,8 @@
     const sourceId=item.sourceId||(item.language==='EN'&&ids?.length===1?ids[0]+'-'+String(item.number).replace(/^0+(?=\d)/,''):'');
     const product=window.CM_PRODUCT_CATALOG?.[sourceId];
     const card={...item,source_id:sourceId,set_name:item.setName};
+    // Re-resolve saved JP links so pre-v163 Western URLs cannot return on reload.
+    if(item.language==='JP'&&window.JPCardmarketNative)return window.JPCardmarketNative.route(card).url;
     if(item.language==='EN'&&product&&typeof matchesCardmarketApiCard==='function'&&matchesCardmarketApiCard(card,product))return withFilters('https://www.cardmarket.com/en/Pokemon/Products?idProduct='+product.product,item.language,item.condition,item.edition);
     return item.cardmarketUrl||'';
   }

@@ -17,7 +17,9 @@ const recent='whatnotai_mobile_recent_v37',collection='cardscout_collection_v133
    // v160 displays the Japanese set label; route identity is the stable source ID.
    const row=page.locator('.suggestion').filter({hasText:'Snubbull'}).filter({hasText:id});await row.waitFor();assert.equal(await row.count(),1);await row.click();
    await page.waitForFunction(()=>document.querySelector('#openBtn').dataset.cmRoute==='EXACT');
-   const url=await page.locator('#openBtn').getAttribute('href');urls.push(url);assert.equal(new URL(url).searchParams.get('idProduct'),product);assert.deepEqual(new URL(url).searchParams.getAll('language'),['7']);
+   const url=await page.locator('#openBtn').getAttribute('href');urls.push(url);
+   assert.equal(new URL(url).pathname,'/en/Pokemon/Products/Singles/'+(id==='neo1-061'?'Gold-Silver-to-a-New-World/Snubbull-GSNW':'Awakening-Legends/Snubbull-AL'));
+   assert.equal(new URL(url).searchParams.has('idProduct'),false);assert.deepEqual(new URL(url).searchParams.getAll('language'),[]);
    const twin=await page.evaluate(()=>JPCardmarketTwin.counterpart(currentCardmarketCard()));assert.equal(twin.number,number);
    assert.equal(await page.locator('#openBtn span').textContent(),'Open Cardmarket');assert.equal(await page.locator('#openBtn small').textContent(),'Direct naar kaart');assert.equal(await page.locator('#selectedCardRoute').textContent(),'Directe Cardmarket-pagina beschikbaar');assert.equal(await page.locator('#resultOpenBtn span').textContent(),'Open Cardmarket');
    await page.locator('#selectedCardArt.artUnavailable').waitFor();assert.equal(await page.locator('#selectedCardArt img').count(),0);

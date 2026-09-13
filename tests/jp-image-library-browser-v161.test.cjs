@@ -66,7 +66,7 @@ const tcgIds=new Set(['PMCG1-002','PMCG1-003','PMCG1-035']);
     const selected=await page.evaluate(()=>selectedCardIdentity(document.querySelector('#openBtn').href));
     for(const [key,value] of Object.entries({source_id:'neo3-038',source_set_id:'neo3',language:'JP',set:'NEO REVELATION',condition:'EX',edition:'AUTO',variant:'NORMAL'}))assert.equal(selected[key],value,key);
     const route=new URL(await page.locator('#openBtn').getAttribute('href'));
-    assert.equal(route.pathname,'/en/Pokemon/Products/Singles/Awakening-Legends/Swinub-AL');assert.equal(route.searchParams.get('language'),'7');assert.equal(route.searchParams.get('minCondition'),'3');
+    assert.equal(route.pathname,'/en/Pokemon/Products/Singles/Awakening-Legends/Swinub-AL');assert.equal(route.searchParams.has('language'),false);assert.equal(route.searchParams.get('minCondition'),'3');
     await page.evaluate(()=>makeLink(false));await page.reload();await page.locator('#navRecent').click();
     await page.locator('#recentList .item img').first().waitFor();assert.equal(await page.locator('#recentList .item img').first().getAttribute('src'),images['neo3-038'].src);
     await page.locator('#recentList .useBtn').first().click();
