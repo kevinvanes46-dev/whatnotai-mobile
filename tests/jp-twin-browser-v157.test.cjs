@@ -14,7 +14,8 @@ const recent='whatnotai_mobile_recent_v37',collection='cardscout_collection_v133
   const urls=[];
   for(const [label,id,number,product] of [['Neo Revelation','neo3-048','55','274641'],['Neo Genesis','neo1-061','74','274474']]){
    await page.locator('#quickInput').fill('snu');
-   const row=page.locator('.suggestion').filter({hasText:'Snubbull'}).filter({hasText:label});assert.equal(await row.count(),1);await row.click();
+   // v160 displays the Japanese set label; route identity is the stable source ID.
+   const row=page.locator('.suggestion').filter({hasText:'Snubbull'}).filter({hasText:id});await row.waitFor();assert.equal(await row.count(),1);await row.click();
    await page.waitForFunction(()=>document.querySelector('#openBtn').dataset.cmRoute==='EXACT');
    const url=await page.locator('#openBtn').getAttribute('href');urls.push(url);assert.equal(new URL(url).searchParams.get('idProduct'),product);assert.deepEqual(new URL(url).searchParams.getAll('language'),['7']);
    const twin=await page.evaluate(()=>JPCardmarketTwin.counterpart(currentCardmarketCard()));assert.equal(twin.number,number);

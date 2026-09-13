@@ -14,11 +14,19 @@
     return set;
   }
   function counterpart(card) {
-    const set=canonicalSet(card),name=nameKey(card.name);
-    // A shared EN/JA source ID is not a cross-language identity or a verified alias.
-    if(!set||!name||!/[a-z]/i.test(name)||/[^\p{Script=Latin}\p{N}\p{P}\p{Z}\p{S}]/u.test(name))return null;
+    const set=canonicalSet(card),sourceName=nameKey(card.name);
+    if(!set||!sourceName)return null;
     const selected=window.CardCatalog?.byId?.(card.source_id||card.sourceId,'JP');
-    if(selected&&(canonicalSet(selected)!==set||nameKey(selected.name)!==name))return null;
+    if(selected&&(canonicalSet(selected)!==set||nameKey(selected.name)!==sourceName))return null;
+    let name=sourceName;
+    if(!/[a-z]/i.test(name)||/[^\p{Script=Latin}\p{N}\p{P}\p{Z}\p{S}]/u.test(name)){
+      // The bundled v158 record supplies an English name for this exact JP ID.
+      // Never infer equivalence from shared EN/JA IDs or search/species aliases.
+      const record=window.JPArtwork?.resolve?.(card),id=card.source_id||card.sourceId;
+      if(!record||record.source_id!==id||record.set!==set||record.source_set_id!==id.slice(0,id.lastIndexOf('-')))return null;
+      name=nameKey(record.name);
+      if(!name||!/[a-z]/i.test(name)||/[^\p{Script=Latin}\p{N}\p{P}\p{Z}\p{S}]/u.test(name))return null;
+    }
     const products=Object.values(window.CM_PRODUCT_CATALOG||{}).filter(p=>p.set?.name===set);
     const catalog=(window.CardCatalog?.marketplaceCards?.()||[]).filter(c=>c.language==='EN'&&c.set===set);
     const rows=[...products.map(p=>({source_id:p.id,name:p.name,number:p.number,set})),...catalog];
@@ -32,8 +40,9 @@
     return {source_id:id,name:match.name,number:String(match.number),set,language:'EN'};
   }
   const engine=resolveFinalCardmarketRoute;
-  function fallback(card) {
-    return {url:card.name?.trim()?searchUrl(card.name,'','JP',card.condition,card.set):'',exact:false,note:'Geen unieke, betrouwbare marketplace-tegenhanger'};
+  function fallback(card,twin) {
+    const name=twin?.name||card.name;
+    return {url:name?.trim()?searchUrl(name,'','JP',card.condition,card.set):'',exact:false,note:'Geen unieke, betrouwbare marketplace-tegenhanger'};
   }
   resolveFinalCardmarketRoute=function(card) {
     if((card.language||card.lang)!=='JP')return engine(card);
@@ -42,7 +51,7 @@
     const twin=counterpart(card);
     if(!twin)return fallback(card);
     const finish=route=>{
-      if(!route?.exact||!validCardmarketRoute(route.url))return fallback(card);
+      if(!route?.exact||!validCardmarketRoute(route.url))return fallback(card,twin);
       const productUrl=new URL(route.url);
       for(const key of ['language','minCondition','isFirstEd'])productUrl.searchParams.delete(key);
       // Only routing uses the counterpart. No autoName/autoSet or EN identity escapes.
