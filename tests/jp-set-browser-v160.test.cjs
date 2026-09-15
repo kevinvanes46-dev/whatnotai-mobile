@@ -46,7 +46,7 @@ const expected=[['PMCG1','BASE','Expansion Pack'],['PMCG2','JUNGLE','Pokémon Ju
    const source=id.slice(0,id.lastIndexOf('-')),[,set,label]=expected.find(r=>r[0]===source);
    assert.equal(selected.source_id,id);assert.equal(selected.source_set_id,source);assert.equal(selected.language,'JP');assert.equal(selected.set,set);assert.equal(selected.set_name,label);
    if(source==='PMCG5')assert.equal(new URL(await page.locator('#openBtn').getAttribute('href')).pathname,'/en/Pokemon/Products/Singles/Leaders-Stadium/Lt-Surges-Pikachu-LST');
-   if(source==='PMCG6')assert.notEqual(await page.locator('#openBtn').getAttribute('data-cm-route'),'EXACT');
+   if(source==='PMCG6')assert.equal(new URL(await page.locator('#openBtn').getAttribute('href')).pathname,'/en/Pokemon/Products/Singles/Challenge-from-the-Darkness/Kogas-Weedle-CFTD');
    console.log(`PASS select ${query}: ${id} / ${label}`);
   }
   await input.fill('Snubbull');for(const id of ['neo1-061','neo3-048'])await page.locator('.suggestion').filter({hasText:id}).waitFor();

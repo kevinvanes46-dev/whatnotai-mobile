@@ -129,7 +129,12 @@
     if(item.language==='EN'&&product&&typeof matchesCardmarketApiCard==='function'&&matchesCardmarketApiCard(card,product))return withFilters('https://www.cardmarket.com/en/Pokemon/Products?idProduct='+product.product,item.language,item.condition,item.edition);
     return item.cardmarketUrl||'';
   }
-  function identityKey(x){return [x.listType,x.language,x.set,x.number,norm(x.name),x.variant,x.edition,x.condition].join('|')}
+  function identityKey(x){
+    const parts=[x.listType,x.language,x.set,x.number,norm(x.name),x.variant,x.edition,x.condition];
+    // Japanese names collapse under the Latin search normalizer; preserve source identity.
+    if(x.language==='JP')parts.push(x.sourceId||x.source_id||String(x.name||'').normalize('NFC'));
+    return parts.join('|');
+  }
 
   function normalizeItem(x){
     if(!x||typeof x!=='object')return null;

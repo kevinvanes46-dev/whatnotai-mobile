@@ -10,6 +10,8 @@ const recent='whatnotai_mobile_recent_v37',collection='cardscout_collection_v133
   const page=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'}),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   await page.route('**/*',r=>{const u=new URL(r.request().url());if(u.hostname==='127.0.0.1')return r.continue();if(u.hostname==='api.tcgdex.net'){const p=u.pathname.split('/'),f=`tests/fixtures/artwork-v155/${p[2]}-${p.at(-1)}${p[3]==='sets'?'-set':''}.json`;return r.fulfill({json:fs.existsSync(f)?JSON.parse(fs.readFileSync(f)):{cards:[]}});}return r.abort();});
+  // Keep this UI test's deliberately unmapped fixture after v165 adds the real product.
+  await page.route('**/jp-cardmarket-native-v165.js?*',r=>r.fulfill({contentType:'text/javascript',body:fs.readFileSync('jp-cardmarket-native-v165.js','utf8').replace(/^.*Object\.freeze\(\["neo1-061".*\r?\n/m,'')}));
   await page.goto('http://127.0.0.1:'+server.address().port);
   await page.locator('.visiblePreferences [data-value="JP"]').click();
   await page.waitForFunction(()=>window.CardCatalog?.byId('neo1-061','JP'));

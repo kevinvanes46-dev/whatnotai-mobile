@@ -63,8 +63,8 @@ const cases=[['PMCG1-035','BASE','Expansion Pack','Expansion-Pack/Pikachu'],['PM
       await page.locator('.visiblePreferences [data-value="EX"]').click();
       console.log(`PASS ${id} ${state} ${selected.url}; JP identity, Recent and collection reload`);
     }
-    // An unproven Japanese card remains truthful SEARCH even with a usable Western twin.
-    await page.locator('#quickInput').fill('Bulbasaur');await page.locator('.suggestion').filter({hasText:'PMCG1-001'}).click();
+    // v165 now proves Bulbasaur. Keep the fallback assertion on an audited SEARCH record.
+    await page.locator('#quickInput').fill('基本草エネルギー');await page.locator('.suggestion').filter({hasText:'PMCG1-097'}).click();
     await page.waitForFunction(()=>document.querySelector('#openBtn').dataset.cmRoute==='SEARCH');
     assert.equal(await page.locator('#openBtn span').textContent(),'Bekijk zoekresultaten');
     assert.equal(new URL(await page.locator('#openBtn').getAttribute('href')).pathname,'/en/Pokemon/Products/Search');

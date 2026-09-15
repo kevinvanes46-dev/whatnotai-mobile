@@ -33,6 +33,7 @@
       if([card.source_id,card.sourceId,card.catalogId].some(value=>value&&value!==id))return null;
       const matches=byId.get(id);if(matches?.length!==1)return null;
       const [,source,product]=matches[0],expansion=sets[source],identity=window.JPSetCatalog?.identity(card);
+      if([card.source_set_id,card.sourceSetId].some(value=>value&&value!==source))return null;
       if(!identity||identity.source!==source||id.slice(0,id.lastIndexOf('-'))!==source||!expansion||identity.key!==expansion.set)return null;
       if(productCounts.get(expansion.slug+'/'+product)!==1)return null;
       if(card.set&&card.set!=='AUTO'&&card.set!==expansion.set)return null;
@@ -43,7 +44,10 @@
       return {pathname,source_id:id,source_set_id:source,expansion:expansion.slug};
     };
   }
-  const resolve=createResolver(expansions,products);
+  // Production uses the reviewed v165 manifest. The seven proven v163 routes
+  // remain the safe compatibility fallback when this file is loaded on its own.
+  const data=window.JPCardmarketDataV165;
+  const resolve=createResolver(data?.expansions||expansions,data?.products||products);
   function route(card={}){
     const product=resolve(card);
     if(!product){
