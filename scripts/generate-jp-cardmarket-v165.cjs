@@ -1,6 +1,7 @@
 'use strict';
 // The reviewed audit is the source of truth. Never derive a product slug from a name.
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const {normalizeLineEndings}=require('./normalize-line-endings.cjs');
 const root=path.resolve(__dirname,'..');
 const audit=JSON.parse(fs.readFileSync(path.join(root,'data/jp-cardmarket-audit-v165.json'),'utf8'));
 const products=[],ids=new Set(),urls=new Set();
@@ -24,6 +25,6 @@ const expansions=Object.fromEntries(Object.entries(audit.expansions).map(([id,e]
 const output="'use strict';\n// Generated from data/jp-cardmarket-audit-v165.json; run node scripts/generate-jp-cardmarket-v165.cjs.\n"+
  'window.JPCardmarketDataV165=Object.freeze({\n  expansions:'+JSON.stringify(expansions)+',\n  products:[\n'+products.map(r=>'    Object.freeze('+JSON.stringify(r)+')').join(',\n')+'\n  ]\n});\nObject.values(window.JPCardmarketDataV165.expansions).forEach(Object.freeze);\nObject.freeze(window.JPCardmarketDataV165.expansions);\nObject.freeze(window.JPCardmarketDataV165.products);\n';
 const target=path.join(root,'jp-cardmarket-native-v165.js');
-if(process.argv.includes('--check'))assert.equal(fs.readFileSync(target,'utf8'),output,'manifest differs from reviewed audit');
+if(process.argv.includes('--check'))assert.equal(normalizeLineEndings(fs.readFileSync(target,'utf8')),normalizeLineEndings(output),'manifest differs from reviewed audit');
 else fs.writeFileSync(target,output);
 console.log(`v165 manifest: ${products.length} EXACT; ${audit.records.length-products.length} SEARCH`);
