@@ -1,0 +1,41 @@
+name: RareWorth regression CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: scripts/package-lock.json
+      - name: Install locked dependencies
+        run: npm ci --prefix scripts
+      - name: Install Chromium only
+        run: node scripts/node_modules/playwright/cli.js install --with-deps chromium
+      - name: JavaScript syntax
+        run: node scripts/check-ci.cjs syntax
+      - name: Diff whitespace
+        run: node scripts/check-ci.cjs diff
+        env:
+          CI_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+      - name: Generated manifest consistency
+        run: node scripts/generate-jp-cardmarket-v165.cjs --check
+      - name: Line-ending regression tests
+        run: node --test tests/line-ending-checks-v166.test.cjs
+      - name: JP audit counts (780 / 397 / 383)
+        run: node scripts/check-ci.cjs audit
+      - name: Core regressions and Chromium browser smoke
+        # Includes the fixture-only v165 search, Recent, Collection and reload suite.
+        run: node scripts/check-ci.cjs core
