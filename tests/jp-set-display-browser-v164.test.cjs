@@ -18,7 +18,7 @@ const cases=[['neo1-036','NEO GENESIS','Neo Genesis','金、銀、新世界へ..
    }
    return r.abort();
   });
-  await page.goto('http://127.0.0.1:'+server.address().port);await page.locator('.visiblePreferences [data-value="JP"]').click();await page.waitForFunction(()=>CardCatalog.byId('neo4-001','JP'));await page.locator('.visiblePreferences [data-value="EX"]').click();
+  await page.goto('http://127.0.0.1:'+server.address().port);await page.locator('.visiblePreferences [data-value="JP"]').click();await page.waitForFunction(()=>window.CardCatalog?.byId?.('neo4-001','JP'));await page.locator('.visiblePreferences [data-value="EX"]').click();
   for(const [id,set,label,foreign,product] of cases){
    await page.locator('#navSearch').click();await page.locator('#quickInput').fill(id==='neo3-038'?'Swinub':'Pikachu');await page.locator('.suggestion').filter({hasText:id}).click();
    const expected='https://www.cardmarket.com/en/Pokemon/Products/Singles/'+product+'?minCondition=3';
