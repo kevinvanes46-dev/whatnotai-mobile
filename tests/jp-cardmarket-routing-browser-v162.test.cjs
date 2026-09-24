@@ -20,7 +20,7 @@ const cases=[['PMCG1-035','BASE','Expansion Pack','Expansion-Pack/Pikachu'],['PM
       return r.abort();
     });
     await page.goto('http://127.0.0.1:'+server.address().port);
-    await page.locator('.visiblePreferences [data-value="JP"]').click();await page.waitForFunction(()=>CardCatalog.byId('neo4-001','JP'));
+    await page.locator('.visiblePreferences [data-value="JP"]').click();await page.waitForFunction(()=>window.CardCatalog?.byId?.('neo4-001','JP'));
     await page.locator('.visiblePreferences [data-value="EX"]').click();
     for(const [id,set,label,product] of cases){
       await page.locator('#navSearch').click();

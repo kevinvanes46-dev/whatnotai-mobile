@@ -58,7 +58,7 @@ const tcgIds=new Set(['PMCG1-002','PMCG1-003','PMCG1-035']);
     await page.evaluate(()=>RareWorthJPImageLibrary.config.allowExternalBeta=true);broken.clear();
     console.log('PASS TCGDEX, EXTERNAL_BETA, MISSING; broken own fallback and beta disable without cached leakage');
     await page.locator('#v161-art').evaluate(el=>el.remove());
-    await page.locator('.visiblePreferences [data-value="JP"]').click();await page.waitForFunction(()=>CardCatalog.byId('neo4-001','JP'));
+    await page.locator('.visiblePreferences [data-value="JP"]').click();await page.waitForFunction(()=>window.CardCatalog?.byId?.('neo4-001','JP'));
     await page.locator('#quickInput').fill('Pikachu');
     for(const id of pikachu){const row=page.locator('.suggestion').filter({hasText:id});await row.waitFor();await row.scrollIntoViewIfNeeded();try{await row.locator('img').waitFor({state:'attached',timeout:8000});}catch(error){throw Error(JSON.stringify(await page.evaluate(id=>({card:CardCatalog.byId(id,'JP'),own:RareWorthJPImageLibrary.own(CardCatalog.byId(id,'JP'))}),id))+' '+await row.evaluate(el=>el.outerHTML));}assert.equal(await row.locator('img').getAttribute('src'),images[id].src);}
     await page.locator('.visiblePreferences [data-value="EX"]').click();await page.locator('#quickInput').fill('swinub');

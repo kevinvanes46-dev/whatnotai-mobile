@@ -9,7 +9,7 @@ const cases=(process.env.JP_TEST_IDS?.split(',')||['PMCG1-035','PMCG2-024','neo1
  try{
   browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH});const page=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'}),errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.route('**/*',r=>{const u=new URL(r.request().url());if(u.hostname==='127.0.0.1')return r.continue();if(u.hostname==='api.tcgdex.net'){const p=u.pathname.split('/'),file=`tests/fixtures/jp-sets-v160/${p.at(-1)}.json`;if(p[2]==='ja'&&p[3]==='sets'&&fs.existsSync(file))return r.fulfill({json:JSON.parse(fs.readFileSync(file))});return r.fulfill({json:p[3]==='sets'?{cards:[]}:{}});}return r.abort();});
-  await page.goto('http://127.0.0.1:'+server.address().port);await page.locator('.visiblePreferences [data-value="JP"]').click();await page.waitForFunction(()=>CardCatalog.byId('neo4-001','JP'));
+  await page.goto('http://127.0.0.1:'+server.address().port);await page.locator('.visiblePreferences [data-value="JP"]').click();await page.waitForFunction(()=>window.CardCatalog?.byId?.('neo4-001','JP'));
   for(const row of cases)for(const [condition,filter] of [['EX','3'],['NM','2']]){
    await page.locator('#navSearch').click();await page.locator(`.visiblePreferences [data-value="${condition}"]`).click();await page.locator('#quickInput').fill(row.jp_name);await page.locator('.suggestion').filter({hasText:row.source_id}).click();
    await page.waitForFunction(state=>document.querySelector('#openBtn').dataset.cmRoute===state,row.route);
