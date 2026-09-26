@@ -39,3 +39,5 @@ jobs:
       - name: Core regressions and Chromium browser smoke
         # Includes the fixture-only v165 search, Recent, Collection and reload suite.
         run: node scripts/check-ci.cjs core
+      - name: Product shell and mobile smoke
+        run: node --test tests/product-shell-v168.test.cjs

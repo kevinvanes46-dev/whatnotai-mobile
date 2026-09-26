@@ -1,16 +1,16 @@
 {
-  "name": "Rareworth — Pokémon TCG",
-  "short_name": "Rareworth",
+  "name": "RareWorth — Pokémon TCG",
+  "short_name": "RareWorth",
   "icons": [
     {"src":"icon-rareworth-192.png?build=152","sizes":"192x192","type":"image/png"},
     {"src":"icon-rareworth-512.png?build=152","sizes":"512x512","type":"image/png"}
   ],
-  "start_url": "./?build=137-collection-pro#search",
+  "start_url": "./#search",
   "scope": "./",
   "display": "standalone",
   "background_color": "#0c1114",
   "theme_color": "#0c1114",
-  "description": "Pokémon TCG snelzoeken, stamped zoeken, wishlist en collectiebeheer.",
+  "description": "Pokémon TCG-kaarten zoeken, Cardmarket controleren en je wishlist en collectie lokaal beheren.",
   "id": "./",
   "display_override": [
     "standalone",
