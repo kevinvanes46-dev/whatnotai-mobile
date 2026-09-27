@@ -20,7 +20,7 @@ test('v168 shell metadata, navigation and product script order',()=>{
     'cardmarket-products-v152.js','card-identity-v154.js','app-v137.js','jp-cardmarket-twin-v157.js',
     'jp-artwork-v158.js','cardmarket-ui-v156.js','jp-set-catalog-v160.js','jp-cardmarket-native-v165.js',
     'jp-cardmarket-native-v163.js','jp-image-manifest-v161.js','jp-image-library-v161.js','ui-v137-focus.js',
-    'ui-v137-collection.js','ui-v150-experience.js','ui-v154-keyboard.js','ui-v153-mobile.js']);
+    'ui-v137-collection.js','ui-v150-experience.js','ui-v154-keyboard.js','ui-v153-mobile.js','pwa-v169.js']);
   assert.match(fs.readFileSync('ui-v137-collection.js','utf8'),/cardscout_collection_v133/);
 });
 

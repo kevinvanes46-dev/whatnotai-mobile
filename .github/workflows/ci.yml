@@ -41,3 +41,5 @@ jobs:
         run: node scripts/check-ci.cjs core
       - name: Product shell and mobile smoke
         run: node --test tests/product-shell-v168.test.cjs
+      - name: PWA lifecycle and offline Chromium smoke
+        run: node --test tests/pwa-v169.test.cjs

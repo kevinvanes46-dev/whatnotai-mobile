@@ -983,23 +983,6 @@ function bind(){
   [setSelect,langSelect,condSelect,editionSelect].filter(Boolean).forEach(el => el.addEventListener('change', () => makeLink(true)));
 }
 
-async function unregisterOldServiceWorkers(){
-  if(!('serviceWorker' in navigator)) return;
-  try {
-    const appPath = new URL('./', window.location.href).pathname;
-    const regs = await navigator.serviceWorker.getRegistrations();
-    await Promise.all(regs
-      .filter(r => {
-        try { return new URL(r.scope).pathname.startsWith(appPath); }
-        catch(e) { return false; }
-      })
-      .map(r => r.unregister()));
-    const keys = await caches.keys();
-    await Promise.all(keys
-      .filter(k => k.startsWith('whatnotai-mobile') || k.startsWith('cardscout'))
-      .map(k => caches.delete(k)));
-  } catch(e) {}
-}
 
 
 // ---------------- Photo + Local OCR + Guided Scan v74 ----------------
@@ -2161,4 +2144,3 @@ initCustomSelects();
 bind();
 renderSaved();
 setStatus('Klaar.', 'ok');
-unregisterOldServiceWorkers();

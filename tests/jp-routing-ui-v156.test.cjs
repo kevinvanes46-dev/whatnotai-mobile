@@ -3,15 +3,19 @@ const fs=require('node:fs'),http=require('node:http'),path=require('node:path'),
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const recent='whatnotai_mobile_recent_v37',collection='cardscout_collection_v133';
 (async()=>{
- const server=http.createServer((req,res)=>{try{const f=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';res.setHeader('Content-Type',({js:'text/javascript',html:'text/html',css:'text/css',json:'application/json'})[f.split('.').pop()]||'application/octet-stream');res.end(fs.readFileSync(path.resolve(f)));}catch{res.writeHead(404).end();}});
+ const server=http.createServer((req,res)=>{try{
+  const f=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';
+  res.setHeader('Content-Type',({js:'text/javascript',html:'text/html',css:'text/css',json:'application/json'})[f.split('.').pop()]||'application/octet-stream');
+  // Keep the unmapped v156 fixture identical for page and service-worker requests.
+  if(f==='jp-cardmarket-native-v165.js')return res.end(fs.readFileSync(f,'utf8').replace(/^.*Object\.freeze\(\["neo1-061".*\r?\n/m,''));
+  res.end(fs.readFileSync(path.resolve(f)));
+ }catch{res.writeHead(404).end();}});
  await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;
  try{
   browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH});
   const page=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'}),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   await page.route('**/*',r=>{const u=new URL(r.request().url());if(u.hostname==='127.0.0.1')return r.continue();if(u.hostname==='api.tcgdex.net'){const p=u.pathname.split('/'),f=`tests/fixtures/artwork-v155/${p[2]}-${p.at(-1)}${p[3]==='sets'?'-set':''}.json`;return r.fulfill({json:fs.existsSync(f)?JSON.parse(fs.readFileSync(f)):{cards:[]}});}return r.abort();});
-  // Keep this UI test's deliberately unmapped fixture after v165 adds the real product.
-  await page.route('**/jp-cardmarket-native-v165.js?*',r=>r.fulfill({contentType:'text/javascript',body:fs.readFileSync('jp-cardmarket-native-v165.js','utf8').replace(/^.*Object\.freeze\(\["neo1-061".*\r?\n/m,'')}));
   await page.goto('http://127.0.0.1:'+server.address().port);
   await page.locator('.visiblePreferences [data-value="JP"]').click();
   await page.waitForFunction(()=>window.CardCatalog?.byId('neo1-061','JP'));

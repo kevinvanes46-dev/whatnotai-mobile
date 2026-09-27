@@ -11,6 +11,11 @@ const tcgIds=new Set(['PMCG1-002','PMCG1-003','PMCG1-035']);
 (async()=>{
   const server=http.createServer((req,res)=>{try{
     const f=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';
+    // Serve the fixture to both the page and the real service worker after reload.
+    if(f==='jp-image-manifest-v161.js'){
+      res.setHeader('Content-Type','text/javascript');
+      return res.end('window.RareWorthJPImageManifest='+JSON.stringify({catalog,images})+';');
+    }
     res.setHeader('Content-Type',({js:'text/javascript',html:'text/html',css:'text/css',json:'application/json'})[f.split('.').pop()]||'application/octet-stream');res.end(fs.readFileSync(path.resolve(f)));
   }catch{res.writeHead(404).end();}});
   await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;
@@ -20,7 +25,6 @@ const tcgIds=new Set(['PMCG1-002','PMCG1-003','PMCG1-035']);
     page.on('pageerror',e=>errors.push(e.message));
     await page.route('**/*',r=>{
       const url=new URL(r.request().url());requests.push(url.href);
-      if(url.pathname.endsWith('/jp-image-manifest-v161.js'))return r.fulfill({contentType:'text/javascript',body:'window.RareWorthJPImageManifest='+JSON.stringify({catalog,images})+';'});
       if(url.pathname.includes('/assets/cards/jp/'))return broken.has(path.basename(url.pathname,'.webp'))?r.fulfill({status:404,body:'missing'}):r.fulfill({contentType:'image/png',body:pixel});
       if(url.hostname==='127.0.0.1')return r.continue();
       if(['assets.tcgdex.net','cdn.artofpkm.com'].includes(url.hostname))return r.fulfill({contentType:'image/png',body:pixel});
