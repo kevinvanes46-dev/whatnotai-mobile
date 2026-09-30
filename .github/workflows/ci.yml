@@ -43,3 +43,5 @@ jobs:
         run: node --test tests/product-shell-v168.test.cjs
       - name: PWA lifecycle and offline Chromium smoke
         run: node --test tests/pwa-v169.test.cjs
+      - name: Cloud sync schema and conflict foundation
+        run: node --test tests/cloud-sync-v170.test.cjs tests/cloud-schema-v170.test.cjs
