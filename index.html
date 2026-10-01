@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="style-v150-minimal.css?build=168-product-shell-cleanup" />
   <link rel="manifest" href="manifest.json?build=168-product-shell-cleanup" />
   <link rel="stylesheet" href="style-v153-mobile.css?build=168-product-shell-cleanup" />
+  <link rel="stylesheet" href="account-v170.css?build=170b-account-cloud-sync" />
 </head>
 <body>
   <div class="ambient" aria-hidden="true"><span></span><span></span></div>
@@ -258,14 +259,30 @@
         </section>
 
 
-        <section class="surface settingsCard collectionBackupCard">
+        <section class="surface settingsCard accountCard" id="accountCard" aria-labelledby="accountHeading">
+        <div class="sectionTitle"><div><span class="eyebrow">Optioneel</span><h3 id="accountHeading">Account &amp; cloud backup</h3></div></div>
+        <p class="settingsCopy">Bewaar je collectie veilig in de cloud en herstel hem op een ander apparaat.</p>
+        <form id="accountForm">
+          <label for="accountEmailInput">E-mailadres</label>
+          <input id="accountEmailInput" type="email" autocomplete="email" inputmode="email" required placeholder="jij@voorbeeld.nl" />
+          <button id="accountSend" type="submit" class="primary">Stuur inloglink</button>
+        </form>
+        <div id="accountSignedIn" hidden>
+          <b id="accountEmail"></b>
+          <div class="accountActions"><button id="accountRefresh" type="button">Cloudstatus controleren</button><button id="accountSignOut" type="button">Uitloggen</button></div>
+        </div>
+        <p id="accountStatus" role="status" aria-live="polite"></p>
+        <div class="accountActions"><button id="accountSync" type="button" class="primary" hidden></button></div>
+      </section>
+
+      <section class="surface settingsCard collectionBackupCard">
           <div class="sectionTitle"><div><span class="eyebrow">Collectie</span><h3>Backup & herstel</h3></div></div>
           <p class="settingsCopy">Je collectie blijft lokaal op dit toestel. Exporteer af en toe een backup zodat je nooit je lijst kwijt bent.</p>
           <div class="backupActions"><button type="button" id="collectionExportBtn">Exporteer JSON</button><button type="button" id="collectionImportBtn">Importeer</button><button type="button" id="collectionClearBtn" class="danger">Wis collectie</button></div>
           <input type="file" id="collectionImportFile" accept="application/json,.json" hidden />
         </section>
 
-        <section class="surface aboutCard"><div><b>RareWorth</b><small>Je kaarten. Goed bewaard.</small><small>Collectie lokaal opgeslagen</small></div><div class="aboutMeta"><span>v168 · Beta</span></div></section>
+        <section class="surface aboutCard"><div><b>RareWorth</b><small>Je kaarten. Goed bewaard.</small><small>Collectie lokaal opgeslagen</small></div><div class="aboutMeta"><span>v170 · Beta</span></div></section>
       </section>
     </div>
   </main>
@@ -364,6 +381,11 @@
   <script src="ui-v150-experience.js?build=161-jp-image-library"></script>
   <script src="ui-v154-keyboard.js?build=154-keyboard"></script>
   <script src="ui-v153-mobile.js?build=154-keyboard"></script>
+  <script src="cloud-sync-v170.js?build=170b-account-cloud-sync"></script>
+  <script src="supabase-config-v170.js?build=170b-account-cloud-sync"></script>
+  <script src="supabase-client-v170.js?build=170b-account-cloud-sync"></script>
+  <script src="cloud-adapter-v170.js?build=170b-account-cloud-sync"></script>
+  <script src="account-ui-v170.js?build=170b-account-cloud-sync"></script>
   <script src="pwa-v169.js?build=169-pwa-foundation"></script>
 </body>
 </html>

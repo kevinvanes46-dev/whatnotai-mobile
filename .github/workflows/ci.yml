@@ -45,3 +45,5 @@ jobs:
         run: node --test tests/pwa-v169.test.cjs
       - name: Cloud sync schema and conflict foundation
         run: node --test tests/cloud-sync-v170.test.cjs tests/cloud-schema-v170.test.cjs
+      - name: Optional account, sync safety and mocked Chromium
+        run: node --test tests/account-cloud-v170b.test.cjs tests/account-cloud-browser-v170b.test.cjs

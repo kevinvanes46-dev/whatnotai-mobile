@@ -61,25 +61,33 @@ test('SQL is transactional and rerunnable without dropping tables or seeding use
   assert.equal((sql.match(/drop policy if exists /g)||[]).length,4);
   assert.match(sql,/drop trigger if exists rareworth_snapshot_updated_at on public\.rareworth_collection_snapshots/);
 });
-test('loaded production files, storage key and PWA remain byte-equivalent to v169',()=>{
+test('v170B integration preserves every existing product engine and storage key',()=>{
   const baseline='604071a8cb8e24f4ef3f5ec03c3fc4991163a0b9';
-  const html=fs.readFileSync('index.html','utf8');assert.doesNotMatch(html,/cloud-sync-v170/);
-  const files=['index.html','sw.js','pwa-v169.js','manifest.json',...[...html.matchAll(/<script src="([^?]+)\?/g)].map(m=>m[1])];
+  const html=fs.readFileSync('index.html','utf8');assert.match(html,/cloud-sync-v170/);
+  const files=['pwa-v169.js','manifest.json',...[...html.matchAll(/<script src="([^?]+)\?/g)].map(m=>m[1]).filter(file=>!['cloud-sync-v170.js','supabase-config-v170.js','supabase-client-v170.js','cloud-adapter-v170.js','account-ui-v170.js'].includes(file))];
   for(const file of new Set(files)){
     const before=execFileSync('git',['show',baseline+':'+file],{encoding:'utf8',maxBuffer:16*1024*1024});
     assert.equal(fs.readFileSync(file,'utf8').replace(/\r\n?/g,'\n'),before.replace(/\r\n?/g,'\n'),file);
   }
-  assert.match(fs.readFileSync('sw.js','utf8'),/rareworth-shell-v169/);
-  assert.doesNotMatch(fs.readFileSync('sw.js','utf8'),/cloud-sync-v170/);
+  assert.match(fs.readFileSync('sw.js','utf8'),/rareworth-shell-v170/);
+  assert.match(fs.readFileSync('sw.js','utf8'),/cloud-sync-v170/);
   assert.match(fs.readFileSync('ui-v137-collection.js','utf8'),/cardscout_collection_v133/);
 });
-test('repository has no embedded Supabase config, private key or JWT credential patterns',()=>{
+test('repository permits only the exact public config; no secret/private/JWT credentials',()=>{
   const files=execFileSync('git',['ls-files','-z'],{encoding:'utf8'}).split('\0').filter(Boolean);
-  files.push(file,'cloud-sync-v170.js','docs/CLOUD-SYNC-V170.md');
+  files.push(file,'cloud-sync-v170.js','docs/CLOUD-SYNC-V170.md','supabase-config-v170.js');
   const patterns=[/https?:\/\/[a-z0-9-]+\.supabase\.(?:co|in)\b/i,/\bsb_(?:secret|publishable)_[a-z0-9_-]{12,}/i,/\beyJ[a-zA-Z0-9_-]{12,}\.[a-zA-Z0-9_-]{12,}\.[a-zA-Z0-9_-]{12,}/,/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/];
   for(const file of new Set(files)){
     if(!/\.(?:js|cjs|json|sql|md|html|ya?ml|toml|env)$/i.test(file))continue;
-    const content=fs.readFileSync(file,'utf8');
+    let content=fs.readFileSync(file,'utf8');
+    if(file==='supabase-config-v170.js'){
+      const context={};require('node:vm').runInNewContext(content,context);
+      const config=context.RareWorthSupabaseConfig;
+      const digest=value=>require('node:crypto').createHash('sha256').update(value).digest('hex');
+      assert.equal(digest(config.url),'30ed471aa6d66b733c15355f0f363d4518a2a7e3ff2ae6c29deea2b7fb0758eb');
+      assert.equal(digest(config.publishableKey),'ce54dc44d3e5ba3f648c6ef56a659e5e6adcb9ffb6f6b96aeea02e37fd9bd6cd');
+      content=content.replace(config.url,'[approved-public-url]').replace(config.publishableKey,'[approved-publishable-key]');
+    }
     for(const pattern of patterns)assert.equal(pattern.test(content),false,'Credential/config pattern in '+file);
   }
 });

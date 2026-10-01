@@ -1,11 +1,11 @@
-# RareWorth v170A: dormant cloud snapshot contract
+# RareWorth v170B: optional account and collection sync
 
-This release contains no live backend, Supabase project/configuration, credentials,
-network adapter, auth, UI or automatic synchronization. `cloud-sync-v170.js` is **not**
-loaded by `index.html` and is not in the service-worker cache. Existing product scripts,
-`rareworth-shell-v169`, Recent, favorites and the `cardscout_collection_v133` key are unchanged.
-Local-first operation without an account remains the default. No migration reads or writes
-browser storage. Do not replace localStorage with the snapshot envelope.
+The dedicated RareWorth Supabase project already exists. The user reports that the v170A
+backend migration, RLS isolation and CAS have been applied and tested. This branch does
+not apply migrations, configure Auth, send live mail or create users.
+
+Local-first operation without an account remains the default. Collection storage stays
+an array at `cardscout_collection_v133`; Recent, favorites and backups remain local.
 
 ## Snapshot and ownership
 
@@ -17,12 +17,12 @@ browser storage. Do not replace localStorage with the snapshot envelope.
 | payload | Non-null JSON array; the existing collection objects, including unknown fields |
 | revision | Positive bigint, initially 1, incremented by the save RPC |
 | schema_version | Nonempty text, defaults to `v133`; no new card schema |
-| device_id | Optional opaque text supplied by a future adapter |
+| device_id | Optional opaque text generated on explicit upload |
 | created_at / updated_at | Server timestamps; update trigger sets `updated_at = now()` |
 
 No email, password or payment columns are defined. Collection purchase-price fields are
 preserved as collection data. Arbitrary future fields remain intact; the contract cannot
-recognize secrets placed inside an arbitrary JSON payload. Future adapters must upload
+recognize secrets placed inside an arbitrary JSON payload. Adapters upload
 only the collection array, never account/session objects or all localStorage.
 
 Ownership is enforced by RLS, not by a browser-provided owner ID. Each SELECT/INSERT/UPDATE/DELETE
@@ -79,12 +79,12 @@ JSON copies; neither inputs nor nested collection fields are mutated.
   new sync basis. It is a proposal, not permission to overwrite existing local data.
 
 Revisions normalize to decimal strings in the range 0..9223372036854775807. Unsafe numeric
-JavaScript revisions are rejected. A future adapter reading raw table rows must preserve
+JavaScript revisions are rejected. The read RPC preserves
 bigint precision (request revision as text); do not round large revisions through Number.
 
 The sync basis is `{revision, signature}` from the last **confirmed** common snapshot.
 `{revision: '0', signature: null}` denotes confirmed absence before the first save.
-Keep basis metadata outside the existing collection array/key in a future integration.
+Basis metadata lives outside the collection array in `rareworth_cloud_sync_v170`.
 
 | Situation | State |
 | --- | --- |
@@ -131,35 +131,89 @@ Unknown collection fields are kept. Non-JSON input (undefined, functions, symbol
 accessors, Date/class instances, sparse/extended arrays or nonfinite numbers) is rejected
 instead of silently stripping fields. Invalid payloads never become an empty collection.
 
-## Future configuration and v170B
+## Optional integration and deployment prerequisites
 
-No actual Supabase URL, project ID or key is present. v170B will add account/auth UI and
-a real adapter, separately reviewed. A publishable key may be client-side later; it is not
-authorization without the user's session and RLS. A service_role key or secret key must
-never enter browser code, this repository or client-visible configuration.
+Account & cloud backup lives in Meer. No account is required to use Search, Collection,
+Recent or backups. First login reads and classifies; it never chooses upload/download.
+Conflicts have no overwrite action: use Backup & herstel. An empty unbound local array
+can explicitly restore cloud data. Clearing a previously synced array remains a local edit.
 
-Before any real integration: apply and test the migration in an isolated backend, verify
-anon denial and two-user isolation through the actual Data API, and exercise simultaneous
-writers. Use the explicit grants; do not rely on project default privileges. No anonymous
-sign-in is configured here. The database `anon` role is distinct from an Auth anonymous
-user, which can receive the authenticated role; v170B must choose its auth policy explicitly.
+The modern publishable browser key is frozen in supabase-config-v170.js. It is public
+configuration, not privileged authorization. Only that exact config is permitted by the
+credential regression. A service_role key, sb_secret key, database password or private
+JWT must never be embedded. Documentation intentionally does not duplicate the key.
 
-Future UI must require an explicit choice on conflicts. Recheck local content immediately
-before applying any confirmed download, and only advance the sync basis after an acknowledged
-save/download. No failure may clear local storage. Do not sync Recent or favorites implicitly.
+Official @supabase/supabase-js **2.117.2** is loaded lazily from the npm package's
+**dist/umd/supabase.js** through jsDelivr, with an exact URL and SHA-384 SRI. The CDN
+bytes were compared with the official npm tarball. No bundler/vendor dependency was
+added. The SDK owns PKCE, sessions, refresh and logout. No tokens are manually stored
+by the account modules. The browser package is only needed after account opt-in or
+an Auth callback; visiting Meer as a local-only user makes no SDK request. A local
+opt-in marker allows a returning user to resume the SDK session when opening Meer.
+Offline startup never loads the SDK. A blocked CDN reports an account error without
+blocking the local app. SDK API usage: getSession, onAuthStateChange, signInWithOtp
+with shouldCreateUser:true, and signOut with scope:local. Async work is deferred out
+of Auth callbacks to avoid the SDK's session lock.
 
-## Validation scope
+Before deployment, configure Supabase Auth **separately**:
 
-The Node tests validate the pure engine, JSON preservation, conflicts, dormant production
-integration and SQL text contract. They require no credentials or network calls. SQL checks
-are **static**, not a live RLS/concurrency test. No local PostgreSQL/Supabase runtime is assumed,
-and this migration is not applied in CI or production. CREATE TABLE IF NOT EXISTS and replacement
-of this migration's own policies/functions/trigger make a same-schema rerun safe. It is not a
-repair migration for a pre-existing incompatible table. There is no DROP TABLE, data migration
-or seed user.
+- Production Site URL: https://kevinvanes46-dev.github.io/whatnotai-mobile/
+- Allow that exact production folder URL as an Auth redirect.
+- Allow explicit localhost development URLs only when needed. Runtime redirects use
+  the current app folder, removing query/hash/index.html, never hardcoding production.
+- Review and apply 20261001_rareworth_cloud_read_v170b.sql separately. It has no
+  arguments, derives ownership from auth.uid(), returns null for no row, casts revision
+  to text, uses invoker/RLS and an empty search_path, and grants execution only to
+  authenticated. This branch tests SQL statically; it does not claim live validation.
+- Verify mail delivery and the reviewed production redirect after configuration.
 
-References checked for the contract:
+## Sync safety
 
-- [Supabase RLS, grants and ownership](https://supabase.com/docs/guides/database/postgres/row-level-security)
-- [Supabase database functions and privileges](https://supabase.com/docs/guides/database/functions)
-- [Explicit table exposure/grants change](https://supabase.com/changelog/45329-breaking-change-tables-not-exposed-to-data-and-graphql-api-automatically)
+cloud-sync-v170.js remains the unchanged pure engine. supabase-client-v170.js owns
+SDK/auth, cloud-adapter-v170.js owns the two RPCs and separate metadata, and
+account-ui-v170.js owns presentation. Existing product scripts keep their order.
+Only the collection array goes to the save RPC, never a whole storage dump.
+
+Metadata contains boundUserId and per-user confirmed revision/signature/schema/timestamp.
+Device ID uses crypto.randomUUID() only on upload, in rareworth_device_id_v170.
+A conservative ownership guard is persisted before an explicit write, separately from
+its basis: even a cancelled/failed request cannot make an A-bound device eligible for B.
+No revision/signature advances at request start, on failure or on conflict. A confirmed
+basis is saved only after SAVED or an explicit safe local download. Storage errors fail
+closed; after a completed collection write but failed metadata write, data stays intact
+and the UI asks to recheck. No cleanup or rollback deletes the collection.
+
+Every request uses the SDK-issued token for the session checked at dispatch, so a
+concurrent account change cannot send A's payload using B's token. Session epochs
+ignore late responses. Signout preserves binding and all local data. A different
+account gets ACCOUNT_MISMATCH with no sync actions. This beta has no rebind/force
+merge button. Return to the original account or use a separate browser profile.
+
+Uploads use only rareworth_save_collection_snapshot with expected_revision. CONFLICT
+never retries automatically. Cloudstatus controleren rereads and reclassifies.
+Downloads require the unchanged clicked-state signature, reread immediately before
+one complete setItem; no clear/remove step. Normal collection rendering follows.
+Unknown fields and JP Unicode remain unchanged in snapshot transfer. Unsupported
+schema versions, malformed data and offline/auth/network errors never trigger replacement.
+Same-content first login does not manufacture a confirmed basis; subsequent ambiguous
+edits safely conflict. A concurrent same-content revision change also fails closed.
+
+## PWA and validation
+
+rareworth-shell-v170 precaches the new local JS/CSS, retaining navigation network-first
+and same-origin-only caching. No Supabase Auth/REST/RPC, SDK CDN, marketplace, TCGdex
+or artwork URL is cached. Account startup is optional; cached local collection UI works
+offline. The version label is v170 · Beta; the four bottom navigation items are unchanged.
+
+CI retains core 72 + line-ending 6, v168 2, v169 5 and v170A 25 tests. The v170A static
+integration assertions now explicitly allow this authorized account shell while comparing
+every original product engine to baseline. The added Node tests cover all states, CAS,
+account switching, stale clicks/requests, failures, Unicode and read RPC SQL. A 390x844
+Chromium smoke mocks only the SDK boundary; production modules, collection editor,
+storage and service worker run unchanged. It exercises two uploads, remote download,
+conflict, signout and offline reload, without live users/mail/network-dependent data.
+
+References:
+- https://supabase.com/docs/reference/javascript/auth-signinwithotp
+- https://supabase.com/docs/reference/javascript/auth-onauthstatechange
+- https://supabase.com/docs/guides/database/postgres/row-level-security

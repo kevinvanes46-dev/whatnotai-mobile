@@ -1,0 +1,11 @@
+.accountCard { min-width: 0; }
+.accountCard [hidden] { display: none !important; }
+.accountCard form { display: grid; gap: 10px; margin-top: 16px; }
+.accountCard label { font-size: 13px; font-weight: 700; }
+.accountCard input { width: 100%; min-width: 0; box-sizing: border-box; }
+.accountCard button { min-height: 44px; white-space: normal; }
+.accountCard .accountActions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.accountCard .accountActions button { flex: 1 1 130px; }
+.accountCard #accountEmail { overflow-wrap: anywhere; display: block; margin-top: 14px; }
+.accountCard #accountStatus { font-size: 13px; line-height: 1.55; margin: 12px 0 0; }
+.accountCard button:disabled { opacity: .55; cursor: wait; }
