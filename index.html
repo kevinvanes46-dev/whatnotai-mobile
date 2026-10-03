@@ -19,8 +19,25 @@
   <link rel="manifest" href="manifest.json?build=168-product-shell-cleanup" />
   <link rel="stylesheet" href="style-v153-mobile.css?build=168-product-shell-cleanup" />
   <link rel="stylesheet" href="account-v170.css?build=170b-account-cloud-sync" />
+  <link rel="stylesheet" href="onboarding-v171.css?build=171-onboarding-product-polish" />
 </head>
-<body>
+<body class="onboarding-open">
+  <section id="onboarding" role="dialog" aria-modal="true" aria-labelledby="onboardingTitle">
+    <div class="onboardingContent">
+      <div class="onboardingBrand"><img src="icon-rareworth.svg?build=168-product-shell-cleanup" alt="" /><strong>RareWorth</strong></div>
+      <h1 id="onboardingTitle">Je collectie, overal bij je.</h1>
+      <p>Zoek kaarten, bouw je collectie op en bewaar je gegevens veilig.</p>
+      <div id="onboardingLoading" hidden><p role="status">Je account openen…</p><button id="onboardingSkip" type="button" class="onboardingSecondary">Doorgaan als gast</button></div>
+      <div id="onboardingChoices">
+        <button id="onboardingLogin" type="button" class="primary">Inloggen of account maken</button>
+        <small>Met een account kun je je collectie veilig in de cloud bewaren.</small>
+        <button id="onboardingGuest" type="button" class="onboardingSecondary">Doorgaan als gast</button>
+        <small>Als gast blijft je collectie op dit apparaat opgeslagen.</small>
+      </div>
+      <div id="onboardingAuth" hidden><h2>Inloggen of account maken</h2><div id="onboardingAuthSlot"></div><button id="onboardingBack" type="button">Terug</button></div>
+      <p id="onboardingOffline" role="status" hidden>Internetverbinding nodig om in te loggen.</p>
+    </div>
+  </section>
   <div class="ambient" aria-hidden="true"><span></span><span></span></div>
 
   <!-- v130 Vision Core camera DOM. UI stays compatible with the stable v120 shell. -->
@@ -42,7 +59,7 @@
     </div>
   </div>
 
-  <main class="appShell">
+  <main class="appShell" inert>
     <header class="topbar">
       <button type="button" class="brandCluster" id="brandHomeBtn" aria-label="Ga naar zoeken">
         <span class="brandMark" aria-hidden="true">
@@ -118,7 +135,7 @@
 
       <!-- SEARCH -->
       <section class="tabView active" data-view="search" aria-labelledby="navSearch">
-        <div class="screenIntro compact"><div><span class="eyebrow">Ontdek · Verzamel · Bewaar</span><h2>Jouw volgende vondst.</h2><p>Zoek op naam, nummer of set. Vind je kaart en geef je collectie de ruimte om te groeien.</p></div></div>
+        <div class="screenIntro compact"><div><h2>Vind je kaart.</h2><p>Zoek op naam, nummer of set.</p></div></div>
 
         <section class="searchBox" id="quickPanel">
           <svg class="searchIcon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
@@ -243,21 +260,11 @@
 
       <!-- SETTINGS -->
       <section class="tabView" data-view="settings" aria-labelledby="navSettings">
-        <div class="screenIntro compact"><div><span class="eyebrow">RareWorth</span><h2>Meer</h2><p>Voorkeuren, privacy en backup.</p></div></div>
+        <div class="screenIntro compact"><div><span class="eyebrow">RareWorth</span><h2>Instellingen</h2><p>Voorkeuren, privacy en backup.</p></div></div>
 
         <section class="surface settingsCard">
           <div class="settingsRow"><div class="settingsIcon"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.7 2.8 8 7 10 4.2-2 7-5.3 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></div><div><b>Privacy</b><small>Je collectie blijft lokaal op je toestel</small></div><span class="mutedBadge">Lokaal</span></div>
         </section>
-
-        <section class="surface settingsCard">
-          <div class="sectionTitle"><div><span class="eyebrow">Standaard</span><h3>Cardmarket-voorkeuren</h3></div></div>
-          <div class="fixedControls settingsControls">
-            <div><label class="label">Taal</label><div class="choiceGrid twoChoices" data-choice-target="langSelect"><button type="button" class="choiceBtn" aria-pressed="false" data-value="JP">JP</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="EN">EN</button></div></div>
-            <div><label class="label">Staat</label><div class="choiceGrid fourChoices" data-choice-target="condSelect"><button type="button" class="choiceBtn" aria-pressed="false" data-value="NM">NM</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="EX">EX</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="GD">GD</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="PL">PL</button></div></div>
-            <div><label class="label">Editie</label><div class="choiceGrid twoChoices" data-choice-target="editionSelect"><button type="button" class="choiceBtn" aria-pressed="false" data-value="AUTO">Normaal</button><button type="button" class="choiceBtn editionFirstBtn" aria-pressed="false" data-value="1ST">1ST Edition</button></div></div>
-          </div>
-        </section>
-
 
         <section class="surface settingsCard accountCard" id="accountCard" aria-labelledby="accountHeading">
         <div class="sectionTitle"><div><span class="eyebrow">Optioneel</span><h3 id="accountHeading">Account &amp; cloud backup</h3></div></div>
@@ -275,6 +282,16 @@
         <div class="accountActions"><button id="accountSync" type="button" class="primary" hidden></button></div>
       </section>
 
+        <section class="surface settingsCard">
+          <div class="sectionTitle"><div><span class="eyebrow">Standaard</span><h3>Voorkeuren</h3></div></div>
+          <div class="fixedControls settingsControls">
+            <div><label class="label">Taal</label><div class="choiceGrid twoChoices" data-choice-target="langSelect"><button type="button" class="choiceBtn" aria-pressed="false" data-value="JP">JP</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="EN">EN</button></div></div>
+            <div><label class="label">Staat</label><div class="choiceGrid fourChoices" data-choice-target="condSelect"><button type="button" class="choiceBtn" aria-pressed="false" data-value="NM">NM</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="EX">EX</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="GD">GD</button><button type="button" class="choiceBtn" aria-pressed="false" data-value="PL">PL</button></div></div>
+            <div><label class="label">Editie</label><div class="choiceGrid twoChoices" data-choice-target="editionSelect"><button type="button" class="choiceBtn" aria-pressed="false" data-value="AUTO">Normaal</button><button type="button" class="choiceBtn editionFirstBtn" aria-pressed="false" data-value="1ST">1ST Edition</button></div></div>
+          </div>
+        </section>
+
+
       <section class="surface settingsCard collectionBackupCard">
           <div class="sectionTitle"><div><span class="eyebrow">Collectie</span><h3>Backup & herstel</h3></div></div>
           <p class="settingsCopy">Je collectie blijft lokaal op dit toestel. Exporteer af en toe een backup zodat je nooit je lijst kwijt bent.</p>
@@ -282,7 +299,8 @@
           <input type="file" id="collectionImportFile" accept="application/json,.json" hidden />
         </section>
 
-        <section class="surface aboutCard"><div><b>RareWorth</b><small>Je kaarten. Goed bewaard.</small><small>Collectie lokaal opgeslagen</small></div><div class="aboutMeta"><span>v170 · Beta</span></div></section>
+        <section class="surface settingsCard"><h3>Startscherm</h3><button id="onboardingReopen" type="button" class="ghost">Startscherm opnieuw bekijken</button></section>
+        <section class="surface aboutCard" aria-label="Over RareWorth"><div><b>Over RareWorth</b><small>Je kaarten. Goed bewaard.</small><small>Collectie lokaal opgeslagen</small></div><div class="aboutMeta"><span>v171 · Beta</span></div></section>
       </section>
     </div>
   </main>
@@ -358,11 +376,11 @@
 
   <div class="toast" id="toast" hidden role="status" aria-live="polite"></div>
 
-  <nav class="bottomNav" aria-label="Hoofdnavigatie">
+  <nav inert class="bottomNav" aria-label="Hoofdnavigatie">
     <button type="button" class="navBtn active" id="navSearch" data-tab="search" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>Zoeken</span></button>
     <button type="button" class="navBtn" id="navCollection" data-tab="collection" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 7h8M8 11h8M8 15h5"/></svg><span>Collectie</span></button>
     <button type="button" class="navBtn" id="navRecent" data-tab="recent" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg><span>Recent</span></button>
-    <button type="button" class="navBtn" id="navSettings" data-tab="settings" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3V2.8h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></svg><span>Meer</span></button>
+    <button type="button" class="navBtn" id="navSettings" data-tab="settings" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3V2.8h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></svg><span>Instellingen</span></button>
   </nav>
 
   <script src="cardmarket-products-v152.js?build=152-links-controls"></script>
@@ -378,7 +396,7 @@
   <script src="jp-image-library-v161.js?build=161-jp-image-library"></script>
   <script src="ui-v137-focus.js?build=160-jp-set-coverage"></script>
   <script src="ui-v137-collection.js?build=165-jp-source-identity"></script>
-  <script src="ui-v150-experience.js?build=161-jp-image-library"></script>
+  <script src="ui-v150-experience.js?build=171-onboarding-product-polish"></script>
   <script src="ui-v154-keyboard.js?build=154-keyboard"></script>
   <script src="ui-v153-mobile.js?build=154-keyboard"></script>
   <script src="cloud-sync-v170.js?build=170b-account-cloud-sync"></script>
@@ -386,6 +404,7 @@
   <script src="supabase-client-v170.js?build=170b-account-cloud-sync"></script>
   <script src="cloud-adapter-v170.js?build=170b-account-cloud-sync"></script>
   <script src="account-ui-v170.js?build=170b-account-cloud-sync"></script>
+  <script src="onboarding-v171.js?build=171-onboarding-product-polish"></script>
   <script src="pwa-v169.js?build=169-pwa-foundation"></script>
 </body>
 </html>

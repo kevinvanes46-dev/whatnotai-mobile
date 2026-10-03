@@ -1,6 +1,7 @@
 'use strict';
 const fs=require('node:fs'),http=require('node:http'),path=require('node:path'),assert=require('node:assert/strict');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+require('./guest-context-v171.cjs')(chromium);
 const expected=[['PMCG1','BASE','Expansion Pack'],['PMCG2','JUNGLE','Pokémon Jungle'],['PMCG3','FOSSIL','Mystery of the Fossils'],['PMCG4','ROCKET','Rocket Gang'],['PMCG5','JP GYM 1',"Leader's Stadium"],['PMCG6','JP GYM 2','Challenge from the Darkness'],['neo1','NEO GENESIS','Neo Genesis'],['neo2','NEO DISCOVERY','Neo Discovery'],['neo3','NEO REVELATION','Awakening Legends'],['neo4','NEO DESTINY','Neo Destiny']];
 (async()=>{
  const server=http.createServer((req,res)=>{try{const f=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';res.setHeader('Content-Type',({js:'text/javascript',html:'text/html',css:'text/css',json:'application/json'})[f.split('.').pop()]||'application/octet-stream');res.end(fs.readFileSync(path.resolve(f)));}catch{res.writeHead(404).end();}});

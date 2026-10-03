@@ -89,6 +89,11 @@
     const foreignImage=url&&/^\/(en|fr|de|es|it|pt|zh)(\/|$)/i.test(new URL(url).pathname);
     if(!url||(enriched.language==='JP'&&(!jpIdentity||foreignImage))){fallback(target);return;}
     const render=(source,isDirect)=>{
+      // Home Recent presentation only: keep external-beta artwork elsewhere intact.
+      if(isDirect&&target.closest('#homeRecentCards')){
+        target.dataset.imageStatus='EXTERNAL_BETA';target.classList.remove('artLoading','artUnavailable');
+        target.classList.add('homeJpPlaceholder');target.textContent='RareWorth · JP';return;
+      }
       const img=new Image();img.alt=card.name||'Kaart';img.decoding='async';
       img.onload=()=>{if(pending.get(target)===card)target.classList.remove('artLoading');};
       let retried=false;img.onerror=()=>{if(pending.get(target)!==card)return;
@@ -118,13 +123,17 @@
 
   function recent(){
     const wrap=$('homeRecentCards');wrap.replaceChildren();
-    const rows=typeof readStore==='function'?readStore(STORAGE_RECENT).slice(0,4):[];
+    const seen=new Set();
+    const rows=(typeof readStore==='function'?readStore(STORAGE_RECENT):[]).filter(stored=>{
+      const key=window.CardIdentity.key(stored);if(seen.has(key))return false;seen.add(key);return true;
+    }).slice(0,4);
     if(!rows.length){const p=document.createElement('p');p.className='recentEmpty';p.textContent='Je volgende vondst begint hier. Zoek bijvoorbeeld op “Bagon 43 Dragon Frontiers”.';wrap.append(p);return;}
     rows.forEach(stored=>{
       const c=window.CardIdentity.normalize(stored);
       const btn=document.createElement('button');btn.type='button';btn.className='recentCard';
+      if(c.kind==='query')btn.classList.add('recentQuery');
       const art=document.createElement('span'),name=document.createElement('b'),meta=document.createElement('small');
-      art.className='recentArt';name.textContent=c.name;meta.textContent=[c.kind==='query'?'Zoekopdracht':'',c.number?'#'+c.number:'',c.kind==='card'?c.set:''].filter(Boolean).join(' · ');
+      art.className='recentArt';name.textContent=c.name;meta.textContent=[c.kind==='query'?'Zoekopdracht':'',c.number?'#'+c.number:'',c.kind==='card'?(c.set_name||c.set):''].filter(Boolean).join(' · ');
       btn.append(art,name,meta);wrap.append(btn);window.CardArtwork.mount(c,art);
       btn.addEventListener('click',async()=>{if(await applyItem(stored,false))void makeLink(false);});
     });

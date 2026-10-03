@@ -1,6 +1,7 @@
 'use strict';
 const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),http=require('node:http'),path=require('node:path');
 const {chromium}=require('../scripts/node_modules/playwright');
+require('./guest-context-v171.cjs')(chromium);
 test('v170B mobile: optional mocked OTP, explicit CAS sync, conflict, signout and offline reload',{timeout:120000},async()=>{
   const server=http.createServer((req,res)=>{
     try{
@@ -100,9 +101,9 @@ test('v170B mobile: optional mocked OTP, explicit CAS sync, conflict, signout an
     await page.locator('#navSettings').click();await page.waitForFunction(()=>document.querySelector('#accountCard').dataset.state==='OFFLINE');
     assert.match(await page.locator('#accountStatus').textContent(),/Offline — lokale collectie blijft beschikbaar/);
     assert.deepEqual(await page.evaluate(keys=>Object.fromEntries(keys.map(k=>[k,localStorage.getItem(k)])),Object.keys(before)),before);
-    assert.deepEqual(await page.locator('.bottomNav button span').allTextContents(),['Zoeken','Collectie','Recent','Meer']);
+    assert.deepEqual(await page.locator('.bottomNav button span').allTextContents(),['Zoeken','Collectie','Recent','Instellingen']);
     assert.equal(await page.locator('#favoriteBtn').isVisible(),false);assert.equal(await page.locator('[data-view="scan"]').isVisible(),false);
-    const cached=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v170')).keys()).map(r=>r.url));
+    const cached=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v171')).keys()).map(r=>r.url));
     assert.ok(cached.length>=33);assert.ok(cached.every(u=>new URL(u).origin===origin));
     assert.ok(!external.some(u=>/supabase|jsdelivr/.test(u)),'no live auth/API/CDN requests');assert.deepEqual(errors,[]);
     console.log('PASS account mobile: SDK mocked, revisions 1/2/3, local editor, conflict, signout, offline, external cache=0');

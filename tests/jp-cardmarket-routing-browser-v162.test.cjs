@@ -1,6 +1,7 @@
 'use strict';
 const fs=require('node:fs'),http=require('node:http'),path=require('node:path'),assert=require('node:assert/strict');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+require('./guest-context-v171.cjs')(chromium);
 // v162 identity/UI regression, with the corrected v163 Japanese product contract.
 const cases=[['PMCG1-035','BASE','Expansion Pack','Expansion-Pack/Pikachu'],['PMCG2-024','JUNGLE','Pokémon Jungle','Pokemon-Jungle/Pikachu'],['neo1-036','NEO GENESIS','Neo Genesis','Gold-Silver-to-a-New-World/Pikachu-GSNW'],['PMCG5-036','JP GYM 1',"Leader's Stadium",'Leaders-Stadium/Lt-Surges-Pikachu-LST']];
 (async()=>{

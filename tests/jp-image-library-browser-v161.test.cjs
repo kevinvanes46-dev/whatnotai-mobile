@@ -1,6 +1,7 @@
 'use strict';
 const fs=require('node:fs'),http=require('node:http'),path=require('node:path'),assert=require('node:assert/strict');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+require('./guest-context-v171.cjs')(chromium);
 const {loadCatalog}=require('../scripts/jp-image-tools-v161.cjs');
 const {catalog,records}=loadCatalog();
 const pixel=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j3ioAAAAASUVORK5CYII=','base64');

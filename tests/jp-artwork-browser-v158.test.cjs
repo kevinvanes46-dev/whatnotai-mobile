@@ -1,6 +1,7 @@
 'use strict';
 const fs=require('node:fs'),http=require('node:http'),path=require('node:path'),assert=require('node:assert/strict');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+require('./guest-context-v171.cjs')(chromium);
 const onePixel=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j3ioAAAAASUVORK5CYII=','base64');
 const samples={BASE:['PMCG1-001','PMCG1-002','PMCG1-003'],JUNGLE:['PMCG2-001','PMCG2-002','PMCG2-003'],FOSSIL:['PMCG3-001','PMCG3-002','PMCG3-003'],'NEO GENESIS':['neo1-001','neo1-002','neo1-003'],'NEO DISCOVERY':['neo2-001','neo2-002','neo2-003'],'NEO REVELATION':['neo3-001','neo3-002','neo3-038'],'NEO DESTINY':['neo4-001','neo4-002','neo4-003']};
 const recent='whatnotai_mobile_recent_v37',collection='cardscout_collection_v133';

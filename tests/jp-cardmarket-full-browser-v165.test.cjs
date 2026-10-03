@@ -1,6 +1,7 @@
 'use strict';
 const fs=require('node:fs'),http=require('node:http'),path=require('node:path'),assert=require('node:assert/strict');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+require('./guest-context-v171.cjs')(chromium);
 const audit=JSON.parse(fs.readFileSync('data/jp-cardmarket-audit-v165.json','utf8'));
 const cases=(process.env.JP_TEST_IDS?.split(',')||['PMCG1-035','PMCG2-024','neo1-036','PMCG5-036','neo3-038','PMCG1-057','PMCG1-097']).map(id=>audit.records.find(r=>r.source_id===id));
 (async()=>{

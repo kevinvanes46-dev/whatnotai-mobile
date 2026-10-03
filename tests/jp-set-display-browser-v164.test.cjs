@@ -1,6 +1,7 @@
 'use strict';
 const fs=require('node:fs'),http=require('node:http'),path=require('node:path'),assert=require('node:assert/strict');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+require('./guest-context-v171.cjs')(chromium);
 const cases=[['neo1-036','NEO GENESIS','Neo Genesis','金、銀、新世界へ...','Gold-Silver-to-a-New-World/Pikachu-GSNW'],['PMCG1-035','BASE','Expansion Pack','拡張パック','Expansion-Pack/Pikachu'],['PMCG2-024','JUNGLE','Pokémon Jungle','ポケモンジャングル','Pokemon-Jungle/Pikachu'],['PMCG5-036','JP GYM 1',"Leader's Stadium",'リーダーズスタジアム','Leaders-Stadium/Lt-Surges-Pikachu-LST'],['neo3-038','NEO REVELATION','Awakening Legends','めざめる伝説','Awakening-Legends/Swinub-AL']];
 (async()=>{
  const server=http.createServer((req,res)=>{try{const file=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';res.setHeader('Content-Type',({js:'text/javascript',html:'text/html',css:'text/css',json:'application/json'})[file.split('.').pop()]||'application/octet-stream');res.end(fs.readFileSync(path.resolve(file)));}catch{res.writeHead(404).end();}});
