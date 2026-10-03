@@ -11,6 +11,7 @@ body.onboarding-open { overflow: hidden; }
 .onboardingBrand img { width: 44px; height: 44px; }
 #onboarding h1 { font-size: clamp(28px, 8vw, 36px); line-height: 1.15; letter-spacing: -.035em; margin: 0 0 16px; }
 #onboarding p { color: #aabbb7; font-size: 15px; line-height: 1.6; }
+#onboarding .onboardingEyebrow { font-size: 11px; font-weight: 700; letter-spacing: .12em; margin: 0 0 12px; }
 #onboarding button { width: 100%; min-height: 50px; border-radius: 14px; white-space: normal; padding: 13px 16px; }
 #onboarding .primary { background: #b3f0cf; color: #10271b; border-color: #b3f0cf; font-weight: 750; }
 #onboarding .onboardingSecondary { background: #192321; border: 1px solid #40514b; color: #edf3f1; }

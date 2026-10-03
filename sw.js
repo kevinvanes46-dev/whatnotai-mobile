@@ -1,6 +1,6 @@
 'use strict';
 // Bump this version when the shell changes. Never cache remote card data/artwork.
-const CACHE = 'rareworth-shell-v171';
+const CACHE = 'rareworth-shell-v171-1';
 const SCOPE = new URL('./', self.registration.scope);
 const INDEX = new URL('index.html', SCOPE).href;
 const ASSETS = [
@@ -35,8 +35,8 @@ const ASSETS = [
   'cloud-adapter-v170.js?build=170b-account-cloud-sync',
   'account-ui-v170.js?build=170b-account-cloud-sync',
   'account-v170.css?build=170b-account-cloud-sync',
-  'onboarding-v171.js?build=171-onboarding-product-polish',
-  'onboarding-v171.css?build=171-onboarding-product-polish',
+  'onboarding-v171.js?build=171-1-launch-gate',
+  'onboarding-v171.css?build=171-1-launch-gate',
   'pwa-v169.js?build=169-pwa-foundation'
 ];
 const LOCAL_ASSETS = new Set(ASSETS.filter(file => file !== 'index.html')

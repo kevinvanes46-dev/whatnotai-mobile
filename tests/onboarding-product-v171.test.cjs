@@ -49,7 +49,8 @@ test('new visitor sees onboarding; guest alone persists a preference and opens u
   const {page}=await fixture(t,{storage:{cardscout_collection_v133:collection,whatnotai_mobile_favorites_v37:'[]'}});
   assert.equal(await page.locator('#onboarding').isVisible(),true);assert.equal(await page.locator('.appShell').evaluate(el=>el.inert),true);
   await page.locator('#onboardingGuest').click();assert.equal(await page.locator('#onboarding').isVisible(),false);
-  assert.equal(await page.evaluate(()=>localStorage.getItem('rareworth_onboarding_v171')),'guest');
+  assert.equal(await page.evaluate(()=>sessionStorage.getItem('rareworth_guest_session_v171_1')),'1');
+  assert.equal(await page.evaluate(()=>localStorage.getItem('rareworth_onboarding_v171')),null);
   for(const key of ['rareworth_cloud_sync_v170','rareworth_account_enabled_v170','rareworth_device_id_v170'])assert.equal(await page.evaluate(key=>localStorage.getItem(key),key),null);
   assert.equal(await page.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),collection);assert.deepEqual(await page.evaluate(()=>authCalls),[]);
   await page.reload();assert.equal(await page.locator('#onboarding').isVisible(),false);
@@ -80,7 +81,7 @@ test('valid existing SDK session skips onboarding; reopening does not sign out o
 });
 test('reopen guest onboarding preserves confirmed sync metadata, favorites and collection',async t=>{
   const state={rareworth_onboarding_v171:'guest',cardscout_collection_v133:collection,rareworth_cloud_sync_v170:'{"boundUserId":"test-A","users":{}}',whatnotai_mobile_favorites_v37:'[{"name":"Bagon"}]'};
-  const {page}=await fixture(t,{storage:state});await page.locator('#navSettings').click();await page.locator('#onboardingReopen').click();await page.locator('#onboardingGuest').click();
+  const {page}=await fixture(t,{storage:state});await page.locator('#onboardingGuest').click();await page.locator('#navSettings').click();await page.locator('#onboardingReopen').click();await page.locator('#onboardingGuest').click();
   assert.deepEqual(await page.evaluate(keys=>Object.fromEntries(keys.map(k=>[k,localStorage.getItem(k)])),Object.keys(state)),state);
 });
 test('guest can leave a pending SDK session check; a late SDK failure never reopens onboarding',async t=>{
@@ -107,8 +108,8 @@ test('offline first run from cached v171 shell allows guest and preserves all fo
   await page.locator('#onboardingGuest').click();
   for(const tab of ['search','collection','recent','settings']){await page.locator(`[data-tab="${tab}"]`).click();assert.equal(await page.locator(`[data-view="${tab}"]`).isVisible(),true);}
   assert.equal(await page.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),collection);
-  const cached=await page.evaluate(async()=>({keys:await caches.keys(),urls:(await (await caches.open('rareworth-shell-v171')).keys()).map(r=>r.url)}));
-  assert.ok(cached.keys.includes('rareworth-shell-v171'));assert.ok(cached.urls.every(u=>u.startsWith(origin)));assert.ok(cached.urls.some(u=>u.includes('onboarding-v171.js')));
+  const cached=await page.evaluate(async()=>({keys:await caches.keys(),urls:(await (await caches.open('rareworth-shell-v171-1')).keys()).map(r=>r.url)}));
+  assert.ok(cached.keys.includes('rareworth-shell-v171-1'));assert.ok(cached.urls.every(u=>u.startsWith(origin)));assert.ok(cached.urls.some(u=>u.includes('onboarding-v171.js')));
 });
 test('product labels, functional search hero, idle-only hiding and settings groups',async t=>{
   const {page}=await fixture(t);await page.locator('#onboardingGuest').click();

@@ -19,22 +19,23 @@
   <link rel="manifest" href="manifest.json?build=168-product-shell-cleanup" />
   <link rel="stylesheet" href="style-v153-mobile.css?build=168-product-shell-cleanup" />
   <link rel="stylesheet" href="account-v170.css?build=170b-account-cloud-sync" />
-  <link rel="stylesheet" href="onboarding-v171.css?build=171-onboarding-product-polish" />
+  <link rel="stylesheet" href="onboarding-v171.css?build=171-1-launch-gate" />
 </head>
 <body class="onboarding-open">
   <section id="onboarding" role="dialog" aria-modal="true" aria-labelledby="onboardingTitle">
     <div class="onboardingContent">
       <div class="onboardingBrand"><img src="icon-rareworth.svg?build=168-product-shell-cleanup" alt="" /><strong>RareWorth</strong></div>
-      <h1 id="onboardingTitle">Je collectie, overal bij je.</h1>
-      <p>Zoek kaarten, bouw je collectie op en bewaar je gegevens veilig.</p>
+      <p class="onboardingEyebrow">POKÉMON TCG COLLECTIE</p>
+      <h1 id="onboardingTitle">Welkom bij RareWorth</h1>
+      <p>Zoek kaarten, beheer je collectie en bewaar je gegevens veilig.</p>
       <div id="onboardingLoading" hidden><p role="status">Je account openen…</p><button id="onboardingSkip" type="button" class="onboardingSecondary">Doorgaan als gast</button></div>
       <div id="onboardingChoices">
-        <button id="onboardingLogin" type="button" class="primary">Inloggen of account maken</button>
-        <small>Met een account kun je je collectie veilig in de cloud bewaren.</small>
+        <button id="onboardingLogin" type="button" class="primary">Inloggen / account maken</button>
+        <small>Synchroniseer je collectie tussen apparaten.</small>
         <button id="onboardingGuest" type="button" class="onboardingSecondary">Doorgaan als gast</button>
-        <small>Als gast blijft je collectie op dit apparaat opgeslagen.</small>
+        <small>Je collectie blijft alleen op dit apparaat opgeslagen.</small>
       </div>
-      <div id="onboardingAuth" hidden><h2>Inloggen of account maken</h2><div id="onboardingAuthSlot"></div><button id="onboardingBack" type="button">Terug</button></div>
+      <div id="onboardingAuth" hidden><h2>Inloggen / account maken</h2><div id="onboardingAuthSlot"></div><button id="onboardingBack" type="button">Terug</button></div>
       <p id="onboardingOffline" role="status" hidden>Internetverbinding nodig om in te loggen.</p>
     </div>
   </section>
@@ -404,7 +405,7 @@
   <script src="supabase-client-v170.js?build=170b-account-cloud-sync"></script>
   <script src="cloud-adapter-v170.js?build=170b-account-cloud-sync"></script>
   <script src="account-ui-v170.js?build=170b-account-cloud-sync"></script>
-  <script src="onboarding-v171.js?build=171-onboarding-product-polish"></script>
+  <script src="onboarding-v171.js?build=171-1-launch-gate"></script>
   <script src="pwa-v169.js?build=169-pwa-foundation"></script>
 </body>
 </html>

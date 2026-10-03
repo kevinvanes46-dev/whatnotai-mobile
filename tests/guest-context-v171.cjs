@@ -7,7 +7,7 @@ module.exports=function guestContexts(chromium){
     const browser=await launch(options),newContext=browser.newContext.bind(browser);
     browser.newContext=async options=>{
       const context=await newContext(options);
-      await context.addInitScript(()=>localStorage.setItem('rareworth_onboarding_v171','guest'));
+      await context.addInitScript(()=>sessionStorage.setItem('rareworth_guest_session_v171_1','1'));
       return context;
     };
     browser.newPage=async options=>(await browser.newContext(options)).newPage();

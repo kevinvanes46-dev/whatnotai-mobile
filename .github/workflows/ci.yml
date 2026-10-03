@@ -49,3 +49,5 @@ jobs:
         run: node --test tests/account-cloud-v170b.test.cjs tests/account-cloud-browser-v170b.test.cjs
       - name: First-run onboarding and product presentation
         run: node --test tests/onboarding-product-v171.test.cjs
+      - name: Session-only app launch gate
+        run: node --test tests/launch-gate-v171-1.test.cjs
