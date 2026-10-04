@@ -108,8 +108,8 @@ test('offline first run from cached v171 shell allows guest and preserves all fo
   await page.locator('#onboardingGuest').click();
   for(const tab of ['search','collection','recent','settings']){await page.locator(`[data-tab="${tab}"]`).click();assert.equal(await page.locator(`[data-view="${tab}"]`).isVisible(),true);}
   assert.equal(await page.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),collection);
-  const cached=await page.evaluate(async()=>({keys:await caches.keys(),urls:(await (await caches.open('rareworth-shell-v171-1')).keys()).map(r=>r.url)}));
-  assert.ok(cached.keys.includes('rareworth-shell-v171-1'));assert.ok(cached.urls.every(u=>u.startsWith(origin)));assert.ok(cached.urls.some(u=>u.includes('onboarding-v171.js')));
+  const cached=await page.evaluate(async()=>({keys:await caches.keys(),urls:(await (await caches.open('rareworth-shell-v172')).keys()).map(r=>r.url)}));
+  assert.ok(cached.keys.includes('rareworth-shell-v172'));assert.ok(cached.urls.every(u=>u.startsWith(origin)));assert.ok(cached.urls.some(u=>u.includes('onboarding-v171.js')));
 });
 test('product labels, functional search hero, idle-only hiding and settings groups',async t=>{
   const {page}=await fixture(t);await page.locator('#onboardingGuest').click();

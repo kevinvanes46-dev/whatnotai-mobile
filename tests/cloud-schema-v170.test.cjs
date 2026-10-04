@@ -64,14 +64,14 @@ test('SQL is transactional and rerunnable without dropping tables or seeding use
 test('v170B integration preserves every existing product engine and storage key',()=>{
   const baseline='604071a8cb8e24f4ef3f5ec03c3fc4991163a0b9';
   const html=fs.readFileSync('index.html','utf8');assert.match(html,/cloud-sync-v170/);
-  const files=['pwa-v169.js','manifest.json',...[...html.matchAll(/<script src="([^?]+)\?/g)].map(m=>m[1]).filter(file=>!['cloud-sync-v170.js','supabase-config-v170.js','supabase-client-v170.js','cloud-adapter-v170.js','account-ui-v170.js','onboarding-v171.js'].includes(file))];
+  const files=['pwa-v169.js','manifest.json',...[...html.matchAll(/<script src="([^?]+)\?/g)].map(m=>m[1]).filter(file=>!['brand-v172.js','cloud-sync-v170.js','supabase-config-v170.js','supabase-client-v170.js','cloud-adapter-v170.js','account-ui-v170.js','onboarding-v171.js'].includes(file))];
   for(const file of new Set(files)){
     const before=execFileSync('git',['show',baseline+':'+file],{encoding:'utf8',maxBuffer:16*1024*1024});
     let current=fs.readFileSync(file,'utf8').replace(/\r\n?/g,'\n');
     if(file==='ui-v150-experience.js')current=require('./experience-scope-v171.cjs')(current);
     assert.equal(current,before.replace(/\r\n?/g,'\n'),file);
   }
-  assert.match(fs.readFileSync('sw.js','utf8'),/rareworth-shell-v171-1/);
+  assert.match(fs.readFileSync('sw.js','utf8'),/rareworth-shell-v172/);
   assert.match(fs.readFileSync('sw.js','utf8'),/cloud-sync-v170/);
   assert.match(fs.readFileSync('ui-v137-collection.js','utf8'),/cardscout_collection_v133/);
 });

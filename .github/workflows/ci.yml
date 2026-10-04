@@ -51,3 +51,6 @@ jobs:
         run: node --test tests/onboarding-product-v171.test.cjs
       - name: Session-only app launch gate
         run: node --test tests/launch-gate-v171-1.test.cjs
+
+      - name: Brand foundation
+        run: node --test tests/brand-foundation-v172.test.cjs
