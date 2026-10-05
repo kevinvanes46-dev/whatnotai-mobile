@@ -92,7 +92,7 @@
       // Home Recent presentation only: keep external-beta artwork elsewhere intact.
       if(isDirect&&target.closest('#homeRecentCards')){
         target.dataset.imageStatus='EXTERNAL_BETA';target.classList.remove('artLoading','artUnavailable');
-        target.classList.add('homeJpPlaceholder');target.textContent='RareWorth · JP';return;
+        target.classList.add('homeJpPlaceholder');target.textContent=window.RareWorthBrand.name+' · JP';return;
       }
       const img=new Image();img.alt=card.name||'Kaart';img.decoding='async';
       img.onload=()=>{if(pending.get(target)===card)target.classList.remove('artLoading');};

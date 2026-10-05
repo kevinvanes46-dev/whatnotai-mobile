@@ -54,3 +54,6 @@ jobs:
 
       - name: Brand foundation
         run: node --test tests/brand-foundation-v172.test.cjs
+
+      - name: HoloKeep product rebrand
+        run: node --test tests/brand-rebrand-v173.test.cjs

@@ -170,19 +170,20 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | artifacts/rareworth-v150/v147-pending-1280.png | E | — | yes |
 | artifacts/rareworth-v150/v147-pending-375.png | E | — | yes |
 | assets/cards/jp/README.md | B, H | 1, 61, 70 | no |
-| brand-v172.js | A, B | 4, 6, 7, 9, 13 | no |
+| brand-v172.js | A, B | 4, 13 | no |
 | cloud-adapter-v170.js | B, C, D | 4, 7, 84 | no |
 | cloud-sync-v170.js | B, D | 6, 9, 148 | no |
 | data/jp-cardmarket-audit-v165.json | H | 4734, 10906, 14640, 14686, 27368, 27419, 27474, 27575, 27630, 27685, 27740, 27790, 27836, 27887, 27937, 27983, 28080, 28135, 28190, 28240, 28385, 28436, 28486, 28532, 31141, 31196, 33827, 33873, 33919, 33965, 34016, 37735, 38537, 38583, 38684, 38735, 38790, 38845, 38955, 39005, 39111, 39166, 39216, 39267 | no |
+| docs/BRAND-V173.md | B, C, D, E, H | 3, 5, 13, 14, 15, 16, 17, 26, 32, 57, 62 | no |
 | docs/CLOUD-SYNC-V170.md | B, C, D, H | 1, 3, 12, 38, 62, 87, 123, 164, 178, 192, 203 | no |
 | icon-rareworth-180.png | E | — | yes |
 | icon-rareworth-192.png | E | — | yes |
 | icon-rareworth-512.png | E | — | yes |
 | icon-rareworth.svg | A, E | — | yes |
-| index.html | A, E, G | 12, 13, 14, 16, 28, 30, 68, 70, 79, 265, 305 | no |
+| index.html | A, E, G | 13, 14, 28, 68 | no |
 | jp-image-library-v161.js | B | 4, 35 | no |
 | jp-image-manifest-v161.js | B | 3 | no |
-| manifest.json | A, E, G | 2, 3, 5, 6 | no |
+| manifest.json | A, E, G | 5, 6 | no |
 | onboarding-v171.js | B, C, D | 5, 70, 71 | no |
 | pwa-v169.js | G | 1 | no |
 | scripts/generate-jp-artwork-v158.cjs | H | 4, 26 | no |
@@ -196,8 +197,9 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | sw.js | B, E, F, G | 3, 10, 11, 12, 55 | no |
 | tests/account-cloud-browser-v170b.test.cjs | B, D, H | 44, 106 | no |
 | tests/account-cloud-v170b.test.cjs | B, D, H | 17, 38, 142, 143, 146, 147, 149, 150, 175 | no |
-| tests/brand-allowlist-v172.json | B, C, D, E, F, H | 3, 4, 5, 6, 8, 9, 10, 13, 14, 15, 16, 17, 20, 21, 22, 25, 26, 27, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 43, 44, 47, 50, 51, 52, 53, 56, 57, 58, 61, 64, 67, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 96, 97, 98, 99, 100, 103, 104, 105, 106, 107, 110, 111, 112, 113, 114, 117, 118, 121, 122, 123 | no |
-| tests/brand-foundation-v172.test.cjs | B, H | 9, 13, 14, 16, 17, 19, 21, 25, 39, 58, 59, 60, 64, 66, 67, 79 | no |
+| tests/brand-allowlist-v172.json | B, C, D, E, F, H | 3, 4, 5, 6, 8, 9, 10, 13, 14, 17, 18, 19, 22, 23, 24, 27, 28, 29, 30, 33, 34, 37, 40, 41, 44, 45, 46, 49, 52, 55, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 84, 85, 86, 87, 88, 91, 92, 93, 94, 95, 98, 99, 100, 101, 102, 105, 106, 109, 110, 111 | no |
+| tests/brand-foundation-v172.test.cjs | B, H | 9, 13, 16, 17, 19, 21, 25, 79 | no |
+| tests/brand-rebrand-v173.test.cjs | B, C, E, H | 6, 9, 10, 17, 25, 28, 32, 50, 53, 57, 60, 64, 65, 77, 78, 79, 82 | no |
 | tests/brand-support-v172.cjs | B, C, D, E, H | 16, 17, 18, 19, 21 | no |
 | tests/cloud-schema-v170.test.cjs | B, D, H | 5, 7, 8, 11, 23, 27, 42, 48, 53, 54, 56, 62, 74, 87 | no |
 | tests/cloud-sync-v170.test.cjs | B, H | 135, 142 | no |
@@ -207,10 +209,11 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | tests/jp-image-library-browser-v161.test.cjs | B, H | 18, 40, 58, 63, 68 | no |
 | tests/jp-image-library-v161.test.cjs | B, H | 9, 11 | no |
 | tests/keyboard-v154.test.cjs | B, H | 48 | no |
-| tests/launch-gate-v171-1.test.cjs | B, C, H | 5, 7, 49, 50, 56, 60, 66, 74, 77, 86 | no |
+| tests/launch-gate-v171-1.test.cjs | B, C, H | 5, 7, 49, 50, 56, 60, 66, 74, 77 | no |
 | tests/onboarding-product-v171.test.cjs | B, C, H | 44, 52, 53, 54, 68, 72, 75, 78, 79, 83, 88, 111, 112 | no |
-| tests/product-shell-v168.test.cjs | H | 12, 13, 17, 18 | no |
-| tests/pwa-v169.test.cjs | B, E, F, H | 21, 24, 27, 43, 108, 133, 142, 143, 165, 183, 192, 199 | no |
+| tests/product-shell-v168.test.cjs | H | 18 | no |
+| tests/pwa-v169.test.cjs | B, E, F, H | 24, 27, 40, 43, 108, 133, 142, 143, 183, 192, 199 | no |
+| tests/rebrand-scope-v173.cjs | B, H | 5, 6 | no |
 | ui-v150-experience.js | A, B | 40, 55, 68, 83, 95 | no |
 | ui-v153-mobile.js | B | 8, 31 | no |
 | ui-v154-keyboard.js | B | 17, 24, 76 | no |

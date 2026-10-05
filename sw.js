@@ -1,14 +1,14 @@
 'use strict';
 // Bump this version when the shell changes. Never cache remote card data/artwork.
-const CACHE = 'rareworth-shell-v172';
+const CACHE = 'rareworth-shell-v173';
 const SCOPE = new URL('./', self.registration.scope);
 const INDEX = new URL('index.html', SCOPE).href;
 const ASSETS = [
   'index.html',
-  'brand-v172.js?build=172-brand-foundation',
-  'manifest.json?build=168-product-shell-cleanup',
-  'icon-rareworth.svg?build=168-product-shell-cleanup',
-  'icon-rareworth-180.png?build=168-product-shell-cleanup',
+  'brand-v172.js?build=173-holokeep-rebrand',
+  'manifest.json?build=173-holokeep-rebrand',
+  'icon-rareworth.svg?build=173-holokeep-rebrand',
+  'icon-rareworth-180.png?build=173-holokeep-rebrand',
   'icon-rareworth-192.png', 'icon-rareworth-512.png',
   'style-v137-product.css?build=168-product-shell-cleanup',
   'style-v148-polish.css?build=168-product-shell-cleanup',
@@ -27,7 +27,7 @@ const ASSETS = [
   'jp-image-library-v161.js?build=161-jp-image-library',
   'ui-v137-focus.js?build=160-jp-set-coverage',
   'ui-v137-collection.js?build=165-jp-source-identity',
-  'ui-v150-experience.js?build=171-onboarding-product-polish',
+  'ui-v150-experience.js?build=173-holokeep-rebrand',
   'ui-v154-keyboard.js?build=154-keyboard',
   'ui-v153-mobile.js?build=154-keyboard',
   'cloud-sync-v170.js?build=170b-account-cloud-sync',

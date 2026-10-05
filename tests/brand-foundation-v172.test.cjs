@@ -11,7 +11,7 @@ function sandbox(existing){
 }
 test('brand API exposes exact immutable values and read-only global',()=>{
   const {context}=sandbox(),b=context.RareWorthBrand;
-  assert.deepEqual(JSON.parse(JSON.stringify(b)),{name:'RareWorth',shortName:'RareWorth',tagline:'Je kaarten. Goed bewaard.',appTitle:'RareWorth · Zoek. Bewaar. Check.',version:'v172',status:'Beta'});
+  assert.deepEqual(JSON.parse(JSON.stringify(b)),{name:'HoloKeep',shortName:'HoloKeep',tagline:'Je kaarten. Goed bewaard.',appTitle:'HoloKeep · Zoek. Bewaar. Check.',version:'v173',status:'Beta'});
   assert.ok(Object.isFrozen(b));assert.throws(()=>{b.name='changed';},TypeError);
   assert.equal(Object.getOwnPropertyDescriptor(context,'RareWorthBrand').writable,false);
   assert.equal(Object.getOwnPropertyDescriptor(context,'RareWorthBrand').configurable,false);
@@ -31,12 +31,12 @@ test('title, topbar, onboarding and About are derived from the config',()=>{
 test('brand loads first without changing existing script order',()=>{
   const scripts=s=>[...s.matchAll(/<script src="([^"]+)"/g)].map(m=>m[1]);
   const old=execFileSync('git',['show',baseline+':index.html'],{encoding:'utf8'});
-  assert.deepEqual(scripts(fs.readFileSync('index.html','utf8')),['brand-v172.js?build=172-brand-foundation',...scripts(old)]);
+  assert.deepEqual(scripts(fs.readFileSync('index.html','utf8')),['brand-v172.js?build=173-holokeep-rebrand',...scripts(old).map(src=>src.startsWith('ui-v150-experience.js?')?'ui-v150-experience.js?build=173-holokeep-rebrand':src)]);
 });
 test('manifest, storage, auth/backend, artwork and all existing engines are unchanged',()=>{
   const files=execFileSync('git',['ls-tree','-r','--name-only',baseline],{encoding:'utf8'}).trim().split('\n').filter(f=>/\.js$/.test(f)||f==='manifest.json'||f.startsWith('supabase/')).filter(f=>f!=='sw.js'&&! /^(tests|scripts)\//.test(f));
-  for(const f of files){const old=execFileSync('git',['show',baseline+':'+f],{encoding:'utf8',maxBuffer:16*1024*1024});assert.equal(fs.readFileSync(f,'utf8').replace(/\r\n?/g,'\n'),old.replace(/\r\n?/g,'\n'),f);}
-  const manifest=JSON.parse(fs.readFileSync('manifest.json','utf8'));assert.equal(manifest.short_name,'RareWorth');assert.equal(manifest.start_url,'./#search');
+  for(const f of files){const old=execFileSync('git',['show',baseline+':'+f],{encoding:'utf8',maxBuffer:16*1024*1024});assert.equal(require('./rebrand-scope-v173.cjs')(f,fs.readFileSync(f,'utf8').replace(/\r\n?/g,'\n')),old.replace(/\r\n?/g,'\n'),f);}
+  const manifest=JSON.parse(fs.readFileSync('manifest.json','utf8'));assert.equal(manifest.short_name,'HoloKeep');assert.equal(manifest.start_url,'./#search');
 });
 test('global hardcoded branding matches exact explicit production allowlist',()=>{assert.deepEqual(productionSnapshot(),JSON.parse(fs.readFileSync('tests/brand-allowlist-v172.json','utf8')));});
 test('branding inventory covers every matching tracked file and line',()=>{
@@ -55,16 +55,16 @@ async function pageFor(t){
 }
 test('Chromium: visible branding, version and all copy use config without layout changes',async t=>{
   const {page}=await pageFor(t);await page.goto(origin);
-  assert.equal(await page.title(),'RareWorth · Zoek. Bewaar. Check.');assert.equal(await page.locator('.onboardingBrand strong').innerText(),'RareWorth');assert.equal(await page.locator('#onboardingTitle').innerText(),'Welkom bij RareWorth');
-  await page.locator('#onboardingGuest').click();assert.equal(await page.locator('.brandText strong').innerText(),'RareWorth');assert.equal(await page.locator('.brandText small').innerText(),'Je kaarten. Goed bewaard.');
-  await page.locator('#navSettings').click();assert.match(await page.locator('.aboutCard').innerText(),/Over RareWorth.*Je kaarten\. Goed bewaard\..*v172 · Beta/s);
+  assert.equal(await page.title(),'HoloKeep · Zoek. Bewaar. Check.');assert.equal(await page.locator('.onboardingBrand strong').innerText(),'HoloKeep');assert.equal(await page.locator('#onboardingTitle').innerText(),'Welkom bij HoloKeep');
+  await page.locator('#onboardingGuest').click();assert.equal(await page.locator('.brandText strong').innerText(),'HoloKeep');assert.equal(await page.locator('.brandText small').innerText(),'Je kaarten. Goed bewaard.');
+  await page.locator('#navSettings').click();assert.match(await page.locator('.aboutCard').innerText(),/Over HoloKeep.*Je kaarten\. Goed bewaard\..*v173 · Beta/s);
 });
 test('Chromium: changing only config values drives title/topbar/onboarding/About',async t=>{
   const {page,context}=await pageFor(t);
-  const fixture=code.replaceAll("'RareWorth'","'RareWorth [test]' ").replace("'Je kaarten. Goed bewaard.'","'Fixture tagline'").replace("'RareWorth · Zoek. Bewaar. Check.'","'Fixture title'").replace("'v172'","'fixture-version'");
+  const fixture=code.replaceAll("'HoloKeep'","'HoloKeep [test]' ").replace("'Je kaarten. Goed bewaard.'","'Fixture tagline'").replace("'HoloKeep · Zoek. Bewaar. Check.'","'Fixture title'").replace("'v173'","'fixture-version'");
   await context.route('**/brand-v172.js?*',r=>r.fulfill({contentType:'text/javascript',body:fixture}));await page.goto(origin);
-  assert.equal(await page.title(),'Fixture title');assert.equal(await page.locator('#onboardingTitle').innerText(),'Welkom bij RareWorth [test]');assert.equal(await page.locator('.onboardingBrand strong').innerText(),'RareWorth [test]');
-  await page.locator('#onboardingGuest').click();assert.equal(await page.locator('.brandText strong').innerText(),'RareWorth [test]');assert.equal(await page.locator('.brandText small').innerText(),'Fixture tagline');await page.locator('#navSettings').click();assert.match(await page.locator('.aboutCard').innerText(),/Over RareWorth \[test\].*Fixture tagline.*fixture-version · Beta/s);
+  assert.equal(await page.title(),'Fixture title');assert.equal(await page.locator('#onboardingTitle').innerText(),'Welkom bij HoloKeep [test]');assert.equal(await page.locator('.onboardingBrand strong').innerText(),'HoloKeep [test]');
+  await page.locator('#onboardingGuest').click();assert.equal(await page.locator('.brandText strong').innerText(),'HoloKeep [test]');assert.equal(await page.locator('.brandText small').innerText(),'Fixture tagline');await page.locator('#navSettings').click();assert.match(await page.locator('.aboutCard').innerText(),/Over HoloKeep \[test\].*Fixture tagline.*fixture-version · Beta/s);
 });
 test('Chromium: fresh guest gate, same-session reload and offline v172 brand precache',async t=>{
   const {page,context}=await pageFor(t);await page.goto(origin);assert.equal(await page.locator('#onboarding').isVisible(),true);
@@ -75,6 +75,6 @@ test('Chromium: fresh guest gate, same-session reload and offline v172 brand pre
   await context.addInitScript(()=>Object.defineProperty(Navigator.prototype,'onLine',{get:()=>false}));
   await context.setOffline(true);await page.reload();assert.equal(await page.locator('#onboarding').isVisible(),true);assert.equal(await page.locator('#onboardingLogin').isDisabled(),true);
   await page.locator('#onboardingGuest').click();for(const tab of ['search','collection','recent','settings']){await page.locator(`[data-tab="${tab}"]`).click();assert.equal(await page.locator(`[data-view="${tab}"]`).isVisible(),true);}
-  assert.match(await page.locator('.aboutMeta').innerText(),/v172 · Beta/);
-  const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v172')).keys()).map(r=>r.url));assert.ok(urls.some(u=>u.endsWith('/brand-v172.js?build=172-brand-foundation')));assert.ok(urls.every(u=>new URL(u).origin===origin));
+  assert.match(await page.locator('.aboutMeta').innerText(),/v173 · Beta/);
+  const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v173')).keys()).map(r=>r.url));assert.ok(urls.some(u=>u.endsWith('/brand-v172.js?build=173-holokeep-rebrand')));assert.ok(urls.every(u=>new URL(u).origin===origin));
 });

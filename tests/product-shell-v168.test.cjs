@@ -9,12 +9,12 @@ const html=fs.readFileSync('index.html','utf8');
 test('v168 shell metadata, navigation and product script order',()=>{
   const manifest=JSON.parse(fs.readFileSync('manifest.json','utf8'));
   assert.equal(manifest.start_url,'./#search');
-  assert.equal(manifest.short_name,'RareWorth');
-  assert.equal(manifest.name,'RareWorth — Pokémon TCG');
+  assert.equal(manifest.short_name,'HoloKeep');
+  assert.equal(manifest.name,'HoloKeep — Pokémon TCG');
   assert.equal(manifest.display,'standalone');
   assert.equal(manifest.orientation,'portrait-primary');
   assert.doesNotMatch(manifest.description,/scan|cloud|login/i);
-  assert.match(html,/<title>RareWorth · Zoek\. Bewaar\. Check\.<\/title>/);
+  assert.match(html,/<title>HoloKeep · Zoek\. Bewaar\. Check\.<\/title>/);
   assert.doesNotMatch(html,/Rareworth|UI 150|V137 CORE|COLLECTION PRO|LOKALE COLLECTIE/);
   assert.deepEqual([...html.matchAll(/data-tab="([^"]+)"/g)].map(m=>m[1]),['search','collection','recent','settings']);
   assert.deepEqual([...html.matchAll(/<script src="([^?]+)\?/g)].map(m=>m[1]),[
@@ -97,7 +97,7 @@ test('v168 mobile shell and search → Recent → collection reload',async()=>{
       }
       assert.equal(await page.locator('#collectionExportBtn').isVisible(),true);
       assert.equal(await page.locator('#collectionImportBtn').isVisible(),true);
-      assert.match(await page.locator('.aboutCard').innerText(),/v172 · Beta/);
+      assert.match(await page.locator('.aboutCard').innerText(),/v173 · Beta/);
       if(process.env.SHELL_SCREENSHOTS){
         fs.mkdirSync(process.env.SHELL_SCREENSHOTS,{recursive:true});
         await page.screenshot({path:path.join(process.env.SHELL_SCREENSHOTS,`more-${width}.png`),fullPage:true});

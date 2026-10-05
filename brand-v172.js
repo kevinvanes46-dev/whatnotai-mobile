@@ -3,11 +3,11 @@
   'use strict';
   if ('RareWorthBrand' in window) return;
   const brand = Object.freeze({
-    name: 'RareWorth',
-    shortName: 'RareWorth',
+    name: 'HoloKeep',
+    shortName: 'HoloKeep',
     tagline: 'Je kaarten. Goed bewaard.',
-    appTitle: 'RareWorth · Zoek. Bewaar. Check.',
-    version: 'v172',
+    appTitle: 'HoloKeep · Zoek. Bewaar. Check.',
+    version: 'v173',
     status: 'Beta'
   });
   Object.defineProperty(window, 'RareWorthBrand', {value: brand, enumerable: true});
