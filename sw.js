@@ -1,11 +1,12 @@
 'use strict';
 // Bump this version when the shell changes. Never cache remote card data/artwork.
-const CACHE = 'rareworth-shell-v173';
+const CACHE = 'rareworth-shell-v174';
 const SCOPE = new URL('./', self.registration.scope);
 const INDEX = new URL('index.html', SCOPE).href;
 const ASSETS = [
   'index.html',
-  'brand-v172.js?build=173-holokeep-rebrand',
+  'cards.json?build=174-en-dp-pop-coverage',
+  'brand-v172.js?build=174-en-dp-pop-coverage',
   'manifest.json?build=173-holokeep-rebrand',
   'icon-rareworth.svg?build=173-holokeep-rebrand',
   'icon-rareworth-180.png?build=173-holokeep-rebrand',
@@ -16,7 +17,7 @@ const ASSETS = [
   'style-v153-mobile.css?build=168-product-shell-cleanup',
   'cardmarket-products-v152.js?build=152-links-controls',
   'card-identity-v154.js?build=164-jp-set-display-restore',
-  'app-v137.js?build=169-pwa-foundation',
+  'app-v137.js?build=174-en-dp-pop-coverage',
   'jp-cardmarket-twin-v157.js?build=162-jp-cardmarket-routing',
   'jp-artwork-v158.js?build=158-jp-artwork',
   'cardmarket-ui-v156.js?build=156-jp-routing-ui',
@@ -25,8 +26,8 @@ const ASSETS = [
   'jp-cardmarket-native-v163.js?build=165-full-jp-cardmarket',
   'jp-image-manifest-v161.js?build=161-jp-image-library',
   'jp-image-library-v161.js?build=161-jp-image-library',
-  'ui-v137-focus.js?build=160-jp-set-coverage',
-  'ui-v137-collection.js?build=165-jp-source-identity',
+  'ui-v137-focus.js?build=174-en-dp-pop-coverage',
+  'ui-v137-collection.js?build=174-en-dp-pop-coverage',
   'ui-v150-experience.js?build=173-holokeep-rebrand',
   'ui-v154-keyboard.js?build=154-keyboard',
   'ui-v153-mobile.js?build=154-keyboard',

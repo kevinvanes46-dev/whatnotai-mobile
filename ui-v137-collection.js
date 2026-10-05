@@ -15,7 +15,23 @@
     'LEGENDARY COLLECTION':['lc'],'SOUTHERN ISLANDS':['si1'],'WOTC PROMO':['basep'],'EXPEDITION':['ecard1'],'AQUAPOLIS':['ecard2'],'SKYRIDGE':['ecard3'],
     'EX RUBY SAPPHIRE':['ex1'],'EX SANDSTORM':['ex2'],'EX DRAGON':['ex3'],'EX TEAM MAGMA AQUA':['ex4'],'EX HIDDEN LEGENDS':['ex5'],'EX FIRERED LEAFGREEN':['ex6'],
     'EX TEAM ROCKET RETURNS':['ex7'],'EX DEOXYS':['ex8'],'EX EMERALD':['ex9'],'EX UNSEEN FORCES':['ex10'],'EX DELTA SPECIES':['ex11'],'EX LEGEND MAKER':['ex12'],
-    'EX HOLON PHANTOMS':['ex13'],'EX CRYSTAL GUARDIANS':['ex14'],'EX DRAGON FRONTIERS':['ex15'],'EX POWER KEEPERS':['ex16'],'LEGENDS AWAKENED':['dp6'],
+    'EX HOLON PHANTOMS':['ex13'],'EX CRYSTAL GUARDIANS':['ex14'],'EX DRAGON FRONTIERS':['ex15'],'EX POWER KEEPERS':['ex16'],'DIAMOND PEARL':['dp1'],
+    'MYSTERIOUS TREASURES':['dp2'],
+    'SECRET WONDERS':['dp3'],
+    'GREAT ENCOUNTERS':['dp4'],
+    'MAJESTIC DAWN':['dp5'],
+    'LEGENDS AWAKENED':['dp6'],
+    'STORMFRONT':['dp7'],
+    'DP BLACK STAR PROMOS':['dpp'],
+    'POP SERIES 1':['pop1'],
+    'POP SERIES 2':['pop2'],
+    'POP SERIES 3':['pop3'],
+    'POP SERIES 4':['pop4'],
+    'POP SERIES 5':['pop5'],
+    'POP SERIES 6':['pop6'],
+    'POP SERIES 7':['pop7'],
+    'POP SERIES 8':['pop8'],
+    'POP SERIES 9':['pop9'],
     'EX TRAINER KIT 2':['tk-ex-p','tk-ex-m']
   };
 
@@ -238,7 +254,7 @@
     editor.dataset.pending=JSON.stringify({
       name:cleanVisibleCardName(c.name,c.number)||c.name,number:String(c.number||''),set:c.set||'AUTO',setName:c.set_name||c.set||'AUTO',
       language:c.language||langSelect?.value||'EN',edition:sel.edition||editionSelect?.value||'AUTO',
-      sourceId:c.source_id||'',cardmarketUrl:sel.cardmarketUrl||c.url||openBtn?.getAttribute('href')||''
+      sourceId:c.source_id||'',...(c.language==='EN' && /^(dp[1-7]|dpp|pop[1-9])$/.test(c.source_set_id||'') ? {source_set_id:c.source_set_id} : {}),cardmarketUrl:sel.cardmarketUrl||c.url||openBtn?.getAttribute('href')||''
     });
     showEditor();
   }

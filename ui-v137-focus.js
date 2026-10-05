@@ -67,7 +67,7 @@
   let enCatalogState = 'idle';
   let jpCatalogState = 'idle';
 
-  const SEARCH_BUILD = '137-collection-pro';
+  const SEARCH_BUILD = '174-en-dp-pop-coverage';
   const TCGDEX_API = 'https://api.tcgdex.net/v2';
   const ONLINE_CACHE_TTL = 14 * 24 * 60 * 60 * 1000;
   const ONLINE_CACHE_PREFIX = 'cardscout_search_catalog_v152_';
@@ -110,7 +110,23 @@
     'EX DRAGON FRONTIERS':['ex15'],
     'EX POWER KEEPERS':['ex16'],
     'EX TRAINER KIT 2':['tk-ex-p','tk-ex-m'],
-    'LEGENDS AWAKENED':['dp6']
+    'DIAMOND PEARL':['dp1'],
+    'MYSTERIOUS TREASURES':['dp2'],
+    'SECRET WONDERS':['dp3'],
+    'GREAT ENCOUNTERS':['dp4'],
+    'MAJESTIC DAWN':['dp5'],
+    'LEGENDS AWAKENED':['dp6'],
+    'STORMFRONT':['dp7'],
+    'DP BLACK STAR PROMOS':['dpp'],
+    'POP SERIES 1':['pop1'],
+    'POP SERIES 2':['pop2'],
+    'POP SERIES 3':['pop3'],
+    'POP SERIES 4':['pop4'],
+    'POP SERIES 5':['pop5'],
+    'POP SERIES 6':['pop6'],
+    'POP SERIES 7':['pop7'],
+    'POP SERIES 8':['pop8'],
+    'POP SERIES 9':['pop9']
   };
 
 
@@ -443,6 +459,7 @@
 
     let score = 0;
     for(const token of tokens){
+      if(token === number){ score += 160; continue; }
       if(/^\d+$/.test(token)){
         const tokenKey = numericKey(token);
         if(numberKey === tokenKey) score += 160;
@@ -608,11 +625,22 @@
     const rawTokens = fullQuery.split(' ').filter(Boolean);
     const stampedOnly = rawTokens.some(t=>STAMP_TERMS.has(t));
     const ignored = new Set(['en','eng','english','jp','jpn','japanese','nm','ex','gd','pl','1st','first','edition','normal','normaal','stamp','stamps','stamped','stamping','stempel','stempels','gestempeld','setstamp','setstamps','reverse','reverseholo','rh','setlogo','logo','holo']);
-    const tokens = rawTokens.filter(t => !ignored.has(t));
-    if((!tokens.length && !stampedOnly) || !catalog.length){ smartSuggestions.hidden = true; smartSuggestions.innerHTML=''; return; }
+    // Resolve the longest explicit set phrase before interpreting numeric card tokens.
+    // In "mew pop 5", 5 belongs to the set alias, never to the card number.
+    const explicitSet = (langSelect?.value || 'EN') === 'EN'
+      ? Object.entries(setInfo).filter(([key]) => /^(dp[1-7]|dpp|pop[1-9])$/.test(TCGDEX_SET_IDS[key]?.[0] || ''))
+        .flatMap(([key,def]) => [def.label,...(def.aliases || [])]
+        .map(alias => ({key,alias:normalize(alias)})))
+        .filter(x => x.alias && (' '+fullQuery+' ').includes(' '+x.alias+' '))
+        .sort((a,b) => b.alias.length-a.alias.length)[0]
+      : null;
+    const cardQuery = explicitSet ? (' '+fullQuery+' ').replace(' '+explicitSet.alias+' ',' ').trim() : fullQuery;
+    const tokens = cardQuery.split(' ').filter(t => t && !ignored.has(t));
+    if((!tokens.length && !stampedOnly && !explicitSet) || !catalog.length){ smartSuggestions.hidden = true; smartSuggestions.innerHTML=''; return; }
 
     const results = catalog
       .filter(c => (c.language || 'EN') === (langSelect?.value || 'EN'))
+      .filter(c => !explicitSet || c.set === explicitSet.key)
       .filter(c => !stampedOnly || ((c.language || 'EN') === 'EN' && STAMPED_SET_KEYS.has(c.set)))
       .map(c => ({card:c, score:tokens.length ? suggestionScore(c,tokens,fullQuery) : 10}))
       .filter(x => x.score >= 0)
@@ -688,7 +716,7 @@
 
   function readCatalogCache(lang){
     try{
-      const raw=localStorage.getItem(`${ONLINE_CACHE_PREFIX}${lang==='JP'?'JP_v160':lang}`);
+      const raw=localStorage.getItem(`${ONLINE_CACHE_PREFIX}${lang==='JP'?'JP_v160':'EN_v174'}`);
       if(!raw) return null;
       const obj=JSON.parse(raw);
       if(!obj || !Array.isArray(obj.cards) || Date.now()-Number(obj.savedAt||0)>ONLINE_CACHE_TTL) return null;
@@ -698,7 +726,7 @@
 
   function writeCatalogCache(lang,cards){
     try{
-      localStorage.setItem(`${ONLINE_CACHE_PREFIX}${lang==='JP'?'JP_v160':lang}`, JSON.stringify({savedAt:Date.now(),cards}));
+      localStorage.setItem(`${ONLINE_CACHE_PREFIX}${lang==='JP'?'JP_v160':'EN_v174'}`, JSON.stringify({savedAt:Date.now(),cards}));
     }catch(_){ }
   }
 
@@ -775,12 +803,19 @@
   }
 
   async function loadCatalog(){
+    // Embedded cards make the local shell usable before any catalog request, also offline.
+    localCatalog = Array.isArray(EMBEDDED_DATA.knownCards) ? EMBEDDED_DATA.knownCards : [];
+    setInfo = EMBEDDED_DATA.sets || {};
+    rebuildCatalog();
     try{
       const res = await fetch(`cards.json?build=${SEARCH_BUILD}`, {cache:'no-store'});
-      if(!res.ok) return;
-      const data = await res.json();
-      localCatalog = Array.isArray(data.knownCards) ? data.knownCards : [];
-      setInfo = data.sets || {};
+      if(res.ok){
+        const data = await res.json();
+        localCatalog = Array.isArray(data.knownCards) ? data.knownCards : localCatalog;
+        setInfo = data.sets || setInfo;
+      }
+    }catch(_){ /* Keep the embedded catalog; the EN cache remains available offline. */ }
+    try{
       // Dedicated Japanese Gym options prevent selection falling back to AUTO or western Gym sets.
       for(const set of window.JPSetCatalog.sets){
         if(![...setSelect.options].some(option=>option.value===set.key))setSelect.add(new Option(set.label+' · JP',set.key));

@@ -1,0 +1,130 @@
+{
+  "cardCount": {
+    "firstEd": 0,
+    "holo": 7,
+    "normal": 17,
+    "official": 17,
+    "reverse": 0,
+    "total": 17
+  },
+  "cards": [
+    {
+      "id": "pop2-1",
+      "image": "https://assets.tcgdex.net/en/pop/pop2/1",
+      "localId": "1",
+      "name": "Entei"
+    },
+    {
+      "id": "pop2-2",
+      "image": "https://assets.tcgdex.net/en/pop/pop2/2",
+      "localId": "2",
+      "name": "Pidgeot"
+    },
+    {
+      "id": "pop2-3",
+      "image": "https://assets.tcgdex.net/en/pop/pop2/3",
+      "localId": "3",
+      "name": "Raikou"
+    },
+    {
+      "id": "pop2-4",
+      "image": "https://assets.tcgdex.net/en/pop/pop2/4",
+      "localId": "4",
+      "name": "Suicune"
+    },
+    {
+      "id": "pop2-5",
+      "image": "https://assets.tcgdex.net/en/pop/pop2/5",
+      "localId": "5",
+      "name": "Tauros"
+    },
+    {
+      "id": "pop2-6",
+      "image": "https://assets.tcgdex.net/en/pop/pop2/6",
+      "localId": "6",
+      "name": "Venusaur"
+    },
+    {
+      "id": "pop2-7",
+      "image": "https://assets.tcgdex.net/en/pop/pop2/7",
+      "localId": "7",
+      "name": "Ivysaur"
+    },
+    {
+      "id": "pop2-8",
+      "image": "https://assets.tcgdex.net/en/pop/pop2/8",
+      "localId": "8",
+      "name": "Mr. Briney's Compassion"
+    },
+    {
+      "id": "pop2-9",
+      "image": "https://assets.tcgdex.net/en/pop/pop2/9",
+      "localId": "9",
+      "name": "Multi Technical Machine 01"
+    },
+    {
+      "id": "pop2-10",
+      "image": "https://assets.tcgdex.net/en/pop/pop2/10",
+      "localId": "10",
+      "name": "Pokémon Park"
+    },
+    {
+      "id": "pop2-11",
+      "image": "https://assets.tcgdex.net/en/pop/pop2/11",
+      "localId": "11",
+      "name": "TV Reporter"
+    },
+    {
+      "id": "pop2-12",
+      "image": "https://assets.tcgdex.net/en/pop/pop2/12",
+      "localId": "12",
+      "name": "Bulbasaur"
+    },
+    {
+      "id": "pop2-13",
+      "image": "https://assets.tcgdex.net/en/pop/pop2/13",
+      "localId": "13",
+      "name": "Cacnea"
+    },
+    {
+      "id": "pop2-14",
+      "image": "https://assets.tcgdex.net/en/pop/pop2/14",
+      "localId": "14",
+      "name": "Luvdisc"
+    },
+    {
+      "id": "pop2-15",
+      "image": "https://assets.tcgdex.net/en/pop/pop2/15",
+      "localId": "15",
+      "name": "Phanpy"
+    },
+    {
+      "id": "pop2-16",
+      "image": "https://assets.tcgdex.net/en/pop/pop2/16",
+      "localId": "16",
+      "name": "Pikachu"
+    },
+    {
+      "id": "pop2-17",
+      "image": "https://assets.tcgdex.net/en/pop/pop2/17",
+      "localId": "17",
+      "name": "Celebi ex"
+    }
+  ],
+  "id": "pop2",
+  "legal": {
+    "expanded": false,
+    "standard": false
+  },
+  "logo": "https://assets.tcgdex.net/en/pop/pop2/logo",
+  "name": "POP Series 2",
+  "releaseDate": "2005-08-01",
+  "serie": {
+    "id": "pop",
+    "name": "POP"
+  },
+  "symbol": "https://assets.tcgdex.net/univ/pop/pop2/symbol",
+  "abbreviation": {
+    "official": "P2"
+  }
+}

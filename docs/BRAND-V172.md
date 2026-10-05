@@ -176,6 +176,7 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | data/jp-cardmarket-audit-v165.json | H | 4734, 10906, 14640, 14686, 27368, 27419, 27474, 27575, 27630, 27685, 27740, 27790, 27836, 27887, 27937, 27983, 28080, 28135, 28190, 28240, 28385, 28436, 28486, 28532, 31141, 31196, 33827, 33873, 33919, 33965, 34016, 37735, 38537, 38583, 38684, 38735, 38790, 38845, 38955, 39005, 39111, 39166, 39216, 39267 | no |
 | docs/BRAND-V173.md | B, C, D, E, H | 3, 5, 13, 14, 15, 16, 17, 26, 32, 57, 62 | no |
 | docs/CLOUD-SYNC-V170.md | B, C, D, H | 1, 3, 12, 38, 62, 87, 123, 164, 178, 192, 203 | no |
+| docs/EN-COVERAGE-V174.md | B, C, H | 51 | no |
 | icon-rareworth-180.png | E | — | yes |
 | icon-rareworth-192.png | E | — | yes |
 | icon-rareworth-512.png | E | — | yes |
@@ -194,7 +195,7 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | supabase-config-v170.js | B, D | 2 | no |
 | supabase/migrations/20260930_rareworth_cloud_v170.sql | B, D, E | 4, 12, 15, 16, 17, 19, 20, 23, 24, 27, 28, 32, 33, 37, 48, 49, 50, 51, 52, 54, 67, 79, 85, 102, 103 | yes |
 | supabase/migrations/20261001_rareworth_cloud_read_v170b.sql | B, D, E | 3, 18, 21, 22 | yes |
-| sw.js | B, E, F, G | 3, 10, 11, 12, 55 | no |
+| sw.js | B, E, F, G | 3, 11, 12, 13, 56 | no |
 | tests/account-cloud-browser-v170b.test.cjs | B, D, H | 44, 106 | no |
 | tests/account-cloud-v170b.test.cjs | B, D, H | 17, 38, 142, 143, 146, 147, 149, 150, 175 | no |
 | tests/brand-allowlist-v172.json | B, C, D, E, F, H | 3, 4, 5, 6, 8, 9, 10, 13, 14, 17, 18, 19, 22, 23, 24, 27, 28, 29, 30, 33, 34, 37, 40, 41, 44, 45, 46, 49, 52, 55, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 84, 85, 86, 87, 88, 91, 92, 93, 94, 95, 98, 99, 100, 101, 102, 105, 106, 109, 110, 111 | no |
@@ -204,6 +205,7 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | tests/cloud-schema-v170.test.cjs | B, D, H | 5, 7, 8, 11, 23, 27, 42, 48, 53, 54, 56, 62, 74, 87 | no |
 | tests/cloud-sync-v170.test.cjs | B, H | 135, 142 | no |
 | tests/collector-experience.test.cjs | H | 4, 27 | no |
+| tests/en-dp-pop-coverage-v174.test.cjs | B, C, E, H | 47, 63, 133 | no |
 | tests/experience-scope-v171.cjs | H | 8 | no |
 | tests/guest-context-v171.cjs | B, C, H | 10 | no |
 | tests/jp-image-library-browser-v161.test.cjs | B, H | 18, 40, 58, 63, 68 | no |
@@ -213,7 +215,7 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | tests/onboarding-product-v171.test.cjs | B, C, H | 44, 52, 53, 54, 68, 72, 75, 78, 79, 83, 88, 111, 112 | no |
 | tests/product-shell-v168.test.cjs | H | 18 | no |
 | tests/pwa-v169.test.cjs | B, E, F, H | 24, 27, 40, 43, 108, 133, 142, 143, 183, 192, 199 | no |
-| tests/rebrand-scope-v173.cjs | B, H | 5, 6 | no |
+| tests/rebrand-scope-v173.cjs | B, H | 7, 8 | no |
 | ui-v150-experience.js | A, B | 40, 55, 68, 83, 95 | no |
 | ui-v153-mobile.js | B | 8, 31 | no |
 | ui-v154-keyboard.js | B | 17, 24, 76 | no |

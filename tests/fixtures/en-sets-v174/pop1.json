@@ -1,0 +1,130 @@
+{
+  "cardCount": {
+    "firstEd": 0,
+    "holo": 7,
+    "normal": 17,
+    "official": 17,
+    "reverse": 0,
+    "total": 17
+  },
+  "cards": [
+    {
+      "id": "pop1-1",
+      "image": "https://assets.tcgdex.net/en/pop/pop1/1",
+      "localId": "1",
+      "name": "Blaziken"
+    },
+    {
+      "id": "pop1-2",
+      "image": "https://assets.tcgdex.net/en/pop/pop1/2",
+      "localId": "2",
+      "name": "Metagross"
+    },
+    {
+      "id": "pop1-3",
+      "image": "https://assets.tcgdex.net/en/pop/pop1/3",
+      "localId": "3",
+      "name": "Rayquaza"
+    },
+    {
+      "id": "pop1-4",
+      "image": "https://assets.tcgdex.net/en/pop/pop1/4",
+      "localId": "4",
+      "name": "Sceptile"
+    },
+    {
+      "id": "pop1-5",
+      "image": "https://assets.tcgdex.net/en/pop/pop1/5",
+      "localId": "5",
+      "name": "Swampert"
+    },
+    {
+      "id": "pop1-6",
+      "image": "https://assets.tcgdex.net/en/pop/pop1/6",
+      "localId": "6",
+      "name": "Beautifly"
+    },
+    {
+      "id": "pop1-7",
+      "image": "https://assets.tcgdex.net/en/pop/pop1/7",
+      "localId": "7",
+      "name": "Masquerain"
+    },
+    {
+      "id": "pop1-8",
+      "image": "https://assets.tcgdex.net/en/pop/pop1/8",
+      "localId": "8",
+      "name": "Murkrow"
+    },
+    {
+      "id": "pop1-9",
+      "image": "https://assets.tcgdex.net/en/pop/pop1/9",
+      "localId": "9",
+      "name": "Pupitar"
+    },
+    {
+      "id": "pop1-10",
+      "image": "https://assets.tcgdex.net/en/pop/pop1/10",
+      "localId": "10",
+      "name": "Torkoal"
+    },
+    {
+      "id": "pop1-11",
+      "image": "https://assets.tcgdex.net/en/pop/pop1/11",
+      "localId": "11",
+      "name": "Larvitar"
+    },
+    {
+      "id": "pop1-12",
+      "image": "https://assets.tcgdex.net/en/pop/pop1/12",
+      "localId": "12",
+      "name": "Minun"
+    },
+    {
+      "id": "pop1-13",
+      "image": "https://assets.tcgdex.net/en/pop/pop1/13",
+      "localId": "13",
+      "name": "Plusle"
+    },
+    {
+      "id": "pop1-14",
+      "image": "https://assets.tcgdex.net/en/pop/pop1/14",
+      "localId": "14",
+      "name": "Surskit"
+    },
+    {
+      "id": "pop1-15",
+      "image": "https://assets.tcgdex.net/en/pop/pop1/15",
+      "localId": "15",
+      "name": "Swellow"
+    },
+    {
+      "id": "pop1-16",
+      "image": "https://assets.tcgdex.net/en/pop/pop1/16",
+      "localId": "16",
+      "name": "Armaldo ex"
+    },
+    {
+      "id": "pop1-17",
+      "image": "https://assets.tcgdex.net/en/pop/pop1/17",
+      "localId": "17",
+      "name": "Tyranitar ex"
+    }
+  ],
+  "id": "pop1",
+  "legal": {
+    "expanded": false,
+    "standard": false
+  },
+  "logo": "https://assets.tcgdex.net/en/pop/pop1/logo",
+  "name": "POP Series 1",
+  "releaseDate": "2004-09-01",
+  "serie": {
+    "id": "pop",
+    "name": "POP"
+  },
+  "symbol": "https://assets.tcgdex.net/univ/pop/pop1/symbol",
+  "abbreviation": {
+    "official": "P1"
+  }
+}

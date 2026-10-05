@@ -57,3 +57,6 @@ jobs:
 
       - name: HoloKeep product rebrand
         run: node --test tests/brand-rebrand-v173.test.cjs
+
+      - name: EN Diamond Pearl and POP coverage
+        run: node --test tests/en-dp-pop-coverage-v174.test.cjs

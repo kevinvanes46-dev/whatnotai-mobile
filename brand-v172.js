@@ -7,7 +7,7 @@
     shortName: 'HoloKeep',
     tagline: 'Je kaarten. Goed bewaard.',
     appTitle: 'HoloKeep · Zoek. Bewaar. Check.',
-    version: 'v173',
+    version: 'v174',
     status: 'Beta'
   });
   Object.defineProperty(window, 'RareWorthBrand', {value: brand, enumerable: true});
