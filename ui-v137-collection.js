@@ -143,7 +143,7 @@
     // Re-resolve saved JP links so pre-v163 Western URLs cannot return on reload.
     if(item.language==='JP'&&window.JPCardmarketNative)return window.JPCardmarketNative.route(card).url;
     if(item.language==='EN'&&product&&typeof matchesCardmarketApiCard==='function'&&matchesCardmarketApiCard(card,product))return withFilters('https://www.cardmarket.com/en/Pokemon/Products?idProduct='+product.product,item.language,item.condition,item.edition);
-    return item.cardmarketUrl||'';
+    return item.cardmarketUrl ? safeCardmarketLink(item.cardmarketUrl,card) : '';
   }
   function identityKey(x){
     const parts=[x.listType,x.language,x.set,x.number,norm(x.name),x.variant,x.edition,x.condition];

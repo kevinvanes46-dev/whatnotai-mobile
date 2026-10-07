@@ -175,6 +175,7 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | cloud-sync-v170.js | B, D | 6, 9, 148 | no |
 | data/jp-cardmarket-audit-v165.json | H | 4734, 10906, 14640, 14686, 27368, 27419, 27474, 27575, 27630, 27685, 27740, 27790, 27836, 27887, 27937, 27983, 28080, 28135, 28190, 28240, 28385, 28436, 28486, 28532, 31141, 31196, 33827, 33873, 33919, 33965, 34016, 37735, 38537, 38583, 38684, 38735, 38790, 38845, 38955, 39005, 39111, 39166, 39216, 39267 | no |
 | docs/BRAND-V173.md | B, C, D, E, H | 3, 5, 13, 14, 15, 16, 17, 26, 32, 57, 62 | no |
+| docs/CARDMARKET-HOST-V174-1.md | B, C, H | 13 | no |
 | docs/CLOUD-SYNC-V170.md | B, C, D, H | 1, 3, 12, 38, 62, 87, 123, 164, 178, 192, 203 | no |
 | docs/EN-COVERAGE-V174.md | B, C, H | 51 | no |
 | icon-rareworth-180.png | E | — | yes |
@@ -202,6 +203,7 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | tests/brand-foundation-v172.test.cjs | B, H | 9, 13, 16, 17, 19, 21, 25, 79 | no |
 | tests/brand-rebrand-v173.test.cjs | B, C, E, H | 6, 9, 10, 17, 25, 28, 32, 50, 53, 57, 60, 64, 65, 77, 78, 79, 82 | no |
 | tests/brand-support-v172.cjs | B, C, D, E, H | 16, 17, 18, 19, 21 | no |
+| tests/cardmarket-host-v174-1.test.cjs | B, C, H | 42, 61, 62, 63 | no |
 | tests/cloud-schema-v170.test.cjs | B, D, H | 5, 7, 8, 11, 23, 27, 42, 48, 53, 54, 56, 62, 74, 87 | no |
 | tests/cloud-sync-v170.test.cjs | B, H | 135, 142 | no |
 | tests/collector-experience.test.cjs | H | 4, 27 | no |

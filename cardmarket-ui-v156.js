@@ -11,11 +11,7 @@
     if(state==='pending')return 'PENDING';
     if(state!=='ready'||!url||url==='#')return 'UNAVAILABLE';
     if(validCardmarketRoute(url))return 'EXACT';
-    try {
-      const u=new URL(url);
-      if(u.protocol==='https:'&&!u.username&&!u.password&&
-        (u.hostname==='www.cardmarket.com'||u.hostname==='cardmarket.com'||u.hostname==='prices.pokemontcg.io'))return 'SEARCH';
-    } catch(_) {}
+    if(validCardmarketSearch(url))return 'SEARCH';
     return 'UNAVAILABLE';
   }
   const api=window.CardmarketUI={classify,copy,current:'UNAVAILABLE'};

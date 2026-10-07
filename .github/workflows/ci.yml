@@ -60,3 +60,6 @@ jobs:
 
       - name: EN Diamond Pearl and POP coverage
         run: node --test tests/en-dp-pop-coverage-v174.test.cjs
+
+      - name: Cardmarket host security and legacy resolver
+        run: node --test tests/cardmarket-resolver-v146.test.cjs tests/cardmarket-host-v174-1.test.cjs

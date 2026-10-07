@@ -1,0 +1,52 @@
+{
+  "app-v137.js": [
+    {
+      "before": "function validCardmarketRoute(url, sourceId=''){\n  if(typeof url !== 'string' || /[\\s\\p{Cc}\\p{Cf}\\uFFFD]/u.test(url)) return false;\n  try{\n    const u = new URL(url);\n    if(u.protocol !== 'https:' || u.username || u.password || u.port || u.hash) return false;\n    if(u.hostname === 'www.cardmarket.com' || u.hostname === 'cardmarket.com'){\n      return /^\\/en\\/Pokemon\\/Products\\/Singles\\/[^/]+\\/[^/]+$/.test(u.pathname)\n        || (u.pathname === '/en/Pokemon/Products' && /^[1-9][0-9]{0,9}$/.test(u.searchParams.get('idProduct') || ''));\n    }\n    // The API also returns its official, card-specific Cardmarket redirect URL.\n    return !!sourceId && u.hostname === 'prices.pokemontcg.io'\n      && u.pathname === '/cardmarket/'+sourceId && !u.search;\n  }catch(_){ return false; }\n}\n",
+      "after": "function parseCardmarketUrl(url){\n  if(typeof url !== 'string' || /[\\s\\p{Cc}\\p{Cf}\\uFFFD]/u.test(url)\n    || !/^https:\\/\\/www\\.cardmarket\\.com\\//i.test(url)) return null;\n  try{\n    const u = new URL(url);\n    return u.protocol === 'https:' && u.hostname === 'www.cardmarket.com'\n      && !u.username && !u.password && !u.port && !u.hash ? u : null;\n  }catch(_){ return null; }\n}\nfunction validCardmarketRoute(url, sourceId=''){\n  const u = parseCardmarketUrl(url);\n  return !!u && (/^\\/en\\/Pokemon\\/Products\\/Singles\\/[^/]+\\/[^/]+$/.test(u.pathname)\n    || (u.pathname === '/en/Pokemon/Products' && /^[1-9][0-9]{0,9}$/.test(u.searchParams.get('idProduct') || '')));\n}\nfunction validCardmarketSearch(url){\n  const u = parseCardmarketUrl(url);\n  return !!u && u.pathname === '/en/Pokemon/Products/Search' && !!u.searchParams.get('searchString')?.trim();\n}\nfunction safeCardmarketLink(url, card){\n  if(validCardmarketRoute(url) || validCardmarketSearch(url)) return url;\n  return searchUrl(card.name, card.number, card.language || card.lang || 'EN', card.condition || card.cond, card.set);\n}\n"
+    },
+    {
+      "before": "    return entries.filter(e => e && typeof e.source_id",
+      "after": "    const valid = entries.filter(e => e && typeof e.source_id"
+    },
+    {
+      "before": "      .map(e => ({source_id:e.source_id, url:e.url, timestamp:e.timestamp}));",
+      "after": "      .map(e => ({source_id:e.source_id, url:e.url, timestamp:e.timestamp}));\n    if(valid.length !== entries.length){\n      try{ localStorage.setItem(CM_ROUTE_CACHE_KEY, JSON.stringify(valid)); }catch(_){ /* Reads still work when writes are denied. */ }\n    }\n    return valid;"
+    },
+    {
+      "before": "function cacheCardmarketRoute(sourceId, url){\n  try{",
+      "after": "function cacheCardmarketRoute(sourceId, url){\n  if(!/^[a-z0-9]+(?:-[a-z0-9]+)+$/i.test(sourceId || '') || !validCardmarketRoute(url)) return;\n  try{"
+    },
+    {
+      "before": "        const url='https://www.cardmarket.com/en/Pokemon/Products?idProduct='+product;\n        cacheCardmarketRoute",
+      "after": "        const url='https://www.cardmarket.com/en/Pokemon/Products?idProduct='+product;\n        if(!validCardmarketRoute(url))return '';\n        cacheCardmarketRoute"
+    },
+    {
+      "before": "  if(!route.url){\n    setCardmarketRouteState",
+      "after": "  if(route.url && !validCardmarketRoute(route.url) && !validCardmarketSearch(route.url)){\n    route = {...route, url:safeCardmarketLink(route.url,card), exact:false};\n  }\n  if(!route.url){\n    setCardmarketRouteState"
+    },
+    {
+      "before": "    url:identity?.url || url,",
+      "after": "    url:(identity?.url || url) ? safeCardmarketLink(identity?.url || url, identity || currentCardmarketCard()) : (identity?.url || url),"
+    },
+    {
+      "before": "  link.href=route.url||(item.language==='JP'?'#':item.url)||'#';",
+      "after": "  const url=route.url || (item.language==='JP' ? '' : item.url);\n  link.href=url ? safeCardmarketLink(url,item) : '#';"
+    },
+    {
+      "before": "    if(item.url)link.href=item.url;",
+      "after": "    if(item.url)link.href=safeCardmarketLink(item.url,item);"
+    }
+  ],
+  "cardmarket-ui-v156.js": [
+    {
+      "before": "    try {\n      const u=new URL(url);\n      if(u.protocol==='https:'&&!u.username&&!u.password&&\n        (u.hostname==='www.cardmarket.com'||u.hostname==='cardmarket.com'||u.hostname==='prices.pokemontcg.io'))return 'SEARCH';\n    } catch(_) {}\n",
+      "after": "    if(validCardmarketSearch(url))return 'SEARCH';\n"
+    }
+  ],
+  "ui-v137-collection.js": [
+    {
+      "before": "    return item.cardmarketUrl||'';",
+      "after": "    return item.cardmarketUrl ? safeCardmarketLink(item.cardmarketUrl,card) : '';"
+    }
+  ]
+}

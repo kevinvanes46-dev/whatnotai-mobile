@@ -593,32 +593,45 @@ function invalidateCardmarketSelection(){
   ++cmLinkGeneration;
   setCardmarketRouteState('idle');
 }
-function validCardmarketRoute(url, sourceId=''){
-  if(typeof url !== 'string' || /[\s\p{Cc}\p{Cf}\uFFFD]/u.test(url)) return false;
+function parseCardmarketUrl(url){
+  if(typeof url !== 'string' || /[\s\p{Cc}\p{Cf}\uFFFD]/u.test(url)
+    || !/^https:\/\/www\.cardmarket\.com\//i.test(url)) return null;
   try{
     const u = new URL(url);
-    if(u.protocol !== 'https:' || u.username || u.password || u.port || u.hash) return false;
-    if(u.hostname === 'www.cardmarket.com' || u.hostname === 'cardmarket.com'){
-      return /^\/en\/Pokemon\/Products\/Singles\/[^/]+\/[^/]+$/.test(u.pathname)
-        || (u.pathname === '/en/Pokemon/Products' && /^[1-9][0-9]{0,9}$/.test(u.searchParams.get('idProduct') || ''));
-    }
-    // The API also returns its official, card-specific Cardmarket redirect URL.
-    return !!sourceId && u.hostname === 'prices.pokemontcg.io'
-      && u.pathname === '/cardmarket/'+sourceId && !u.search;
-  }catch(_){ return false; }
+    return u.protocol === 'https:' && u.hostname === 'www.cardmarket.com'
+      && !u.username && !u.password && !u.port && !u.hash ? u : null;
+  }catch(_){ return null; }
+}
+function validCardmarketRoute(url, sourceId=''){
+  const u = parseCardmarketUrl(url);
+  return !!u && (/^\/en\/Pokemon\/Products\/Singles\/[^/]+\/[^/]+$/.test(u.pathname)
+    || (u.pathname === '/en/Pokemon/Products' && /^[1-9][0-9]{0,9}$/.test(u.searchParams.get('idProduct') || '')));
+}
+function validCardmarketSearch(url){
+  const u = parseCardmarketUrl(url);
+  return !!u && u.pathname === '/en/Pokemon/Products/Search' && !!u.searchParams.get('searchString')?.trim();
+}
+function safeCardmarketLink(url, card){
+  if(validCardmarketRoute(url) || validCardmarketSearch(url)) return url;
+  return searchUrl(card.name, card.number, card.language || card.lang || 'EN', card.condition || card.cond, card.set);
 }
 function readCardmarketRouteCache(){
   try{
     const entries = JSON.parse(localStorage.getItem(CM_ROUTE_CACHE_KEY) || '[]');
     if(!Array.isArray(entries)) return [];
     const now = Date.now();
-    return entries.filter(e => e && typeof e.source_id === 'string'
+    const valid = entries.filter(e => e && typeof e.source_id === 'string'
       && /^[a-z0-9]+(?:-[a-z0-9]+)+$/i.test(e.source_id) && validCardmarketRoute(e.url, e.source_id)
       && Number.isFinite(e.timestamp) && e.timestamp <= now && now-e.timestamp < CM_ROUTE_TTL)
       .map(e => ({source_id:e.source_id, url:e.url, timestamp:e.timestamp}));
+    if(valid.length !== entries.length){
+      try{ localStorage.setItem(CM_ROUTE_CACHE_KEY, JSON.stringify(valid)); }catch(_){ /* Reads still work when writes are denied. */ }
+    }
+    return valid;
   }catch(_){ return []; }
 }
 function cacheCardmarketRoute(sourceId, url){
+  if(!/^[a-z0-9]+(?:-[a-z0-9]+)+$/i.test(sourceId || '') || !validCardmarketRoute(url)) return;
   try{
     const entries = readCardmarketRouteCache().filter(e => e.source_id !== sourceId);
     entries.push({source_id:sourceId, url, timestamp:Date.now()});
@@ -694,6 +707,7 @@ async function resolveCardmarketRoute(card, fallback){
         const product=data?.pricing?.cardmarket?.idProduct;
         if(!matchesCardmarketApiCard(card,adapted)||!Number.isSafeInteger(product)||product<=0)return '';
         const url='https://www.cardmarket.com/en/Pokemon/Products?idProduct='+product;
+        if(!validCardmarketRoute(url))return '';
         cacheCardmarketRoute(card.source_id,url);
         return url;
       }catch(_){return '';}
@@ -742,7 +756,7 @@ function itemFromCurrent(url, result){
     ...identity,
     id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
     quick: currentQuickText(),
-    url:identity?.url || url,
+    url:(identity?.url || url) ? safeCardmarketLink(identity?.url || url, identity || currentCardmarketCard()) : (identity?.url || url),
     name: identity?.name || nameInput.value.trim(),
     number: identity ? identity.number : numberInput.value.trim(),
     set: identity?.set || setSelect.value,
@@ -819,6 +833,9 @@ async function makeLink(autoCopy=true){
     route = await route;
     if(!stillCurrent()) return;
   }
+  if(route.url && !validCardmarketRoute(route.url) && !validCardmarketSearch(route.url)){
+    route = {...route, url:safeCardmarketLink(route.url,card), exact:false};
+  }
   if(!route.url){
     setCardmarketRouteState('idle');
     matchBox.innerHTML = '';
@@ -877,7 +894,8 @@ async function prepareHistoryLink(stored, div){
   if(!div.isConnected)return;
   const route=item.kind==='card' ? await resolveFinalCardmarketRoute({...item,quickText:item.quick||''}) : {url:item.url};
   if(!div.isConnected)return;
-  link.href=route.url||(item.language==='JP'?'#':item.url)||'#';
+  const url=route.url || (item.language==='JP' ? '' : item.url);
+  link.href=url ? safeCardmarketLink(url,item) : '#';
   link.removeAttribute('aria-disabled');
   const title=div.querySelector('.recentName,.itemTitle'),meta=div.querySelector('.recentMeta,.itemMeta');
   title.textContent=`${item.name || '-'} ${item.number ? '('+item.number+')' : ''}`;
@@ -908,7 +926,7 @@ function renderList(el, key){
     div.querySelector('.itemMeta').textContent = `${item.kind === 'query' ? 'Zoekopdracht' : (item.set_name || item.set || 'AUTO')} · ${item.lang}/${item.cond}${item.edition === '1ST' ? ' · 1ST' : ''} · ${item.exact ? 'direct' : 'search'}`;
     div.querySelector('.useBtn').addEventListener('click', () => applyItem(stored, true));
     const link=div.querySelector('.openMini');
-    if(item.url)link.href=item.url;
+    if(item.url)link.href=safeCardmarketLink(item.url,item);
     else link.setAttribute('aria-disabled','true');
     div.querySelector('.delBtn').addEventListener('click', () => deleteItem(key, item.id));
     el.appendChild(div);
