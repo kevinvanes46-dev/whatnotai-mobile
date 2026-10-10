@@ -75,6 +75,8 @@ const tcgIds=new Set(['PMCG1-002','PMCG1-003','PMCG1-035']);
     await page.evaluate(()=>makeLink(false));await page.reload();await page.locator('#navRecent').click();
     await page.locator('#recentList .item img').first().waitFor();assert.equal(await page.locator('#recentList .item img').first().getAttribute('src'),images['neo3-038'].src);
     await page.locator('#recentList .useBtn').first().click();
+    // Gebruik hydrates asynchronously; a completed click is not a restored selection.
+    await page.waitForFunction(()=>selectedCardIdentity(document.querySelector('#openBtn').href).source_id==='neo3-038');
     const restored=await page.evaluate(()=>selectedCardIdentity(document.querySelector('#openBtn').href));
     for(const key of ['source_id','source_set_id','language','set','condition','edition','variant'])assert.equal(restored[key],selected[key],key);
     await page.locator('#collectionAddBtn').click();await page.locator('#collectionEditorSave').click();
