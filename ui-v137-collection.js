@@ -3,7 +3,7 @@
 (() => {
   const $=id=>document.getElementById(id);
   const KEY='cardscout_collection_v133';
-  const PRICE_TTL=12*60*60*1000;
+  const Market=window.HoloKeepMarket;
   const API='https://api.tcgdex.net/v2';
   const CONDITIONS=['NM','EX','GD','PL'];
   const LISTS=['OWNED','WISHLIST'];
@@ -100,18 +100,14 @@
     });}
     notice.hidden=false;undoTimer=setTimeout(()=>{notice.hidden=true;undoAddition=null;},10000);
   }
-  const hasPrice=x=>x.edition!=='1ST'&&Number.isFinite(Number(x.price))&&Number(x.price)>0;
-  const stalePrice=x=>!Number(x.priceUpdated)||Date.now()-Number(x.priceUpdated)>=PRICE_TTL;
-  const priceIdentity=x=>[identityKey(x),x.sourceId||''].join('|');
-  function priceAgeText(x){
-    if(x.edition==='1ST')return 'Geen bevestigde 1st edition-prijs';
-    if(!hasPrice(x))return 'Prijs niet beschikbaar';
-    const date=new Date(Number(x.priceUpdated));
-    const label=Number(x.priceUpdated)>0&&Number.isFinite(date.getTime())
-      ?'Prijsdata: '+new Intl.DateTimeFormat('nl-NL',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(date)
-      :'Datum prijsdata onbekend';
-    return label+(priceFailures.has(x.uid)?' · Vernieuwen mislukt':stalePrice(x)?' · Verouderd':'');
+  function marketItem(item){
+    const ids=SET_IDS[item.set]||[];
+    const sourceId=item.sourceId||item.source_id||(item.language==='EN'&&ids.length===1&&item.number?ids[0]+'-'+String(item.number).split('/')[0].replace(/^0+(?=\d)/,''):'');
+    return {...item,sourceId,source_set_id:item.source_set_id||item.sourceSetId||(ids.length===1&&item.language==='EN'?ids[0]:sourceId.slice(0,sourceId.lastIndexOf('-')))};
   }
+  const marketEntry=x=>Market.get(localStorage,marketItem(x));
+  const stalePrice=x=>Market.due(marketEntry(x));
+  const priceIdentity=x=>Market.key(marketItem(x));
 
   function read(){
     try{
@@ -335,7 +331,7 @@
         existing.qty+=qty;
         if(existing.paidEach==null&&paid!=null)existing.paidEach=paid;
         priceTargetId=existing.uid;
-        shouldRefreshPrice=existing.listType==='OWNED'&&(!existing.priceUpdated||!Number.isFinite(Number(existing.price))||Number(existing.price)<=0);
+        shouldRefreshPrice=existing.listType==='OWNED'&&stalePrice(existing);
       }else{
         arr.unshift(item);
         priceTargetId=item.uid;
@@ -354,9 +350,8 @@
       x.variant=editorState.variant;
       x.qty=qty;
       x.paidEach=editorState.list==='OWNED'?paid:null;
-      if(previousVariant!==x.variant){x.price=null;x.priceUpdated=0;x.priceSource='';}
       priceTargetId=x.uid;
-      shouldRefreshPrice=x.listType==='OWNED'&&(previousList!=='OWNED'||previousVariant!==x.variant||!x.priceUpdated||!Number.isFinite(Number(x.price))||Number(x.price)<=0);
+      shouldRefreshPrice=x.listType==='OWNED'&&(previousList!=='OWNED'||previousVariant!==x.variant||stalePrice(x));
       write(arr);
       toast('Wijzigingen opgeslagen');
     }
@@ -408,19 +403,15 @@
     const owned=arr.filter(x=>x.listType==='OWNED');
     const wish=arr.filter(x=>x.listType==='WISHLIST');
     const qty=owned.reduce((n,x)=>n+x.qty,0);
-    const paid=owned.reduce((sum,x)=>sum+(Number(x.paidEach)||0)*x.qty,0);
-    const market=owned.reduce((sum,x)=>sum+(hasPrice(x)?Number(x.price)*x.qty:0),0);
-
+    const summary=Market.totals(owned,marketEntry);
     if(countEl)countEl.textContent=String(qty);
     if(wishlistCountEl)wishlistCountEl.textContent=String(wish.length);
-    if(paidEl)paidEl.textContent=eur(paid);
-    const missing=owned.filter(x=>!hasPrice(x)).reduce((n,x)=>n+x.qty,0);
-    const outdated=owned.some(x=>hasPrice(x)&&(stalePrice(x)||priceFailures.has(x.uid)));
-    if(marketEl)marketEl.textContent=owned.length&&missing===qty?'—':eur(market);
+    if(paidEl)paidEl.textContent=summary.paidQty?eur(summary.paid):'—';
+    if(marketEl)marketEl.textContent=summary.priced?eur(summary.value):'—';
     const coverage=$('collectionPriceCoverage');
-    if(coverage)coverage.textContent=missing
-      ?`Onvolledig · ${qty-missing} van ${qty} kaarten met prijs${outdated?' · bevat oudere prijzen':''}`
-      :outdated?'Bevat oudere prijzen · laatst bekende waarde':owned.length?'Alle kaarten hebben een prijsindicatie':'Voeg kaarten toe voor een marktindicatie';
+    if(coverage)coverage.textContent=`Prijs voor ${summary.priced} van ${summary.qty} exemplaren`+(summary.outdated?` · ${summary.outdated} mogelijk verouderd of ongedateerd`:'');
+    const paidCoverage=$('collectionPaidCoverage');
+    if(paidCoverage)paidCoverage.textContent=`Aankoopprijs ingevuld voor ${summary.paidQty} van ${summary.qty} exemplaren`;
 
     updateSetFilter(arr);
     const rows=filtered(arr);
@@ -439,7 +430,8 @@
 
     listEl.className='collectionList';
     listEl.innerHTML=rows.map(x=>{
-      const shownPrice=hasPrice(x)?Number(x.price):null;
+      const quote=Market.display(marketEntry(x),x,{failed:priceFailures.has(priceIdentity(x))});
+      const shownPrice=quote.value;
       const isWish=x.listType==='WISHLIST';
       const variant=x.variant==='STAMPED'?'⚡ STAMPED':'Normaal';
       return `<article class="collectionCard collectionCardPro ${isWish?'wishlistCard':''}" data-id="${esc(x.uid)}">
@@ -457,10 +449,11 @@
           </div>
           <div class="collectionValue">
             <b>${shownPrice&&!isWish?eur(shownPrice):'—'}</b>
-            <small>${isWish?'nog niet gekocht':(shownPrice?esc(x.priceSource||'CM trend'):'—')}</small>
+            <small>${isWish?'nog niet gekocht':esc(quote.label)}</small>
+            ${!isWish&&quote.metric?`<small>${esc(quote.metric)}</small><small>${esc(quote.condition)}</small>`:''}
           </div>
         </button>
-        ${!isWish?`<p class="priceFreshness ${!hasPrice(x)||stalePrice(x)||priceFailures.has(x.uid)?'priceWarning':''}">${esc(priceAgeText(x))}</p>`:''}
+        ${!isWish&&(shownPrice||priceFailures.has(priceIdentity(x)))?`<p class="priceFreshness ${quote.state!=='CURRENT'?'priceWarning':''}">${esc(quote.legacy?'Actualiteit onbekend':quote.date)}</p>`:''}
         <div class="collectionCardRow">
           ${!isWish?`<div class="qtyControl"><button data-act="minus">−</button><span>${x.qty}</span><button data-act="plus">+</button></div>`:'<span class="wishHint">Bewaar voor later</span>'}
           ${!isWish?`<button class="paidBtn" data-act="edit">Betaald: ${x.paidEach!=null?eur(x.paidEach):'invullen'}</button>`:''}
@@ -547,54 +540,40 @@
     }
     return null;
   }
-  function firstFinite(...values){
-    for(const v of values){
-      const n=Number(v);
-      if(Number.isFinite(n)&&n>0)return n;
-    }
-    return null;
-  }
   function priceFrom(card,item){
-    if(item.edition==='1ST')return {price:null,updated:0,source:''};
-    const cm=card?.pricing?.cardmarket;
-    if(!cm)return {price:null,updated:0,source:''};
-    const updated=Date.parse(cm.updated||'')||Date.now();
-    if(item.variant==='STAMPED'){
-      if(!(card?.variants_detailed||[]).some(v=>(v.stamp||[]).includes('set-logo')))return {price:null,updated:0,source:''};
-      const reverse=firstFinite(cm['trend-holo'],cm['avg7-holo'],cm['avg30-holo'],cm['avg-holo'],cm['avg1-holo'],cm['low-holo']);
-      return {price:reverse,updated,source:reverse!=null?'CM trend · reverse':''};
-    }
-    const normal=firstFinite(cm.trend,cm.avg7,cm.avg30,cm.avg,cm.avg1,cm.low);
-    return {price:normal,updated,source:normal!=null?'CM trend':''};
+    return Market.observe(card,marketItem(item),{requestedLanguage:item.language==='JP'?'ja':'en'});
   }
   async function refreshOnePrice(uid){
     const initial=read().map(normalizeItem).filter(Boolean).find(x=>x.uid===uid);
     if(!initial||initial.listType!=='OWNED')return;
-    const requestKey=uid+'|'+priceIdentity(initial);
+    const requestKey=priceIdentity(initial);
     if(priceRequests.has(requestKey))return priceRequests.get(requestKey);
-    const request=(async()=>{try{
-      const card=await resolveCard(initial);
-      if(!card)throw new Error('unresolved');
-      const arr=read().map(normalizeItem).filter(Boolean);
-      const current=arr.find(x=>x.uid===uid);
-      if(!current||priceIdentity(current)!==priceIdentity(initial))return 'skipped';
-      const p=priceFrom(card,current);
-      if(p.price===null)throw new Error('missing price');
-      if(hasPrice(current)&&Number(current.priceUpdated)>p.updated)return 'skipped';
-      current.price=p.price;
-      current.priceUpdated=p.updated||Date.now();
-      current.priceSource=p.source;
-      if(!write(arr))throw new Error('storage');
-      priceFailures.delete(uid);render();
-      if(!refreshingPrices&&priceStatus)priceStatus.textContent='Prijsindicatie bijgewerkt';
+    const request=Promise.resolve().then(async()=>{try{
+      const target=marketItem(initial);
+      let entry;
+      if(initial.edition==='1ST'||initial.variant==='STAMPED'){
+        entry=Market.observe(null,target,{requestedLanguage:initial.language==='JP'?'ja':'en'});
+        entry.reason=initial.edition==='1ST'?'FIRST_EDITION':'STAMPED';
+      }else{
+        if(!target.sourceId)throw new Error('unresolved');
+        const lang=target.language==='JP'?'ja':'en';
+        const card=await fetchJson(`${API}/${lang}/cards/${encodeURIComponent(target.sourceId)}`);
+        entry=Market.observe(card,target,{requestedLanguage:lang});
+        if(entry.reason==='IDENTITY'||entry.reason==='SOURCE')throw new Error('unverified response');
+      }
+      const current=read().find(x=>x.uid===uid);
+      if(!current||priceIdentity(current)!==requestKey)return 'skipped';
+      Market.put(localStorage,target,entry);
+      priceFailures.delete(requestKey);render();
+      if(!refreshingPrices&&priceStatus)priceStatus.textContent='Prijscontrole afgerond';
       return 'updated';
     }catch(_){
       const current=read().find(x=>x.uid===uid);
-      if(!current||priceIdentity(current)!==priceIdentity(initial))return 'skipped';
-      priceFailures.add(uid);render();
-      if(!refreshingPrices&&priceStatus)priceStatus.textContent='Vernieuwen mislukt · bestaande prijs behouden';
+      if(!current||priceIdentity(current)!==requestKey)return 'skipped';
+      priceFailures.add(requestKey);render();
+      if(!refreshingPrices&&priceStatus)priceStatus.textContent='Vernieuwen mislukt · laatst bekende prijs behouden';
       return 'failed';
-    }finally{priceRequests.delete(requestKey);}})();
+    }finally{priceRequests.delete(requestKey);}});
     priceRequests.set(requestKey,request);
     return request;
   }
@@ -607,8 +586,11 @@
     if(refreshBtn)refreshBtn.disabled=true;
     if(priceStatus)priceStatus.textContent='Prijsdata ophalen…';
     let changed=0,failed=0;
+    const seen=new Set();
     for(const x of owned){
-      if(!force&&hasPrice(x)&&!stalePrice(x))continue;
+      const key=priceIdentity(x);
+      if(seen.has(key)||(!force&&!stalePrice(x)))continue;
+      seen.add(key);
       const result=await refreshOnePrice(x.uid);
       if(result==='updated')changed++;
       if(result==='failed')failed++;
@@ -643,10 +625,10 @@
   $('navCollection')?.addEventListener('click',()=>{
     render();
     const a=read().map(normalizeItem).filter(Boolean).filter(x=>x.listType==='OWNED');
-    if(a.some(x=>!hasPrice(x)||stalePrice(x)))refreshPrices(false);
+    if(a.some(stalePrice))refreshPrices(false);
   });
 
-  window.cardscoutCollectionUI={lookupCard:resolveCard,priceFrom,render};
+  window.cardscoutCollectionUI={lookupCard:resolveCard,priceFrom,render,refreshOnePrice,refreshPrices};
   migrate();
   syncQuickFilterButtons();
   render();

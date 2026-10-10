@@ -133,3 +133,15 @@ body { background:radial-gradient(ellipse at 94% 18%,#224c3b26,transparent 45%),
 }
 @media(max-width:350px) { .selectedCardPanel { grid-template-columns:88px minmax(0,1fr); gap:12px; } .selectedCardArt { width:88px; } .selectedCardInfo h2 { font-size:22px; } }
 @media(max-width:759px) { #actionDock.ready { grid-template-columns:minmax(0,1.45fr) minmax(0,1fr)!important; } }
+
+/* v176: compact market provenance, without changing collector controls. */
+.marketExplanation { color:#bdcdc5; font-size:12px; line-height:1.6; margin:12px 0 20px; }
+.marketExplanation summary { cursor:pointer; min-height:44px; display:flex; align-items:center; text-decoration:underline; }
+.marketExplanation p { margin:0 0 12px; max-width:65ch; }
+.collectionSummaryPro>div { min-width:0; }
+.priceCoverage { overflow-wrap:anywhere; line-height:1.5; }
+.collectionValue { max-width:190px; min-width:0; }
+.collectionValue small { display:block; white-space:normal; overflow-wrap:anywhere; margin-top:4px; line-height:1.45; }
+.collectionCardMain>div { min-width:0; }
+.collectionCardMain h3,.collectionCardMain p { overflow-wrap:anywhere; }
+@media(max-width:430px) { .collectionValue { max-width:135px; } }

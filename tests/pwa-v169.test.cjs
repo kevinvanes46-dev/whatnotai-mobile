@@ -28,7 +28,7 @@ test('v169 manifest, real icon dimensions, shell coverage and unchanged engine/o
   }
   const old=execFileSync('git',['show',base+':index.html'],{encoding:'utf8'});
   const scripts=text=>[...text.matchAll(/<script src="([^"]+)"/g)].map(m=>m[1]);
-  assert.deepEqual(scripts(html),['brand-v172.js?build=175-en-platinum-hgss-coverage',...scripts(old).map(src=>/^cardmarket-ui-v156\.js\?/.test(src)?src.split('?')[0]+'?build=174-1-cardmarket-host-hotfix':/^(app-v137|ui-v137-focus|ui-v137-collection)\.js\?/.test(src)?src.split('?')[0]+'?build=175-en-platinum-hgss-coverage':src.startsWith('app-v137.js?')?'app-v137.js?build=169-pwa-foundation':src.startsWith('ui-v150-experience.js?')?'ui-v150-experience.js?build=173-holokeep-rebrand':src),'cloud-sync-v170.js?build=170b-account-cloud-sync','supabase-config-v170.js?build=170b-account-cloud-sync','supabase-client-v170.js?build=170b-account-cloud-sync','cloud-adapter-v170.js?build=170b-account-cloud-sync','account-ui-v170.js?build=170b-account-cloud-sync','onboarding-v171.js?build=171-1-launch-gate','pwa-v169.js?build=169-pwa-foundation']);
+  assert.deepEqual(scripts(html),['brand-v172.js?build=176-market-value-trust',...scripts(old).flatMap(src=>src.startsWith('ui-v137-collection.js?')?['market-v176.js?build=176-market-value-trust','ui-v137-collection.js?build=176-market-value-trust']:/^cardmarket-ui-v156\.js\?/.test(src)?src.split('?')[0]+'?build=174-1-cardmarket-host-hotfix':/^(app-v137|ui-v137-focus|ui-v137-collection)\.js\?/.test(src)?src.split('?')[0]+'?build=175-en-platinum-hgss-coverage':src.startsWith('app-v137.js?')?'app-v137.js?build=169-pwa-foundation':src.startsWith('ui-v150-experience.js?')?'ui-v150-experience.js?build=173-holokeep-rebrand':src),'cloud-sync-v170.js?build=170b-account-cloud-sync','supabase-config-v170.js?build=170b-account-cloud-sync','supabase-client-v170.js?build=170b-account-cloud-sync','cloud-adapter-v170.js?build=170b-account-cloud-sync','account-ui-v170.js?build=170b-account-cloud-sync','onboarding-v171.js?build=171-1-launch-gate','pwa-v169.js?build=169-pwa-foundation']);
   const assets=new Set(workerContext().assets);
   for(const asset of [...scripts(html),...[...html.matchAll(/<link[^>]+href="([^"]+)"/g)].map(m=>m[1]),...manifest.icons.map(i=>i.src)]){
     assert.ok(assets.has(asset),`Missing precache: ${asset}`);
@@ -40,7 +40,7 @@ test('v169 manifest, real icon dimensions, shell coverage and unchanged engine/o
     assert.equal(html.match(pattern)?.[0],old.match(pattern)?.[0].replace('RareWorth','HoloKeep'));
   }
   assert.doesNotMatch(worker,/unregister\s*\(/);
-  assert.match(worker,/rareworth-shell-v175/);
+  assert.match(worker,/rareworth-shell-v176/);
   assert.doesNotMatch(worker+registration,/localStorage|sessionStorage/);
   // Byte comparison, except checkout line endings; protect every existing production script.
   for(const src of scripts(old)){
@@ -96,7 +96,7 @@ test('v169 failed precache never activates an incomplete worker',async()=>{
 });
 
 test('v169 Chromium: scoped worker, offline collection, engine smoke and safe update', {timeout:180000}, async()=>{
-  let revision='v175',marker='initial';
+  let revision='v176',marker='initial';
   const server=http.createServer((req,res)=>{
     try{
       const pathname=new URL(req.url,'http://localhost').pathname;
@@ -105,7 +105,7 @@ test('v169 Chromium: scoped worker, offline collection, engine smoke and safe up
       const file=pathname.slice('/whatnotai-mobile/'.length)||'index.html';
       res.setHeader('Content-Type',({js:'text/javascript',html:'text/html',css:'text/css',json:'application/json',svg:'image/svg+xml',png:'image/png'})[file.split('.').pop()]||'application/octet-stream');
       res.setHeader('Cache-Control','no-store');
-      if(file==='sw.js')return res.end(worker.replaceAll('rareworth-shell-v175','rareworth-shell-'+revision));
+      if(file==='sw.js')return res.end(worker.replaceAll('rareworth-shell-v176','rareworth-shell-'+revision));
       if(file==='index.html')return res.end(html.replace('</head>',`<meta name="pwa-test-revision" content="${marker}"></head>`));
       res.end(fs.readFileSync(path.resolve(file)));
     }catch{res.writeHead(404).end();}
@@ -139,7 +139,7 @@ test('v169 Chromium: scoped worker, offline collection, engine smoke and safe up
     await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
     assert.deepEqual(await page.evaluate(async()=> (await navigator.serviceWorker.getRegistrations()).map(r=>({scope:r.scope,state:r.active.state}))),[{scope:url,state:'activated'}]);
     const cacheNames=await page.evaluate(()=>caches.keys());
-    assert.ok(cacheNames.includes('rareworth-shell-v175'));assert.ok(cacheNames.includes('unrelated-cache'));assert.ok(cacheNames.includes('cardscout-other-app'));
+    assert.ok(cacheNames.includes('rareworth-shell-v176'));assert.ok(cacheNames.includes('unrelated-cache'));assert.ok(cacheNames.includes('cardscout-other-app'));
     for(const name of ['rareworth-shell-v168-test','whatnotai-mobile-v36','cardscout-v133'])assert.ok(!cacheNames.includes(name));
     await page.reload();
     console.log('PASS initial worker, legacy cleanup and online reload');
@@ -180,7 +180,7 @@ test('v169 Chromium: scoped worker, offline collection, engine smoke and safe up
     console.log('PASS online recovery and EN route');
     // Real external fetches through the controlled page remain absent from Cache Storage.
     await page.evaluate(()=>Promise.all(['https://www.cardmarket.com/en/Pokemon/Products','https://api.tcgdex.net/v2/ja/cards'].map(url=>fetch(url,{signal:AbortSignal.timeout(3000)}).catch(()=>{}))));
-    const cached=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v175')).keys()).map(request=>request.url));
+    const cached=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v176')).keys()).map(request=>request.url));
     assert.ok(cached.length>=27);assert.ok(cached.every(u=>new URL(u).origin===origin),'same origin only');
     assert.ok(cached.every(u=>new URL(u).pathname.startsWith('/whatnotai-mobile/')));
     console.log('PASS same-origin cache inventory');
@@ -189,7 +189,7 @@ test('v169 Chromium: scoped worker, offline collection, engine smoke and safe up
     await page.evaluate(async()=>{const r=await navigator.serviceWorker.getRegistration();await r.update();});
     await page.waitForFunction(async()=>{
       const keys=await caches.keys(),r=await navigator.serviceWorker.getRegistration();
-      return keys.includes('rareworth-shell-v176-test')&&!keys.includes('rareworth-shell-v175')&&r.active?.state==='activated'&&!r.installing&&!r.waiting;
+      return keys.includes('rareworth-shell-v176-test')&&!keys.includes('rareworth-shell-v176')&&r.active?.state==='activated'&&!r.installing&&!r.waiting;
     });
     assert.equal(await page.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),before.cardscout_collection_v133);
     assert.equal(await page.evaluate(()=>localStorage.getItem('whatnotai_mobile_favorites_v37')),before.whatnotai_mobile_favorites_v37);

@@ -66,3 +66,6 @@ jobs:
 
       - name: EN Platinum + HGSS coverage
         run: node --test tests/en-platinum-hgss-coverage-v175.test.cjs
+
+      - name: HoloKeep market value trust
+        run: node --test tests/market-value-trust-v176.test.cjs tests/market-value-browser-v176.test.cjs tests/collection-price-freshness.test.cjs
