@@ -97,7 +97,7 @@ test('v168 mobile shell and search → Recent → collection reload',async()=>{
       }
       assert.equal(await page.locator('#collectionExportBtn').isVisible(),true);
       assert.equal(await page.locator('#collectionImportBtn').isVisible(),true);
-      assert.match(await page.locator('.aboutCard').innerText(),/v174.1 · Beta/);
+      assert.match(await page.locator('.aboutCard').innerText(),/v175 · Beta/);
       if(process.env.SHELL_SCREENSHOTS){
         fs.mkdirSync(process.env.SHELL_SCREENSHOTS,{recursive:true});
         await page.screenshot({path:path.join(process.env.SHELL_SCREENSHOTS,`more-${width}.png`),fullPage:true});

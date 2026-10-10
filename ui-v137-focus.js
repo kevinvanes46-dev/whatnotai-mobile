@@ -67,7 +67,7 @@
   let enCatalogState = 'idle';
   let jpCatalogState = 'idle';
 
-  const SEARCH_BUILD = '174-en-dp-pop-coverage';
+  const SEARCH_BUILD = '175-en-platinum-hgss-coverage';
   const TCGDEX_API = 'https://api.tcgdex.net/v2';
   const ONLINE_CACHE_TTL = 14 * 24 * 60 * 60 * 1000;
   const ONLINE_CACHE_PREFIX = 'cardscout_search_catalog_v152_';
@@ -126,7 +126,17 @@
     'POP SERIES 6':['pop6'],
     'POP SERIES 7':['pop7'],
     'POP SERIES 8':['pop8'],
-    'POP SERIES 9':['pop9']
+    'POP SERIES 9':['pop9'],
+    'PLATINUM':['pl1'],
+    'RISING RIVALS':['pl2'],
+    'SUPREME VICTORS':['pl3'],
+    'ARCEUS':['pl4'],
+    'HEARTGOLD SOULSILVER':['hgss1'],
+    'UNLEASHED':['hgss2'],
+    'UNDAUNTED':['hgss3'],
+    'TRIUMPHANT':['hgss4'],
+    'CALL OF LEGENDS':['col1'],
+    'HGSS BLACK STAR PROMOS':['hgssp']
   };
 
 
@@ -628,11 +638,13 @@
     // Resolve the longest explicit set phrase before interpreting numeric card tokens.
     // In "mew pop 5", 5 belongs to the set alias, never to the card number.
     const explicitSet = (langSelect?.value || 'EN') === 'EN'
-      ? Object.entries(setInfo).filter(([key]) => /^(dp[1-7]|dpp|pop[1-9])$/.test(TCGDEX_SET_IDS[key]?.[0] || ''))
+      ? Object.entries(setInfo).filter(([key]) => /^(dp[1-7]|dpp|pop[1-9]|pl[1-4]|hgss[1-4]|col1|hgssp)$/.test(TCGDEX_SET_IDS[key]?.[0] || ''))
         .flatMap(([key,def]) => [def.label,...(def.aliases || [])]
         .map(alias => ({key,alias:normalize(alias)})))
         .filter(x => x.alias && (' '+fullQuery+' ').includes(' '+x.alias+' '))
-        .sort((a,b) => b.alias.length-a.alias.length)[0]
+        .filter(x => x.alias !== 'pl' || matchingSetAliases(query).some(match => match.alias === 'pl'))
+        .filter(x => x.alias !== 'arceus' || (!/\b(?:pl[1-4]|hgss[1-4]|col1|hgssp|hsp)\b/.test(fullQuery) && /[a-z]/.test(fullQuery.replace(/\barceus\b|\blv x\b|\b(?:en|nm|ex|gd|pl)\b|\b(?:sh|ar|sl|rt|hgss)[0-9]+\b|[0-9]+/g,''))))
+        .sort((a,b) => Number(/^(?:pl[1-4]|hgss[1-4]|col1|hgssp|hsp)$/.test(b.alias))-Number(/^(?:pl[1-4]|hgss[1-4]|col1|hgssp|hsp)$/.test(a.alias)) || b.alias.length-a.alias.length)[0]
       : null;
     const cardQuery = explicitSet ? (' '+fullQuery+' ').replace(' '+explicitSet.alias+' ',' ').trim() : fullQuery;
     const tokens = cardQuery.split(' ').filter(t => t && !ignored.has(t));
@@ -716,7 +728,7 @@
 
   function readCatalogCache(lang){
     try{
-      const raw=localStorage.getItem(`${ONLINE_CACHE_PREFIX}${lang==='JP'?'JP_v160':'EN_v174'}`);
+      const raw=localStorage.getItem(`${ONLINE_CACHE_PREFIX}${lang==='JP'?'JP_v160':'EN_v175'}`);
       if(!raw) return null;
       const obj=JSON.parse(raw);
       if(!obj || !Array.isArray(obj.cards) || Date.now()-Number(obj.savedAt||0)>ONLINE_CACHE_TTL) return null;
@@ -726,7 +738,7 @@
 
   function writeCatalogCache(lang,cards){
     try{
-      localStorage.setItem(`${ONLINE_CACHE_PREFIX}${lang==='JP'?'JP_v160':'EN_v174'}`, JSON.stringify({savedAt:Date.now(),cards}));
+      localStorage.setItem(`${ONLINE_CACHE_PREFIX}${lang==='JP'?'JP_v160':'EN_v175'}`, JSON.stringify({savedAt:Date.now(),cards}));
     }catch(_){ }
   }
 

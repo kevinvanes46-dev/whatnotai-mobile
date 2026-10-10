@@ -734,6 +734,112 @@
         "pop 9",
         "pop9"
       ]
+    },
+    "PLATINUM": {
+      "label": "Platinum",
+      "code": "PL",
+      "aliases": [
+        "platinum",
+        "pl",
+        "pl1"
+      ]
+    },
+    "RISING RIVALS": {
+      "label": "Rising Rivals",
+      "code": "RR",
+      "aliases": [
+        "rising rivals",
+        "rising",
+        "rr",
+        "pl2"
+      ]
+    },
+    "SUPREME VICTORS": {
+      "label": "Supreme Victors",
+      "code": "SV",
+      "aliases": [
+        "supreme victors",
+        "supreme",
+        "sv",
+        "pl3"
+      ]
+    },
+    "ARCEUS": {
+      "label": "Arceus",
+      "code": "AR",
+      "aliases": [
+        "arceus",
+        "ar",
+        "pl4"
+      ]
+    },
+    "HEARTGOLD SOULSILVER": {
+      "label": "HeartGold & SoulSilver",
+      "code": "HS",
+      "aliases": [
+        "heartgold soulsilver",
+        "heartgold soul silver",
+        "heartgold & soulsilver",
+        "heartgold and soulsilver",
+        "hgss",
+        "hs",
+        "hgss1"
+      ]
+    },
+    "UNLEASHED": {
+      "label": "Unleashed",
+      "code": "UL",
+      "aliases": [
+        "unleashed",
+        "hs unleashed",
+        "hgss unleashed",
+        "ul",
+        "hgss2"
+      ]
+    },
+    "UNDAUNTED": {
+      "label": "Undaunted",
+      "code": "UD",
+      "aliases": [
+        "undaunted",
+        "hs undaunted",
+        "hgss undaunted",
+        "ud",
+        "hgss3"
+      ]
+    },
+    "TRIUMPHANT": {
+      "label": "Triumphant",
+      "code": "TM",
+      "aliases": [
+        "triumphant",
+        "hs triumphant",
+        "hgss triumphant",
+        "tm",
+        "hgss4"
+      ]
+    },
+    "CALL OF LEGENDS": {
+      "label": "Call of Legends",
+      "code": "COL",
+      "aliases": [
+        "call of legends",
+        "call legends",
+        "col",
+        "col1"
+      ]
+    },
+    "HGSS BLACK STAR PROMOS": {
+      "label": "HGSS Black Star Promos",
+      "code": "HSP",
+      "aliases": [
+        "hgss black star promos",
+        "hgss black star promo",
+        "hgss promos",
+        "hgss promo",
+        "hsp",
+        "hgssp"
+      ]
     }
   },
   "knownCards": [

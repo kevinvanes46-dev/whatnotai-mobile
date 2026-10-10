@@ -32,6 +32,16 @@
     'POP SERIES 7':['pop7'],
     'POP SERIES 8':['pop8'],
     'POP SERIES 9':['pop9'],
+    'PLATINUM':['pl1'],
+    'RISING RIVALS':['pl2'],
+    'SUPREME VICTORS':['pl3'],
+    'ARCEUS':['pl4'],
+    'HEARTGOLD SOULSILVER':['hgss1'],
+    'UNLEASHED':['hgss2'],
+    'UNDAUNTED':['hgss3'],
+    'TRIUMPHANT':['hgss4'],
+    'CALL OF LEGENDS':['col1'],
+    'HGSS BLACK STAR PROMOS':['hgssp'],
     'EX TRAINER KIT 2':['tk-ex-p','tk-ex-m']
   };
 
@@ -254,7 +264,7 @@
     editor.dataset.pending=JSON.stringify({
       name:cleanVisibleCardName(c.name,c.number)||c.name,number:String(c.number||''),set:c.set||'AUTO',setName:c.set_name||c.set||'AUTO',
       language:c.language||langSelect?.value||'EN',edition:sel.edition||editionSelect?.value||'AUTO',
-      sourceId:c.source_id||'',...(c.language==='EN' && /^(dp[1-7]|dpp|pop[1-9])$/.test(c.source_set_id||'') ? {source_set_id:c.source_set_id} : {}),cardmarketUrl:sel.cardmarketUrl||c.url||openBtn?.getAttribute('href')||''
+      sourceId:c.source_id||'',...(c.language==='EN' && /^(dp[1-7]|dpp|pop[1-9]|pl[1-4]|hgss[1-4]|col1|hgssp)$/.test(c.source_set_id||'') ? {source_set_id:c.source_set_id} : {}),cardmarketUrl:sel.cardmarketUrl||c.url||openBtn?.getAttribute('href')||''
     });
     showEditor();
   }

@@ -121,7 +121,7 @@ test('local shell first, concurrency <=6, old EN cache ignored and user storage 
   const {page,requests,release,maxActive}=await setup(t,{hold:true});
   await page.waitForFunction(()=>!!CardCatalog.find({name:'Charizard',number:'4',set:'BASE',language:'EN'}));
   assert.ok(requests.length<=6);assert.ok(requests.every(p=>p.includes('/sets/')));release();await ready(page);assert.ok(maxActive()<=6);
-  const old='cardscout_search_catalog_v152_EN';await page.evaluate(old=>{localStorage.setItem(old,JSON.stringify({savedAt:Date.now(),cards:[{name:'Stale',language:'EN'}]}));localStorage.removeItem('cardscout_search_catalog_v152_EN_v174');localStorage.setItem('whatnotai_mobile_favorites_v37','[]');},old);
+  const old='cardscout_search_catalog_v152_EN';await page.evaluate(old=>{localStorage.setItem(old,JSON.stringify({savedAt:Date.now(),cards:[{name:'Stale',language:'EN'}]}));localStorage.removeItem('cardscout_search_catalog_v152_EN_v175');localStorage.setItem('whatnotai_mobile_favorites_v37','[]');},old);
   requests.length=0;await page.reload();await ready(page);assert.ok(requests.some(p=>p.endsWith('/pop9')));assert.equal(await page.evaluate(()=>localStorage.getItem('whatnotai_mobile_favorites_v37')),'[]');assert.ok(await page.evaluate(old=>localStorage.getItem(old),old));
 });
 test('same-storage real offline reload finds DP/POP; empty cache retains local cards; mobile and branding',async t=>{
@@ -129,7 +129,7 @@ test('same-storage real offline reload finds DP/POP; empty cache retains local c
   for(const width of [320,375,390,430]){await page.setViewportSize({width,height:844});await search(page,'mew pop 5');await page.locator('.suggestion').first().waitFor();assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert.equal(await page.locator('#setSelect').isVisible(),false);}
   requests.length=0;await setOffline(true);await page.reload();await ready(page);assert.ok(!requests.some(p=>p.includes('/en/sets/')));
   for(const id of ['dp1','dp7','dpp','pop5']){const c=sample(id);await search(page,`${c.name} ${id}`);await page.locator('.suggestion').first().waitFor();}
-  assert.equal(await page.locator('.brandText strong').innerText(),'HoloKeep');await page.locator('#navSettings').click();assert.match(await page.locator('.aboutCard').innerText(),/v174.1 · Beta/);
-  const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v174-1')).keys()).map(r=>r.url));assert.ok(urls.length>20);assert.ok(urls.every(u=>new URL(u).origin===origin));assert.ok(urls.some(u=>u.endsWith('/cards.json?build=174-en-dp-pop-coverage')));
-  await page.evaluate(()=>localStorage.removeItem('cardscout_search_catalog_v152_EN_v174'));await page.reload();await search(page,'charizard base');await page.locator('.suggestion').first().waitFor();
+  assert.equal(await page.locator('.brandText strong').innerText(),'HoloKeep');await page.locator('#navSettings').click();assert.match(await page.locator('.aboutCard').innerText(),/v175 · Beta/);
+  const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v175')).keys()).map(r=>r.url));assert.ok(urls.length>20);assert.ok(urls.every(u=>new URL(u).origin===origin));assert.ok(urls.some(u=>u.endsWith('/cards.json?build=175-en-platinum-hgss-coverage')));
+  await page.evaluate(()=>localStorage.removeItem('cardscout_search_catalog_v152_EN_v175'));await page.reload();await search(page,'charizard base');await page.locator('.suggestion').first().waitFor();
 });

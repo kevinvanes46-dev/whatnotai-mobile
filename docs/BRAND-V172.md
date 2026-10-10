@@ -178,6 +178,7 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | docs/CARDMARKET-HOST-V174-1.md | B, C, H | 13 | no |
 | docs/CLOUD-SYNC-V170.md | B, C, D, H | 1, 3, 12, 38, 62, 87, 123, 164, 178, 192, 203 | no |
 | docs/EN-COVERAGE-V174.md | B, C, H | 51 | no |
+| docs/EN-COVERAGE-V175.md | B, H | 36 | no |
 | icon-rareworth-180.png | E | — | yes |
 | icon-rareworth-192.png | E | — | yes |
 | icon-rareworth-512.png | E | — | yes |
@@ -208,6 +209,7 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | tests/cloud-sync-v170.test.cjs | B, H | 135, 142 | no |
 | tests/collector-experience.test.cjs | H | 4, 27 | no |
 | tests/en-dp-pop-coverage-v174.test.cjs | B, C, E, H | 47, 63, 133 | no |
+| tests/en-platinum-hgss-coverage-v175.test.cjs | B, C, E, H | 48, 65, 124, 194, 198 | no |
 | tests/experience-scope-v171.cjs | H | 8 | no |
 | tests/guest-context-v171.cjs | B, C, H | 10 | no |
 | tests/jp-image-library-browser-v161.test.cjs | B, H | 18, 40, 58, 63, 68 | no |

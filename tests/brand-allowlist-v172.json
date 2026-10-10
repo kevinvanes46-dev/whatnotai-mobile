@@ -88,7 +88,7 @@
     "grant execute on function public.rareworth_get_collection_snapshot() to authenticated;"
   ],
   "sw.js": [
-    "const CACHE = 'rareworth-shell-v174-1';",
+    "const CACHE = 'rareworth-shell-v175';",
     "'icon-rareworth.svg?build=173-holokeep-rebrand',",
     "'icon-rareworth-180.png?build=173-holokeep-rebrand',",
     "'icon-rareworth-192.png', 'icon-rareworth-512.png',",

@@ -63,3 +63,6 @@ jobs:
 
       - name: Cardmarket host security and legacy resolver
         run: node --test tests/cardmarket-resolver-v146.test.cjs tests/cardmarket-host-v174-1.test.cjs
+
+      - name: EN Platinum + HGSS coverage
+        run: node --test tests/en-platinum-hgss-coverage-v175.test.cjs
