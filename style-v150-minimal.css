@@ -145,3 +145,16 @@ body { background:radial-gradient(ellipse at 94% 18%,#224c3b26,transparent 45%),
 .collectionCardMain>div { min-width:0; }
 .collectionCardMain h3,.collectionCardMain p { overflow-wrap:anywhere; }
 @media(max-width:430px) { .collectionValue { max-width:135px; } }
+
+/* v177 costs remain compact and separate from general market values. */
+.costResult,.costBasisDetails { display:flex; flex-direction:column; gap:6px; color:#bdcdc5; font-size:12px; line-height:1.5; overflow-wrap:anywhere; }
+.costResult { margin:16px 0; }
+.costResult b { font-size:20px; color:#edf6f1; }
+.costBasisDetails { padding:10px 0; }
+.costBasisDetails b { color:#edf6f1; }
+.costHelp { font-size:12px; line-height:1.6; color:#bdcdc5; }
+.costActions { display:flex; flex-wrap:wrap; gap:8px; }
+.costActions[hidden] { display:none; }
+.costActions button { min-height:44px; white-space:normal; overflow-wrap:anywhere; }
+.collectionEditorSheet { max-height:90dvh; overflow-y:auto; }
+.collectionEditorSheet input:disabled { opacity:.6; }

@@ -75,7 +75,7 @@ test('v170B mobile: optional mocked OTP, explicit CAS sync, conflict, signout an
     assert.equal(await page.evaluate(()=>window.mockRemote.revision),'1');
     // A real collection editor save triggers the isolated account observer.
     await page.locator('#navCollection').click();await page.locator('#collectionList .collectionCardMain').first().click();
-    await page.locator('#collectionEditorQty').fill('2');await page.locator('#collectionEditorSave').click();
+    await page.locator('#collectionCostAverage').click();await page.locator('#collectionEditorPaid').fill('10');await page.locator('#collectionEditorQty').fill('2');await page.locator('#collectionEditorSave').click();
     await page.locator('#navSettings').click();await state('LOCAL_NEWER');await page.locator('#accountSync').click();await state('IN_SYNC');
     assert.equal(await page.evaluate(()=>window.mockRemote.revision),'2');
     await page.evaluate(()=>{window.mockRemote.payload[0].qty=3;window.mockRemote.revision='3';});
@@ -103,7 +103,7 @@ test('v170B mobile: optional mocked OTP, explicit CAS sync, conflict, signout an
     assert.deepEqual(await page.evaluate(keys=>Object.fromEntries(keys.map(k=>[k,localStorage.getItem(k)])),Object.keys(before)),before);
     assert.deepEqual(await page.locator('.bottomNav button span').allTextContents(),['Zoeken','Collectie','Recent','Instellingen']);
     assert.equal(await page.locator('#favoriteBtn').isVisible(),false);assert.equal(await page.locator('[data-view="scan"]').isVisible(),false);
-    const cached=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v176')).keys()).map(r=>r.url));
+    const cached=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v177')).keys()).map(r=>r.url));
     assert.ok(cached.length>=33);assert.ok(cached.every(u=>new URL(u).origin===origin));
     assert.ok(!external.some(u=>/supabase|jsdelivr/.test(u)),'no live auth/API/CDN requests');assert.deepEqual(errors,[]);
     console.log('PASS account mobile: SDK mocked, revisions 1/2/3, local editor, conflict, signout, offline, external cache=0');

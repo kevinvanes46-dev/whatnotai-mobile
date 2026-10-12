@@ -69,3 +69,6 @@ jobs:
 
       - name: HoloKeep market value trust
         run: node --test tests/market-value-trust-v176.test.cjs tests/market-value-browser-v176.test.cjs tests/collection-price-freshness.test.cjs
+
+      - name: HoloKeep cost basis and indicative result
+        run: node --test tests/cost-basis-v177.test.cjs tests/cost-basis-browser-v177.test.cjs

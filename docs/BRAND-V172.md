@@ -198,7 +198,7 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | supabase-config-v170.js | B, D | 2 | no |
 | supabase/migrations/20260930_rareworth_cloud_v170.sql | B, D, E | 4, 12, 15, 16, 17, 19, 20, 23, 24, 27, 28, 32, 33, 37, 48, 49, 50, 51, 52, 54, 67, 79, 85, 102, 103 | yes |
 | supabase/migrations/20261001_rareworth_cloud_read_v170b.sql | B, D, E | 3, 18, 21, 22 | yes |
-| sw.js | B, E, F, G | 3, 11, 12, 13, 57 | no |
+| sw.js | B, E, F, G | 3, 11, 12, 13, 58 | no |
 | tests/account-cloud-browser-v170b.test.cjs | B, D, H | 44, 106 | no |
 | tests/account-cloud-v170b.test.cjs | B, D, H | 17, 38, 142, 143, 146, 147, 149, 150, 175 | no |
 | tests/brand-allowlist-v172.json | B, C, D, E, F, H | 3, 4, 5, 6, 8, 9, 10, 13, 14, 17, 18, 19, 22, 23, 24, 27, 28, 29, 30, 33, 34, 37, 40, 41, 44, 45, 46, 49, 52, 55, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 84, 85, 86, 87, 88, 91, 92, 93, 94, 95, 98, 99, 100, 101, 102, 105, 106, 109, 110, 111 | no |
@@ -210,6 +210,7 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | tests/cloud-sync-v170.test.cjs | B, H | 135, 142 | no |
 | tests/collection-price-freshness.test.cjs | B, C, H | 17 | no |
 | tests/collector-experience.test.cjs | H | 4, 27 | no |
+| tests/cost-basis-browser-v177.test.cjs | B, C, E, H | 8, 9, 17, 64 | no |
 | tests/en-dp-pop-coverage-v174.test.cjs | B, C, E, H | 47, 63, 133 | no |
 | tests/en-platinum-hgss-coverage-v175.test.cjs | B, C, E, H | 48, 65, 124, 194, 198 | no |
 | tests/experience-scope-v171.cjs | H | 8 | no |
@@ -218,7 +219,7 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | tests/jp-image-library-v161.test.cjs | B, H | 9, 11 | no |
 | tests/keyboard-v154.test.cjs | B, H | 48 | no |
 | tests/launch-gate-v171-1.test.cjs | B, C, H | 5, 7, 49, 50, 56, 60, 66, 74, 77 | no |
-| tests/market-value-browser-v176.test.cjs | B, C, E, H | 12, 16, 20, 23, 51 | no |
+| tests/market-value-browser-v176.test.cjs | B, C, E, H | 12, 16, 20, 23, 52 | no |
 | tests/market-value-trust-v176.test.cjs | B, H | 43 | no |
 | tests/onboarding-product-v171.test.cjs | B, C, H | 44, 52, 53, 54, 68, 72, 75, 78, 79, 83, 88, 111, 112 | no |
 | tests/product-shell-v168.test.cjs | H | 18 | no |

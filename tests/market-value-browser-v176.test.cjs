@@ -15,7 +15,7 @@ async function setup(t,items=[fixture.item]){
   if(u.hostname==='api.tcgdex.net'){if(u.pathname.includes('/cards/')){if(r.request().headers().accept==='application/json')count++;return fail?r.fulfill({status:503,json:{}}):r.fulfill({json:response});}return r.fulfill({json:{cards:[]}});}
   if(u.hostname==='assets.tcgdex.net')return r.fulfill({contentType:'image/png',body:fs.readFileSync('icon-rareworth-192.png')});return r.fulfill({json:{data:[]}});
  });
- const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));t.after(()=>assert.deepEqual(errors,[]));
+ const page=await context.newPage();await page.clock.setFixedTime(fixture.now);page.on('pageerror',e=>errors.push(e.message));t.after(()=>assert.deepEqual(errors,[]));
  await page.goto(origin+'/seed');await page.evaluate(items=>localStorage.setItem('cardscout_collection_v133',JSON.stringify(items)),items);await page.goto(origin);
  await page.waitForFunction(()=>!!window.cardscoutCollectionUI&&!!window.RareWorthCloudSync);
  return {page,context,count:()=>count,fail:()=>{fail=true;},response:c=>{response=c;}};
@@ -25,20 +25,21 @@ test('real refresh preserves exact collection and cloud signature; labels, failu
  const {page,fail,count,response}=await setup(t);const before=await snapshot(page);
  assert.equal(await page.evaluate(()=>cardscoutCollectionUI.refreshOnePrice('market-test')),'updated');assert.deepEqual(await snapshot(page),before);assert.equal(count(),1);
  await page.locator('#navCollection').click();await page.waitForFunction(()=>!document.querySelector('#collectionRefreshBtn').disabled);assert.equal(count(),1);
- assert.match(await page.locator('#collectionMarket').innerText(),/50/);assert.match(await page.locator('#collectionPriceCoverage').innerText(),/2 van 2 exemplaren/);assert.match(await page.locator('#collectionPaidCoverage').innerText(),/2 van 2 exemplaren/);
+ assert.match(await page.locator('#collectionMarket').innerText(),/50/);assert.match(await page.locator('#collectionPriceCoverage').innerText(),/2 van 2 exemplaren/);assert.match(await page.locator('#collectionPaidCoverage').innerText(),/0 van 2 exemplaren/);
  assert.match(await page.locator('#collectionList').innerText(),/Algemene marktindicatie/);assert.match(await page.locator('#collectionList').innerText(),/Conditie niet verwerkt/);assert.match(await page.locator('#collectionList').innerText(),/Cardmarket trend/);
  for(const width of [320,375,390,430]){await page.setViewportSize({width,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),String(width));assert.ok(await page.locator('#collectionMarket').isVisible());}
  const c=structuredClone(fixture.card);delete c.pricing.cardmarket['trend-holo'];response(c);await page.evaluate(()=>cardscoutCollectionUI.refreshPrices(true));assert.match(await page.locator('#collectionList').innerText(),/7-daags gemiddelde/);assert.doesNotMatch(await page.locator('#collectionList').innerText(),/Cardmarket trend/);
  delete c.pricing.cardmarket['avg7-holo'];response(c);await page.evaluate(()=>cardscoutCollectionUI.refreshPrices(true));assert.match(await page.locator('#collectionList').innerText(),/30-daags gemiddelde/);
  const cached=await page.evaluate(()=>localStorage.getItem(HoloKeepMarket.KEY));fail();await page.evaluate(()=>cardscoutCollectionUI.refreshPrices(true));
  assert.equal(await page.evaluate(()=>localStorage.getItem(HoloKeepMarket.KEY)),cached);assert.deepEqual(await snapshot(page),before);assert.match(await page.locator('.priceFreshness').innerText(),/Vernieuwen mislukt/);assert.match(await page.locator('#collectionMarket').innerText(),/46/);
- assert.doesNotMatch(await page.locator('[data-view="collection"]').innerText(),/ROI|winst|verlies|Live waarde|Exacte waarde/);
+ assert.doesNotMatch(await page.locator('[data-view="collection"]').innerText(),/ROI|Live waarde|Exacte waarde/);
+ assert.equal(await page.locator('#collectionDifference').innerText(),'—');
 });
 test('legacy excluded; special variants unavailable; quantity and cost coverage; duplicate requests deduplicated',async t=>{
  const items=[fixture.item,{...fixture.item,uid:'stamped',qty:3,variant:'STAMPED',paidEach:null},{...fixture.item,uid:'second',qty:1,condition:'PL',paidEach:0}];const {page,count}=await setup(t,items);
  assert.equal(await page.locator('#collectionMarket').textContent(),'—');assert.match(await page.locator('#collectionList').textContent(),/Oudere prijs/);const before=await snapshot(page);
  await page.evaluate(()=>cardscoutCollectionUI.refreshPrices(true));assert.equal(count(),1);assert.deepEqual(await snapshot(page),before);
- assert.equal(await page.locator('#collectionPriceCoverage').textContent(),'Prijs voor 3 van 6 exemplaren');assert.match(await page.locator('#collectionPaidCoverage').textContent(),/3 van 6/);assert.match(await page.locator('#collectionList').textContent(),/Geen betrouwbare stamped-prijs/);
+ assert.equal(await page.locator('#collectionPriceCoverage').textContent(),'Prijs voor 3 van 6 exemplaren');assert.match(await page.locator('#collectionPaidCoverage').textContent(),/0 van 6/);assert.match(await page.locator('#collectionList').textContent(),/Geen betrouwbare stamped-prijs/);
  await page.evaluate(()=>{const a=JSON.parse(localStorage.getItem('cardscout_collection_v133'));a[0].edition='1ST';localStorage.setItem('cardscout_collection_v133',JSON.stringify(a));cardscoutCollectionUI.render();});
  assert.match(await page.locator('#collectionList').textContent(),/Geen passende 1st Edition-prijs/);
 });
@@ -48,7 +49,7 @@ test('real service worker offline reload retains validated cache, provenance, us
  await context.setOffline(true);await page.reload();await page.locator('#navCollection').click();
  assert.match(await page.locator('#collectionMarket').textContent(),/50/);assert.match(await page.locator('#collectionList').textContent(),/Cardmarket trend/);assert.match(await page.locator('#collectionList').textContent(),/Bijgewerkt/);
  assert.deepEqual(await snapshot(page),before);assert.equal(await page.evaluate(()=>localStorage.getItem(HoloKeepMarket.KEY)),cached);
- const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v176')).keys()).map(r=>r.url));assert.ok(urls.some(u=>u.includes('market-v176.js?build=176-market-value-trust')));assert.ok(urls.every(u=>new URL(u).origin===origin));
+ const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v177')).keys()).map(r=>r.url));assert.ok(urls.some(u=>u.includes('market-v176.js?build=176-market-value-trust')));assert.ok(urls.every(u=>new URL(u).origin===origin));
 });
 test('mismatched response and in-flight identity change cannot attach wrong price',async t=>{
  const {page,response}=await setup(t);const c=structuredClone(fixture.card);c.id='base2-4';response(c);const before=await snapshot(page);

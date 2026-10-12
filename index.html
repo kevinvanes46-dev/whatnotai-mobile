@@ -12,11 +12,11 @@
   <meta name="apple-mobile-web-app-title" content="HoloKeep" />
   <link rel="icon" href="icon-rareworth.svg?build=173-holokeep-rebrand" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="icon-rareworth-180.png?build=173-holokeep-rebrand" />
-  <script src="brand-v172.js?build=176-market-value-trust"></script>
+  <script src="brand-v172.js?build=177-cost-basis-result"></script>
   <title>HoloKeep · Zoek. Bewaar. Check.</title>
   <link rel="stylesheet" href="style-v137-product.css?build=168-product-shell-cleanup" />
   <link rel="stylesheet" href="style-v148-polish.css?build=168-product-shell-cleanup" />
-  <link rel="stylesheet" href="style-v150-minimal.css?build=176-market-value-trust" />
+  <link rel="stylesheet" href="style-v150-minimal.css?build=177-cost-basis-result" />
   <link rel="manifest" href="manifest.json?build=173-holokeep-rebrand" />
   <link rel="stylesheet" href="style-v153-mobile.css?build=168-product-shell-cleanup" />
   <link rel="stylesheet" href="account-v170.css?build=170b-account-cloud-sync" />
@@ -203,11 +203,12 @@
         <section class="collectionSummary collectionSummaryPro">
           <div><small>Kaarten</small><b id="collectionCount">0</b></div>
           <div><small>Wishlist</small><b id="wishlistCount">0</b></div>
-          <div><small>Ingevoerde kosten</small><b id="collectionPaid">—</b><span id="collectionPaidCoverage" class="priceCoverage"></span></div>
+          <div><small>Bekende aankoopkosten</small><b id="collectionPaid">—</b><span id="collectionPaidCoverage" class="priceCoverage"></span></div>
           <div><small>Indicatieve waarde</small><b id="collectionMarket">—</b><span id="collectionPriceCoverage" class="priceCoverage" role="status"></span></div>
         </section>
 
-        <details class="marketExplanation"><summary>Over indicatieve waarde</summary><p>Gebaseerd op beschikbare Cardmarket-marktdata. Conditie is niet verwerkt. Ontbrekende en onbevestigde prijzen tellen niet mee. Ingevoerde kosten zijn de aankoopprijzen die je zelf hebt opgeslagen.</p></details>
+        <div class="costResult"><span>Indicatief verschil</span><b id="collectionDifference">—</b><small id="collectionDifferenceCoverage"></small></div>
+        <details class="marketExplanation"><summary>Over waarde en aankoopkosten</summary><p>Gebaseerd op beschikbare Cardmarket-marktdata. Conditie is niet verwerkt. We vergelijken alleen exemplaren met bekende aankoopkosten en een passende marktprijs. HoloKeep gebruikt gewogen gemiddelde aankoopkosten; oude prijzen tellen pas mee na jouw bevestiging. Dit verschil is geen gerealiseerde winst.</p></details>
 
         <section class="collectionControlPanel">
           <div class="collectionSearchWrap">
@@ -369,10 +370,19 @@
 
     <div class="editorFields">
       <label>Aantal<input id="collectionEditorQty" type="number" min="1" step="1" inputmode="numeric" value="1" /></label>
-      <label>Aankoopprijs p/st.<input id="collectionEditorPaid" type="text" inputmode="decimal" placeholder="bijv. 12,50" /></label>
+      <label><span id="collectionPaidLabel">Aankoopprijs p/st.</span><input id="collectionEditorPaid" type="text" inputmode="decimal" placeholder="bijv. 12,50" /></label>
     </div>
 
     <div class="editorActions">
+      <p id="collectionCostHelp" class="costHelp" role="status"></p>
+      <div id="collectionCostActions" class="costActions" hidden>
+        <button type="button" id="collectionCostConfirm">Bevestig aankoopprijs</button>
+        <button type="button" id="collectionCostIgnore">Oude prijs niet meenemen</button>
+        <button type="button" id="collectionCostAverage">Kostenbasis aanpassen</button>
+        <button type="button" id="collectionCostClear">Aankoopkosten wissen</button>
+        <button type="button" id="collectionRemoveKnown" hidden>Verwijder exemplaar met bekende kosten</button>
+        <button type="button" id="collectionRemoveUnknown" hidden>Verwijder exemplaar met onbekende kosten</button>
+      </div>
       <button type="button" id="collectionEditorSave" class="primary">Opslaan</button>
       <button type="button" id="collectionEditorDelete" class="danger" hidden>Verwijder kaart</button>
     </div>
@@ -400,7 +410,8 @@
   <script src="jp-image-library-v161.js?build=161-jp-image-library"></script>
   <script src="ui-v137-focus.js?build=175-en-platinum-hgss-coverage"></script>
   <script src="market-v176.js?build=176-market-value-trust"></script>
-  <script src="ui-v137-collection.js?build=176-market-value-trust"></script>
+  <script src="cost-basis-v177.js?build=177-cost-basis-result"></script>
+  <script src="ui-v137-collection.js?build=177-cost-basis-result"></script>
   <script src="ui-v150-experience.js?build=173-holokeep-rebrand"></script>
   <script src="ui-v154-keyboard.js?build=154-keyboard"></script>
   <script src="ui-v153-mobile.js?build=154-keyboard"></script>

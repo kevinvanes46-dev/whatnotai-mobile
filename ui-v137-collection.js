@@ -4,6 +4,7 @@
   const $=id=>document.getElementById(id);
   const KEY='cardscout_collection_v133';
   const Market=window.HoloKeepMarket;
+  const Cost=window.HoloKeepCostBasis;
   const API='https://api.tcgdex.net/v2';
   const CONDITIONS=['NM','EX','GD','PL'];
   const LISTS=['OWNED','WISHLIST'];
@@ -80,6 +81,7 @@
   let selected=null;
   let editorMode='add';
   let editingId=null;
+  let costAction='';
   let editorState={list:'OWNED',condition:'NM',variant:'NORMAL'};
   let filterState={list:'ALL',language:'',variant:''};
   const priceFailures=new Set();
@@ -94,7 +96,7 @@
       if(!undoAddition)return;
       const {before,after}=undoAddition,arr=read().map(normalizeItem).filter(Boolean),index=arr.findIndex(x=>x.uid===after.uid);
       if(index<0||withoutPrice(arr[index])!==withoutPrice(after)){notice.hidden=true;undoAddition=null;toast('Kaart is inmiddels gewijzigd; pas deze aan in je collectie');return;}
-      if(before)arr[index]={...before,price:arr[index].price,priceUpdated:arr[index].priceUpdated,priceSource:arr[index].priceSource};else arr.splice(index,1);
+      if(before)arr[index]=before;else arr.splice(index,1);
       if(!write(arr)){toast('Opslaan mislukt; probeer opnieuw');return;}
       undoAddition=null;notice.hidden=true;render();toast('Toevoeging ongedaan gemaakt');
     });}
@@ -120,6 +122,11 @@
   }
   function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   function eur(v){return Number.isFinite(Number(v))?new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR'}).format(Number(v)):'—'}
+  function differenceText(c){
+    if(c?.difference==null)return '—';
+    const sign=c.difference>=0?'+':'−';
+    return sign+eur(Math.abs(c.difference))+' · '+(c.percentage==null?'—':(c.percentage>=0?'+':'−')+new Intl.NumberFormat('nl-NL',{maximumFractionDigits:1}).format(Math.abs(c.percentage))+'%');
+  }
   function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim()}
   function cleanVisibleCardName(value,number=''){
     let name=String(value||'')
@@ -222,8 +229,22 @@
     if(editorPaid){
       const wrap=editorPaid.closest('label');
       wrap?.classList.toggle('mutedField',editorState.list==='WISHLIST');
-      editorPaid.disabled=editorState.list==='WISHLIST';
+      editorPaid.disabled=editorState.list==='WISHLIST'||(editorMode==='edit'&&costAction!=='average')||editorMode==='remove';
     }
+    const item=editingId?read().find(x=>x.uid===editingId):null;
+    const editing=editorMode==='edit'||editorMode==='remove',owned=editorState.list==='OWNED';
+    const legacy=item&&Cost.state(item)==='LEGACY_UNCONFIRMED';
+    $('collectionCostActions').hidden=!editing||!owned;
+    $('collectionCostConfirm').hidden=!legacy;
+    $('collectionCostIgnore').hidden=!legacy;
+    $('collectionCostAverage').hidden=editorMode==='remove';
+    $('collectionCostClear').hidden=editorMode==='remove';
+    $('collectionRemoveKnown').hidden=editorMode!=='remove'||Cost.state(item)!=='PARTIAL';
+    $('collectionRemoveUnknown').hidden=editorMode!=='remove'||Cost.state(item)!=='PARTIAL';
+    editorQty.disabled=editing&&costAction!=='average';
+    $('collectionPaidLabel').textContent=costAction==='average'?'Gem. aankoopprijs voor alle exemplaren':'Aankoopprijs p/st.';
+    $('collectionCostHelp').textContent=costAction==='average'?'Je bevestigt dit gemiddelde voor alle huidige exemplaren.':costAction==='confirm'?'De oude aankoopprijs wordt bij Opslaan expliciet bevestigd.':costAction==='clear'?'Bij Opslaan tellen de oude kosten niet meer mee.':costAction.startsWith('remove-')?'Bij Opslaan wordt één '+(costAction==='remove-known'?'bekend':'onbekend')+' exemplaar verwijderd.':editorMode==='purchase'?'Alleen deze nieuwe aankoop telt mee. Eerdere onbekende kosten blijven onbekend.':editorMode==='remove'?'Kies eerst hoe je dit exemplaar uit de kostenbasis verwijdert.':legacy?`${eur(item.paidEach)} per kaart · ${item.qty} exemplaren. Bevestig om mee te rekenen.`:editing?'Kosten blijven behouden. Gebruik Kostenbasis aanpassen voor een bewuste correctie.':'Laat de prijs leeg als deze onbekend is. Vul 0 alleen in voor een gratis aankoop.';
+    editor.querySelectorAll('[data-editor-list],[data-editor-condition],[data-editor-variant]').forEach(b=>b.disabled=editorMode==='purchase'||editorMode==='remove');
   }
 
   function showEditor(){
@@ -245,7 +266,7 @@
     const sel=selected||currentFallback();
     if(!sel?.card?.name){toast('Kies eerst een kaart');return}
     const c=sel.card;
-    editorMode='add';editingId=null;
+    editorMode='add';editingId=null;costAction='';
     editorState={
       list:'OWNED',
       condition:CONDITIONS.includes(sel.condition)?sel.condition:(condSelect?.value||'NM'),
@@ -266,22 +287,38 @@
   }
 
   function openEditEditor(item){
-    editorMode='edit';editingId=item.uid;
+    editorMode='edit';editingId=item.uid;costAction='';
     editorState={list:item.listType,condition:item.condition,variant:item.variant};
     editorTitle.textContent=visibleCardTitle(item);
     editorMeta.textContent=[item.setName||item.set,item.language].filter(Boolean).join(' · ');
     editorEyebrow.textContent=item.listType==='WISHLIST'?'Wishlist bewerken':'Kaart bewerken';
     editorQty.value=String(item.qty||1);
-    editorPaid.value=item.paidEach==null?'':String(item.paidEach).replace('.',',');
+    const average=Cost.average(item)??item.paidEach;
+    editorPaid.value=average==null?'':String(average).replace('.',',');
     editorDelete.hidden=false;
     editor.dataset.pending='';
     showEditor();
   }
 
+  function openPurchase(item){
+    openEditEditor(item);editorMode='purchase';costAction='';
+    editorEyebrow.textContent='Exemplaar toevoegen';editorQty.value='1';editorPaid.value='';
+    syncEditorButtons();
+  }
+  for(const [id,action] of [['collectionCostConfirm','confirm'],['collectionCostIgnore','clear'],['collectionCostAverage','average'],['collectionCostClear','clear'],['collectionRemoveKnown','remove-known'],['collectionRemoveUnknown','remove-unknown']])$(id)?.addEventListener('click',()=>{
+    costAction=action;if(action==='average')editorPaid.value='';syncEditorButtons();
+  });
+
   addBtn?.addEventListener('click',openAddEditor);
   editorClose?.addEventListener('click',closeEditor);
   editorBackdrop?.addEventListener('click',closeEditor);
-  editor?.querySelectorAll('[data-editor-list]').forEach(b=>b.addEventListener('click',()=>{editorState.list=b.dataset.editorList;syncEditorButtons()}));
+  editor?.querySelectorAll('[data-editor-list]').forEach(b=>b.addEventListener('click',()=>{
+    editorState.list=b.dataset.editorList;
+    const original=editingId?read().find(x=>x.uid===editingId):null;
+    if(original?.listType==='WISHLIST'&&editorState.list==='OWNED'){editorMode='convert';costAction='';editorPaid.value='';}
+    else if(original?.listType==='WISHLIST'){editorMode='edit';costAction='';}
+    syncEditorButtons();
+  }));
   editor?.querySelectorAll('[data-editor-condition]').forEach(b=>b.addEventListener('click',()=>{editorState.condition=b.dataset.editorCondition;syncEditorButtons()}));
   editor?.querySelectorAll('[data-editor-variant]').forEach(b=>b.addEventListener('click',()=>{editorState.variant=b.dataset.editorVariant;syncEditorButtons()}));
 
@@ -301,9 +338,10 @@
       if(candidate.edition==='1ST'&&metadata?.variants?.firstEdition!==true&&!stamps.includes('1st-edition')){toast('1st edition is voor deze kaart niet bevestigd');return}
     }
 
-    const qty=Math.max(1,parseInt(editorQty?.value||'1',10)||1);
+    const qty=Number(editorQty?.value);
+    if(!Number.isSafeInteger(qty)||qty<1){toast('Controleer aantal');return;}
     let paid=null;
-    if(editorState.list==='OWNED'){
+    if(editorState.list==='OWNED'&&!editorPaid.disabled){
       const raw=String(editorPaid?.value||'').trim();
       if(raw){
         const n=Number(raw.replace(',','.'));
@@ -316,20 +354,19 @@
 
     let priceTargetId=null;
     let shouldRefreshPrice=false;
-    if(editorMode==='add'){
+    try{if(editorMode==='add'){
       let base;
       try{base=JSON.parse(editor.dataset.pending||'{}')}catch(_){base={}}
       if(!base.name){toast('Kaart ontbreekt');return}
-      const item=normalizeItem({
+      const item=Cost.initialize(normalizeItem({
         ...base,uid:uid(),listType:editorState.list,condition:editorState.condition,variant:editorState.variant,
         qty,paidEach:paid,addedAt:Date.now(),price:null,priceUpdated:0,priceSource:''
-      });
+      }),qty,paid);
       const key=identityKey(item);
       const existing=arr.find(x=>identityKey(x)===key);
       const before=existing?JSON.parse(JSON.stringify(existing)):null;
       if(existing){
-        existing.qty+=qty;
-        if(existing.paidEach==null&&paid!=null)existing.paidEach=paid;
+        Object.assign(existing,Cost.addPurchase(existing,qty,paid));
         priceTargetId=existing.uid;
         shouldRefreshPrice=existing.listType==='OWNED'&&stalePrice(existing);
       }else{
@@ -340,6 +377,11 @@
       if(!write(arr)){toast('Opslaan mislukt; controleer de beschikbare opslag');return;}
       offerUndo(before,JSON.parse(JSON.stringify(existing||item)));
       toast(editorState.list==='WISHLIST'?'Toegevoegd aan wishlist':'Toegevoegd aan collectie');
+    }else if(editorMode==='purchase'){
+      const x=arr.find(x=>x.uid===editingId);if(!x)return;
+      const before=JSON.parse(JSON.stringify(x));Object.assign(x,Cost.addPurchase(x,qty,paid));
+      if(!write(arr))throw Error('Opslaan mislukt');offerUndo(before,JSON.parse(JSON.stringify(x)));
+      priceTargetId=x.uid;shouldRefreshPrice=stalePrice(x);toast('Aankoop toegevoegd');
     }else{
       const x=arr.find(x=>x.uid===editingId);
       if(!x)return;
@@ -348,13 +390,19 @@
       x.listType=editorState.list;
       x.condition=editorState.condition;
       x.variant=editorState.variant;
-      x.qty=qty;
-      x.paidEach=editorState.list==='OWNED'?paid:null;
+      // Metadata saves never infer costs from the displayed compatibility average.
+      if(editorMode==='convert')Object.assign(x,Cost.initialize(x,qty,paid));
+      else if(editorState.list==='OWNED'){
+        if(costAction==='confirm')Object.assign(x,Cost.confirmLegacy(x));
+        else if(costAction==='clear')Object.assign(x,Cost.clear(x));
+        else if(costAction==='average')Object.assign(x,Cost.setAverage(x,qty,paid));
+        if(editorMode==='remove')Object.assign(x,Cost.removeOne(x,costAction==='remove-known'?'known':costAction==='remove-unknown'?'unknown':undefined));
+      }
       priceTargetId=x.uid;
       shouldRefreshPrice=x.listType==='OWNED'&&(previousList!=='OWNED'||previousVariant!==x.variant||stalePrice(x));
-      write(arr);
+      if(!write(arr))throw Error('Opslaan mislukt');
       toast('Wijzigingen opgeslagen');
-    }
+    }}catch(error){toast(error.message||'Controleer aankoopgegevens');return;}
     closeEditor();render();
     if(shouldRefreshPrice&&priceTargetId)void refreshOnePrice(priceTargetId);
   });
@@ -392,8 +440,8 @@
     const sort=sortEl?.value||'recent';
     if(sort==='name')out.sort((a,b)=>a.name.localeCompare(b.name,'nl'));
     else if(sort==='set')out.sort((a,b)=>(a.setName||a.set).localeCompare(b.setName||b.set,'nl')||a.name.localeCompare(b.name,'nl'));
-    else if(sort==='paid-desc')out.sort((a,b)=>(Number(b.paidEach)||-1)-(Number(a.paidEach)||-1));
-    else if(sort==='paid-asc')out.sort((a,b)=>(Number(a.paidEach)||1e12)-(Number(b.paidEach)||1e12));
+    else if(sort==='paid-desc')out.sort((a,b)=>(Cost.average(b)??-1)-(Cost.average(a)??-1));
+    else if(sort==='paid-asc')out.sort((a,b)=>(Cost.average(a)??Infinity)-(Cost.average(b)??Infinity));
     else out.sort((a,b)=>(b.addedAt||0)-(a.addedAt||0));
     return out;
   }
@@ -404,14 +452,17 @@
     const wish=arr.filter(x=>x.listType==='WISHLIST');
     const qty=owned.reduce((n,x)=>n+x.qty,0);
     const summary=Market.totals(owned,marketEntry);
+    const costs=Cost.totals(owned,marketEntry);
     if(countEl)countEl.textContent=String(qty);
     if(wishlistCountEl)wishlistCountEl.textContent=String(wish.length);
-    if(paidEl)paidEl.textContent=summary.paidQty?eur(summary.paid):'—';
+    if(paidEl)paidEl.textContent=costs.knownQty?eur(costs.cost):'—';
     if(marketEl)marketEl.textContent=summary.priced?eur(summary.value):'—';
     const coverage=$('collectionPriceCoverage');
     if(coverage)coverage.textContent=`Prijs voor ${summary.priced} van ${summary.qty} exemplaren`+(summary.outdated?` · ${summary.outdated} mogelijk verouderd of ongedateerd`:'');
     const paidCoverage=$('collectionPaidCoverage');
-    if(paidCoverage)paidCoverage.textContent=`Aankoopprijs ingevuld voor ${summary.paidQty} van ${summary.qty} exemplaren`;
+    if(paidCoverage)paidCoverage.textContent=`Aankoopkosten bekend voor ${costs.knownQty} van ${costs.qty} exemplaren`;
+    $('collectionDifference').textContent=differenceText(costs);
+    $('collectionDifferenceCoverage').textContent=`Vergelijking voor ${costs.comparableQty} van ${costs.qty} exemplaren`;
 
     updateSetFilter(arr);
     const rows=filtered(arr);
@@ -433,6 +484,7 @@
       const quote=Market.display(marketEntry(x),x,{failed:priceFailures.has(priceIdentity(x))});
       const shownPrice=quote.value;
       const isWish=x.listType==='WISHLIST';
+      const cost=Cost.display(x),comparison=Cost.comparison(x,marketEntry(x));
       const variant=x.variant==='STAMPED'?'⚡ STAMPED':'Normaal';
       return `<article class="collectionCard collectionCardPro ${isWish?'wishlistCard':''}" data-id="${esc(x.uid)}">
         <button type="button" class="collectionCardMain collectionCardOpen" data-act="edit" aria-label="${esc(visibleCardTitle(x))} bekijken en bewerken">
@@ -454,9 +506,10 @@
           </div>
         </button>
         ${!isWish&&(shownPrice||priceFailures.has(priceIdentity(x)))?`<p class="priceFreshness ${quote.state!=='CURRENT'?'priceWarning':''}">${esc(quote.legacy?'Actualiteit onbekend':quote.date)}</p>`:''}
+        ${!isWish?`<div class="costBasisDetails"><span>${esc(cost.label)}</span><b>${cost.average!==null?eur(cost.average):cost.legacy!==null?eur(cost.legacy)+' p/st.':'—'}</b><small>Aankoopkosten bekend voor ${cost.knownQty} van ${x.qty} exemplaren</small>${comparison?`<span>Indicatief verschil</span><b>${esc(differenceText(comparison))}</b><small>Over ${comparison.comparableQty} van ${x.qty} exemplaren · conditie niet verwerkt</small>`:''}</div>`:''}
         <div class="collectionCardRow">
           ${!isWish?`<div class="qtyControl"><button data-act="minus">−</button><span>${x.qty}</span><button data-act="plus">+</button></div>`:'<span class="wishHint">Bewaar voor later</span>'}
-          ${!isWish?`<button class="paidBtn" data-act="edit">Betaald: ${x.paidEach!=null?eur(x.paidEach):'invullen'}</button>`:''}
+          ${!isWish?`<button class="paidBtn" data-act="edit">${cost.state==='LEGACY_UNCONFIRMED'?'Bevestig aankoopprijs':'Aankoopkosten bewerken'}</button>`:''}
           ${isWish?'<button class="boughtBtn" data-act="bought">Gekocht ✓</button>':''}
           ${x.cardmarketUrl?`<a href="${esc(collectionLink(x))}" target="_blank" rel="noopener">Cardmarket ↗</a>`:''}
           <button class="editMiniBtn" data-act="edit">Bewerk</button>
@@ -479,10 +532,14 @@
       if(!x)return;
       const act=btn.dataset.act;
       if(act==='edit'){openEditEditor(x);return}
-      if(act==='plus'){x.qty++;write(arr2);render();return}
-      if(act==='minus'){x.qty=Math.max(1,x.qty-1);write(arr2);render();return}
+      if(act==='plus'){openPurchase(x);return}
+      if(act==='minus'){
+        if(x.qty<=1)return;
+        if(['PARTIAL','LEGACY_UNCONFIRMED'].includes(Cost.state(x))){openEditEditor(x);editorMode='remove';editorEyebrow.textContent='Exemplaar verwijderen';syncEditorButtons();return;}
+        Object.assign(x,Cost.removeOne(x));write(arr2);render();return;
+      }
       if(act==='bought'){
-        editorMode='edit';editingId=x.uid;
+        editorMode='convert';editingId=x.uid;costAction='';
         editorState={list:'OWNED',condition:x.condition,variant:x.variant};
         editorTitle.textContent=visibleCardTitle(x);
         editorMeta.textContent=[x.setName||x.set,x.language].join(' · ');
