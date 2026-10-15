@@ -72,3 +72,6 @@ jobs:
 
       - name: HoloKeep cost basis and indicative result
         run: node --test tests/cost-basis-v177.test.cjs tests/cost-basis-browser-v177.test.cjs
+
+      - name: HoloKeep portfolio insights
+        run: node --test tests/portfolio-insights-v178.test.cjs tests/portfolio-insights-browser-v178.test.cjs

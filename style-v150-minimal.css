@@ -158,3 +158,31 @@ body { background:radial-gradient(ellipse at 94% 18%,#224c3b26,transparent 45%),
 .costActions button { min-height:44px; white-space:normal; overflow-wrap:anywhere; }
 .collectionEditorSheet { max-height:90dvh; overflow-y:auto; }
 .collectionEditorSheet input:disabled { opacity:.6; }
+
+/* v178: quiet, derived portfolio views. */
+.portfolioInsights { margin:24px 0; border-block:1px solid #2b3d35; padding:16px 0; }
+.portfolioInsights[hidden],.collectionSummary[hidden],.costResult[hidden],.portfolioAttention[hidden] { display:none; }
+.portfolioInsights h3,.portfolioInsights h4 { margin:8px 0 12px; font-weight:600; }
+.portfolioInsightRow { width:100%; display:grid; grid-template-columns:36px minmax(0,1fr) minmax(0,38%); align-items:center; gap:10px; text-align:left; padding:12px 0; border:0; border-bottom:1px solid #293a32; border-radius:0; background:none; color:#edf6f1; }
+.portfolioInsightRow>span,.portfolioInsightRow b { min-width:0; overflow-wrap:anywhere; }
+.portfolioInsightRow strong,.portfolioInsightRow small { display:block; }
+.portfolioInsightRow small { color:#bdcdc5; font-size:11px; line-height:1.5; }
+.portfolioInsightRow strong { font-size:14px; line-height:1.6; }
+.portfolioInsightRow b { font-size:13px; font-variant-numeric:tabular-nums; text-align:right; }
+.insightArtwork { width:32px; height:44px; background:#22352b; border-radius:3px; }
+.insightArtwork img { width:100%; height:100%; object-fit:contain; }
+.portfolioAttention { width:100%; text-align:left; padding:14px 0; border:0; background:none; color:#bde6cf; white-space:normal; }
+.portfolioInsights summary { min-height:44px; padding:12px 0; cursor:pointer; color:#bde6cf; }
+.portfolioCounts { display:flex; flex-direction:column; gap:6px; font-size:12px; color:#bdcdc5; padding-bottom:14px; }
+.portfolioMessage { color:#bdcdc5; font-size:13px; line-height:1.6; }
+.portfolioMessage:empty { display:none; }
+.collectionSummaryPro { grid-template-columns:repeat(2,minmax(0,1fr)); margin-bottom:12px; }
+.collectionSummaryPro>div { padding:12px 8px 12px 0; }
+.collectionSummaryPro b,.costResult b,.collectionValue b { font-variant-numeric:tabular-nums; }
+.costResult [data-sign="positive"] { color:#bde6cf; }
+.costResult [data-sign="negative"] { color:#e3bdb7; }
+.collectionFilterRow select { min-width:0; max-width:100%; }
+.portfolioInsights button:focus-visible,.portfolioInsights summary:focus-visible { outline:2px solid #bde6cf; outline-offset:3px; }
+.costBasisDetails { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:3px 8px; }
+.costBasisDetails small { grid-column:1/-1; font-size:11px; }
+@media(max-width:375px) { .portfolioInsightRow { grid-template-columns:28px minmax(0,1fr) minmax(0,36%); gap:8px; }.insightArtwork { width:26px; height:36px; } }

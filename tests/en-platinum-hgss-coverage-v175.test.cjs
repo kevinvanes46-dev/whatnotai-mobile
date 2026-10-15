@@ -104,7 +104,7 @@ for(const [key,id,code,label,aliases] of targets)test(`${id}: aliases, exact EN 
   const read=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('cardscout_collection_v133'))[0]);const saved=await read();
   assert.equal(saved.name,c.name);assert.equal(saved.number,c.localId);assert.equal(saved.price,null);assert.equal(saved.sourceId,c.id);assert.equal(saved.source_set_id,id);assert.equal(saved.set,key);assert.equal(saved.setName,label);assert.equal(saved.qty,2);assert.equal(saved.paidEach,4.25);assert.equal(saved.condition,'EX');assert.equal(saved.variant,'NORMAL');assert.equal(saved.listType,'OWNED');
   await page.reload();await ready(page);await page.locator('#navCollection').click();await page.locator('#collectionList .collectionCard').waitFor();assert.deepEqual(await read(),saved);assert.ok((await page.locator('#collectionList').innerText()).includes(label));
-  await page.waitForFunction(()=>{const img=document.querySelector('#collectionList img');return img?.complete && img.naturalWidth>0;});
+  await page.waitForFunction(()=>{const row=document.querySelector('#collectionList .collectionCard');row?.scrollIntoView({block:'center',behavior:'instant'});const img=row?.querySelector('img');return img?.complete && img.naturalWidth>0;});
   assert.ok((await page.locator('#collectionList img').getAttribute('src')).startsWith(c.image+'/'));
 });
 test('local shell first, concurrency <=6, old EN cache ignored and user storage preserved',async t=>{
@@ -120,8 +120,8 @@ test('same-storage real offline reload finds Platinum/HGSS; empty cache retains 
   for(const id of ['pl1','hgss1']){const c=sample(id);await search(page,`${c.name} ${id}`);await page.locator('.suggestion').first().waitFor();}
   requests.length=0;await setOffline(true);await page.reload();await ready(page);assert.ok(!requests.some(p=>p.includes('/en/sets/')));
   for(const id of ['pl1','hgss1','col1','hgssp']){const c=sample(id);await search(page,`${c.name} ${id}`);await page.locator('.suggestion').first().waitFor();}
-  assert.equal(await page.locator('.brandText strong').innerText(),'HoloKeep');await page.locator('#navSettings').click();assert.match(await page.locator('.aboutCard').innerText(),/v177 · Beta/);
-  const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v177')).keys()).map(r=>r.url));assert.ok(urls.length>20);assert.ok(urls.every(u=>new URL(u).origin===origin));assert.ok(urls.some(u=>u.endsWith('/cards.json?build=175-en-platinum-hgss-coverage')));
+  assert.equal(await page.locator('.brandText strong').innerText(),'HoloKeep');await page.locator('#navSettings').click();assert.match(await page.locator('.aboutCard').innerText(),/v178 · Beta/);
+  const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v178')).keys()).map(r=>r.url));assert.ok(urls.length>20);assert.ok(urls.every(u=>new URL(u).origin===origin));assert.ok(urls.some(u=>u.endsWith('/cards.json?build=175-en-platinum-hgss-coverage')));
   await page.evaluate(()=>localStorage.removeItem('cardscout_search_catalog_v152_EN_v175'));await page.reload();await search(page,'charizard base');await page.locator('.suggestion').first().waitFor();
 });
 

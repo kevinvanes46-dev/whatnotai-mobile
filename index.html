@@ -12,11 +12,11 @@
   <meta name="apple-mobile-web-app-title" content="HoloKeep" />
   <link rel="icon" href="icon-rareworth.svg?build=173-holokeep-rebrand" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="icon-rareworth-180.png?build=173-holokeep-rebrand" />
-  <script src="brand-v172.js?build=177-cost-basis-result"></script>
+  <script src="brand-v172.js?build=178-portfolio-insights"></script>
   <title>HoloKeep · Zoek. Bewaar. Check.</title>
   <link rel="stylesheet" href="style-v137-product.css?build=168-product-shell-cleanup" />
   <link rel="stylesheet" href="style-v148-polish.css?build=168-product-shell-cleanup" />
-  <link rel="stylesheet" href="style-v150-minimal.css?build=177-cost-basis-result" />
+  <link rel="stylesheet" href="style-v150-minimal.css?build=178-portfolio-insights" />
   <link rel="manifest" href="manifest.json?build=173-holokeep-rebrand" />
   <link rel="stylesheet" href="style-v153-mobile.css?build=168-product-shell-cleanup" />
   <link rel="stylesheet" href="account-v170.css?build=170b-account-cloud-sync" />
@@ -197,7 +197,7 @@
       <!-- COLLECTION -->
       <section class="tabView" data-view="collection" aria-labelledby="navCollection">
         <div class="screenIntro compact">
-          <div><span class="eyebrow">Mijn kaarten</span><h2>Collectie</h2><p>Zoek, filter en beheer wat je bezit of nog wilt kopen.</p></div>
+          <div><span class="eyebrow">Mijn kaarten</span><h2>Mijn collectie</h2><p>Je kaarten, waarde en aankoopkosten bij elkaar.</p></div>
         </div>
 
         <section class="collectionSummary collectionSummaryPro">
@@ -209,6 +209,16 @@
 
         <div class="costResult"><span>Indicatief verschil</span><b id="collectionDifference">—</b><small id="collectionDifferenceCoverage"></small></div>
         <details class="marketExplanation"><summary>Over waarde en aankoopkosten</summary><p>Gebaseerd op beschikbare Cardmarket-marktdata. Conditie is niet verwerkt. We vergelijken alleen exemplaren met bekende aankoopkosten en een passende marktprijs. HoloKeep gebruikt gewogen gemiddelde aankoopkosten; oude prijzen tellen pas mee na jouw bevestiging. Dit verschil is geen gerealiseerde winst.</p></details>
+        <p id="collectionInsightMessage" class="portfolioMessage" role="status"></p>
+        <section id="collectionInsights" class="portfolioInsights" aria-labelledby="portfolioInsightsTitle" hidden>
+          <h3 id="portfolioInsightsTitle">Inzichten</h3>
+          <div id="collectionInsightPreview"></div>
+          <button type="button" id="collectionAttention" class="portfolioAttention" hidden></button>
+          <details id="collectionAllInsights"><summary>Bekijk alle inzichten</summary>
+            <div id="collectionAttentionCounts" class="portfolioCounts" aria-label="Aandacht per categorie"></div>
+            <div id="collectionInsightSections"></div>
+          </details>
+        </section>
 
         <section class="collectionControlPanel">
           <div class="collectionSearchWrap">
@@ -231,11 +241,19 @@
               <option value="NM">NM</option><option value="EX">EX</option><option value="GD">GD</option><option value="PL">PL</option>
             </select>
             <select id="collectionSetFilter" aria-label="Filter op set"><option value="">Alle sets</option></select>
+            <select id="collectionInsightFilter" aria-label="Filter op waarde en aankoopkosten">
+              <option value="">Alle inzichten</option><option value="with-price">Met marktprijs</option><option value="without-price">Zonder marktprijs</option>
+              <option value="complete">Kosten compleet</option><option value="incomplete">Kosten incompleet</option><option value="legacy">Oude kosten bevestigen</option><option value="stale">Prijs mogelijk verouderd</option><option value="attention">Aandacht nodig</option>
+            </select>
             <select id="collectionSort" aria-label="Sorteer collectie">
-              <option value="recent">Nieuwste</option>
+              <option value="recent">Recent toegevoegd</option>
               <option value="name">Naam A–Z</option>
               <option value="set">Set A–Z</option>
-              <option value="paid-desc">Aankoopprijs hoog</option>
+              <option value="value-desc">Hoogste indicatieve waarde</option>
+              <option value="value-asc">Laagste indicatieve waarde</option>
+              <option value="positive">Grootste positief verschil</option>
+              <option value="negative">Grootste negatief verschil</option>
+              <option value="paid-desc">Hoogste bekende aankoopprijs</option>
               <option value="paid-asc">Aankoopprijs laag</option>
             </select>
           </div></details>
@@ -411,7 +429,8 @@
   <script src="ui-v137-focus.js?build=175-en-platinum-hgss-coverage"></script>
   <script src="market-v176.js?build=176-market-value-trust"></script>
   <script src="cost-basis-v177.js?build=177-cost-basis-result"></script>
-  <script src="ui-v137-collection.js?build=177-cost-basis-result"></script>
+  <script src="portfolio-insights-v178.js?build=178-portfolio-insights"></script>
+  <script src="ui-v137-collection.js?build=178-portfolio-insights"></script>
   <script src="ui-v150-experience.js?build=173-holokeep-rebrand"></script>
   <script src="ui-v154-keyboard.js?build=154-keyboard"></script>
   <script src="ui-v153-mobile.js?build=154-keyboard"></script>

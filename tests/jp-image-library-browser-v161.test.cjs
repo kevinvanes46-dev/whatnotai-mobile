@@ -82,7 +82,10 @@ const tcgIds=new Set(['PMCG1-002','PMCG1-003','PMCG1-035']);
     await page.locator('#collectionAddBtn').click();await page.locator('#collectionEditorSave').click();
     const stored=await page.evaluate(()=>JSON.parse(localStorage.getItem('cardscout_collection_v133'))[0]);
     assert.equal(stored.sourceId,'neo3-038');assert.equal(stored.language,'JP');assert.equal(stored.set,'NEO REVELATION');assert.equal(stored.condition,'EX');
-    await page.reload();await page.locator('#navCollection').click();await page.locator('#collectionList img').first().waitFor();
+    await page.reload();await page.locator('#navCollection').click();
+    // The portfolio summary moves cards below the fold. Scroll the live row to trigger lazy artwork.
+    await page.waitForFunction(()=>{const row=document.querySelector('#collectionList .collectionCard');if(!row)return false;row.scrollIntoView({block:'center',behavior:'instant'});const img=row.querySelector('img');return !!img&&img.complete&&img.naturalWidth>0;});
+    await page.locator('#collectionList img').first().waitFor();
     assert.equal(await page.locator('#collectionList img').first().getAttribute('src'),images['neo3-038'].src);
     await page.locator('#collectionList img').first().evaluate(img=>img.decode());
     assert.deepEqual(errors,[]);console.log('PASS Pikachu search, Swinub OWN artwork, v157 route, Recent reload/restore, collection reload and saved identity');
