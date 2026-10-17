@@ -12,17 +12,18 @@
   <meta name="apple-mobile-web-app-title" content="HoloKeep" />
   <link rel="icon" href="icon-rareworth.svg?build=173-holokeep-rebrand" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="icon-rareworth-180.png?build=173-holokeep-rebrand" />
-  <script src="brand-v172.js?build=178-portfolio-insights"></script>
+  <script src="brand-v172.js?build=179-home-app-shell"></script>
   <title>HoloKeep · Zoek. Bewaar. Check.</title>
   <link rel="stylesheet" href="style-v137-product.css?build=168-product-shell-cleanup" />
   <link rel="stylesheet" href="style-v148-polish.css?build=168-product-shell-cleanup" />
-  <link rel="stylesheet" href="style-v150-minimal.css?build=178-portfolio-insights" />
-  <link rel="manifest" href="manifest.json?build=173-holokeep-rebrand" />
+  <link rel="stylesheet" href="style-v150-minimal.css?build=179-home-app-shell" />
+  <link rel="manifest" href="manifest.json?build=179-home-app-shell" />
   <link rel="stylesheet" href="style-v153-mobile.css?build=168-product-shell-cleanup" />
   <link rel="stylesheet" href="account-v170.css?build=170b-account-cloud-sync" />
   <link rel="stylesheet" href="onboarding-v171.css?build=171-1-launch-gate" />
 </head>
 <body class="onboarding-open">
+  <script>document.documentElement.dataset.initialView=location.hash;</script>
   <section id="onboarding" role="dialog" aria-modal="true" aria-labelledby="onboardingTitle">
     <div class="onboardingContent">
       <div class="onboardingBrand"><img src="icon-rareworth.svg?build=173-holokeep-rebrand" alt="" /><strong>HoloKeep</strong></div>
@@ -136,6 +137,13 @@
       </section>
 
       <!-- SEARCH -->
+      <section class="tabView homeView" data-view="home" aria-labelledby="navHome">
+        <header class="homeHero"><p class="homeEyebrow">JOUW VERZAMELING</p><h1>HoloKeep</h1><p>Je collectie in één oogopslag.</p><button type="button" id="homeSearch" class="primary">Kaart zoeken <span aria-hidden="true">↗</span></button></header>
+        <div id="homeEmpty" class="homeEmpty"><span class="homeEmptyArt" aria-hidden="true"><svg viewBox="0 0 64 72"><rect x="12" y="6" width="40" height="58" rx="4"/><path d="M24 35h16M32 27v16"/></svg></span><h2>Begin met één kaart.</h2><p>Vind je kaart en voeg hem toe aan je collectie.</p><button type="button" id="homeFirstCard">Zoek je eerste kaart</button></div>
+        <button type="button" id="homeSnapshot" class="homeSnapshot" aria-label="Mijn collectie bekijken" hidden><span class="homeSectionHeading"><strong>Mijn collectie</strong><span id="homeQty"></span></span><span class="homeMetricLabel">Indicatieve waarde</span><strong id="homeMarket" class="homeMetric"></strong><small id="homePriceCoverage"></small><span class="homeSecondary"><span>Bekende aankoopkosten<strong id="homeCosts"></strong><small id="homeCostCoverage"></small></span><span>Indicatief verschil<strong id="homeDifference"></strong><small id="homeComparison"></small></span></span><span id="homeNotice" role="status"></span></button>
+        <button type="button" id="homeAttention" class="homeAttention" hidden><span class="homeSectionHeading"><strong>Aandacht nodig</strong><span id="homeAttentionCount"></span></span><small id="homeAttentionReasons"></small><span class="homeTextLink">Bekijk in je collectie →</span></button>
+        <section id="homeAdded" class="homeAdded" aria-labelledby="homeAddedTitle" hidden><div class="homeSectionHeading"><h2 id="homeAddedTitle">Recent toegevoegd</h2><button type="button" id="homeAllCollection">Bekijk alles</button></div><div id="homeAddedCards"></div></section>
+      </section>
       <section class="tabView active" data-view="search" aria-labelledby="navSearch">
         <div class="screenIntro compact"><div><h2>Vind je kaart.</h2><p>Zoek op naam, nummer of set.</p></div></div>
 
@@ -409,6 +417,7 @@
   <div class="toast" id="toast" hidden role="status" aria-live="polite"></div>
 
   <nav inert class="bottomNav" aria-label="Hoofdnavigatie">
+    <button type="button" class="navBtn" id="navHome" data-tab="home" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v11h-6v-7H9v7H3Z"/></svg><span>Home</span></button>
     <button type="button" class="navBtn active" id="navSearch" data-tab="search" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>Zoeken</span></button>
     <button type="button" class="navBtn" id="navCollection" data-tab="collection" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 7h8M8 11h8M8 15h5"/></svg><span>Collectie</span></button>
     <button type="button" class="navBtn" id="navRecent" data-tab="recent" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg><span>Recent</span></button>
@@ -430,8 +439,9 @@
   <script src="market-v176.js?build=176-market-value-trust"></script>
   <script src="cost-basis-v177.js?build=177-cost-basis-result"></script>
   <script src="portfolio-insights-v178.js?build=178-portfolio-insights"></script>
-  <script src="ui-v137-collection.js?build=178-portfolio-insights"></script>
+  <script src="ui-v137-collection.js?build=179-home-app-shell"></script>
   <script src="ui-v150-experience.js?build=173-holokeep-rebrand"></script>
+  <script src="home-v179.js?build=179-home-app-shell"></script>
   <script src="ui-v154-keyboard.js?build=154-keyboard"></script>
   <script src="ui-v153-mobile.js?build=154-keyboard"></script>
   <script src="cloud-sync-v170.js?build=170b-account-cloud-sync"></script>

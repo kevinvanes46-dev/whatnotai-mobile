@@ -721,7 +721,7 @@
     if(a.some(stalePrice))refreshPrices(false);
   });
 
-  window.cardscoutCollectionUI={lookupCard:resolveCard,priceFrom,render,refreshOnePrice,refreshPrices};
+  window.cardscoutCollectionUI={openAttention(){filterState={list:'ALL',language:'',variant:''};searchEl.value='';conditionFilter.value='';setFilter.value='';syncQuickFilterButtons();$('collectionAttention').click();},openItem(id){const item=read().map(normalizeItem).find(x=>x?.uid===id);if(item)openEditEditor(item);},lookupCard:resolveCard,priceFrom,render,refreshOnePrice,refreshPrices};
   migrate();
   syncQuickFilterButtons();
   render();

@@ -106,14 +106,14 @@ test('offline first run from cached v171 shell allows guest and preserves all fo
   assert.equal(await page.locator('#onboarding').isVisible(),true);assert.equal(await page.locator('#onboardingLogin').isDisabled(),true);
   assert.match(await page.locator('#onboardingOffline').textContent(),/Internetverbinding nodig om in te loggen/);
   await page.locator('#onboardingGuest').click();
-  for(const tab of ['search','collection','recent','settings']){await page.locator(`[data-tab="${tab}"]`).click();assert.equal(await page.locator(`[data-view="${tab}"]`).isVisible(),true);}
+  for(const tab of ['home','search','collection','recent','settings']){await page.locator(`[data-tab="${tab}"]`).click();assert.equal(await page.locator(`[data-view="${tab}"]`).isVisible(),true);}
   assert.equal(await page.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),collection);
-  const cached=await page.evaluate(async()=>({keys:await caches.keys(),urls:(await (await caches.open('rareworth-shell-v178')).keys()).map(r=>r.url)}));
-  assert.ok(cached.keys.includes('rareworth-shell-v178'));assert.ok(cached.urls.every(u=>u.startsWith(origin)));assert.ok(cached.urls.some(u=>u.includes('onboarding-v171.js')));
+  const cached=await page.evaluate(async()=>({keys:await caches.keys(),urls:(await (await caches.open('rareworth-shell-v179')).keys()).map(r=>r.url)}));
+  assert.ok(cached.keys.includes('rareworth-shell-v179'));assert.ok(cached.urls.every(u=>u.startsWith(origin)));assert.ok(cached.urls.some(u=>u.includes('onboarding-v171.js')));
 });
 test('product labels, functional search hero, idle-only hiding and settings groups',async t=>{
-  const {page}=await fixture(t);await page.locator('#onboardingGuest').click();
-  assert.deepEqual(await page.locator('.bottomNav button span').allTextContents(),['Zoeken','Collectie','Recent','Instellingen']);
+  const {page}=await fixture(t);await page.locator('#onboardingGuest').click();await page.locator('#navSearch').click();
+  assert.deepEqual(await page.locator('.bottomNav button span').allTextContents(),['Home','Zoeken','Collectie','Recent','Instellingen']);
   assert.equal(await page.locator('[data-view="search"] > .screenIntro h2').textContent(),'Vind je kaart.');
   assert.equal(await page.getByText('Jouw volgende vondst.',{exact:true}).count(),0);
   await page.evaluate(()=>document.querySelector('#status').textContent='Klaar');await page.waitForFunction(()=>getComputedStyle(document.querySelector('#status')).visibility==='hidden');
@@ -126,7 +126,7 @@ test('home Recent alone deduplicates to four, query tiles stay compact, external
   const jp={kind:'card',name:'Swinub',source_id:'neo3-038',source_set_id:'neo3',set:'NEO REVELATION',set_name:'Awakening Legends',language:'JP',number:'038'};
   const en={kind:'card',name:'Bagon',source_id:'ex15-43',set:'EX DRAGON FRONTIERS',number:'43',language:'EN',image:'https://assets.tcgdex.net/en/ex/ex15/43'};
   const rows=[query,{...query,name:'flareon',quick:'flareon'},jp,en,{...query,name:'Eevee',quick:'Eevee'},{...query,name:'Pikachu',quick:'Pikachu'}],raw=JSON.stringify(rows);
-  const {page}=await fixture(t,{storage:{whatnotai_mobile_recent_v37:raw}});await page.locator('#onboardingGuest').click();
+  const {page}=await fixture(t,{storage:{whatnotai_mobile_recent_v37:raw}});await page.locator('#onboardingGuest').click();await page.locator('#navSearch').click();
   await page.waitForFunction(()=>document.querySelectorAll('#homeRecentCards .recentCard').length===4);
   assert.equal(await page.locator('#homeRecentCards .recentQuery').count(),2);
   assert.ok(await page.locator('#homeRecentCards .recentQuery .recentArt').first().evaluate(e=>e.getBoundingClientRect().height<=40));

@@ -186,3 +186,51 @@ body { background:radial-gradient(ellipse at 94% 18%,#224c3b26,transparent 45%),
 .costBasisDetails { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:3px 8px; }
 .costBasisDetails small { grid-column:1/-1; font-size:11px; }
 @media(max-width:375px) { .portfolioInsightRow { grid-template-columns:28px minmax(0,1fr) minmax(0,36%); gap:8px; }.insightArtwork { width:26px; height:36px; } }
+
+/* v179: calm collector-first Home and five comfortably sized destinations. */
+:root { --home-space:24px; }
+html,body { background:#0c1114; }
+.bottomNav { grid-template-columns:repeat(5,minmax(0,1fr)); padding-inline:4px; padding-bottom:max(8px,env(safe-area-inset-bottom)); }
+.bottomNav .navBtn { min-width:0; min-height:52px; padding:8px 2px; gap:4px; border-radius:8px; }
+.bottomNav .navBtn span { font-size:10px; line-height:16px; white-space:nowrap; }
+.bottomNav .navBtn svg { width:20px; height:20px; }
+.bottomNav .navBtn.active { color:#a5edcc; background:#a5edcc0d; }
+button:focus-visible,a:focus-visible,select:focus-visible { outline:2px solid #a5edcc; outline-offset:4px; }
+.homeView { padding:8px 0 24px; text-align:left; }
+.homeHero { margin-bottom:24px; }
+.homeEyebrow { color:#9aafa6; font-size:10px; line-height:16px; font-weight:650; letter-spacing:.12em; margin:0 0 8px; }
+.homeHero h1 { font-size:32px; line-height:40px; font-weight:650; letter-spacing:-.04em; margin:0 0 8px; }
+.homeHero>p:not(.homeEyebrow) { color:#aabbb4; font-size:14px; line-height:24px; margin:0 0 16px; }
+.homeHero #homeSearch { min-height:48px; padding:12px 16px; display:flex; align-items:center; justify-content:space-between; width:100%; border-radius:8px; font-size:14px; font-weight:650; background:#a5edcc; color:#0c2118; border:0; }
+.homeSnapshot,.homeAttention { display:block; width:100%; text-align:left; box-shadow:none; color:#e8efe9; }
+.homeSnapshot { background:#13221b; border:1px solid #294237; padding:16px; border-radius:12px; }
+.homeSectionHeading { display:flex; justify-content:space-between; align-items:center; gap:8px; font-size:12px; line-height:20px; }
+.homeSectionHeading strong,.homeSectionHeading h2 { font-size:14px; line-height:24px; font-weight:600; margin:0; }
+#homeQty,#homeAttentionCount { color:#aabbb4; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.homeMetricLabel { display:block; font-size:12px; line-height:20px; color:#b6c9be; margin-top:16px; }
+.homeMetric { display:block; font-size:32px; line-height:40px; letter-spacing:-.03em; font-variant-numeric:tabular-nums; font-weight:600; }
+.homeSnapshot small { display:block; color:#9fb4a8; font-size:10px; line-height:16px; }
+.homeSecondary { display:grid; grid-template-columns:1fr 1fr; gap:12px; border-top:1px solid #294237; margin-top:16px; padding-top:16px; font-size:10px; line-height:16px; color:#aabbb4; }
+.homeSecondary strong { display:block; color:#e8efe9; font-size:16px; line-height:24px; font-weight:600; font-variant-numeric:tabular-nums; }
+#homeNotice:not(:empty) { display:block; margin-top:16px; font-size:12px; line-height:20px; color:#b6c9be; }
+.homeAttention { padding:16px 0; margin-top:8px; background:none; border:0; border-bottom:1px solid #26372f; border-radius:0; }
+#homeAttentionReasons { display:block; font-size:12px; line-height:20px; margin:4px 0; color:#9fb4a8; }
+.homeTextLink { display:block; font-size:12px; line-height:20px; color:#a5edcc; }
+.homeAdded { margin-top:24px; }
+#homeAllCollection { background:none; border:0; color:#a5edcc; padding:8px 0 8px 8px; min-height:44px; font-size:12px; }
+#homeAddedCards { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px; }
+.homeAddedCard { display:flex; align-items:center; gap:8px; padding:8px 0; min-width:0; text-align:left; background:none; border:0; border-radius:4px; }
+.homeAddedCard>span:last-child { min-width:0; }
+.homeAddedCard strong { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; font-size:12px; line-height:16px; color:#e8efe9; }
+.homeAddedCard small { display:block; font-size:10px; line-height:16px; color:#9fb4a8; overflow-wrap:anywhere; }
+.homeArt { flex:0 0 40px; width:40px; height:56px; border-radius:4px; background:#192a22; color:#a5edcc; display:grid; place-items:center; font-size:10px; position:relative; overflow:hidden; }
+.homeArt img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#192a22; }
+.homeEmpty { text-align:center; padding:24px 8px; border-top:1px solid #26372f; }
+.homeEmptyArt { display:block; margin:0 auto 16px; width:64px; height:72px; color:#7eb498; }
+.homeEmptyArt svg { fill:#13221b; stroke:currentColor; stroke-width:1.5; }
+.homeEmpty h2 { font-size:20px; line-height:24px; font-weight:600; margin:0 0 8px; }
+.homeEmpty p { font-size:14px; line-height:24px; color:#aabbb4; margin:0 auto 16px; max-width:260px; }
+#homeFirstCard { min-height:48px; padding:12px 16px; border:1px solid #456653; border-radius:8px; background:none; color:#a5edcc; font-size:14px; }
+.homeView [hidden] { display:none!important; }
+@media(min-width:600px) { .homeView { max-width:640px; margin-inline:auto; } }
+html[data-active-tab="home"] .appShell::before,html[data-active-tab="home"] .appShell::after { display:none; }

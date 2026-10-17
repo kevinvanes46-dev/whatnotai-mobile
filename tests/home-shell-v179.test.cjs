@@ -1,0 +1,22 @@
+'use strict';
+const {test,before,after,mock}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),cp=require('node:child_process');
+const H=require('../home-v179'),I=require('../portfolio-insights-v178'),C=require('../cost-basis-v177'),M=require('../market-v176'),F=require('./fixtures/market-v176.cjs');
+const item=(uid,qty=1,cost=10)=>C.initialize({...F.item,uid,name:uid,sourceId:'base1-'+uid,addedAt:Number(uid)},qty,cost);
+const FIXED_TIME='2026-10-17T12:00:00.000Z';
+before(()=>mock.timers.enable({apis:['Date'],now:Date.parse(FIXED_TIME)}));
+after(()=>mock.timers.reset());
+const quote={source:'TCGDEX_CARDMARKET',value:25,quality:'GENERAL_MARKET',currency:'EUR',sourceUpdatedAt:FIXED_TIME};
+const model=(items,lookup=()=>quote)=>H.model(items,lookup,I,C,M);
+test('Home passes through exact existing portfolio summary for mixed costs, quantities, JP and wishlist',()=>{
+ const rows=[item('1'),C.addUnknown(item('2',3,0),2),item('3',2,null),{...item('4'),language:'JP'},{...item('5',3,90),listType:'WISHLIST'}],before=JSON.stringify(rows),lookup=x=>x.language==='JP'?{...quote,quality:'REFERENCE_ONLY'}:quote;
+ assert.deepEqual(model(rows,lookup).summary,I.derive(rows,lookup,C,M).summary);assert.equal(JSON.stringify(rows),before);
+ assert.equal(model(rows,lookup).summary.market.value,200);assert.equal(model(rows,lookup).summary.cost.comparableQty,4);
+});
+test('empty and wishlist-only Home have no financial snapshot or added cards',()=>{for(const rows of [[],[{...item('1'),listType:'WISHLIST'}]]){const v=model(rows);assert.equal(v.summary.market.qty,0);assert.equal(v.recent.length,0);}});
+test('missing prices and missing costs never become fake zero comparisons',()=>{const x=model([item('1')],()=>null);assert.equal(x.summary.market.priced,0);assert.equal(x.summary.cost.difference,null);const y=model([item('1',2,null)]);assert.equal(y.summary.market.value,50);assert.equal(y.summary.cost.knownQty,0);assert.equal(y.summary.cost.difference,null);});
+test('latest four unique owned identities, newest first, without mutating source',()=>{const rows=Array.from({length:7},(_,i)=>item(String(i+1)));rows.push({...rows[6],uid:'duplicate',addedAt:9},{...item('8'),listType:'WISHLIST'});const before=JSON.stringify(rows);assert.deepEqual(model(rows).recent.map(x=>x.uid),['duplicate','6','5','4']);assert.equal(JSON.stringify(rows),before);});
+test('attention is existing deterministic deduplicated insight output',()=>{const rows=[item('1',2,null),item('2')],lookup=()=>null;assert.deepEqual(model(rows,lookup).attention,I.derive(rows,lookup,C,M).attention);});
+test('exactly one derivation and one lookup per item, including 1000 items',()=>{const rows=Array.from({length:1000},(_,i)=>item(String(i)));let passes=0,reads=0;H.model(rows,()=>{reads++;return quote;},{derive(...args){passes++;return I.derive(...args);}},C,M);assert.equal(passes,1);assert.equal(reads,1000);});
+test('only stored safe artwork; JP never shows an EN thumbnail',()=>{assert.equal(H.artwork({...F.item,language:'JP'}),'');assert.match(H.artwork(F.item),/\/low.webp$/);for(const image of ['javascript:alert(1)','https://evil.test/x.png','https://assets.tcgdex.net.evil.test/x.png','https://cdn.artofpkm.com/x'])assert.equal(H.artwork({...F.item,image}),'');});
+test('Home contains no network, storage writes, history, alerts or backend',()=>{assert.doesNotMatch(fs.readFileSync('home-v179.js','utf8'),/\bfetch\s*\(|\.setItem\s*\(|XMLHttpRequest|market_series|market_snapshots|supabase|setInterval|Notification/);});
+test('all baseline production files protected except exact reviewed shell allowlist',()=>{const base='c9b9945d2b490d4e830139f52dda9481c7127ca0',allowed=new Set(['index.html','style-v150-minimal.css','manifest.json','brand-v172.js','sw.js','ui-v137-collection.js']);const files=cp.execFileSync('git',['ls-tree','--name-only',base],{encoding:'utf8'}).trim().split('\n').filter(f=>/\.(js|json|css|html)$/.test(f)&&!allowed.has(f));for(const f of files)assert.equal(fs.readFileSync(f,'utf8').replace(/\r\n?/g,'\n'),cp.execFileSync('git',['show',base+':'+f],{encoding:'utf8',maxBuffer:20e6}).replace(/\r\n?/g,'\n'),f);});

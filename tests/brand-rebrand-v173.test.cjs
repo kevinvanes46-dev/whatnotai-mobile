@@ -6,12 +6,12 @@ const collection=JSON.stringify([{uid:'preserved',name:'ピカチュウ',sourceI
 const data={cardscout_collection_v133:collection,rareworth_cloud_sync_v170:'{"boundUserId":"A","users":{}}',rareworth_device_id_v170:'existing',rareworth_account_enabled_v170:'0',rareworth_guest_session_v171_1:'1',rareworth_onboarding_v171:'guest',whatnotai_mobile_recent_v37:'[]',whatnotai_mobile_favorites_v37:'[{"name":"Bagon"}]'};
 test('HoloKeep values, legacy frozen global and no visible brand literals in config',()=>{
   const c={document:{readyState:'loading',addEventListener(){}}};c.window=c;vm.runInNewContext(text('brand-v172.js'),c);
-  assert.deepEqual(JSON.parse(JSON.stringify(c.RareWorthBrand)),{name:'HoloKeep',shortName:'HoloKeep',tagline:'Je kaarten. Goed bewaard.',appTitle:'HoloKeep · Zoek. Bewaar. Check.',version:'v178',status:'Beta'});
+  assert.deepEqual(JSON.parse(JSON.stringify(c.RareWorthBrand)),{name:'HoloKeep',shortName:'HoloKeep',tagline:'Je kaarten. Goed bewaard.',appTitle:'HoloKeep · Zoek. Bewaar. Check.',version:'v179',status:'Beta'});
   assert.ok(Object.isFrozen(c.RareWorthBrand));assert.equal(Object.getOwnPropertyDescriptor(c,'RareWorthBrand').writable,false);
 });
 test('manifest changes only user-facing names; Apple title and static copy are HoloKeep',()=>{
   const m=JSON.parse(text('manifest.json')),previous=JSON.parse(old('manifest.json'));
-  assert.deepEqual(m,{...previous,name:'HoloKeep — Pokémon TCG',short_name:'HoloKeep'});
+  assert.deepEqual(m,{...previous,start_url:'./#home',name:'HoloKeep — Pokémon TCG',short_name:'HoloKeep'});
   assert.match(text('index.html'),/<meta name="apple-mobile-web-app-title" content="HoloKeep"/);
   assert.match(text('index.html'),/<title>HoloKeep · Zoek\. Bewaar\. Check\.<\/title>/);
   assert.doesNotMatch(text('index.html').replace(/icon-rareworth[^" ]*/g,''),/rare\s?worth/i);
@@ -67,8 +67,8 @@ test('five screens at 320/375/390/430: consistent HoloKeep, valid icons and scre
   for(const width of [320,375,390,430]){
     await page.setViewportSize({width,height:844});if(await page.locator('#onboarding').isHidden()){await page.locator('#navSettings').click();await page.locator('#onboardingReopen').click();}
     assert.equal(await page.locator('#onboardingTitle').innerText(),'Welkom bij HoloKeep');await noOldBrand(page);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);if(width===390)await capture('launch');await page.locator('#onboardingGuest').click();
-    for(const tab of ['search','collection','recent','settings']){await page.locator(`[data-tab="${tab}"]`).click();await noOldBrand(page);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);if(width===390)await capture(tab);}
-    assert.match(await page.locator('.aboutCard').innerText(),/Over HoloKeep.*v178 · Beta/s);assert.equal(await page.locator('.brandText strong').innerText(),'HoloKeep');
+    for(const tab of ['home','search','collection','recent','settings']){await page.locator(`[data-tab="${tab}"]`).click();await noOldBrand(page);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);if(width===390)await capture(tab);}
+    assert.match(await page.locator('.aboutCard').innerText(),/Over HoloKeep.*v179 · Beta/s);assert.equal(await page.locator('.brandText strong').innerText(),'HoloKeep');
   }
 });
 test('actual v172→v174 service-worker update preserves data/session, removes only old app cache and works offline',async t=>{
@@ -76,9 +76,9 @@ test('actual v172→v174 service-worker update preserves data/session, removes o
     await page.goto(origin);await page.evaluate(()=>navigator.serviceWorker.ready);await page.waitForFunction(()=>!!navigator.serviceWorker.controller);await page.locator('#onboardingGuest').click();await page.waitForLoadState('networkidle');
     await page.evaluate(async data=>{for(const [k,v] of Object.entries(data))if(k==='rareworth_guest_session_v171_1')sessionStorage.setItem(k,v);else localStorage.setItem(k,v);await caches.open('unrelated-cache');},data);
     const values=()=>page.evaluate(keys=>Object.fromEntries(keys.map(k=>[k,k==='rareworth_guest_session_v171_1'?sessionStorage.getItem(k):localStorage.getItem(k)])),Object.keys(data));assert.deepEqual(await values(),data);
-    previous=false;await page.evaluate(async()=>{const changed=new Promise(resolve=>navigator.serviceWorker.addEventListener('controllerchange',resolve,{once:true}));await (await navigator.serviceWorker.getRegistration()).update();await changed;});await page.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('rareworth-shell-v178')&&!keys.includes('rareworth-shell-v172');});
+    previous=false;await page.evaluate(async()=>{const changed=new Promise(resolve=>navigator.serviceWorker.addEventListener('controllerchange',resolve,{once:true}));await (await navigator.serviceWorker.getRegistration()).update();await changed;});await page.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('rareworth-shell-v179')&&!keys.includes('rareworth-shell-v172');});
     await page.reload();assert.equal(await page.title(),'HoloKeep · Zoek. Bewaar. Check.');assert.equal(await page.locator('#onboarding').isVisible(),false);assert.deepEqual(await values(),data);
     await context.setOffline(true);await page.reload();await page.locator('#navCollection').click();assert.match(await page.locator('#collectionList').innerText(),/Neo Genesis/);await noOldBrand(page);assert.deepEqual(await values(),data);
-    const cache=await page.evaluate(async()=>({keys:await caches.keys(),urls:(await (await caches.open('rareworth-shell-v178')).keys()).map(r=>r.url)}));assert.ok(cache.keys.includes('unrelated-cache'));assert.ok(!cache.keys.includes('rareworth-shell-v172'));assert.ok(cache.urls.every(u=>new URL(u).origin===origin));assert.ok(cache.urls.some(u=>u.includes('brand-v172.js?build=178-portfolio-insights')),JSON.stringify(cache));
+    const cache=await page.evaluate(async()=>({keys:await caches.keys(),urls:(await (await caches.open('rareworth-shell-v179')).keys()).map(r=>r.url)}));assert.ok(cache.keys.includes('unrelated-cache'));assert.ok(!cache.keys.includes('rareworth-shell-v172'));assert.ok(cache.urls.every(u=>new URL(u).origin===origin));assert.ok(cache.urls.some(u=>u.includes('brand-v172.js?build=179-home-app-shell')),JSON.stringify(cache));
   }finally{previous=false;}
 });

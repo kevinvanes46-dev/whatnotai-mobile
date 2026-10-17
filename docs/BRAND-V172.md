@@ -179,13 +179,14 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | docs/CLOUD-SYNC-V170.md | B, C, D, H | 1, 3, 12, 38, 62, 87, 123, 164, 178, 192, 203 | no |
 | docs/EN-COVERAGE-V174.md | B, C, H | 51 | no |
 | docs/EN-COVERAGE-V175.md | B, H | 36 | no |
+| docs/HOME-SHELL-V179.md | B, H | 65 | no |
 | docs/MARKET-V176.md | B, H | 98 | no |
 | docs/PORTFOLIO-INSIGHTS-V178.md | B, H | 37 | no |
 | icon-rareworth-180.png | E | — | yes |
 | icon-rareworth-192.png | E | — | yes |
 | icon-rareworth-512.png | E | — | yes |
 | icon-rareworth.svg | A, E | — | yes |
-| index.html | A, E, G | 13, 14, 28, 68 | no |
+| index.html | A, E, G | 13, 14, 29, 69 | no |
 | jp-image-library-v161.js | B | 4, 35 | no |
 | jp-image-manifest-v161.js | B | 3 | no |
 | manifest.json | A, E, G | 5, 6 | no |
@@ -199,7 +200,7 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | supabase-config-v170.js | B, D | 2 | no |
 | supabase/migrations/20260930_rareworth_cloud_v170.sql | B, D, E | 4, 12, 15, 16, 17, 19, 20, 23, 24, 27, 28, 32, 33, 37, 48, 49, 50, 51, 52, 54, 67, 79, 85, 102, 103 | yes |
 | supabase/migrations/20261001_rareworth_cloud_read_v170b.sql | B, D, E | 3, 18, 21, 22 | yes |
-| sw.js | B, E, F, G | 3, 11, 12, 13, 59 | no |
+| sw.js | B, E, F, G | 3, 11, 12, 13, 60 | no |
 | tests/account-cloud-browser-v170b.test.cjs | B, D, H | 44, 106 | no |
 | tests/account-cloud-v170b.test.cjs | B, D, H | 17, 38, 142, 143, 146, 147, 149, 150, 175 | no |
 | tests/brand-allowlist-v172.json | B, C, D, E, F, H | 3, 4, 5, 6, 8, 9, 10, 13, 14, 17, 18, 19, 22, 23, 24, 27, 28, 29, 30, 33, 34, 37, 40, 41, 44, 45, 46, 49, 52, 55, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 84, 85, 86, 87, 88, 91, 92, 93, 94, 95, 98, 99, 100, 101, 102, 105, 106, 109, 110, 111 | no |
@@ -215,7 +216,8 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | tests/en-dp-pop-coverage-v174.test.cjs | B, C, E, H | 47, 63, 133 | no |
 | tests/en-platinum-hgss-coverage-v175.test.cjs | B, C, E, H | 48, 65, 124, 194, 198 | no |
 | tests/experience-scope-v171.cjs | H | 8 | no |
-| tests/guest-context-v171.cjs | B, C, H | 10 | no |
+| tests/guest-context-v171.cjs | B, C, H | 11 | no |
+| tests/home-shell-browser-v179.test.cjs | B, C, E, H | 9, 10, 12, 22, 28 | no |
 | tests/jp-image-library-browser-v161.test.cjs | B, H | 18, 40, 58, 63, 68 | no |
 | tests/jp-image-library-v161.test.cjs | B, H | 9, 11 | no |
 | tests/keyboard-v154.test.cjs | B, H | 48 | no |

@@ -75,3 +75,6 @@ jobs:
 
       - name: HoloKeep portfolio insights
         run: node --test tests/portfolio-insights-v178.test.cjs tests/portfolio-insights-browser-v178.test.cjs
+
+      - name: HoloKeep home and app shell
+        run: node --test tests/home-shell-v179.test.cjs tests/home-shell-browser-v179.test.cjs

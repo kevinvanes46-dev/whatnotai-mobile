@@ -70,8 +70,8 @@ test('G/H: cached offline new session ignores legacy guest, permits offline gues
   await context.addInitScript(()=>Object.defineProperty(Navigator.prototype,'onLine',{get:()=>false}));await context.setOffline(true);await page.reload();
   assert.equal(await page.locator('#onboarding').isVisible(),true);assert.equal(await page.locator('#onboardingLogin').isDisabled(),true);assert.match(await page.locator('#onboardingOffline').innerText(),/Internetverbinding nodig/);
   await page.locator('#onboardingGuest').click();await page.reload();assert.equal(await page.locator('#onboarding').isVisible(),false);
-  for(const tab of ['search','collection','recent','settings']){await page.locator(`[data-tab="${tab}"]`).click();assert.equal(await page.locator(`[data-view="${tab}"]`).isVisible(),true);}
-  assert.deepEqual(await preserved(page),data);const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v178')).keys()).map(r=>r.url));assert.ok(urls.some(u=>u.includes('onboarding-v171.js?build=171-1-launch-gate')));assert.ok(urls.every(u=>u.startsWith(origin)));assert.equal(await page.evaluate(()=>sdkLoads),0);
+  for(const tab of ['home','search','collection','recent','settings']){await page.locator(`[data-tab="${tab}"]`).click();assert.equal(await page.locator(`[data-view="${tab}"]`).isVisible(),true);}
+  assert.deepEqual(await preserved(page),data);const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v179')).keys()).map(r=>r.url));assert.ok(urls.some(u=>u.includes('onboarding-v171.js?build=171-1-launch-gate')));assert.ok(urls.every(u=>u.startsWith(origin)));assert.equal(await page.evaluate(()=>sdkLoads),0);
 });
 test('I: logout never pops gate over current action, keeps collection and grants only current-session guest',async t=>{
   const {page,context}=await fixture(t,{auth:'valid',storage:{...data,rareworth_account_enabled_v170:'1'}});await page.waitForFunction(()=>document.querySelector('#onboarding').hidden);await page.locator('#navSettings').click();await page.locator('#accountSignOut').click();

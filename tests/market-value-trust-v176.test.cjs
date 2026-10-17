@@ -40,7 +40,7 @@ test('legacy is never validated; primary total uses quantity and known zero cost
 test('production scope preserves routing, cloud, catalog and storage contracts',()=>{
  const baseline='27a09d72d92de2fbe9740e4aa32a3113d9b3c335';
  for(const file of ['app-v137.js','ui-v137-focus.js','card-identity-v154.js','cloud-sync-v170.js','cloud-adapter-v170.js','jp-cardmarket-native-v163.js','jp-cardmarket-native-v165.js','jp-image-library-v161.js','cards.json'])assert.equal(fs.readFileSync(file,'utf8').replace(/\r\n?/g,'\n'),execFileSync('git',['show',baseline+':'+file],{encoding:'utf8',maxBuffer:16e6}).replace(/\r\n?/g,'\n'),file);
- assert.match(fs.readFileSync('sw.js','utf8'),/rareworth-shell-v178/);assert.match(fs.readFileSync('sw.js','utf8'),/market-v176.js\?build=176-market-value-trust/);
+ assert.match(fs.readFileSync('sw.js','utf8'),/rareworth-shell-v179/);assert.match(fs.readFileSync('sw.js','utf8'),/market-v176.js\?build=176-market-value-trust/);
 });
 test('representative synthetic diagnostic; not whole-catalog coverage',()=>{
  const cases=[['Base','base1'],['Jungle','base2'],['Neo','neo1'],['EX','ex1'],['DP','dp1'],['Platinum','pl1'],['HGSS','hgss1'],['POP','pop1']];const counts={GENERAL_MARKET:0,REFERENCE_ONLY:0,UNAVAILABLE:0};
