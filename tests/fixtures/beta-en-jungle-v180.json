@@ -1,0 +1,12 @@
+{
+  "captured": "2026-10-17",
+  "source": "https://api.tcgdex.net/v2/en/sets/base2",
+  "cards": [
+    {
+      "id": "base2-60",
+      "image": "https://assets.tcgdex.net/en/base/base2/60",
+      "localId": "60",
+      "name": "Pikachu"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "ui-v137-focus.js": [
+    {
+      "before": "  let catalog = [];",
+      "after": "  let catalog = [];\n  let betaSearch = null;"
+    },
+    {
+      "before": "    const number = normalize(card.number);\n    const numberKey = numericKey(card.number);",
+      "after": "    const searchNumber = card.number || betaSearch?.number(card) || '';\n    const number = normalize(searchNumber);\n    const numberKey = numericKey(searchNumber);"
+    },
+    {
+      "before": "    if(card.direct) score += .4;",
+      "after": "    if(card.direct) score += .4;\n    if(betaSearch?.number(card) && tokens.some(t=>/^\\d+$/.test(t))) score += 300;"
+    },
+    {
+      "before": "    catalog = prioritizeSourceIdentity(merged);",
+      "after": "    catalog = prioritizeSourceIdentity(merged);\n    betaSearch = window.HoloDexSearch.create(catalog,DATA.pokedex,window.JPSetCatalog,setInfo);"
+    },
+    {
+      "before": "    const cardQuery = explicitSet ? (' '+fullQuery+' ').replace(' '+explicitSet.alias+' ',' ').trim() : fullQuery;",
+      "after": "    const jpSet = (langSelect?.value || 'EN') === 'JP' ? betaSearch?.set(fullQuery) : null;\n    const querySet = explicitSet || jpSet;\n    const cardQuery = querySet ? (' '+fullQuery+' ').replace(' '+querySet.alias+' ',' ').trim() : fullQuery;"
+    },
+    {
+      "before": "!stampedOnly && !explicitSet",
+      "after": "!stampedOnly && !querySet"
+    },
+    {
+      "before": "      .filter(c => !explicitSet || c.set === explicitSet.key)",
+      "after": "      .filter(c => !querySet || c.set === querySet.key)"
+    },
+    {
+      "before": "      }else smartSuggestions.hidden=true;",
+      "after": "      }else {\n        const empty=document.createElement('p');empty.className='suggestionSummary';empty.setAttribute('role','status');\n        empty.textContent=navigator.onLine?'Geen kaarten gevonden. Probeer een naam of kies een andere taal.':'Je bent offline. Alleen eerder geladen kaarten zijn doorzoekbaar.';\n        smartSuggestions.appendChild(empty);smartSuggestions.hidden=false;\n      }"
+    },
+    {
+      "before": "      if(card.search_aliases?.length)btn.querySelector('.suggestionTitle').textContent += ' · '+card.search_aliases.join(' / ');",
+      "after": "      if(card.search_aliases?.length)btn.querySelector('.suggestionTitle').textContent += ' · '+card.search_aliases.join(' / ');\n      if(betaSearch?.number(card))btn.querySelector('.suggestionMeta').textContent += ' · Pokédex '+betaSearch.number(card);"
+    },
+    {
+      "before": "    if(cards.length) showToast(`${lang}: ${cards.length} extra zoekkaarten geladen`);",
+      "after": "    // Catalog completion updates the result list without interrupting the current screen."
+    },
+    {
+      "before": "? `${displayName}: veilige JP Cardmarket-zoekroute klaar`",
+      "after": "? `${displayName} geselecteerd`"
+    }
+  ],
+  "ui-v137-collection.js": [
+    {
+      "before": "a.download=`cardscout-collectie-",
+      "after": "a.download=`holodex-collectie-"
+    }
+  ],
+  "home-v179.js": [
+    {
+      "before": "art.textContent='HK'",
+      "after": "art.textContent='HD'"
+    }
+  ]
+}

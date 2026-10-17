@@ -234,3 +234,13 @@ button:focus-visible,a:focus-visible,select:focus-visible { outline:2px solid #a
 .homeView [hidden] { display:none!important; }
 @media(min-width:600px) { .homeView { max-width:640px; margin-inline:auto; } }
 html[data-active-tab="home"] .appShell::before,html[data-active-tab="home"] .appShell::after { display:none; }
+
+/* v180: consistent primary actions, readable forms and unobtrusive feedback. */
+#accountCard button.primary,#collectionFirstCard { background:#a5edcc; color:#10271b; border:1px solid #456653; border-radius:8px; min-height:44px; padding:12px 16px; font-weight:600; }
+#collectionEditor input,#collectionSearch { font-size:16px; }
+.toast { white-space:normal; overflow-wrap:anywhere; border-radius:12px; line-height:1.5; pointer-events:none; }
+.suggestionArt .artworkPlaceholder { font-size:10px; overflow-wrap:anywhere; }
+
+/* Missing artwork remains readable with an accessible retry action. */
+.artUnavailable:has(> .artRetry) { display:flex; flex-direction:column; justify-content:center; gap:4px; padding:4px; overflow-wrap:anywhere; }
+.artUnavailable > .artRetry { flex:none; width:100%; max-width:100%; margin:0; padding:4px 2px; white-space:normal; min-height:44px; color:#b5efd3; background:#15271f; border:1px solid #456653; border-radius:6px; }

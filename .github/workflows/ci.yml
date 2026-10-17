@@ -78,3 +78,6 @@ jobs:
 
       - name: HoloKeep home and app shell
         run: node --test tests/home-shell-v179.test.cjs tests/home-shell-browser-v179.test.cjs
+
+      - name: HoloDex beta readiness
+        run: node --test tests/beta-readiness-v180.test.cjs tests/beta-browser-v180.test.cjs

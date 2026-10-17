@@ -700,7 +700,7 @@
     const payload={version:137,exportedAt:new Date().toISOString(),collection:read()};
     const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
     const a=document.createElement('a');a.href=URL.createObjectURL(blob);
-    a.download=`cardscout-collectie-${new Date().toISOString().slice(0,10)}.json`;a.click();
+    a.download=`holodex-collectie-${new Date().toISOString().slice(0,10)}.json`;a.click();
     setTimeout(()=>URL.revokeObjectURL(a.href),1000);
   });
   importBtn?.addEventListener('click',()=>importFile?.click());

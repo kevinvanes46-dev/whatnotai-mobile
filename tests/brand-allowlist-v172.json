@@ -26,7 +26,7 @@
   "index.html": [
     "<link rel=\"icon\" href=\"icon-rareworth.svg?build=173-holokeep-rebrand\" type=\"image/svg+xml\" />",
     "<link rel=\"apple-touch-icon\" href=\"icon-rareworth-180.png?build=173-holokeep-rebrand\" />",
-    "<div class=\"onboardingBrand\"><img src=\"icon-rareworth.svg?build=173-holokeep-rebrand\" alt=\"\" /><strong>HoloKeep</strong></div>",
+    "<div class=\"onboardingBrand\"><img src=\"icon-rareworth.svg?build=173-holokeep-rebrand\" alt=\"\" /><strong>HoloDex</strong></div>",
     "<img class=\"brandIcon\" src=\"icon-rareworth.svg?build=173-holokeep-rebrand\" alt=\"\" />"
   ],
   "jp-image-library-v161.js": [
@@ -88,7 +88,7 @@
     "grant execute on function public.rareworth_get_collection_snapshot() to authenticated;"
   ],
   "sw.js": [
-    "const CACHE = 'rareworth-shell-v179';",
+    "const CACHE = 'rareworth-shell-v180';",
     "'icon-rareworth.svg?build=173-holokeep-rebrand',",
     "'icon-rareworth-180.png?build=173-holokeep-rebrand',",
     "'icon-rareworth-192.png', 'icon-rareworth-512.png',",

@@ -57,6 +57,7 @@
   let autoScanTimer = null;
   let toastTimer = null;
   let catalog = [];
+  let betaSearch = null;
   let setInfo = {};
   let suggestionSeq = 0;
   let localCatalog = [];
@@ -450,8 +451,9 @@
   // No Pokemon names are hardcoded. Every query token can match name, number or set metadata.
   function suggestionScore(card, tokens, fullQuery){
     const name = normalize(card.name);
-    const number = normalize(card.number);
-    const numberKey = numericKey(card.number);
+    const searchNumber = card.number || betaSearch?.number(card) || '';
+    const number = normalize(searchNumber);
+    const numberKey = numericKey(searchNumber);
     const setName = normalize(card.set_name || setInfo?.[card.set]?.label || card.set);
     const code = normalize(card.code || setInfo?.[card.set]?.code || '');
     const aliasList = [
@@ -501,6 +503,7 @@
     // Language remains a preference/ranking boost, NOT a hard filter, so all known cards stay searchable.
     if((card.language || 'EN') === (langSelect?.value || 'EN')) score += 8;
     if(card.direct) score += .4;
+    if(betaSearch?.number(card) && tokens.some(t=>/^\d+$/.test(t))) score += 300;
     return score;
   }
 
@@ -569,6 +572,7 @@
       merged.push(card);
     }
     catalog = prioritizeSourceIdentity(merged);
+    betaSearch = window.HoloDexSearch.create(catalog,DATA.pokedex,window.JPSetCatalog,setInfo);
     window.CardCatalog={marketplaceCards(){return remoteCatalog.filter(c=>c.language==='EN');},byId(id,language){return catalog.find(c=>c.source_id===id&&(c.language||'EN')===language)||null;},find(input){
       const language=input.language||input.lang||'EN';
       const name=cleanVisibleCardName(input.name||'',input.number||'').toLowerCase();
@@ -601,6 +605,7 @@
       const stampNote = (queryWantsStamped(quickInput?.value || '') && lang === 'EN' && STAMPED_SET_KEYS.has(card.set)) ? ' · ⚡ STAMPED-era' : '';
       btn.querySelector('.suggestionMeta').textContent = `${label} · ${lang}${card.rarity ? ' · '+card.rarity : ''}${stampNote}${sourceNote}${jpSet&&card.source_id?' · '+card.source_id:''}`;
       if(card.search_aliases?.length)btn.querySelector('.suggestionTitle').textContent += ' · '+card.search_aliases.join(' / ');
+      if(betaSearch?.number(card))btn.querySelector('.suggestionMeta').textContent += ' · Pokédex '+betaSearch.number(card);
       if(window.CardArtwork){const art=document.createElement('span');art.className='suggestionArt';btn.prepend(art);window.CardArtwork.mount(card,art);}
       btn.addEventListener('click', () => {
         nameInput.value = displayName;
@@ -620,7 +625,7 @@
         safelyRebuildLink();
         const stampedSelected = queryWantsStamped(quickInput?.value || '') && lang === 'EN' && STAMPED_SET_KEYS.has(card.set);
         showToast(stampedSelected ? `${displayName}: stamped/reverse variant geselecteerd` : (isRemote && lang === 'JP'
-          ? `${displayName}: veilige JP Cardmarket-zoekroute klaar`
+          ? `${displayName} geselecteerd`
           : `${displayName} geselecteerd`));
       });
       smartSuggestions.appendChild(btn);
@@ -646,13 +651,15 @@
         .filter(x => x.alias !== 'arceus' || (!/\b(?:pl[1-4]|hgss[1-4]|col1|hgssp|hsp)\b/.test(fullQuery) && /[a-z]/.test(fullQuery.replace(/\barceus\b|\blv x\b|\b(?:en|nm|ex|gd|pl)\b|\b(?:sh|ar|sl|rt|hgss)[0-9]+\b|[0-9]+/g,''))))
         .sort((a,b) => Number(/^(?:pl[1-4]|hgss[1-4]|col1|hgssp|hsp)$/.test(b.alias))-Number(/^(?:pl[1-4]|hgss[1-4]|col1|hgssp|hsp)$/.test(a.alias)) || b.alias.length-a.alias.length)[0]
       : null;
-    const cardQuery = explicitSet ? (' '+fullQuery+' ').replace(' '+explicitSet.alias+' ',' ').trim() : fullQuery;
+    const jpSet = (langSelect?.value || 'EN') === 'JP' ? betaSearch?.set(fullQuery) : null;
+    const querySet = explicitSet || jpSet;
+    const cardQuery = querySet ? (' '+fullQuery+' ').replace(' '+querySet.alias+' ',' ').trim() : fullQuery;
     const tokens = cardQuery.split(' ').filter(t => t && !ignored.has(t));
-    if((!tokens.length && !stampedOnly && !explicitSet) || !catalog.length){ smartSuggestions.hidden = true; smartSuggestions.innerHTML=''; return; }
+    if((!tokens.length && !stampedOnly && !querySet) || !catalog.length){ smartSuggestions.hidden = true; smartSuggestions.innerHTML=''; return; }
 
     const results = catalog
       .filter(c => (c.language || 'EN') === (langSelect?.value || 'EN'))
-      .filter(c => !explicitSet || c.set === explicitSet.key)
+      .filter(c => !querySet || c.set === querySet.key)
       .filter(c => !stampedOnly || ((c.language || 'EN') === 'EN' && STAMPED_SET_KEYS.has(c.set)))
       .map(c => ({card:c, score:tokens.length ? suggestionScore(c,tokens,fullQuery) : 10}))
       .filter(x => x.score >= 0)
@@ -674,7 +681,11 @@
         summary.innerHTML=`<b>Catalogus laden…</b><span>${catalogLoadingText()}</span>`;
         smartSuggestions.appendChild(summary);
         smartSuggestions.hidden=false;
-      }else smartSuggestions.hidden=true;
+      }else {
+        const empty=document.createElement('p');empty.className='suggestionSummary';empty.setAttribute('role','status');
+        empty.textContent=navigator.onLine?'Geen kaarten gevonden. Probeer een naam of kies een andere taal.':'Je bent offline. Alleen eerder geladen kaarten zijn doorzoekbaar.';
+        smartSuggestions.appendChild(empty);smartSuggestions.hidden=false;
+      }
       return;
     }
 
@@ -811,7 +822,7 @@
     if(lang === 'JP') jpCatalogState = cards.length ? 'ready' : 'failed';
     else enCatalogState = cards.length ? 'ready' : 'failed';
     if(quickInput?.value.trim()) renderSuggestions(quickInput.value);
-    if(cards.length) showToast(`${lang}: ${cards.length} extra zoekkaarten geladen`);
+    // Catalog completion updates the result list without interrupting the current screen.
   }
 
   async function loadCatalog(){

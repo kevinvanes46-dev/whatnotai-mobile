@@ -1,19 +1,19 @@
 'use strict';
 // Bump this version when the shell changes. Never cache remote card data/artwork.
-const CACHE = 'rareworth-shell-v179';
+const CACHE = 'rareworth-shell-v180';
 const SCOPE = new URL('./', self.registration.scope);
 const INDEX = new URL('index.html', SCOPE).href;
 const ASSETS = [
   'index.html',
   'cards.json?build=175-en-platinum-hgss-coverage',
-  'brand-v172.js?build=179-home-app-shell',
-  'manifest.json?build=179-home-app-shell',
+  'brand-v172.js?build=180-beta-readiness',
+  'manifest.json?build=180-beta-readiness',
   'icon-rareworth.svg?build=173-holokeep-rebrand',
   'icon-rareworth-180.png?build=173-holokeep-rebrand',
   'icon-rareworth-192.png', 'icon-rareworth-512.png',
   'style-v137-product.css?build=168-product-shell-cleanup',
   'style-v148-polish.css?build=168-product-shell-cleanup',
-  'style-v150-minimal.css?build=179-home-app-shell',
+  'style-v150-minimal.css?build=180-beta-readiness',
   'style-v153-mobile.css?build=168-product-shell-cleanup',
   'cardmarket-products-v152.js?build=152-links-controls',
   'card-identity-v154.js?build=164-jp-set-display-restore',
@@ -26,13 +26,14 @@ const ASSETS = [
   'jp-cardmarket-native-v163.js?build=165-full-jp-cardmarket',
   'jp-image-manifest-v161.js?build=161-jp-image-library',
   'jp-image-library-v161.js?build=161-jp-image-library',
-  'ui-v137-focus.js?build=175-en-platinum-hgss-coverage',
+  'beta-search-v180.js?build=180-beta-readiness',
+  'ui-v137-focus.js?build=180-beta-readiness',
   'market-v176.js?build=176-market-value-trust',
   'cost-basis-v177.js?build=177-cost-basis-result',
   'portfolio-insights-v178.js?build=178-portfolio-insights',
-  'ui-v137-collection.js?build=179-home-app-shell',
+  'ui-v137-collection.js?build=180-beta-readiness',
   'ui-v150-experience.js?build=173-holokeep-rebrand',
-  'home-v179.js?build=179-home-app-shell',
+  'home-v179.js?build=180-beta-readiness',
   'ui-v154-keyboard.js?build=154-keyboard',
   'ui-v153-mobile.js?build=154-keyboard',
   'cloud-sync-v170.js?build=170b-account-cloud-sync',

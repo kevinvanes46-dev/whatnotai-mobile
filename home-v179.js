@@ -41,7 +41,7 @@
       const list=$('homeAddedCards');list.replaceChildren();
       for(const item of view.recent){
         const button=document.createElement('button');button.type='button';button.className='homeAddedCard';button.setAttribute('aria-label',item.name+' in collectie openen');
-        const art=document.createElement('span');art.className='homeArt';art.textContent='HK';const url=artwork(item);
+        const art=document.createElement('span');art.className='homeArt';art.textContent='HD';const url=artwork(item);
         if(url){const img=document.createElement('img');img.alt='';img.loading='lazy';img.decoding='async';img.src=url;img.onerror=()=>img.remove();art.append(img);}
         const text=document.createElement('span'),name=document.createElement('strong'),set=document.createElement('small'),meta=document.createElement('small');
         name.textContent=item.name;set.textContent=window.JPSetCatalog?.identity(item)?.label||item.setName||item.set;meta.textContent=item.language+' · '+item.condition;
