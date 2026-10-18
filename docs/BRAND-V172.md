@@ -73,6 +73,7 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | File | Categories | Matching text lines | Path match |
 |---|---|---|---|
 | .github/workflows/ci.yml | F | 1 | no |
+| AGENTS.md | H | 103 | no |
 | MOBILE-POLISH-V153.md | H | 1, 5 | no |
 | QA-JP-CARDMARKET-V165.md | H | 1, 3, 25 | no |
 | QA-JP-IMAGE-LIBRARY-V161.md | H | 1, 4 | no |
