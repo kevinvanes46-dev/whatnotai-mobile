@@ -81,3 +81,6 @@ jobs:
 
       - name: HoloDex beta readiness
         run: node --test tests/beta-readiness-v180.test.cjs tests/beta-browser-v180.test.cjs
+
+      - name: HoloDex safe redesign integration
+        run: node --test tests/integration-v181.test.cjs tests/integration-browser-v181.test.cjs

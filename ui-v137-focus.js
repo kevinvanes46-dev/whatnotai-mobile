@@ -573,7 +573,7 @@
     }
     catalog = prioritizeSourceIdentity(merged);
     betaSearch = window.HoloDexSearch.create(catalog,DATA.pokedex,window.JPSetCatalog,setInfo);
-    window.CardCatalog={marketplaceCards(){return remoteCatalog.filter(c=>c.language==='EN');},byId(id,language){return catalog.find(c=>c.source_id===id&&(c.language||'EN')===language)||null;},find(input){
+    window.CardCatalog={setCards(setId,language){return [...new Map(remoteCatalog.filter(c=>c.source_set_id===setId&&c.language===language&&c.source_id).map(c=>[c.source_id,c])).values()];},marketplaceCards(){return remoteCatalog.filter(c=>c.language==='EN');},byId(id,language){return catalog.find(c=>c.source_id===id&&(c.language||'EN')===language)||null;},find(input){
       const language=input.language||input.lang||'EN';
       const name=cleanVisibleCardName(input.name||'',input.number||'').toLowerCase();
       const number=String(input.number||'').replace(/^0+(?=\d)/,'');
@@ -591,7 +591,7 @@
     for(let i=renderedSuggestionCount;i<end;i++){
       const card = activeSuggestionResults[i].card;
       const btn = document.createElement('button');
-      btn.type='button'; btn.className='suggestion';
+      btn.type='button'; btn.className='suggestion'; btn.holoCard=card;
       const jpSet=window.JPSetCatalog.identity(card);
       const canonical = window.JPCardmarketTwin.canonicalSet(card);
       const label = jpSet?.label || (canonical ? (setInfo?.[canonical]?.label || prettySet(canonical)) : (card.set_name || setInfo?.[card.set]?.label || prettySet(card.set)));

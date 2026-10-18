@@ -1,10 +1,18 @@
 'use strict';
 // Bump this version when the shell changes. Never cache remote card data/artwork.
-const CACHE = 'rareworth-shell-v180';
+const CACHE = 'rareworth-shell-v181';
 const SCOPE = new URL('./', self.registration.scope);
 const INDEX = new URL('index.html', SCOPE).href;
 const ASSETS = [
   'index.html',
+  'style-v181-holo.css?build=181-live-integration',
+  'ui-v181-redesign.js?build=181-live-integration',
+  'share-v181.html',
+  'share-v181.js',
+  'assets/fonts/geist-400.woff2',
+  'assets/fonts/geist-600.woff2',
+  'assets/fonts/unbounded-700.woff2',
+  'assets/fonts/unbounded-800.woff2',
   'cards.json?build=175-en-platinum-hgss-coverage',
   'brand-v172.js?build=180-beta-readiness',
   'manifest.json?build=180-beta-readiness',

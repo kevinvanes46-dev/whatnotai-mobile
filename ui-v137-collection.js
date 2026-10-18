@@ -263,8 +263,8 @@
     editingId=null;
   }
 
-  function openAddEditor(){
-    const sel=selected||currentFallback();
+  function openAddEditor(given){
+    const sel=given?.card?given:selected||currentFallback();
     if(!sel?.card?.name){toast('Kies eerst een kaart');return}
     const c=sel.card;
     editorMode='add';editingId=null;costAction='';
@@ -282,7 +282,7 @@
     editor.dataset.pending=JSON.stringify({
       name:cleanVisibleCardName(c.name,c.number)||c.name,number:String(c.number||''),set:c.set||'AUTO',setName:c.set_name||c.set||'AUTO',
       language:c.language||langSelect?.value||'EN',edition:sel.edition||editionSelect?.value||'AUTO',
-      sourceId:c.source_id||'',...(c.language==='EN' && /^(dp[1-7]|dpp|pop[1-9]|pl[1-4]|hgss[1-4]|col1|hgssp)$/.test(c.source_set_id||'') ? {source_set_id:c.source_set_id} : {}),cardmarketUrl:sel.cardmarketUrl||c.url||openBtn?.getAttribute('href')||''
+      sourceId:c.source_id||'',...(given?.card&&c.source_set_id?{source_set_id:c.source_set_id}:{}),...(c.language==='EN' && /^(dp[1-7]|dpp|pop[1-9]|pl[1-4]|hgss[1-4]|col1|hgssp)$/.test(c.source_set_id||'') ? {source_set_id:c.source_set_id} : {}),cardmarketUrl:sel.cardmarketUrl||c.url||openBtn?.getAttribute('href')||''
     });
     showEditor();
   }
@@ -721,7 +721,7 @@
     if(a.some(stalePrice))refreshPrices(false);
   });
 
-  window.cardscoutCollectionUI={openAttention(){filterState={list:'ALL',language:'',variant:''};searchEl.value='';conditionFilter.value='';setFilter.value='';syncQuickFilterButtons();$('collectionAttention').click();},openItem(id){const item=read().map(normalizeItem).find(x=>x?.uid===id);if(item)openEditEditor(item);},lookupCard:resolveCard,priceFrom,render,refreshOnePrice,refreshPrices};
+  window.cardscoutCollectionUI={openAddFor:openAddEditor,items:()=>read().map(normalizeItem).filter(Boolean).map(marketItem),cardmarketLink:collectionLink,openAttention(){filterState={list:'ALL',language:'',variant:''};searchEl.value='';conditionFilter.value='';setFilter.value='';syncQuickFilterButtons();$('collectionAttention').click();},openItem(id){const item=read().map(normalizeItem).find(x=>x?.uid===id);if(item)openEditEditor(item);},lookupCard:resolveCard,priceFrom,render,refreshOnePrice,refreshPrices};
   migrate();
   syncQuickFilterButtons();
   render();

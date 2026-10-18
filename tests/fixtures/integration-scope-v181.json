@@ -1,0 +1,66 @@
+{
+  "ui-v137-collection.js": [
+    {
+      "before": "function openAddEditor(){\n    const sel=selected||currentFallback();",
+      "after": "function openAddEditor(given){\n    const sel=given?.card?given:selected||currentFallback();"
+    },
+    {
+      "before": "sourceId:c.source_id||'',...(c.language==='EN'",
+      "after": "sourceId:c.source_id||'',...(given?.card&&c.source_set_id?{source_set_id:c.source_set_id}:{}),...(c.language==='EN'"
+    },
+    {
+      "before": "window.cardscoutCollectionUI={",
+      "after": "window.cardscoutCollectionUI={openAddFor:openAddEditor,items:()=>read().map(normalizeItem).filter(Boolean).map(marketItem),cardmarketLink:collectionLink,"
+    }
+  ],
+  "ui-v137-focus.js": [
+    {
+      "before": "window.CardCatalog={marketplaceCards()",
+      "after": "window.CardCatalog={setCards(setId,language){return [...new Map(remoteCatalog.filter(c=>c.source_set_id===setId&&c.language===language&&c.source_id).map(c=>[c.source_id,c])).values()];},marketplaceCards()"
+    },
+    {
+      "before": "btn.type='button'; btn.className='suggestion';",
+      "after": "btn.type='button'; btn.className='suggestion'; btn.holoCard=card;"
+    }
+  ],
+  "ui-v150-experience.js": [
+    {
+      "before": "const quote=window.cardscoutCollectionUI.priceFrom(data,{variant:stamped?'STAMPED':'NORMAL',edition:$('editionSelect')?.value});",
+      "after": "const item={...c,sourceId:c.source_id,variant:stamped?'STAMPED':'NORMAL',edition:detail.edition||$('editionSelect')?.value,condition:detail.condition||$('condSelect')?.value};\n    delete item.price;\n    const quote=window.HoloKeepMarket.display(window.cardscoutCollectionUI.priceFrom(data,item),item);"
+    },
+    {
+      "before": "quote.price?`${currency.format(quote.price)} · ${quote.source} (algemeen)`:'Geen marktindicatie beschikbaar'",
+      "after": "quote.value?`${currency.format(quote.value)} · ${quote.label} · ${quote.condition}`:quote.label"
+    }
+  ],
+  "index.html": [
+    {
+      "before": "</head>",
+      "after": "  <link rel=\"stylesheet\" href=\"style-v181-holo.css?build=181-live-integration\">\n</head>"
+    },
+    {
+      "before": "</body>",
+      "after": "  <script src=\"ui-v181-redesign.js?build=181-live-integration\"></script>\n</body>"
+    },
+    {
+      "before": "v180 · Beta",
+      "after": "v181 · Beta"
+    }
+  ],
+  "brand-v172.js": [
+    {
+      "before": "version: 'v180'",
+      "after": "version: 'v181'"
+    }
+  ],
+  "sw.js": [
+    {
+      "before": "'rareworth-shell-v180'",
+      "after": "'rareworth-shell-v181'"
+    },
+    {
+      "before": "  'index.html',",
+      "after": "  'index.html',\n  'style-v181-holo.css?build=181-live-integration',\n  'ui-v181-redesign.js?build=181-live-integration',\n  'share-v181.html',\n  'share-v181.js',\n  'assets/fonts/geist-400.woff2',\n  'assets/fonts/geist-600.woff2',\n  'assets/fonts/unbounded-700.woff2',\n  'assets/fonts/unbounded-800.woff2',"
+    }
+  ]
+}

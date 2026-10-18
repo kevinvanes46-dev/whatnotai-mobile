@@ -1,0 +1,75 @@
+@font-face { font-family:Unbounded; font-weight:700; font-display:swap; src:url(assets/fonts/unbounded-700.woff2) format('woff2'); }
+@font-face { font-family:Unbounded; font-weight:800; font-display:swap; src:url(assets/fonts/unbounded-800.woff2) format('woff2'); }
+@font-face { font-family:Geist; font-weight:400; font-display:swap; src:url(assets/fonts/geist-400.woff2) format('woff2'); }
+@font-face { font-family:Geist; font-weight:600; font-display:swap; src:url(assets/fonts/geist-600.woff2) format('woff2'); }
+@property --holo-turn { syntax:'<angle>'; inherits:false; initial-value:200deg; }
+
+:root {
+  --base:#07090b; --mint:#b3f0cf; --gain:#5ff0a4; --loss:#ff8a8a; --ink:#0d1f17;
+  --holo:conic-gradient(from 200deg,#ff7ad9,#7af0ff,#b3f0cf,#ffe27a,#ff7ad9);
+  --display:Unbounded,Geist,system-ui,sans-serif; --sans:Geist,system-ui,-apple-system,"Segoe UI",sans-serif;
+  /* Earlier layers read these names. */
+  --bg:var(--base); --bg2:#0b0f0d; --panel:#0f1412; --panel2:#141b18; --panel3:#1a2420;
+  --text:#eef4f1; --muted:#93a39c; --muted2:#8a9a93; --line:#1c2622; --line2:#26312c;
+  --green:var(--mint); --cyan:#7af0ff; --red:var(--loss); --amber:#ffe27a;
+  --radius:20px; --radiusSm:14px; --shadow:0 18px 40px -18px #000c; --navH:84px;
+  caret-color:var(--mint); scrollbar-color:#26312c transparent;
+}
+html,body { background:var(--base); }
+body { font-family:var(--sans); color:var(--text); -webkit-font-smoothing:antialiased; }
+body::before,.ambient,.appShell::before,.appShell::after { display:none; }
+::selection { background:var(--mint); color:var(--ink); }
+::-webkit-scrollbar { width:8px; height:8px; }
+::-webkit-scrollbar-thumb { background:#26312c; border-radius:99px; }
+::-webkit-scrollbar-track { background:transparent; }
+:is(button,a,input,select,textarea,summary,[tabindex]):focus-visible { outline:2px solid var(--mint); outline-offset:3px; }
+a { text-underline-offset:3px; }
+b,strong,.suggestionPrice,.collectionValue,.collectionSummary b,.setProgressCount,.costResult b,.detailPrice { font-variant-numeric:tabular-nums; }
+
+/* Type: one display face for names and numbers that matter, Geist for the rest. */
+h1,h2,.screenIntro h2,.brandText strong,.collectionSummary>div:last-child b,.resultIdentity h2,.editorHeader h2,.selectedCardInfo h2 { font-family:var(--display); font-weight:700; letter-spacing:-.02em; }
+.screenIntro h2 { font-size:24px; line-height:1.15; text-wrap:balance; }
+h3,.sectionTitle h3,.sectionHeader h3 { font-family:var(--sans); font-weight:600; letter-spacing:0; }
+.screenIntro p,.settingsCopy { color:var(--muted); }
+/* No kicker labels above headings; mode labels move below their heading. */
+.screenIntro .eyebrow,.sectionTitle .eyebrow,.selectedCardInfo .eyebrow,.onboardingEyebrow { display:none; }
+.editorHeader>div,.resultIdentity { display:flex; flex-direction:column; }
+.editorHeader .eyebrow,.resultIdentity .eyebrow { order:2; margin:4px 0 0; color:var(--muted); font-size:12px; font-weight:600; letter-spacing:0; text-transform:none; }
+.editorHeader>div>p,.resultIdentity>p { order:3; }
+
+/* Header */
+.topbar { background:var(--base); border-bottom:1px solid var(--line); backdrop-filter:none; }
+.brandMark { width:34px; height:34px; border-radius:10px; box-shadow:none; }
+.brandText strong { font-weight:800; font-size:18px; color:var(--text); }
+.brandText small { color:var(--muted); font-size:11px; font-weight:400; }
+.statusChip { margin-left:auto; background:var(--panel); border-color:var(--line2); color:var(--muted); font-weight:600; }
+.headerBtn { flex:0 0 auto; width:44px; height:44px; min-height:44px; padding:0; display:grid; place-items:center; border:1px solid var(--line2); border-radius:14px; background:var(--panel); color:var(--muted); }
+.headerBtn svg { width:20px; height:20px; }
+.headerBtn.active { color:var(--mint); border-color:#3a5a4b; background:var(--panel2); }
+
+/* Icons share one stroke. */
+.navBtn svg,.navScan svg,.searchIcon,.collectionSearchWrap svg,.settingsIcon svg,.resultSecondary svg,.sheetClose svg,.quickGo svg { fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+
+
+.homeHero {background:linear-gradient(135deg,#14251e,#0c1210);border:1px solid #304b3d;border-radius:24px;padding:24px}
+.homeSnapshot {border-radius:22px;background:#111c17;border-color:#304b3d}
+.holoSets {margin:20px 0;display:grid;gap:12px}
+.holoSet {display:grid;gap:10px;text-align:left;width:100%;padding:18px;border:1px solid #304b3d;border-radius:18px;background:linear-gradient(120deg,#17251e,#101512);color:var(--text)}
+.holoSet span,.holoEmpty {color:var(--muted);font-size:14px}
+.holoSet progress {width:100%;height:8px;accent-color:var(--mint)}
+.suggestionMain {min-width:0}.suggestionPrice {display:block;color:var(--mint);font-size:12px;line-height:1.5;white-space:normal}
+.holoDetail,.holoBinder {box-sizing:border-box;width:min(520px,calc(100% - 20px));max-height:calc(100dvh - 24px);overflow:auto;border:1px solid #304b3d;border-radius:24px;background:#101713;color:#eef4f1;padding:20px;padding-bottom:calc(20px + env(safe-area-inset-bottom));overscroll-behavior:contain}
+dialog::backdrop {background:#000b} .holoDetail h2,.holoBinder h2 {font-size:22px;overflow-wrap:anywhere}
+.holoDetail button,.holoBinder button,.holoDetail a,#selectedCardOpen {min-height:44px;border:1px solid #476452;border-radius:12px;background:#182a20;color:#c7f3dc;padding:10px 14px;font:inherit}
+.holoDetail a {display:block;margin:16px 0;text-align:center}.holoDetail a[hidden]{display:none}
+#cardSheetAction {width:100%;background:var(--mint);color:#10271b;font-weight:600}
+.holoArt {display:flex;justify-content:center;margin:16px auto;max-width:240px;min-height:180px}.holoArt img {width:100%;max-height:330px;object-fit:contain;border-radius:12px}
+#cardSheetPrice {font-size:26px}#cardSheetNote {font-size:13px;color:var(--muted);line-height:1.5}
+.binderGrid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:18px 0}
+.holoBinder .binderSlot {padding:6px;min-width:0;font-size:11px;display:flex;flex-direction:column;gap:6px;overflow-wrap:anywhere}
+.binderSlot.missing {background:#151916;border-style:dashed;color:#a3afa8}.binderSlot.missing img {filter:grayscale(1);opacity:.35}
+.binderArt {display:block;aspect-ratio:5/7;max-width:100%;overflow:hidden}.binderArt img {width:100%;height:100%;object-fit:contain}.binderSlot small {font-size:10px}
+.binderControls {display:flex;align-items:center;justify-content:space-between;gap:8px;margin:16px 0}.binderControls span {font-size:12px}
+.holoBinder input {width:100%;box-sizing:border-box;font-size:16px;min-height:44px}
+@media(max-width:350px){.holoDetail,.holoBinder {padding:14px}.brandText strong{font-size:16px}.homeHero{padding:18px}}
+#cards .binderSlot {display:flex;flex-direction:column;gap:8px;padding:10px;min-height:68px;min-width:0;overflow-wrap:anywhere;border:1px solid #304b3d;border-radius:12px;font-size:13px} #cards .binderSlot.missing {border-style:dashed} #cards .binderSlot.owned {background:#183124} #cards .binderSlot small {margin-top:auto;color:#b3f0cf}

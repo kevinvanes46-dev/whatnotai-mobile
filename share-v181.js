@@ -1,0 +1,9 @@
+'use strict';
+// Isolated viewer: no collection, account, application or storage modules load.
+(async()=>{const status=document.getElementById('status');try{
+ if(location.hash.length>20000)throw Error();const p=JSON.parse(atob(location.hash.slice(1)));
+ if(p.v!==1||!['EN','JP'].includes(p.language)||!/^[a-zA-Z0-9-]{1,24}$/.test(p.set)||!Array.isArray(p.owned)||p.owned.length>600||!p.owned.every(id=>typeof id==='string'&&id.startsWith(p.set+'-')&&/^[a-zA-Z0-9-]{1,48}$/.test(id))||Object.keys(p).sort().join()!=='language,owned,set,v')throw Error();
+ const response=await fetch('https://api.tcgdex.net/v2/'+(p.language==='JP'?'ja':'en')+'/sets/'+encodeURIComponent(p.set),{credentials:'omit',referrerPolicy:'no-referrer'});if(!response.ok)throw Error();const data=await response.json();if(!Array.isArray(data.cards))throw Error();
+ const owned=new Set(p.owned),unique=[...new Map(data.cards.filter(c=>typeof c.id==='string'&&c.id.startsWith(p.set+'-')).map(c=>[c.id,c])).values()];status.textContent=p.language+' · '+unique.filter(c=>owned.has(c.id)).length+' / '+unique.length;
+ for(const c of unique){const slot=document.createElement('article');slot.className='binderSlot '+(owned.has(c.id)?'owned':'missing');const name=document.createElement('span');name.textContent=c.name||c.id;slot.append(name);const state=document.createElement('small');state.textContent=owned.has(c.id)?'In bezit':'Ontbreekt';slot.append(state);document.getElementById('cards').append(slot);}
+ }catch{status.textContent='Deze gedeelde map kan niet worden geladen. Controleer de link en je verbinding.';}})();

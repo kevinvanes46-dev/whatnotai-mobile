@@ -5220,6 +5220,24 @@
       "sha256": "ade78a048bad021c3bd6ea735250164a5f4523a51b2d88be0d8617e16bb85fa0"
     },
     {
+      "file": "docs/INTEGRATION-V181.md",
+      "line": 4,
+      "names": [
+        "holokeep"
+      ],
+      "category": "DOC_HISTORY",
+      "sha256": "e6f63b1f6b2fa8c56d224e6cfbbcba2dc34147d6488e012fc7824f7f8ff7f009"
+    },
+    {
+      "file": "docs/INTEGRATION-V181.md",
+      "line": 18,
+      "names": [
+        "rareworth"
+      ],
+      "category": "DOC_HISTORY",
+      "sha256": "abf92f2c12b9a7975162d08ea253aaf7e3b38de34902d98dc0f6c3169370d81b"
+    },
+    {
       "file": "docs/MARKET-V176.md",
       "line": 1,
       "names": [
@@ -5358,7 +5376,7 @@
     },
     {
       "file": "index.html",
-      "line": 29,
+      "line": 30,
       "names": [
         "rareworth",
         "holokeep"
@@ -5368,7 +5386,7 @@
     },
     {
       "file": "index.html",
-      "line": 69,
+      "line": 70,
       "names": [
         "rareworth",
         "holokeep"
@@ -5378,7 +5396,7 @@
     },
     {
       "file": "index.html",
-      "line": 444,
+      "line": 445,
       "names": [
         "holokeep"
       ],
@@ -6140,11 +6158,11 @@
         "rareworth"
       ],
       "category": "TECHNICAL_COMPATIBILITY",
-      "sha256": "321826b570632f6930ebb10675e5b6a1b16c0272a7d39e5b8fefcdf0d5ed53b0"
+      "sha256": "2a390838652ab3ce0706f21e39ba22da5af9962199d350e0f64e89f35df712af"
     },
     {
       "file": "sw.js",
-      "line": 11,
+      "line": 19,
       "names": [
         "rareworth",
         "holokeep"
@@ -6154,7 +6172,7 @@
     },
     {
       "file": "sw.js",
-      "line": 12,
+      "line": 20,
       "names": [
         "rareworth",
         "holokeep"
@@ -6164,7 +6182,7 @@
     },
     {
       "file": "sw.js",
-      "line": 13,
+      "line": 21,
       "names": [
         "rareworth"
       ],
@@ -6173,7 +6191,7 @@
     },
     {
       "file": "sw.js",
-      "line": 35,
+      "line": 43,
       "names": [
         "holokeep"
       ],
@@ -6182,7 +6200,7 @@
     },
     {
       "file": "sw.js",
-      "line": 61,
+      "line": 69,
       "names": [
         "rareworth",
         "whatnotai",
@@ -6253,7 +6271,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "6093c6cf99aa2ccbf0ba028d1b072f9124a6af3b9b01c10d75392dd4150eb85a"
+      "sha256": "1c089f4d6318ba07c979daaebc0c51b51c0e18e7fe71b80610dc7989bc4deb79"
     },
     {
       "file": "tests/account-cloud-v170b.test.cjs",
@@ -6420,7 +6438,7 @@
         "WhatnotAI"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "1d737316bb0f014771644e7517bce9f11c6427e895334a0d2a5ef56eccaf7778"
+      "sha256": "8a5119a58f8d3f706e1075689cd915155eb63dd68fd4c9ec8d54be73d4a43edb"
     },
     {
       "file": "tests/beta-readiness-v180.test.cjs",
@@ -6996,7 +7014,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "4ace11fe47d178fba59f61be43f08c21f2efdca7331555a1782e13cf1c8728ae"
+      "sha256": "2b3052e38733846fa4d79e0b9cc930a8fd0e62f1249690be625cad4d09c2fbab"
     },
     {
       "file": "tests/brand-allowlist-v172.json",
@@ -7198,7 +7216,7 @@
         "holokeep"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "889ca644304d0b12fe9e30899454f509b716169bf57a1fcbecbc2f6b0e5d9268"
+      "sha256": "9326b9978b589e700b029bb1c5d85166be07425a302857e375b305292b503133"
     },
     {
       "file": "tests/brand-foundation-v172.test.cjs",
@@ -7207,7 +7225,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "7e211d43bf776c790182347af4765c9a703620a6d076d1aa8698ec6d62369ef3"
+      "sha256": "1c683a3a2cb26387b3d47f6356afc66c95f97fbabc8fb16dab717210a8599345"
     },
     {
       "file": "tests/brand-rebrand-v173.test.cjs",
@@ -7227,7 +7245,7 @@
         "RareWorth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "a6372cb5ecfd4b66f2376a2fecf07357022d29b4869d0fe3c1929cda9c34db80"
+      "sha256": "0ea5d07f89a886dbe20695bd20a2e209ce2b6e315aad09ed0e1dfb8abde9e3e3"
     },
     {
       "file": "tests/brand-rebrand-v173.test.cjs",
@@ -7363,7 +7381,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "475e3fc2ff69cd3c6d7c12344b1771c465563b44bc542d332abe1f79bce9292b"
+      "sha256": "80b2a3727431b371c317a2705d2f3c260eb7f11836110437490e12f7d2df9535"
     },
     {
       "file": "tests/brand-rebrand-v173.test.cjs",
@@ -7372,7 +7390,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "4d2ff71983ef3688b6b28f486485489dca87abfd813f95099719ea0833d0cba7"
+      "sha256": "0e341b830ad891a7e9ef462aca873e3c171894c40dfb10b7d257ed5f32bbbebf"
     },
     {
       "file": "tests/brand-support-v172.cjs",
@@ -7563,7 +7581,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "c9c25cad22c2f33c360c599aadede9a5eb391b705956d0d104e9fa6192b3b558"
+      "sha256": "d16e5e6267678a9d05d2260d9638bcf8562c0a5d98e9c9e2043ec06f3509ccc0"
     },
     {
       "file": "tests/cardmarket-host-v174-1.test.cjs",
@@ -7573,7 +7591,7 @@
         "RareWorth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "4c2d2ebdba6de57f15da746e78eba4fd99e059f64cf81ad17f60c98bf2ef5c50"
+      "sha256": "78a9ce04fc7ee2af02bb2961fa1c725d31a0764e32cc6ecb29112f611254cb80"
     },
     {
       "file": "tests/cardmarket-resolver-v146.test.cjs",
@@ -7771,7 +7789,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "69290b3ffa0b0f964766d9245b72fc18dc91b3c95f62c7c3ea81816d54688b49"
+      "sha256": "bd240f45863e9f14025ca977a4f0623a8da6b2198478b42feba816fcddc681f9"
     },
     {
       "file": "tests/cloud-schema-v170.test.cjs",
@@ -7945,7 +7963,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "1b0b6932377772baffebc93e56b6208f4196e3c91ce62360bc1c296dcf22ee4b"
+      "sha256": "6449a10d443a6b9cc235af3b9b579028223b76ff0d2967f75b34bf5478b427d5"
     },
     {
       "file": "tests/cost-basis-browser-v177.test.cjs",
@@ -8018,7 +8036,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "ef3f7ae288da53c46b8e295c67ccdf63284367bfa89a6b60c26927425e930ea8"
+      "sha256": "3bc49391e4f02611a338605274c6ae7652084d1f2546fe6ea94fac9e2df380be"
     },
     {
       "file": "tests/en-dp-pop-coverage-v174.test.cjs",
@@ -8091,7 +8109,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "ef3f7ae288da53c46b8e295c67ccdf63284367bfa89a6b60c26927425e930ea8"
+      "sha256": "3bc49391e4f02611a338605274c6ae7652084d1f2546fe6ea94fac9e2df380be"
     },
     {
       "file": "tests/en-platinum-hgss-coverage-v175.test.cjs",
@@ -8208,6 +8226,61 @@
       "sha256": "d8a4a0f3326e72aec7773739509d24bd4680e2f6d47ae7576ff686d2c00fa1bb"
     },
     {
+      "file": "tests/fixtures/integration-scope-v181.json",
+      "line": 12,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "7d85839892f50685f591356de835d8caf5ba566edbaacf58c369b889cd6fb5cd"
+    },
+    {
+      "file": "tests/fixtures/integration-scope-v181.json",
+      "line": 13,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "a442aefb104aec4621c33e09471c5d2fafcfb0d3490b5fd209ac6724d6e64c83"
+    },
+    {
+      "file": "tests/fixtures/integration-scope-v181.json",
+      "line": 28,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "ff355dc5c672a93ef31c4a12b124949552a686adeac3b53f398c8c7dcbb44829"
+    },
+    {
+      "file": "tests/fixtures/integration-scope-v181.json",
+      "line": 29,
+      "names": [
+        "HoloKeep",
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "e732e11b99a240fdc65351807abd5ffd6abb334d9b91bda2030f95140e4f4b06"
+    },
+    {
+      "file": "tests/fixtures/integration-scope-v181.json",
+      "line": 58,
+      "names": [
+        "rareworth"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "c1aee279387c54f534bee4f672d97d9ace43e44d57d3295eb4e4184ce6c8c2cc"
+    },
+    {
+      "file": "tests/fixtures/integration-scope-v181.json",
+      "line": 59,
+      "names": [
+        "rareworth"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "9ef439a9df52ab1de12109a026fdff3ec436aadb1eaa7d0843bee4c36fbcbac1"
+    },
+    {
       "file": "tests/fixtures/market-scope-v176.json",
       "line": 4,
       "names": [
@@ -8308,7 +8381,7 @@
         "cardscout"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "178e96a8a88ee4a3901272cc0348476494ac407cc9faae804edbf30e8f1eca7c"
+      "sha256": "ac93f845591f5eeadb594bddecf32b8df31a5eaea4a1217bbd56a72d07116159"
     },
     {
       "file": "tests/home-shell-browser-v179.test.cjs",
@@ -8337,7 +8410,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "447447787fbb540ad7d3e7d00151a46d6d45e005094c8beaa8e87f272f1c9640"
+      "sha256": "de1da2b394f7c3389fca3858f1c419214fc1b49ad51f264c05ab4f6ecba8dbe4"
     },
     {
       "file": "tests/home-shell-browser-v179.test.cjs",
@@ -8367,6 +8440,72 @@
       ],
       "category": "TEST_HISTORY",
       "sha256": "ea92969261227e8a3a0339ce11da81832423291446acfea5aa301b661e8a4320"
+    },
+    {
+      "file": "tests/integration-browser-v181.test.cjs",
+      "line": 4,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "0025d9dd94c0ee404d3c898bdbcebd6d63710aee0612448467cbac5a127fb194"
+    },
+    {
+      "file": "tests/integration-browser-v181.test.cjs",
+      "line": 7,
+      "names": [
+        "rareworth"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "8250c07e0aa6d1f1ed784a272651268517176c79ae15785f558bfddadb63cc2e"
+    },
+    {
+      "file": "tests/integration-browser-v181.test.cjs",
+      "line": 9,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "c46463815d4dc40fc6ecc44df149313c90d78bdb7167220a012544ef89edbb41"
+    },
+    {
+      "file": "tests/integration-browser-v181.test.cjs",
+      "line": 13,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "f184f1aae10caafbb0bae2b676e412bd85125b414288450c3c9746a4faa72171"
+    },
+    {
+      "file": "tests/integration-browser-v181.test.cjs",
+      "line": 16,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "2f4728ad380864d2b0d99a99ddc87fa0ba071423fa7963b6cd52d7f23d9f32c1"
+    },
+    {
+      "file": "tests/integration-browser-v181.test.cjs",
+      "line": 18,
+      "names": [
+        "HoloKeep",
+        "RareWorth",
+        "CardScout",
+        "WhatnotAI"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "6b09ec9452151a7897f4778c540cea09d523f5bdb057df7b344920fa3f27ac19"
+    },
+    {
+      "file": "tests/integration-browser-v181.test.cjs",
+      "line": 19,
+      "names": [
+        "rareworth"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "5db21f83acb4ec20d40ff7e1f08b25f096b2bfafbd4766fe8a0146af1dd39798"
     },
     {
       "file": "tests/jp-artwork-browser-v158.test.cjs",
@@ -8625,7 +8764,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "17c8aa20a325da45fc4bc001aaa1575e8ce23bd6dbf749d4892edc226d31e100"
+      "sha256": "3cd190e68660d750fb39aa352a8b7cde5b11641e19b18f54d1dfb96bcae79518"
     },
     {
       "file": "tests/launch-gate-v171-1.test.cjs",
@@ -8781,7 +8920,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "aa5101e15e4c5a0a679f7de695458598bb046e8a39071605b3020c3d1b080321"
+      "sha256": "6f24801908a27d9f4fb7d7f8c3f9f6be23d262dcc94690312a77ee300e002172"
     },
     {
       "file": "tests/market-value-browser-v176.test.cjs",
@@ -8828,7 +8967,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "c12488d2dbfa285728878b39bd337fc74e4aa00b83571da1946f1d75127013b6"
+      "sha256": "8b235ce66162c004f02258988a5d73fb64ac0cd7b8259a76f7a3f3464c46111e"
     },
     {
       "file": "tests/mobile-v153.test.cjs",
@@ -9040,7 +9179,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "0d1e1b45d8baa07d7480b51e317f7f4e0147390ccc29dcdf3504df03b5e9fc76"
+      "sha256": "6df3864426cba616c05027b4c248d9cdc05ed1757b38d462812cbfe289b9f49d"
     },
     {
       "file": "tests/onboarding-product-v171.test.cjs",
@@ -9049,7 +9188,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "f889844559b016bf0a945c75e1e3d25e63eb2995efe1bb4beacd02c8564e2ef3"
+      "sha256": "e37fd462014bd232503edfb4c282561f9a253c93000b66c97091da6aecaf9b8d"
     },
     {
       "file": "tests/onboarding-product-v171.test.cjs",
@@ -9141,7 +9280,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "b689ff0d975887ef2eb65d111b939321c18a7884ffef4dd9045ef27193721f55"
+      "sha256": "18b38195dff6918b3352e22f92b02be59a555703428e3143ecfb6da93ba81024"
     },
     {
       "file": "tests/portfolio-insights-browser-v178.test.cjs",
@@ -9222,7 +9361,7 @@
         "holokeep"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "22e4088002b6a796721bc8dd7c66dfc8531c259eb27a871e294a4ec6972f1ff5"
+      "sha256": "4f5517dc74e8b83eee3aa258307582246442bda68f932265d18ca808364f3f87"
     },
     {
       "file": "tests/pwa-v169.test.cjs",
@@ -9240,7 +9379,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "226588df354db3eba11ff5f3f1ed164664d229409e0fdbfe7761c408def06276"
+      "sha256": "222c1354536a3d76293019608bd1083eb17cf0943cf17441d9666d0e09cfaf8c"
     },
     {
       "file": "tests/pwa-v169.test.cjs",
@@ -9285,7 +9424,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "1a2e2cb2a9c4125ef969dbd8dfc0232cce513b7297fe32403aa7afc6696e01bd"
+      "sha256": "22442920e94541c03b955b4ff5481682a006380e5111d1979b151de7fab13323"
     },
     {
       "file": "tests/pwa-v169.test.cjs",
@@ -9324,7 +9463,7 @@
         "cardscout"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "1e0be2c8f488b751698c477d0997f1ebff63f5f0a8e5d38a8d8db182a1bc42d8"
+      "sha256": "8f3eb811f72684bab1572b793db6d7ca88d3bcedabad29841d5a4e157b045b9a"
     },
     {
       "file": "tests/pwa-v169.test.cjs",
@@ -9372,7 +9511,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "10b1a4925fa0e30bbb8bff9879311388dc7670f7fda5cd81b3309d7aa0af135e"
+      "sha256": "fc60269e1512818cfac0a150cf004dfcdeca6a6590c312f5b358ced1b429ce36"
     },
     {
       "file": "tests/pwa-v169.test.cjs",
@@ -9390,7 +9529,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "b698ef3db73bfc269cb8aca8413bc059b2d7da351de4b9b412ed9b5ca1bed199"
+      "sha256": "4d6514b5cab7362b1664a2504ddc0b8a47d3fac47d758871e7973b0f08a3856e"
     },
     {
       "file": "tests/pwa-v169.test.cjs",
@@ -9417,7 +9556,7 @@
         "rareworth"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "23d5f4acffabae59ae815467256ffd5d689a5812353e4d5659ebf7d45b2b0ea0"
+      "sha256": "04c66fc87f22feff6a024d8284620135db14f70459c3a26f10a0fba057ccd36a"
     },
     {
       "file": "tests/rebrand-scope-v173.cjs",
@@ -9741,7 +9880,7 @@
         "cardscout"
       ],
       "category": "TECHNICAL_COMPATIBILITY",
-      "sha256": "a238122527a36b394bcb9629612cc655cd31204678599a1ead0be8f549ae72f5"
+      "sha256": "3e7872151e56d0409ec38b73e57782c59cd54b08e75b07cce1025c5c8a4e19fd"
     },
     {
       "file": "ui-v137-focus.js",
@@ -10114,12 +10253,13 @@
     },
     {
       "file": "ui-v150-experience.js",
-      "line": 185,
+      "line": 187,
       "names": [
+        "HoloKeep",
         "cardscout"
       ],
       "category": "TECHNICAL_COMPATIBILITY",
-      "sha256": "768b6a3c4e5f8e72a6f286d37939d8995d81d1b8a241c77585e5f8e270f3dc09"
+      "sha256": "2abf0f4d954f067ad9f71c0b6e43aa34848f48c94452340f3f0379c791e47556"
     },
     {
       "file": "ui-v153-mobile.js",
@@ -10174,6 +10314,42 @@
       ],
       "category": "TECHNICAL_COMPATIBILITY",
       "sha256": "5c231417d2e7857b29b1f7ec7339224715cb83f4ef152c77dd8ed427edec9f64"
+    },
+    {
+      "file": "ui-v181-redesign.js",
+      "line": 4,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TECHNICAL_COMPATIBILITY",
+      "sha256": "87b759e47fb5e0a0f3b4cd1bd333492ce6f99ae9378535b0debc80944489e58e"
+    },
+    {
+      "file": "ui-v181-redesign.js",
+      "line": 10,
+      "names": [
+        "HoloKeep"
+      ],
+      "category": "TECHNICAL_COMPATIBILITY",
+      "sha256": "8a68b61ba33b5ebbd826ae420bb56aa2359ec5e12f7b86917dca175989b43506"
+    },
+    {
+      "file": "ui-v181-redesign.js",
+      "line": 31,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TECHNICAL_COMPATIBILITY",
+      "sha256": "b34a69649d0dc7c64798b713b8788e9288cdd686fcf8d8931840dd24ad40f23b"
+    },
+    {
+      "file": "ui-v181-redesign.js",
+      "line": 54,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TECHNICAL_COMPATIBILITY",
+      "sha256": "18205872cbb0c4e87125cb46b3c1a8356a75c00cbe2e7fe006fd9cab2276e2d0"
     }
   ]
 }

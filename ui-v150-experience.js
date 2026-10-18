@@ -182,9 +182,11 @@
     if(c.kind==='query')return;
     const data=await lookup(c);if(version!==selectionGeneration)return;
     const stamped=$('stampedToggle')?.getAttribute('aria-pressed')==='true';
-    const quote=window.cardscoutCollectionUI.priceFrom(data,{variant:stamped?'STAMPED':'NORMAL',edition:$('editionSelect')?.value});
+    const item={...c,sourceId:c.source_id,variant:stamped?'STAMPED':'NORMAL',edition:detail.edition||$('editionSelect')?.value,condition:detail.condition||$('condSelect')?.value};
+    delete item.price;
+    const quote=window.HoloKeepMarket.display(window.cardscoutCollectionUI.priceFrom(data,item),item);
     const currency=new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR'});
-    $('selectedCardPrice').textContent=quote.price?`${currency.format(quote.price)} · ${quote.source} (algemeen)`:'Geen marktindicatie beschikbaar';
+    $('selectedCardPrice').textContent=quote.value?`${currency.format(quote.value)} · ${quote.label} · ${quote.condition}`:quote.label;
   });
 
   // Keep keyboard focus within the existing editor and restore it on close.
