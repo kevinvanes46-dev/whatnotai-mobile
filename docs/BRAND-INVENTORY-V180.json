@@ -57,6 +57,15 @@
       "sha256": "20c603131babe14d78bc6eee868118b79360484fd06c527668a7b091a26a2df4"
     },
     {
+      "file": "AGENTS.md",
+      "line": 103,
+      "names": [
+        "rareworth"
+      ],
+      "category": "DOC_HISTORY",
+      "sha256": "68213105f1fc2664694055ccab7dc22c6b04ca7987ebcca465d43ee5e4d69901"
+    },
+    {
       "file": "APP_UI_V110_NOTES.txt",
       "line": 1,
       "names": [
