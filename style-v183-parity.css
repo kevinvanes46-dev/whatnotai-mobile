@@ -1,0 +1,109 @@
+.homeComparisonPanel{
+  overflow:hidden;
+}
+
+.homeRanges{
+  margin-bottom:14px;
+}
+
+.homeRanges button{
+  cursor:pointer;
+  transition:
+    background .16s ease,
+    color .16s ease,
+    transform .16s ease,
+    box-shadow .16s ease;
+}
+
+.homeRanges button:not(:disabled):active{
+  transform:scale(.96);
+}
+
+.homeRanges button[aria-pressed="true"]{
+  background:var(--mint);
+  color:var(--ink);
+  box-shadow:0 0 0 1px #ffffff12 inset;
+}
+
+.homeChartStage{
+  position:relative;
+  min-height:190px;
+  overflow:hidden;
+  border:1px solid #34483c;
+  border-radius:16px;
+  background:
+    linear-gradient(180deg,#101813cc,#0b110e);
+  margin-bottom:12px;
+}
+
+.homeChartGrid{
+  position:absolute;
+  inset:0 0 30px;
+  pointer-events:none;
+  opacity:.55;
+  background-image:
+    linear-gradient(to right,#ffffff0b 1px,transparent 1px),
+    linear-gradient(to bottom,#ffffff0b 1px,transparent 1px);
+  background-size:25% 100%,100% 33.333%;
+}
+
+.homeChartStage .homeChartNote{
+  position:relative;
+  z-index:2;
+  min-height:150px;
+  margin:0;
+  padding:46px 22px 24px;
+  border:0;
+  background:transparent;
+}
+
+.homeChartBadge{
+  position:absolute;
+  z-index:3;
+  top:12px;
+  left:12px;
+  padding:6px 9px;
+  border:1px solid #34483c;
+  border-radius:999px;
+  background:#101813e8;
+  color:var(--muted);
+  font:600 11px Geist,sans-serif;
+}
+
+.homeChartAxis{
+  position:absolute;
+  z-index:3;
+  left:14px;
+  right:14px;
+  bottom:8px;
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+  font:500 10px Geist,sans-serif;
+  pointer-events:none;
+}
+
+@media (max-width:430px){
+  .homeComparisonPanel{
+    padding:15px;
+  }
+
+  .homeRanges{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+  }
+
+  .homeRanges button{
+    min-width:0;
+    width:100%;
+  }
+
+  .homeChartStage{
+    min-height:175px;
+  }
+
+  .homeChartStage .homeChartNote{
+    min-height:135px;
+    padding-inline:16px;
+  }
+}

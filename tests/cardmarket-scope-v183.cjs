@@ -9,7 +9,7 @@ module.exports=(file,code)=>{
     }],
     'sw.js':[{
       before:"  'ui-v181-redesign.js?build=181-live-integration',",
-      after:"  'ui-v181-redesign.js?build=181-live-integration',\n  'ui-v183-cardmarket.js?build=183-reverse-holo',"
+      after:"  'ui-v181-redesign.js?build=181-live-integration', 'ui-v183-cardmarket.js?build=183-reverse-holo',"
     }]
   };
 
