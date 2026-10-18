@@ -7,7 +7,7 @@
     shortName: 'HoloDex',
     tagline: 'Je kaarten. Goed bewaard.',
     appTitle: 'HoloDex · Zoek. Bewaar. Check.',
-    version: 'v181',
+    version: 'v182',
     status: 'Beta'
   });
   Object.defineProperty(window, 'RareWorthBrand', {value: brand, enumerable: true});

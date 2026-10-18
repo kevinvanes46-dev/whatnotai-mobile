@@ -1,10 +1,11 @@
 'use strict';
 // Bump this version when the shell changes. Never cache remote card data/artwork.
-const CACHE = 'rareworth-shell-v181';
+const CACHE = 'rareworth-shell-v182';
 const SCOPE = new URL('./', self.registration.scope);
 const INDEX = new URL('index.html', SCOPE).href;
 const ASSETS = [
   'index.html',
+  'style-v182-parity.css?build=182-zip-parity',
   'style-v181-holo.css?build=181-live-integration',
   'ui-v181-redesign.js?build=181-live-integration',
   'share-v181.html',

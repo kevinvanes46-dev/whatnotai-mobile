@@ -11,7 +11,7 @@ function sandbox(existing){
 }
 test('brand API exposes exact immutable values and read-only global',()=>{
   const {context}=sandbox(),b=context.RareWorthBrand;
-  assert.deepEqual(JSON.parse(JSON.stringify(b)),{name:'HoloDex',shortName:'HoloDex',tagline:'Je kaarten. Goed bewaard.',appTitle:'HoloDex · Zoek. Bewaar. Check.',version:'v181',status:'Beta'});
+  assert.deepEqual(JSON.parse(JSON.stringify(b)),{name:'HoloDex',shortName:'HoloDex',tagline:'Je kaarten. Goed bewaard.',appTitle:'HoloDex · Zoek. Bewaar. Check.',version:'v182',status:'Beta'});
   assert.ok(Object.isFrozen(b));assert.throws(()=>{b.name='changed';},TypeError);
   assert.equal(Object.getOwnPropertyDescriptor(context,'RareWorthBrand').writable,false);
   assert.equal(Object.getOwnPropertyDescriptor(context,'RareWorthBrand').configurable,false);
@@ -57,11 +57,11 @@ test('Chromium: visible branding, version and all copy use config without layout
   const {page}=await pageFor(t);await page.goto(origin);
   assert.equal(await page.title(),'HoloDex · Zoek. Bewaar. Check.');assert.equal(await page.locator('.onboardingBrand strong').innerText(),'HoloDex');assert.equal(await page.locator('#onboardingTitle').innerText(),'Welkom bij HoloDex');
   await page.locator('#onboardingGuest').click();assert.equal(await page.locator('.brandText strong').innerText(),'HoloDex');assert.equal(await page.locator('.brandText small').innerText(),'Je kaarten. Goed bewaard.');
-  await page.locator('#navSettings').click();assert.match(await page.locator('.aboutCard').innerText(),/Over HoloDex.*Je kaarten\. Goed bewaard\..*v181 · Beta/s);
+  await page.locator('#navSettings').click();assert.match(await page.locator('.aboutCard').innerText(),/Over HoloDex.*Je kaarten\. Goed bewaard\..*v182 · Beta/s);
 });
 test('Chromium: changing only config values drives title/topbar/onboarding/About',async t=>{
   const {page,context}=await pageFor(t);
-  const fixture=code.replaceAll("'HoloDex'","'HoloDex [test]' ").replace("'Je kaarten. Goed bewaard.'","'Fixture tagline'").replace("'HoloDex · Zoek. Bewaar. Check.'","'Fixture title'").replace("'v181'","'fixture-version'");
+  const fixture=code.replaceAll("'HoloDex'","'HoloDex [test]' ").replace("'Je kaarten. Goed bewaard.'","'Fixture tagline'").replace("'HoloDex · Zoek. Bewaar. Check.'","'Fixture title'").replace("'v182'","'fixture-version'");
   await context.route('**/brand-v172.js?*',r=>r.fulfill({contentType:'text/javascript',body:fixture}));await page.goto(origin);
   assert.equal(await page.title(),'Fixture title');assert.equal(await page.locator('#onboardingTitle').innerText(),'Welkom bij HoloDex [test]');assert.equal(await page.locator('.onboardingBrand strong').innerText(),'HoloDex [test]');
   await page.locator('#onboardingGuest').click();assert.equal(await page.locator('.brandText strong').innerText(),'HoloDex [test]');assert.equal(await page.locator('.brandText small').innerText(),'Fixture tagline');await page.locator('#navSettings').click();assert.match(await page.locator('.aboutCard').innerText(),/Over HoloDex \[test\].*Fixture tagline.*fixture-version · Beta/s);
@@ -75,6 +75,6 @@ test('Chromium: fresh guest gate, same-session reload and offline v172 brand pre
   await context.addInitScript(()=>Object.defineProperty(Navigator.prototype,'onLine',{get:()=>false}));
   await context.setOffline(true);await page.reload();assert.equal(await page.locator('#onboarding').isVisible(),true);assert.equal(await page.locator('#onboardingLogin').isDisabled(),true);
   await page.locator('#onboardingGuest').click();for(const tab of ['home','search','collection','recent','settings']){await page.locator(`[data-tab="${tab}"]`).click();assert.equal(await page.locator(`[data-view="${tab}"]`).isVisible(),true);}
-  assert.match(await page.locator('.aboutMeta').innerText(),/v181 · Beta/);
-  const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v181')).keys()).map(r=>r.url));assert.ok(urls.some(u=>u.endsWith('/brand-v172.js?build=180-beta-readiness')));assert.ok(urls.every(u=>new URL(u).origin===origin));
+  assert.match(await page.locator('.aboutMeta').innerText(),/v182 · Beta/);
+  const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v182')).keys()).map(r=>r.url));assert.ok(urls.some(u=>u.endsWith('/brand-v172.js?build=180-beta-readiness')));assert.ok(urls.every(u=>new URL(u).origin===origin));
 });
