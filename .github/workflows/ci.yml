@@ -84,3 +84,6 @@ jobs:
 
       - name: HoloDex safe redesign integration
         run: node --test tests/integration-v181.test.cjs tests/integration-browser-v181.test.cjs
+
+      - name: HoloDex ZIP parity safety
+        run: node --test tests/parity-v182.test.cjs tests/parity-browser-v182.test.cjs

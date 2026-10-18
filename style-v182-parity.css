@@ -1,0 +1,54 @@
+/* v182: ZIP visual reference, existing financial and navigation contracts. */
+:root{--holo:conic-gradient(from 200deg,#ff7ad9,#7af0ff,#b3f0cf,#ffe27a,#ff7ad9)}
+.surface,.settingsCard,.savedPanel,.aboutCard,.collectionCard,.suggestion{background:var(--panel);border-color:var(--line);box-shadow:none}
+input,select,textarea{font-size:16px}
+.primary,.quickGo,#cardSheetAction{background:var(--mint);color:var(--ink);border-color:var(--mint)}
+.suggestionPrice{color:var(--mint);font-variant-numeric:tabular-nums}
+.homeHero{background:linear-gradient(125deg,#13251c,#0b100e);border-color:#263b30}
+#homeMarket{font-family:Unbounded,Geist,sans-serif;font-size:clamp(24px,7vw,38px);overflow-wrap:anywhere}
+.homeSnapshot{border-color:#31443a}
+.holoSets{gap:12px;margin-block:24px}
+.holoSets>h3,.holoSets>.holoEmpty{grid-column:1/-1}
+#homeSets{display:flex;flex-wrap:wrap;align-items:stretch}
+#homeSets>h3,#homeSets>.holoEmpty{width:100%;margin-bottom:0}
+.holoSet.homeStack{flex:1 1 140px;min-width:0;max-width:100%;display:grid;gap:6px;padding:14px;text-align:left;border:1px solid var(--line);border-radius:18px;background:var(--panel);color:var(--text)}
+.holoSet.homeStack:first-of-type{border:1px solid transparent;background:linear-gradient(var(--panel),var(--panel)) padding-box,var(--holo) border-box}
+.homeStack strong{overflow-wrap:anywhere;line-height:1.4}
+.homeStack>span:not(.homeFan){font-size:12px;color:var(--muted)}
+.homeFan{position:relative;height:112px;width:150px;max-width:100%;justify-self:center;display:block}
+.homeFanCard{position:absolute;top:8px;width:60px;aspect-ratio:63/88;display:grid;place-items:center;overflow:hidden;border-radius:5px;background:#1a2420;box-shadow:0 8px 16px -6px #000c;transform-origin:50% 100%;font-size:12px;color:var(--muted)}
+.homeFanCard:nth-child(1){left:2px;transform:rotate(-9deg)}
+.homeFanCard:nth-child(2){left:40px;z-index:1;transform:rotate(1deg)}
+.homeFanCard:nth-child(3){left:78px;transform:rotate(10deg)}
+.homeFanCard.isMissing{border:1px dashed #34483c;background:transparent;box-shadow:none}
+.homeFanCard img{width:100%;height:100%;object-fit:cover}
+.homeFanCard:not(.isMissing)::after,.binderSlot.owned .binderArt::after,.holoArt.owned::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,#ffffff30 45%,#7af0ff22 52%,transparent 65%);pointer-events:none}
+.homeComparisonPanel{padding:18px;margin-block:24px;border:1px solid var(--line);border-radius:20px;background:var(--panel);min-width:0}
+.homeComparisonPanel h3{margin:0 0 14px}.homeComparisonPanel small{color:var(--muted);line-height:1.5;display:block}
+.homeRanges{display:flex;gap:4px;flex-wrap:wrap}.homeRanges button{min-width:44px;min-height:44px;border:0;border-radius:99px;background:#1a2420;color:var(--muted);font:600 12px Geist,sans-serif}
+.homeChartNote{padding:28px 16px;min-height:110px;display:grid;place-items:center;border:1px dashed #34483c;border-radius:14px;color:var(--muted);line-height:1.5;text-align:center}
+.binderFilters,.binderVariants{display:flex;gap:8px;flex-wrap:wrap;margin-block:12px}
+.binderFilters button{min-height:44px;padding:8px 12px;border-radius:99px;border:1px solid var(--line);color:var(--text);background:var(--panel)}
+.binderFilters [aria-pressed=true]{color:var(--ink);background:var(--mint)}
+.binderVariants h3{width:100%}.binderVariants button{min-height:44px}
+.binderGrid{padding:8px;border:1px solid var(--line);border-radius:16px;background:#090e0b;align-items:start}
+.binderSlot{position:relative;min-width:0;overflow:hidden;text-align:left;padding:4px;display:grid;gap:5px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text)}
+.binderArt{position:relative;display:grid;place-items:center;aspect-ratio:63/88;width:100%;overflow:hidden;border-radius:5px;background:#1a2420;color:var(--muted)}
+.binderArt img{width:100%;height:100%;object-fit:cover}
+.binderSlot.missing{opacity:1}.binderSlot.missing .binderArt,.binderSlot.missing>img{opacity:.25;filter:grayscale(1)}
+.binderSlot>span:not(.binderArt),.binderSlot small{overflow-wrap:anywhere;font-size:11px;line-height:1.35}
+.binderSlot small{color:var(--muted)}.binderEmpty{grid-column:1/-1;color:var(--muted);padding:20px 8px}
+.holoBinder{padding:16px;max-width:calc(100% - 16px);padding-bottom:calc(16px + env(safe-area-inset-bottom));overscroll-behavior:contain}
+.holoBinder h2{overflow-wrap:anywhere}.holoBinder input{box-sizing:border-box;width:100%;min-width:0}
+.holoDetail{padding:20px;padding-bottom:calc(20px + env(safe-area-inset-bottom));border-radius:24px;background:var(--panel)}
+.holoArt{position:relative;overflow:hidden;border-radius:12px;box-shadow:0 22px 40px -18px #000e}
+#cardSheetName{font-size:clamp(20px,6vw,28px);line-height:1.25;overflow-wrap:anywhere}
+#cardSheetMeta,#cardSheetNote{color:var(--muted);line-height:1.5;overflow-wrap:anywhere}
+#cardSheetPrice{font-family:Unbounded,Geist,sans-serif;font-size:clamp(18px,5vw,26px);overflow-wrap:anywhere}
+#cardSheetAction{min-height:52px;border-radius:16px}#cardSheetLink{color:var(--mint)}
+#cards .binderSlot>img{width:100%;aspect-ratio:63/88;object-fit:cover;border-radius:5px}
+#cards .binderSlot{box-sizing:border-box}#cards{align-items:start}
+@media(min-width:600px){#homeSets .homeStack{flex:0 1 180px}}
+@media(prefers-reduced-motion:reduce){.homeStack,.homeFanCard,.binderSlot,.holoDetail{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+.homeEyebrow{display:none}.binderGrid{touch-action:pan-y}
