@@ -220,7 +220,7 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | tests/en-dp-pop-coverage-v174.test.cjs | B, C, E, H | 47, 63, 133 | no |
 | tests/en-platinum-hgss-coverage-v175.test.cjs | B, C, E, H | 48, 65, 124, 194, 198 | no |
 | tests/experience-scope-v171.cjs | H | 8 | no |
-| tests/fixtures/integration-scope-v181.json | B, H | 66, 67 | no |
+| tests/fixtures/integration-scope-v181.json | B, H | 58, 59 | no |
 | tests/guest-context-v171.cjs | B, C, H | 11 | no |
 | tests/home-shell-browser-v179.test.cjs | B, C, E, H | 9, 10, 12, 22, 28 | no |
 | tests/integration-browser-v181.test.cjs | B, E, H | 7, 18, 19 | no |

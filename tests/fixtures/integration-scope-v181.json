@@ -21,14 +21,6 @@
     {
       "before": "btn.type='button'; btn.className='suggestion';",
       "after": "btn.type='button'; btn.className='suggestion'; btn.holoCard=card;"
-    },
-    {
-      "before": "    try{ history.replaceState(null,'',`#${tab}`); }catch(_){ }",
-      "after": "    try{ history.replaceState(null,'',`#${tab}`); }catch(_){ }\n    if(tab==='search')window.dispatchEvent(new Event('holodex:search-active'));"
-    },
-    {
-      "before": "  async function fetchSetVariant(lang,setKey,setId){\n    try{",
-      "after": "  async function fetchSetVariant(lang,setKey,setId){\n    // Pause queued catalog work outside Search; cached catalog reads remain available.\n    while(activeTab!=='search')await new Promise(resolve=>window.addEventListener('holodex:search-active',resolve,{once:true}));\n    try{"
     }
   ],
   "ui-v150-experience.js": [
