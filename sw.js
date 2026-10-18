@@ -7,7 +7,7 @@ const ASSETS = [
   'index.html',
   'style-v182-parity.css?build=182-zip-parity',
   'style-v181-holo.css?build=181-live-integration',
-  'ui-v181-redesign.js?build=181-live-integration',
+  'ui-v181-redesign.js?build=181-live-integration', 'ui-v183-cardmarket.js?build=183-reverse-holo',
   'share-v181.html',
   'share-v181.js',
   'assets/fonts/geist-400.woff2',
