@@ -8245,7 +8245,7 @@
     },
     {
       "file": "tests/fixtures/integration-scope-v181.json",
-      "line": 28,
+      "line": 36,
       "names": [
         "cardscout"
       ],
@@ -8254,7 +8254,7 @@
     },
     {
       "file": "tests/fixtures/integration-scope-v181.json",
-      "line": 29,
+      "line": 37,
       "names": [
         "HoloKeep",
         "cardscout"
@@ -8264,7 +8264,7 @@
     },
     {
       "file": "tests/fixtures/integration-scope-v181.json",
-      "line": 58,
+      "line": 66,
       "names": [
         "rareworth"
       ],
@@ -8273,7 +8273,7 @@
     },
     {
       "file": "tests/fixtures/integration-scope-v181.json",
-      "line": 59,
+      "line": 67,
       "names": [
         "rareworth"
       ],
@@ -9902,7 +9902,7 @@
     },
     {
       "file": "ui-v137-focus.js",
-      "line": 585,
+      "line": 586,
       "names": [
         "cardscout"
       ],
@@ -9911,7 +9911,7 @@
     },
     {
       "file": "ui-v137-focus.js",
-      "line": 894,
+      "line": 897,
       "names": [
         "cardscout"
       ],
@@ -9920,7 +9920,7 @@
     },
     {
       "file": "ui-v137-focus.js",
-      "line": 896,
+      "line": 899,
       "names": [
         "cardscout"
       ],
@@ -9929,7 +9929,7 @@
     },
     {
       "file": "ui-v137-focus.js",
-      "line": 900,
+      "line": 903,
       "names": [
         "cardscout"
       ],
@@ -9938,7 +9938,7 @@
     },
     {
       "file": "ui-v137-focus.js",
-      "line": 902,
+      "line": 905,
       "names": [
         "cardscout"
       ],
@@ -9947,7 +9947,7 @@
     },
     {
       "file": "ui-v137-focus.js",
-      "line": 903,
+      "line": 906,
       "names": [
         "cardscout"
       ],
@@ -10344,7 +10344,7 @@
     },
     {
       "file": "ui-v181-redesign.js",
-      "line": 54,
+      "line": 57,
       "names": [
         "cardscout"
       ],

@@ -217,6 +217,7 @@
     window.scrollTo({top:0, behavior:focus ? 'smooth' : 'auto'});
     // Tab navigation must not reopen a keyboard that the user just dismissed.
     try{ history.replaceState(null,'',`#${tab}`); }catch(_){ }
+    if(tab==='search')window.dispatchEvent(new Event('holodex:search-active'));
   }
 
   function linkReady(){
@@ -789,6 +790,8 @@
   }
 
   async function fetchSetVariant(lang,setKey,setId){
+    // Pause queued catalog work outside Search; cached catalog reads remain available.
+    while(activeTab!=='search')await new Promise(resolve=>window.addEventListener('holodex:search-active',resolve,{once:true}));
     try{
       const setData=await fetchJson(`${TCGDEX_API}/${lang.toLowerCase()==='jp'?'ja':'en'}/sets/${encodeURIComponent(setId)}`);
       const rows=Array.isArray(setData?.cards) ? setData.cards : [];
