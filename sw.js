@@ -1,13 +1,13 @@
 'use strict';
 // Bump this version when the shell changes. Never cache remote card data/artwork.
-const CACHE = 'rareworth-shell-v182';
+const CACHE = 'rareworth-shell-v183-history';
 const SCOPE = new URL('./', self.registration.scope);
 const INDEX = new URL('index.html', SCOPE).href;
 const ASSETS = [
   'index.html',
   'style-v182-parity.css?build=182-zip-parity', 'style-v183-parity.css?build=183-comparison-ui',
   'style-v181-holo.css?build=181-live-integration',
-  'ui-v181-redesign.js?build=181-live-integration', 'ui-v183-cardmarket.js?build=183-reverse-holo', 'ui-v183-parity.js?build=183-comparison-ui',
+  'ui-v181-redesign.js?build=181-live-integration', 'ui-v183-cardmarket.js?build=183-reverse-holo', 'history-v183.js?build=183-local-history', 'ui-v183-parity.js?build=183-comparison-ui',
   'share-v181.html',
   'share-v181.js',
   'assets/fonts/geist-400.woff2',

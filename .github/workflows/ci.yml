@@ -90,3 +90,6 @@ jobs:
 
       - name: HoloDex ZIP parity safety
         run: node --test tests/parity-v182.test.cjs tests/parity-browser-v182.test.cjs
+
+      - name: Local comparable history
+        run: node --test tests/history-v183.test.cjs tests/history-browser-v183.test.cjs

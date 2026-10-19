@@ -107,3 +107,11 @@
     padding-inline:16px;
   }
 }
+/* Only AVAILABLE local observations produce a chart. */
+.homeChartStage[data-state="AVAILABLE"]{padding-top:44px;padding-bottom:42px}
+.homeChartStage svg{display:block;width:100%;height:auto;color:var(--mint);overflow:visible}
+.homeChartStage .homeObservedLine{fill:none;stroke:currentColor;stroke-width:2;vector-effect:non-scaling-stroke}
+.homeChartStage circle{fill:currentColor}.homeChartStage [hidden]{display:none}
+.homeChartSummary{font-variant-numeric:tabular-nums;overflow-wrap:anywhere;line-height:1.5}
+.homeChartAxis{gap:12px}.homeChartAxis span{max-width:48%;overflow-wrap:anywhere}.homeChartAxis span:last-child{text-align:right}
+@media(prefers-reduced-motion:reduce){.homeRanges button{transition:none;transform:none!important}}
