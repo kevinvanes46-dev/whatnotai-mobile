@@ -7252,7 +7252,7 @@
         "holokeep"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "9326b9978b589e700b029bb1c5d85166be07425a302857e375b305292b503133"
+      "sha256": "f9c002e856ffd8bc1bb5c9c96a0a132627365f2e068b6221114327d95f4b86f8"
     },
     {
       "file": "tests/brand-foundation-v172.test.cjs",
@@ -9586,7 +9586,7 @@
         "holokeep"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "4f5517dc74e8b83eee3aa258307582246442bda68f932265d18ca808364f3f87"
+      "sha256": "a966a35c80ba6dc60c91d0c9fc2466cb6dc4b63d099cc65cc07545aae095d9dd"
     },
     {
       "file": "tests/pwa-v169.test.cjs",
@@ -10593,6 +10593,24 @@
       ],
       "category": "TECHNICAL_COMPATIBILITY",
       "sha256": "18205872cbb0c4e87125cb46b3c1a8356a75c00cbe2e7fe006fd9cab2276e2d0"
+    },
+    {
+      "file": "ui-v183-cardmarket.js",
+      "line": 82,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TECHNICAL_COMPATIBILITY",
+      "sha256": "3482ebc3efc2f860fcea1a85569ebcaeaeb4d3bc2a26b997493bc04fa0a89618"
+    },
+    {
+      "file": "ui-v183-cardmarket.js",
+      "line": 94,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TECHNICAL_COMPATIBILITY",
+      "sha256": "e67c80d697594289872f40ea764b60462fd49c5af5474d05f410edbe19a0071c"
     }
   ]
 }
