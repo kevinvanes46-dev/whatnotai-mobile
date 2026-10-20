@@ -12,7 +12,7 @@
     },
     {
       "before": "const CACHE = 'rareworth-shell-v182';",
-      "after": "const CACHE = 'rareworth-shell-v183-history';"
+      "after": "const CACHE = 'rareworth-shell-v183-chart-polish';"
     }
   ]
 }

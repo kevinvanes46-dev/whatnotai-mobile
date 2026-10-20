@@ -115,3 +115,20 @@
 .homeChartSummary{font-variant-numeric:tabular-nums;overflow-wrap:anywhere;line-height:1.5}
 .homeChartAxis{gap:12px}.homeChartAxis span{max-width:48%;overflow-wrap:anywhere}.homeChartAxis span:last-child{text-align:right}
 @media(prefers-reduced-motion:reduce){.homeRanges button{transition:none;transform:none!important}}
+
+/* Read-only chart details: actual extrema and observed timestamps. */
+.homeChartStage[data-state="AVAILABLE"]{padding-top:52px;padding-bottom:34px;padding-left:82px}
+.homeChartStage .homeObservedLine{stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.homeChartGuide{stroke:#ffffff24;stroke-width:1;vector-effect:non-scaling-stroke}
+.homeChartY{position:absolute;top:52px;bottom:34px;left:10px;width:76px;display:flex;flex-direction:column;justify-content:space-between;color:#b5c9be;font:500 10px Geist,sans-serif;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;pointer-events:none}
+.homeChartY span{position:absolute;top:12%;transform:translateY(-50%);width:100%}.homeChartY span:last-child{top:88%}.homeChartY[data-flat="true"] span{top:50%}
+.homeHistoryPoint{cursor:pointer;outline:none}
+.homeHistoryPoint circle{stroke:#0b110e;stroke-width:2;vector-effect:non-scaling-stroke}
+.homeHistoryPoint[aria-pressed="true"] circle{r:6;stroke:#fff;stroke-width:2}
+.homeHistoryPoint:focus-visible rect{stroke:#fff;stroke-width:2;stroke-dasharray:3 3;vector-effect:non-scaling-stroke}
+.homeChartSummary{font-size:15px;font-weight:650;margin:12px 0}
+.homeChartSummary[data-direction="positive"]{color:#a9f3cf}
+.homeChartSummary[data-direction="negative"]{color:#ffb5bc}
+.homeChartSummary[data-direction="flat"]{color:#d7e5dc}
+.homeHistoryDetail{padding:12px;border:1px solid #42594d;border-radius:12px;background:#14241b;color:#e0f4e8;line-height:1.6;font-size:12px;overflow-wrap:anywhere;margin-bottom:12px;font-variant-numeric:tabular-nums}
+.homeHistoryDetail[hidden]{display:none}
