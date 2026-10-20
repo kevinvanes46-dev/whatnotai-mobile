@@ -1,0 +1,18 @@
+{
+  "index.html": [
+    {
+      "before": "<script src=\"ui-v183-parity.js?build=183-comparison-ui\"></script>",
+      "after": "<script src=\"history-v183.js?build=183-local-history\"></script><script src=\"ui-v183-parity.js?build=183-comparison-ui\"></script>"
+    }
+  ],
+  "sw.js": [
+    {
+      "before": "'ui-v183-parity.js?build=183-comparison-ui',",
+      "after": "'history-v183.js?build=183-local-history', 'ui-v183-parity.js?build=183-comparison-ui',"
+    },
+    {
+      "before": "const CACHE = 'rareworth-shell-v182';",
+      "after": "const CACHE = 'rareworth-shell-v183-chart-polish';"
+    }
+  ]
+}

@@ -130,6 +130,6 @@ test('same-storage real offline reload finds DP/POP; empty cache retains local c
   requests.length=0;await setOffline(true);await page.reload();await ready(page);assert.ok(!requests.some(p=>p.includes('/en/sets/')));
   for(const id of ['dp1','dp7','dpp','pop5']){const c=sample(id);await search(page,`${c.name} ${id}`);await page.locator('.suggestion').first().waitFor();}
   assert.equal(await page.locator('.brandText strong').innerText(),'HoloDex');await page.locator('#navSettings').click();assert.match(await page.locator('.aboutCard').innerText(),/v182 · Beta/);
-  const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v182')).keys()).map(r=>r.url));assert.ok(urls.length>20);assert.ok(urls.every(u=>new URL(u).origin===origin));assert.ok(urls.some(u=>u.endsWith('/cards.json?build=175-en-platinum-hgss-coverage')));
+  const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v183-chart-polish')).keys()).map(r=>r.url));assert.ok(urls.length>20);assert.ok(urls.every(u=>new URL(u).origin===origin));assert.ok(urls.some(u=>u.endsWith('/cards.json?build=175-en-platinum-hgss-coverage')));
   await page.evaluate(()=>localStorage.removeItem('cardscout_search_catalog_v152_EN_v175'));await page.reload();await search(page,'charizard base');await page.locator('.suggestion').first().waitFor();
 });
