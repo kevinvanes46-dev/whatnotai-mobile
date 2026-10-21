@@ -3,7 +3,7 @@
 }
 
 .homeRanges{
-  margin-bottom:14px;
+  margin:8px 0 14px;
 }
 
 .homeRanges button{
@@ -20,27 +20,26 @@
 }
 
 .homeRanges button[aria-pressed="true"]{
-  background:var(--mint);
-  color:var(--ink);
-  box-shadow:0 0 0 1px #ffffff12 inset;
+  background:#202c25;
+  color:var(--text);
+  box-shadow:none;
 }
 
 .homeChartStage{
   position:relative;
-  min-height:190px;
+  min-height:160px;
   overflow:hidden;
-  border:1px solid #34483c;
-  border-radius:16px;
-  background:
-    linear-gradient(180deg,#101813cc,#0b110e);
-  margin-bottom:12px;
+  border:1px dashed #34483c;
+  border-radius:12px;
+  background:transparent;
+  margin-bottom:0;
 }
 
 .homeChartGrid{
   position:absolute;
   inset:0 0 30px;
   pointer-events:none;
-  opacity:.55;
+  opacity:0;
   background-image:
     linear-gradient(to right,#ffffff0b 1px,transparent 1px),
     linear-gradient(to bottom,#ffffff0b 1px,transparent 1px);
@@ -50,7 +49,7 @@
 .homeChartStage .homeChartNote{
   position:relative;
   z-index:2;
-  min-height:150px;
+  min-height:140px;
   margin:0;
   padding:46px 22px 24px;
   border:0;
@@ -62,10 +61,9 @@
   z-index:3;
   top:12px;
   left:12px;
-  padding:6px 9px;
-  border:1px solid #34483c;
-  border-radius:999px;
-  background:#101813e8;
+  padding:0;
+  border:0;
+  background:transparent;
   color:var(--muted);
   font:600 11px Geist,sans-serif;
 }
@@ -99,7 +97,7 @@
   }
 
   .homeChartStage{
-    min-height:175px;
+    min-height:160px;
   }
 
   .homeChartStage .homeChartNote{
@@ -118,9 +116,13 @@
 
 /* Read-only chart details: actual extrema and observed timestamps. */
 .homeChartStage[data-state="AVAILABLE"]{padding-top:52px;padding-bottom:34px;padding-left:82px}
+.homeChartStage[data-state="AVAILABLE"]{border:0;border-radius:0;min-height:0;padding-top:32px;padding-bottom:26px;padding-left:72px}
+.homeChartStage svg[data-direction="negative"]{color:#ffb5bc}
+.homeChartStage svg[data-direction="flat"]{color:#b5c9be}
+.homeObservedArea{pointer-events:none}
 .homeChartStage .homeObservedLine{stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .homeChartGuide{stroke:#ffffff24;stroke-width:1;vector-effect:non-scaling-stroke}
-.homeChartY{position:absolute;top:52px;bottom:34px;left:10px;width:76px;display:flex;flex-direction:column;justify-content:space-between;color:#b5c9be;font:500 10px Geist,sans-serif;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;pointer-events:none}
+.homeChartY{position:absolute;top:32px;bottom:26px;left:0;width:66px;display:flex;flex-direction:column;justify-content:space-between;color:#b5c9be;font:500 10px Geist,sans-serif;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;pointer-events:none}
 .homeChartY span{position:absolute;top:12%;transform:translateY(-50%);width:100%}.homeChartY span:last-child{top:88%}.homeChartY[data-flat="true"] span{top:50%}
 .homeHistoryPoint{cursor:pointer;outline:none}
 .homeHistoryPoint circle{stroke:#0b110e;stroke-width:2;vector-effect:non-scaling-stroke}
