@@ -21,6 +21,8 @@ async function observe(p,day,value=25,qty=2){
 }
 test('real local observations drive the existing chart, survive reload and never request prices',async t=>{
   const {p,context}=await setup(t);let requests=0;
+  await p.locator('#navHome').click();
+  assert.match(await p.locator('.homeChartNote').innerText(),/Voeg eerst een kaart toe/);
   p.on('request',r=>{if(new URL(r.url()).hostname==='api.tcgdex.net'&&r.url().includes('/cards/'))requests++;});
   await observe(p,'17');
   const panel=p.locator('#homeComparisonPanel');
@@ -28,6 +30,9 @@ test('real local observations drive the existing chart, survive reload and never
   await observe(p,'18',30);
   await p.waitForFunction(()=>document.querySelector('#homeComparisonPanel svg circle'));
   assert.equal(await panel.locator('svg circle').count(),2);
+  const lineVertices=await panel.locator('polyline').getAttribute('points');
+  assert.equal(await panel.locator('.homeObservedArea').getAttribute('d'),'M'+lineVertices.split(' ').join(' L')+' L296,200 L24,200 Z');
+  assert.ok(await panel.evaluate(el=>el.querySelector('.homeRanges').getBoundingClientRect().top>=el.querySelector('.homeChartStage').getBoundingClientRect().bottom));
   assert.match(await panel.locator('.homeChartSummary').innerText(),/50,00.*60,00.*10,00/);
   const stored=await p.evaluate(()=>localStorage.getItem(HoloDexHistory.KEY));
   for(let i=0;i<3;i++)await p.locator('#navHome').click();

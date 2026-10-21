@@ -13,6 +13,8 @@
   const summary=document.createElement('p');summary.className='homeChartSummary';summary.setAttribute('role','status');
   const detail=document.createElement('div');detail.className='homeHistoryDetail';detail.id='homeHistoryPointDetail';detail.setAttribute('role','status');detail.hidden=true;
   if(note){note.before(stage);stage.append(grid,badge,note,axis);stage.after(summary,detail);}
+  const ranges=panel.querySelector('.homeRanges');
+  if(ranges)stage.after(ranges,summary,detail);
   let selectedAt=null;
   let active='1M',queued=false,writeRequested=false,writeFailure=null;
   const money=value=>new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR'}).format(value);
@@ -28,8 +30,17 @@
     const available=series.status==='AVAILABLE';note.hidden=available;grid.hidden=available;
     if(!available){
       selectedAt=null;badge.textContent='Geen betrouwbare historie';from.textContent=active;to.textContent='';
-      note.textContent=`Voor ${labels[active]} zijn nog geen volledig vergelijkbare historische metingen beschikbaar.`;
-      foot.textContent=writeFailure?'Lokale historie kan momenteel niet worden opgeslagen. Je collectie blijft beschikbaar.':'Lokale historie vanaf je eerste geldige meting. Alleen volledig vergelijkbare bronmetingen tellen mee; ontbrekende dagen worden niet ingevuld.';
+      const reasons={
+        EMPTY:'Voeg eerst een kaart toe aan je collectie.',
+        PRICE:'Niet alle kaarten hebben een actuele, ondersteunde Cardmarket-prijs. Alleen wachten lost dit niet altijd op.',
+        TIMESTAMP:'De bron geeft geen bruikbaar tijdstip voor alle prijzen.',
+        TIMESTAMP_MIX:'De prijzen zijn op verschillende momenten gemeten en kunnen niet samen worden vergeleken.',
+        METRIC_MIX:'De prijzen gebruiken verschillende prijssoorten en kunnen niet samen worden vergeleken.',
+        CONFLICT:'Er zijn tegenstrijdige bronprijzen. Deze metingen worden niet getoond.',
+        CORRUPT:'De opgeslagen historie kan niet betrouwbaar worden gelezen.'
+      };
+      note.textContent=reasons[series.reason]?`Voor ${labels[active]}: ${reasons[series.reason]}`:`Voor ${labels[active]} zijn nog geen twee volledig vergelijkbare historische metingen beschikbaar.`;
+      foot.textContent=writeFailure?'Lokale historie kan momenteel niet worden opgeslagen. Je collectie blijft beschikbaar.':'De lijn verschijnt vanaf twee geldige bronmetingen van dezelfde collectie. Er is geen vaste wachttijd; ontbrekende dagen worden niet ingevuld.';
       return;
     }
     const points=series.points,times=points.map(p=>Date.parse(p.observedAt)),values=points.map(p=>p.value),lo=Math.min(...values),hi=Math.max(...values),span=times.at(-1)-times[0];
@@ -43,9 +54,16 @@
     const y=v=>hi===lo?100:176-(v-lo)/(hi-lo)*152,x=t=>24+(t-times[0])/span*272;
     const make=(tag,attrs={})=>{const el=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const [key,value] of Object.entries(attrs))el.setAttribute(key,String(value));return el;};
     const svg=make('svg',{viewBox:'0 0 320 200',role:'group','aria-label':'Cardmarket EUR marktindicaties. Gebruik de pijltoetsen voor echte meetpunten.'});
+    svg.dataset.direction=direction;
+    const defs=make('defs'),gradient=make('linearGradient',{id:'homeObservedFill',x1:0,x2:0,y1:0,y2:1});
+    gradient.append(make('stop',{offset:0,'stop-color':'currentColor','stop-opacity':.26}),make('stop',{offset:1,'stop-color':'currentColor','stop-opacity':0}));
+    defs.append(gradient);svg.append(defs);
+    // Decorative fill follows the same observed vertices as the line.
+    const vertices=points.map((p,i)=>x(times[i])+','+y(p.value));
+    svg.append(make('path',{d:'M'+vertices.join(' L')+' L296,200 L24,200 Z',fill:'url(#homeObservedFill)','aria-hidden':'true',class:'homeObservedArea'}));
     const yLabels=document.createElement('div');yLabels.className='homeChartY';
     for(const [label,value] of (hi===lo?[['Waarde',lo]]:[['Hoog',hi],['Laag',lo]])){
-      const el=document.createElement('span');el.textContent=money(value);el.setAttribute('aria-label',label+' '+money(value));yLabels.append(el);
+      const el=document.createElement('span');el.textContent=Math.abs(value)>=100000?new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR',notation:'compact',maximumFractionDigits:1}).format(value):money(value);el.setAttribute('aria-label',label+' '+money(value));yLabels.append(el);
     }
     yLabels.dataset.flat=String(hi===lo);stage.insertBefore(yLabels,axis);
     for(const value of (hi===lo?[lo]:[hi,lo]))svg.append(make('line',{x1:24,x2:296,y1:y(value),y2:y(value),class:'homeChartGuide'}));
