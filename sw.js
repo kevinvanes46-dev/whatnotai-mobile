@@ -1,6 +1,6 @@
 'use strict';
 // Bump this version when the shell changes. Never cache remote card data/artwork.
-const CACHE = 'rareworth-shell-v183-chart-zip';
+const CACHE = 'rareworth-shell-v184-zip-design';
 const SCOPE = new URL('./', self.registration.scope);
 const INDEX = new URL('index.html', SCOPE).href;
 const ASSETS = [

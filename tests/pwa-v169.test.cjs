@@ -40,7 +40,7 @@ test('v169 manifest, real icon dimensions, shell coverage and unchanged engine/o
     assert.equal(html.match(pattern)?.[0],old.match(pattern)?.[0].replace('RareWorth','HoloDex'));
   }
   assert.doesNotMatch(worker,/unregister\s*\(/);
-  assert.match(worker,/rareworth-shell-v183-chart-zip/);
+  assert.match(worker,/rareworth-shell-v184-zip-design/);
   assert.doesNotMatch(worker+registration,/localStorage|sessionStorage/);
   // Byte comparison, except checkout line endings; protect every existing production script.
   for(const src of scripts(old)){
@@ -96,7 +96,7 @@ test('v169 failed precache never activates an incomplete worker',async()=>{
 });
 
 test('v169 Chromium: scoped worker, offline collection, engine smoke and safe update', {timeout:180000}, async()=>{
-  let revision='v183-chart-zip',marker='initial';
+  let revision='v184-zip-design',marker='initial';
   const server=http.createServer((req,res)=>{
     try{
       const pathname=new URL(req.url,'http://localhost').pathname;
@@ -105,7 +105,7 @@ test('v169 Chromium: scoped worker, offline collection, engine smoke and safe up
       const file=pathname.slice('/whatnotai-mobile/'.length)||'index.html';
       res.setHeader('Content-Type',({js:'text/javascript',html:'text/html',css:'text/css',json:'application/json',svg:'image/svg+xml',png:'image/png'})[file.split('.').pop()]||'application/octet-stream');
       res.setHeader('Cache-Control','no-store');
-      if(file==='sw.js')return res.end(worker.replaceAll('rareworth-shell-v183-chart-zip','rareworth-shell-'+revision));
+      if(file==='sw.js')return res.end(worker.replaceAll('rareworth-shell-v184-zip-design','rareworth-shell-'+revision));
       if(file==='index.html')return res.end(html.replace('</head>',`<meta name="pwa-test-revision" content="${marker}"></head>`));
       res.end(fs.readFileSync(path.resolve(file)));
     }catch{res.writeHead(404).end();}
@@ -139,7 +139,7 @@ test('v169 Chromium: scoped worker, offline collection, engine smoke and safe up
     await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
     assert.deepEqual(await page.evaluate(async()=> (await navigator.serviceWorker.getRegistrations()).map(r=>({scope:r.scope,state:r.active.state}))),[{scope:url,state:'activated'}]);
     const cacheNames=await page.evaluate(()=>caches.keys());
-    assert.ok(cacheNames.includes('rareworth-shell-v183-chart-zip'));assert.ok(cacheNames.includes('unrelated-cache'));assert.ok(cacheNames.includes('cardscout-other-app'));
+    assert.ok(cacheNames.includes('rareworth-shell-v184-zip-design'));assert.ok(cacheNames.includes('unrelated-cache'));assert.ok(cacheNames.includes('cardscout-other-app'));
     for(const name of ['rareworth-shell-v168-test','whatnotai-mobile-v36','cardscout-v133'])assert.ok(!cacheNames.includes(name));
     await page.reload();
     console.log('PASS initial worker, legacy cleanup and online reload');
@@ -180,23 +180,23 @@ test('v169 Chromium: scoped worker, offline collection, engine smoke and safe up
     console.log('PASS online recovery and EN route');
     // Real external fetches through the controlled page remain absent from Cache Storage.
     await page.evaluate(()=>Promise.all(['https://www.cardmarket.com/en/Pokemon/Products','https://api.tcgdex.net/v2/ja/cards'].map(url=>fetch(url,{signal:AbortSignal.timeout(3000)}).catch(()=>{}))));
-    const cached=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v183-chart-zip')).keys()).map(request=>request.url));
+    const cached=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v184-zip-design')).keys()).map(request=>request.url));
     assert.ok(cached.length>=27);assert.ok(cached.every(u=>new URL(u).origin===origin),'same origin only');
     assert.ok(cached.every(u=>new URL(u).pathname.startsWith('/whatnotai-mobile/')));
     console.log('PASS same-origin cache inventory');
     // Real worker update, without changing repository assets or reloading in a loop.
-    revision='v183-chart-zip-test';
+    revision='v184-zip-design-test';
     await page.evaluate(async()=>{const r=await navigator.serviceWorker.getRegistration();await r.update();});
     await page.waitForFunction(async()=>{
       const keys=await caches.keys(),r=await navigator.serviceWorker.getRegistration();
-      return keys.includes('rareworth-shell-v183-chart-zip-test')&&!keys.includes('rareworth-shell-v183-chart-zip')&&r.active?.state==='activated'&&!r.installing&&!r.waiting;
+      return keys.includes('rareworth-shell-v184-zip-design-test')&&!keys.includes('rareworth-shell-v184-zip-design')&&r.active?.state==='activated'&&!r.installing&&!r.waiting;
     });
     assert.equal(await page.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),before.cardscout_collection_v133);
     assert.equal(await page.evaluate(()=>localStorage.getItem('whatnotai_mobile_favorites_v37')),before.whatnotai_mobile_favorites_v37);
     assert.ok((await page.evaluate(()=>caches.keys())).includes('unrelated-cache'));
     console.log('PASS real worker update and cache cleanup');
     // The newly activated shell also works offline, with the same collection.
-    assert.ok((await page.evaluate(()=>caches.keys())).includes('rareworth-shell-v183-chart-zip-test'));
+    assert.ok((await page.evaluate(()=>caches.keys())).includes('rareworth-shell-v184-zip-design-test'));
     await context.setOffline(true);await page.reload();
     await page.locator('#navCollection').click();assert.match(await page.locator('#collectionList').innerText(),/Expansion Pack/);
     assert.deepEqual(errors,[]);
