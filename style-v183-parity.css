@@ -134,3 +134,101 @@
 .homeChartSummary[data-direction="flat"]{color:#d7e5dc}
 .homeHistoryDetail{padding:12px;border:1px solid #42594d;border-radius:12px;background:#14241b;color:#e0f4e8;line-height:1.6;font-size:12px;overflow-wrap:anywhere;margin-bottom:12px;font-variant-numeric:tabular-nums}
 .homeHistoryDetail[hidden]{display:none}
+
+/* v184 ZIP presentation. Existing DOM, calculations and controls remain intact. */
+.appShell{width:min(920px,100%);padding-inline:16px;padding-bottom:calc(110px + env(safe-area-inset-bottom))}
+.topbar{min-height:90px;padding-block:20px;border-bottom:1px solid var(--line);gap:12px}
+.homeView{max-width:none;margin-inline:0;padding:8px 0 28px}
+.homeHero{display:flex;align-items:center;justify-content:flex-end;min-height:44px;padding:0;margin:0 0 8px;border:0;border-radius:0;background:none}
+.homeHero h1,.homeHero>p{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.homeHero #homeSearch{width:auto;min-height:44px;padding:0 14px;gap:16px;border:1px solid var(--line2);border-radius:99px;background:var(--panel);color:var(--mint);font:600 12px var(--sans)}
+.homeSnapshot{position:relative;padding:0;margin:0;border:0;border-radius:0;background:none;color:var(--text)}
+.homeSnapshot .homeSectionHeading{font-size:13px;line-height:20px;color:var(--muted)}
+.homeSnapshot .homeSectionHeading strong{font-weight:400}
+#homeQty{font-size:13px;color:var(--muted)}
+.homeMetricLabel{margin-top:8px;font-size:12px;color:var(--muted)}
+#homeMarket{font-family:var(--display);font-size:clamp(34px,10vw,48px);font-weight:700;line-height:1.1;margin:4px 0 6px;letter-spacing:-.03em}
+.homeSnapshot small{font-size:12px;line-height:18px;color:var(--muted)}
+.homeSecondary{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);gap:20px;font-size:12px;line-height:18px;color:var(--muted)}
+.homeSecondary strong{font-size:18px;line-height:26px;font-weight:600;color:var(--text)}
+#homeNotice{display:block;margin-top:10px;font-size:12px;line-height:18px;color:var(--muted)}
+#homeNotice:empty{display:none}
+.homeComparisonPanel{margin:24px 0 32px;padding:0;border:0;border-radius:0;background:none}
+.homeComparisonPanel h3{font:600 15px var(--sans);margin:0 0 12px;color:var(--text)}
+.homeChartStage{min-height:144px;border-color:var(--line2);background:none}
+.homeChartStage .homeChartNote{min-height:144px;padding:38px 16px 24px;font-size:13px;line-height:20px}
+.homeChartBadge{font-size:11px;color:var(--muted)}
+.homeChartGrid{display:none}
+.homeComparisonPanel .homeRanges{display:flex;flex-wrap:nowrap;gap:4px;margin:8px 0}
+.homeRanges button{flex:0 1 auto;min-width:44px;width:auto;min-height:44px;padding:0 12px;background:transparent;color:var(--muted)}
+.homeRanges button[aria-pressed=true]{background:var(--panel3);color:var(--text)}
+.homeComparisonPanel>small{font-size:12px;line-height:18px;color:var(--muted)}
+.homeHistoryDetail{background:var(--panel);border-color:var(--line);font-size:12px}
+.homeChartSummary{font-size:14px;line-height:22px}
+.homeEmpty{padding:28px 22px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);text-align:left;align-items:start}
+.homeEmpty h2{font-size:22px;line-height:1.3;letter-spacing:-.02em}
+.homeEmpty p{color:var(--muted);font-size:14px;line-height:22px}
+.homeEmpty button{background:var(--mint);color:var(--ink);border:0;border-radius:14px;min-height:48px;font:600 14px var(--sans)}
+.homeAttention{margin:24px 0 0;padding:16px 0;border-bottom:1px solid var(--line);color:var(--mint)}
+.homeAttention .homeSectionHeading{font-size:14px}
+.homeTextLink{font-size:12px;color:var(--mint)}
+.homeAdded{margin-top:28px}
+.homeAdded h2,.holoSets>h3{font:600 15px var(--sans);letter-spacing:0}
+#homeAddedCards{gap:12px 20px}
+.homeAddedCard{padding:12px 0;border-bottom:1px solid var(--line);border-radius:0}
+.homeAddedCard strong{font-size:13px;line-height:19px}
+.homeAddedCard small{font-size:11px;line-height:17px;color:var(--muted)}
+#homeSets,#collectionSets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:28px 0}
+#homeSets>h3,#collectionSets>h3,#homeSets>.holoEmpty,#collectionSets>.holoEmpty{grid-column:1/-1;width:auto;margin:0 0 2px}
+#homeSets .homeStack,#collectionSets .homeStack{width:100%;min-width:0;max-width:none;display:grid;align-content:start;gap:6px;padding:12px;border:1px solid var(--line);border-radius:18px;background:var(--panel);box-shadow:none}
+#homeSets .homeStack:first-of-type{border:1px solid transparent;background:linear-gradient(var(--panel),var(--panel)) padding-box,var(--holo) border-box}
+.homeStack .homeFan{height:108px;width:140px}
+.homeStack .homeFanCard{width:58px;top:8px}
+.homeStack .homeFanCard:nth-child(1){left:0;transform:rotate(-12deg)}
+.homeStack .homeFanCard:nth-child(2){left:38px;transform:rotate(0deg)}
+.homeStack .homeFanCard:nth-child(3){left:76px;transform:rotate(12deg)}
+.homeStack strong{font:600 14px/20px var(--sans)}
+.homeStack>span:not(.homeFan){font-size:12px;line-height:18px;color:var(--muted)}
+.homeStack progress{height:4px;margin-top:4px;border:0;border-radius:99px;overflow:hidden;appearance:none;background:#18201c}
+.homeStack progress::-webkit-progress-bar{background:#18201c;border-radius:99px}
+.homeStack progress::-webkit-progress-value{background:var(--gain);border-radius:99px}
+.homeStack progress::-moz-progress-bar{background:var(--gain);border-radius:99px}
+.bottomNav{left:50%;bottom:calc(10px + env(safe-area-inset-bottom));width:min(520px,calc(100% - 20px));grid-template-columns:repeat(5,minmax(0,1fr));gap:0;padding:6px;border:1px solid #1f2925;border-radius:22px;background:#121815;box-shadow:0 18px 36px -16px #000e;backdrop-filter:none}
+.bottomNav .navBtn{min-height:52px;min-width:0;padding:4px 0;gap:4px;border-radius:16px;background:transparent;color:var(--muted)}
+.bottomNav .navBtn span{font:600 10px/16px var(--sans);color:inherit;white-space:nowrap}
+.bottomNav .navBtn.active,.bottomNav .navBtn.active span{background:transparent;color:var(--mint)}
+.bottomNav .navBtn.active{background:#18231d}
+.bottomNav .navBtn svg{width:20px;height:20px;stroke-width:1.8}
+.searchBox{background:var(--panel);border-color:var(--line2);box-shadow:none}
+.searchBox:focus-within{border-color:var(--mint);box-shadow:0 0 0 3px #b3f0cf1f}
+input,textarea,select,.collectionSearchWrap input,.collectionFilterRow select{background:var(--bg2);border-color:var(--line2);color:var(--text)}
+.primary,.quickGo,.editorActions .primary,#accountSend,.open{background:var(--mint);color:var(--ink);border-color:var(--mint);font-weight:600;box-shadow:none}
+.ghost,.tinyBtn{background:transparent;border-color:var(--line2);color:var(--text)}
+.danger,.tinyBtn.danger{color:var(--loss);border-color:#4a2a2a;background:transparent}
+.choiceBtn,.editorChoiceGrid button,.collectionQuickFilters button,.searchModeChip,#stampedSetChips button{background:var(--panel);border-color:var(--line2);color:#cfe0d8}
+.choiceBtn[aria-pressed=true],.choiceBtn.active,.editorChoiceGrid button.active,.collectionQuickFilters button.active,.visiblePreferences .searchModeChip.active,#stampedSetChips button.active{background:var(--mint);border-color:var(--mint);color:var(--ink)}
+.collectionSummary>div{background:transparent;border-color:var(--line)}
+.collectionSummary small{font-size:12px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.collectionCard,.settingsCard,.surface,.savedPanel,.aboutCard{background:var(--panel);border-color:var(--line);box-shadow:none}
+.toast{background:var(--panel2);border-color:var(--line2);color:var(--text);border-radius:99px}
+@media(min-width:768px){
+ .appShell{padding-inline:20px}
+ .homeHero{margin-top:8px}
+ .homeSnapshot{max-width:100%}
+ .homeSecondary{max-width:480px}
+ #homeSets,#collectionSets{grid-template-columns:repeat(4,minmax(0,1fr))}
+ #homeAddedCards{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .homeChartStage[data-state=AVAILABLE]{max-width:680px}
+}
+@media(max-width:350px){
+ .appShell{padding-inline:12px}
+ .topbar{gap:8px}
+ .homeStack .homeFan{height:96px;width:112px}
+ .homeStack .homeFanCard{width:48px}
+ .homeStack .homeFanCard:nth-child(2){left:30px}
+ .homeStack .homeFanCard:nth-child(3){left:60px}
+ .bottomNav .navBtn span{font-size:9px}
+ .homeRanges button{padding-inline:9px}
+}
+@media(hover:hover){.homeStack:hover{border-color:#2f3d37}.bottomNav .navBtn:hover,.ghost:hover,.tinyBtn:hover{background:var(--panel2);color:var(--text)}}
+@media(prefers-reduced-motion:reduce){.homeStack,.bottomNav .navBtn{transition:none;animation:none}}
