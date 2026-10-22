@@ -7,7 +7,7 @@
  const money=v=>new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR'}).format(v);
  const selection=c=>({card:c,condition:$('condSelect')?.value||'NM',edition:$('editionSelect')?.value||'AUTO',stamped:$('stampedToggle')?.getAttribute('aria-pressed')==='true',cardmarketUrl:''});
  function item(s){const c=s.card;return {name:c.name,number:String(c.number||''),set:c.set,setName:c.set_name||c.setName,sourceId:c.source_id||c.sourceId,source_set_id:c.source_set_id,language:c.language||'EN',condition:s.condition,edition:s.edition,variant:s.stamped?'STAMPED':'NORMAL'};}
- async function quote(s){const data=await window.CardArtwork.lookup(s.card).catch(()=>null),x=item(s);return window.HoloKeepMarket.display(ui().priceFrom(data,x),x);}
+ async function quote(s){if(window.HoloKeepMarket.enabled===false)return window.HoloKeepMarket.display();if(s.card.catalogOnly)return {value:null,label:'Catalogusmetadata · geen geverifieerde Cardmarket-prijs',date:''};const data=await window.CardArtwork.lookup(s.card).catch(()=>null),x=item(s);return window.HoloKeepMarket.display(ui().priceFrom(data,x),x);}
  const detail=el('dialog',null,'holoDetail');detail.id='cardSheet';detail.setAttribute('aria-labelledby','cardSheetName');
  detail.innerHTML='<button type="button" id="cardSheetClose" aria-label="Kaartdetail sluiten">Sluiten</button><div id="cardSheetArt" class="holoArt"></div><h2 id="cardSheetName"></h2><p id="cardSheetMeta"></p><strong id="cardSheetPrice"></strong><p id="cardSheetNote" role="status"></p><a id="cardSheetLink" target="_blank" rel="noopener noreferrer">Bekijk op Cardmarket</a><button type="button" id="cardSheetAction"></button>';
  document.body.append(detail);let selected=null,generation=0;

@@ -3,7 +3,14 @@
 (function(root,factory){
   const api=factory();
   if(typeof module==='object'&&module.exports)module.exports=api;
-  else Object.defineProperty(root,'HoloKeepMarket',{value:api});
+  else Object.defineProperty(root,'HoloKeepMarket',{value:Object.freeze({...api,
+    enabled:false,
+    get:()=>null,
+    eligible:()=>false,
+    due:()=>false,
+    display:()=>({value:null,label:'Marktprijzen uitgeschakeld · geen toegestane prijsbron',metric:'',condition:'',date:'',state:'UNAVAILABLE',legacy:false}),
+    totals:(items)=>api.totals(items,()=>null)
+  })});
 })(globalThis,()=>{
   const KEY='holokeep_market_cache_v176',TTL=12*60*60*1000;
   const QUALITY=Object.freeze(['CONDITION_AWARE','GENERAL_MARKET','REFERENCE_ONLY','UNAVAILABLE']);

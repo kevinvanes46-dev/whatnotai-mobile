@@ -1,0 +1,20 @@
+.library185{margin:14px 0;color:var(--text,#eef7f3)}
+.libraryToolbar,.libraryFilters{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.library185 button,.libraryCollectionLink,.library185 input,.library185 select{font:inherit;color:inherit;border:1px solid #254238;border-radius:14px;background:#102019;padding:11px 14px;min-height:44px;max-width:100%}
+.library185 button:focus-visible,.library185 input:focus-visible,.library185 select:focus-visible{outline:2px solid #8bf8c7;outline-offset:3px}
+.library185 button[aria-pressed=true],#libraryToggle{background:#194a38;color:#b9ffdd}
+.library185 button:disabled{opacity:.45}
+.libraryStatus{font-size:12px;line-height:1.6;color:#91a79c;margin:10px 0}
+.libraryBrowser{padding:18px 0}.libraryBrowser h2{font-size:24px;letter-spacing:-.7px}.libraryBrowser>p{color:#91a79c;font-size:14px;line-height:1.6}
+.libraryFilters{margin:16px 0}.libraryFilters input{flex:1;min-width:130px}.libraryFilters select{min-width:0;flex:1}
+.librarySetGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0}
+.library185 .librarySet{text-align:left;padding:16px;display:flex;flex-direction:column;gap:8px;background:linear-gradient(145deg,#14251d,#0b120f);min-width:0;overflow-wrap:anywhere}
+.librarySet img{width:100%;height:62px;object-fit:contain;margin:8px 0}.librarySet strong{font-size:16px}.librarySet small,.librarySet span{font-size:11px;color:#9bb8a8}
+.librarySetDetail{scroll-margin-top:20px;margin-top:24px}.librarySetDetail>p{font-size:13px;line-height:1.6}
+.libraryCardGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:16px 0}
+.library185 .libraryCard{display:flex;flex-direction:column;gap:8px;padding:8px;min-width:0;text-align:left;overflow-wrap:anywhere;background:#0d1913}
+.libraryCard img{width:100%;aspect-ratio:245/342;object-fit:contain;border-radius:6px}.libraryCard strong{font-size:12px}.libraryCard small,.libraryCard span{font-size:10px;color:#a0b6aa}
+.libraryNoArt{display:grid;place-items:center;aspect-ratio:245/342;text-align:center;border:1px dashed #355243;padding:4px}
+.libraryCollectionLink{margin:12px 0;color:#b9ffdd}.library185 [hidden]{display:none!important}
+@media(min-width:760px){.librarySetGrid{grid-template-columns:repeat(4,minmax(0,1fr))}.libraryCardGrid{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media(max-width:350px){.library185 .librarySet{padding:12px}.libraryToolbar>button{flex:1}.librarySet strong{font-size:14px}}

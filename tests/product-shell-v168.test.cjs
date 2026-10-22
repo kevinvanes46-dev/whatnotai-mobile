@@ -17,11 +17,11 @@ test('v168 shell metadata, navigation and product script order',()=>{
   assert.match(html,/<title>HoloDex · Zoek\. Bewaar\. Check\.<\/title>/);
   assert.doesNotMatch(html,/Rareworth|UI 150|V137 CORE|COLLECTION PRO|LOKALE COLLECTIE/);
   assert.deepEqual([...html.matchAll(/data-tab="([^"]+)"/g)].map(m=>m[1]),['home','search','collection','recent','settings']);
-  assert.deepEqual([...html.matchAll(/<script src="([^?]+)\?/g)].map(m=>m[1]),[
+  assert.deepEqual([...html.matchAll(/<script src="([^"]+)"/g)].map(m=>m[1].split('?')[0]),[
     'brand-v172.js','cardmarket-products-v152.js','card-identity-v154.js','app-v137.js','jp-cardmarket-twin-v157.js',
     'jp-artwork-v158.js','cardmarket-ui-v156.js','jp-set-catalog-v160.js','jp-cardmarket-native-v165.js',
     'jp-cardmarket-native-v163.js','jp-image-manifest-v161.js','jp-image-library-v161.js','beta-search-v180.js','ui-v137-focus.js',
-    'market-v176.js','cost-basis-v177.js','portfolio-insights-v178.js','ui-v137-collection.js','ui-v150-experience.js','home-v179.js','ui-v154-keyboard.js','ui-v153-mobile.js','cloud-sync-v170.js','supabase-config-v170.js','supabase-client-v170.js','cloud-adapter-v170.js','account-ui-v170.js','onboarding-v171.js','pwa-v169.js','ui-v181-redesign.js','ui-v183-cardmarket.js','history-v183.js','ui-v183-parity.js']);
+    'market-v176.js','cost-basis-v177.js','portfolio-insights-v178.js','ui-v137-collection.js','ui-v150-experience.js','home-v179.js','ui-v154-keyboard.js','ui-v153-mobile.js','cloud-sync-v170.js','supabase-config-v170.js','supabase-client-v170.js','cloud-adapter-v170.js','account-ui-v170.js','onboarding-v171.js','pwa-v169.js','ui-v181-redesign.js','ui-v183-cardmarket.js','history-v183.js','ui-v183-parity.js','library-v185.js','ui-library-v185.js']);
   assert.match(fs.readFileSync('ui-v137-collection.js','utf8'),/cardscout_collection_v133/);
 });
 
@@ -97,7 +97,7 @@ test('v168 mobile shell and search → Recent → collection reload',async()=>{
       }
       assert.equal(await page.locator('#collectionExportBtn').isVisible(),true);
       assert.equal(await page.locator('#collectionImportBtn').isVisible(),true);
-      assert.match(await page.locator('.aboutCard').innerText(),/v182 · Beta/);
+      assert.match(await page.locator('.aboutCard').innerText(),/v185 · Beta/);
       if(process.env.SHELL_SCREENSHOTS){
         fs.mkdirSync(process.env.SHELL_SCREENSHOTS,{recursive:true});
         await page.screenshot({path:path.join(process.env.SHELL_SCREENSHOTS,`more-${width}.png`),fullPage:true});

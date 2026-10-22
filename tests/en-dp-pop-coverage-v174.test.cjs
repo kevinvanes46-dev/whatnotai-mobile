@@ -29,7 +29,7 @@ test('reviewed coverage edits only; JP, scanner, pricing, storage and backend st
   for(const f of files.filter(f=>/^(jp-|cloud-|supabase|account-|onboarding-|pwa-|card-identity-|cardmarket-|assets\/cards\/jp)/.test(f))){
     const old=execFileSync('git',['show',baseline+':'+f],{maxBuffer:16*1024*1024});
     // Git checks out text with CRLF on Windows; binary assets remain byte-exact.
-    if(/\.(js|css|json|sql|md)$/.test(f))assert.equal(require('./host-scope-v174-1.cjs')(f,text(f)),old.toString().replace(/\r\n?/g,'\n'),f);
+    if(/\.(js|css|json|sql|md)$/.test(f))assert.equal(require('./host-scope-v174-1.cjs')(f,require('./library-scope-v185.cjs')(f,text(f))),old.toString().replace(/\r\n?/g,'\n'),f);
     else assert.ok(fs.readFileSync(f).equals(old),f);
   }
   const oldFocus=execFileSync('git',['show',baseline+':ui-v137-focus.js'],{encoding:'utf8'});
@@ -129,7 +129,7 @@ test('same-storage real offline reload finds DP/POP; empty cache retains local c
   for(const width of [320,375,390,430]){await page.setViewportSize({width,height:844});await search(page,'mew pop 5');await page.locator('.suggestion').first().waitFor();assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert.equal(await page.locator('#setSelect').isVisible(),false);}
   requests.length=0;await setOffline(true);await page.reload();await ready(page);assert.ok(!requests.some(p=>p.includes('/en/sets/')));
   for(const id of ['dp1','dp7','dpp','pop5']){const c=sample(id);await search(page,`${c.name} ${id}`);await page.locator('.suggestion').first().waitFor();}
-  assert.equal(await page.locator('.brandText strong').innerText(),'HoloDex');await page.locator('#navSettings').click();assert.match(await page.locator('.aboutCard').innerText(),/v182 · Beta/);
-  const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v184-zip-design')).keys()).map(r=>r.url));assert.ok(urls.length>20);assert.ok(urls.every(u=>new URL(u).origin===origin));assert.ok(urls.some(u=>u.endsWith('/cards.json?build=175-en-platinum-hgss-coverage')));
+  assert.equal(await page.locator('.brandText strong').innerText(),'HoloDex');await page.locator('#navSettings').click();assert.match(await page.locator('.aboutCard').innerText(),/v185 · Beta/);
+  const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v185-card-library')).keys()).map(r=>r.url));assert.ok(urls.length>20);assert.ok(urls.every(u=>new URL(u).origin===origin));assert.ok(urls.some(u=>u.endsWith('/cards.json?build=175-en-platinum-hgss-coverage')));
   await page.evaluate(()=>localStorage.removeItem('cardscout_search_catalog_v152_EN_v175'));await page.reload();await search(page,'charizard base');await page.locator('.suggestion').first().waitFor();
 });

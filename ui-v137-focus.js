@@ -62,6 +62,7 @@
   let suggestionSeq = 0;
   let localCatalog = [];
   let remoteCatalog = [];
+  let libraryCatalog = [];
   let activeSuggestionResults = [];
   let renderedSuggestionCount = 0;
   let renderedSearchContext='',renderedSearchKey='';
@@ -565,7 +566,7 @@
       merged.push(card);
     }
 
-    for(const card of remoteCatalog){
+    for(const card of remoteCatalog.concat(libraryCatalog)){
       const id = card.key || `${card.language}|${card.set}|${card.number}|${normalize(card.name)}|${card.source_id || ''}`;
       if(seen.has(id)) continue;
       seen.add(id);
@@ -573,7 +574,17 @@
     }
     catalog = prioritizeSourceIdentity(merged);
     betaSearch = window.HoloDexSearch.create(catalog,DATA.pokedex,window.JPSetCatalog,setInfo);
-    window.CardCatalog={setCards(setId,language){return [...new Map(remoteCatalog.filter(c=>c.source_set_id===setId&&c.language===language&&c.source_id).map(c=>[c.source_id,c])).values()];},marketplaceCards(){return remoteCatalog.filter(c=>c.language==='EN');},byId(id,language){return catalog.find(c=>c.source_id===id&&(c.language||'EN')===language)||null;},find(input){
+    window.CardCatalog={normalizeLibrary(card){
+      const known=card.language==='JP'?window.JPSetCatalog.sets.find(s=>s.source===card.source_set_id)?.key:Object.keys(TCGDEX_SET_IDS).find(k=>TCGDEX_SET_IDS[k].includes(card.source_set_id));
+      if(known)return makeOnlineCard({id:card.source_id,name:card.name,localId:card.number,image:card.image},known,card.language,card.source_set_name);
+      return {...card,search_aliases:card.language==='JP'?window.JPSetCatalog.searchAliases(card.name):[]};
+    },importLibrary(cards){
+      const existing=new Map(libraryCatalog.map(c=>[c.language+'|'+c.source_id,c]));
+      for(const c of cards){if(!c?.source_id||!['EN','JP'].includes(c.language))continue;existing.set(c.language+'|'+c.source_id,c);
+        if(![...setSelect.options].some(o=>o.value===c.set))setSelect.add(new Option(c.set_name+' · '+c.language,c.set));
+      }
+      libraryCatalog=[...existing.values()];rebuildCatalog();if(quickInput?.value.trim())renderSuggestions(quickInput.value);
+    },setCards(setId,language){return [...new Map(remoteCatalog.concat(libraryCatalog).filter(c=>c.source_set_id===setId&&c.language===language&&c.source_id).map(c=>[c.source_id,c])).values()];},marketplaceCards(){return remoteCatalog.filter(c=>c.language==='EN');},byId(id,language){return catalog.find(c=>c.source_id===id&&(c.language||'EN')===language)||null;},find(input){
       const language=input.language||input.lang||'EN';
       const name=cleanVisibleCardName(input.name||'',input.number||'').toLowerCase();
       const number=String(input.number||'').replace(/^0+(?=\d)/,'');
@@ -597,11 +608,11 @@
       const label = jpSet?.label || (canonical ? (setInfo?.[canonical]?.label || prettySet(canonical)) : (card.set_name || setInfo?.[card.set]?.label || prettySet(card.set)));
       const lang = card.language || 'EN';
       const isRemote = card.source === 'tcgdex';
-      const displayNumber = lang === 'JP' && isRemote ? '' : String(card.number || '').trim();
+      const displayNumber = lang === 'JP' && isRemote && !card.catalogOnly ? '' : String(card.number || '').trim();
       const displayName = cleanVisibleCardName(card.name,displayNumber) || 'Onbekende kaart';
       btn.innerHTML = `<span class="suggestionMain"><span class="suggestionTitle"></span><span class="suggestionMeta"></span></span><span class="suggestionArrow"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></span>`;
       btn.querySelector('.suggestionTitle').textContent = `${displayName}${displayNumber ? ` #${displayNumber}` : ''}`;
-      const sourceNote = isRemote ? (lang === 'JP' ? ' · JP online' : ' · volledige catalogus') : '';
+      const sourceNote = isRemote ? (card.catalogOnly?' · catalogusmetadata':lang === 'JP' ? ' · JP online' : ' · geladen catalogus') : '';
       const stampNote = (queryWantsStamped(quickInput?.value || '') && lang === 'EN' && STAMPED_SET_KEYS.has(card.set)) ? ' · ⚡ STAMPED-era' : '';
       btn.querySelector('.suggestionMeta').textContent = `${label} · ${lang}${card.rarity ? ' · '+card.rarity : ''}${stampNote}${sourceNote}${jpSet&&card.source_id?' · '+card.source_id:''}`;
       if(card.search_aliases?.length)btn.querySelector('.suggestionTitle').textContent += ' · '+card.search_aliases.join(' / ');
@@ -611,7 +622,7 @@
         nameInput.value = displayName;
         // TCGdex Japanese records use a cross-language set mapping. Do not pretend that number is the
         // printed Japanese collector/Pokedex number; authentic local JP records still keep their real number.
-        numberInput.value = (lang === 'JP' && isRemote) ? '' : (card.number || '');
+        numberInput.value = (lang === 'JP' && isRemote && !card.catalogOnly) ? '' : (card.number || '');
         const hasSetOption = [...setSelect.options].some(o => o.value === card.set);
         if(hasSetOption) setSelect.value = card.set;
         else setSelect.value = 'AUTO';
@@ -652,7 +663,8 @@
         .sort((a,b) => Number(/^(?:pl[1-4]|hgss[1-4]|col1|hgssp|hsp)$/.test(b.alias))-Number(/^(?:pl[1-4]|hgss[1-4]|col1|hgssp|hsp)$/.test(a.alias)) || b.alias.length-a.alias.length)[0]
       : null;
     const jpSet = (langSelect?.value || 'EN') === 'JP' ? betaSearch?.set(fullQuery) : null;
-    const querySet = explicitSet || jpSet;
+    const librarySet=libraryCatalog.filter(c=>c.language===(langSelect?.value||'EN')).map(c=>({key:c.set,alias:normalize(c.set_name)})).filter(x=>x.alias&&(' '+fullQuery+' ').includes(' '+x.alias+' ')).sort((a,b)=>b.alias.length-a.alias.length)[0];
+    const querySet = explicitSet || jpSet || librarySet;
     const cardQuery = querySet ? (' '+fullQuery+' ').replace(' '+querySet.alias+' ',' ').trim() : fullQuery;
     const tokens = cardQuery.split(' ').filter(t => t && !ignored.has(t));
     if((!tokens.length && !stampedOnly && !querySet) || !catalog.length){ smartSuggestions.hidden = true; smartSuggestions.innerHTML=''; return; }
