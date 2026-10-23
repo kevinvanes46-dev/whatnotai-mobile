@@ -1,0 +1,41 @@
+name: Cardmarket v186 source audit (read-only)
+
+# Development-only data health check. Never commits, publishes, deploys or
+# uploads Cardmarket's raw price rows. Scheduling needs separate approval.
+on:
+  push:
+    branches:
+      - 'codex/v186-*'
+    paths:
+      - '.github/workflows/cardmarket-source-v186.yml'
+      - 'scripts/cardmarket-public-v186.cjs'
+      - 'scripts/build-cardmarket-public-v186.cjs'
+      - 'scripts/audit-cardmarket-feed-v186.cjs'
+      - 'cardmarket-expansions-v186.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-official-downloads:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Download and stage verified Cardmarket sources outside repository
+        run: node scripts/build-cardmarket-public-v186.cjs --out "$RUNNER_TEMP/cardmarket-v186"
+      - name: Audit all 256 SHA-256 shards and approved-expansion source coverage
+        run: node scripts/audit-cardmarket-feed-v186.cjs --dir "$RUNNER_TEMP/cardmarket-v186" --report "$RUNNER_TEMP/cardmarket-audit-v186.json"
+      - name: Upload non-price audit report only
+        uses: actions/upload-artifact@v4
+        with:
+          name: cardmarket-v186-source-audit
+          path: ${{ runner.temp }}/cardmarket-audit-v186.json
+          if-no-files-found: error
+          retention-days: 7

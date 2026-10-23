@@ -30,6 +30,10 @@
       norm(sourceId.slice(0, sourceSet.length + 1)) !== norm(sourceSet + '-') ||
       collector(card.localId) !== number || collector(sourceId.slice(sourceSet.length + 1)) !== number ||
       norm(card.name) !== norm(item.name)) return unavailable('IDENTITY');
+    // The official catalog names Japanese singles in Latin script, while
+    // TCGdex names may be Japanese. Expansion + a provisional product ID alone
+    // cannot prove the exact print/number. Wait for reviewed JP aliases.
+    if (language === 'ja') return unavailable('JAPANESE_PRODUCT_UNVERIFIED');
     const productId = card.pricing?.cardmarket?.idProduct;
     if (!id(productId)) return unavailable('PRODUCT_ID');
     const approvedExpansion = expansions[sourceSet.toLowerCase()];

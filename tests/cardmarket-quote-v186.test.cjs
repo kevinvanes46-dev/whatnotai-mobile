@@ -44,14 +44,13 @@ test('uncertain finish, edition and variants never receive a generic quote',() =
   assert.equal(quote({...input,productRow:[273699,1523,row[2],null,231]}).reason,'PRICE_MISSING');
 });
 
-test('approved Japanese expansion permits product trend only with exact JP identity',() => {
+test('Japanese expansion IDs alone cannot prove exact prints without reviewed name/number aliases',() => {
   const jpItem = {...item,sourceId:'SV2a-006',source_set_id:'SV2a',number:'006',name:'リザードンex',language:'JP',edition:'UNLIMITED'};
   const jpCard = {id:'SV2a-006',set:{id:'SV2a'},localId:'006',name:'リザードンex',variants:{normal:false,holo:true,reverse:false,firstEdition:false},pricing:{cardmarket:{idProduct:719448}}};
   const result = quote({item:jpItem,card:jpCard,productRow:[719448,5328,'Charizard ex [Brave Wing | Explosive Vortex]',35,null],manifest,expansions,now});
-  assert.equal(result.state,'AVAILABLE');
-  assert.equal(result.productId,719448);
-  assert.equal(result.languageSpecific,false);
-  assert.equal(quote({item:jpItem,card:jpCard,productRow:[719448,5402,'Charizard ex',35,null],manifest,expansions,now}).reason,'EXPANSION_UNVERIFIED');
+  assert.equal(result.state,'UNAVAILABLE');
+  assert.equal(result.reason,'JAPANESE_PRODUCT_UNVERIFIED');
+  assert.equal(result.value,null);
 });
 
 test('stale official files, invalid IDs and impossible quotes fail closed',() => {

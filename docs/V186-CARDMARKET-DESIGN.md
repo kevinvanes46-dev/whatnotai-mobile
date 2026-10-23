@@ -27,10 +27,12 @@ De gids bevat een algemene Europese prijsindicatie per product, **geen bewezen N
 | Onderdeel | Gebouwd | Nog niet klaar |
 | --- | --- | --- |
 | `scripts/cardmarket-public-v186.cjs` en `scripts/build-cardmarket-public-v186.cjs` | Join op product-ID, bron- en datumcontrole, 256 kleine bestanden en SHA-256-checksums. Nooit `avg7`, `avg30`, `low` of verzonnen waarden als vervangende `trend`. | Dagelijkse GitHub Actions-download en een veilige publicatie naar dezelfde origin als de app. |
-| `cardmarket-expansions-v186.json` | Drie handmatig gecontroleerde koppelingen: `base1`/1523, `sv03.5`/5402 en `SV2a`/5328. | Alle andere EN-/JP-expansies zijn vooralsnog **niet goedgekeurd**. |
+| `cardmarket-expansions-v186.json` | Drie gecontroleerde set-ID-koppelingen: `base1`/1523, `sv03.5`/5402 en `SV2a`/5328. | Een set-ID is **geen bewijs van een exacte JP-print**. Japanse quotes blijven geblokkeerd totdat ook de naam-/nummeraliases gecontroleerd zijn. |
 | `cardmarket-price-v186.js` | Kaart-, nummer-, set-, product-ID-, naam-, editie- en finishcontrole; onbekend betekent geen prijs. Alleen TCGdex `idProduct` als verwijzing, nooit TCGdex numerieke prijs. | Diepe audit van extra prints, promo's, oudere kaarten en setnamen. |
 | `cardmarket-feed-v186.js` | Leest prijsgegevens via dezelfde website, weigert oude bron of onjuiste SHA-256; geen browser-CORS naar Cardmarket en geen user-data writes. | Echte browser-/PWA-/iPhone-tests en ververs-UX. |
 | `cardmarket-history-v186.js` | Echte tijdstippen van de bron, geen opvulling tussen dagen, geen gemengde prijsmetrieken of verschillende collecties; minstens twee echte meetpunten. | Compatibele UI met periodeknoppen/toetsenbord/touch, offline-/conflicttests en opslagmigratieonderzoek. |
+| `scripts/audit-cardmarket-feed-v186.cjs` | Verifieert elke shard/bronrij en rapporteert alleen setniveau-brondekking; schrijft geen prijzen of persoonsgegevens naar het rapport. | Bronrecords zijn nog **geen bewezen identieke kaarten**. |
+| `.github/workflows/cardmarket-source-v186.yml` | Ontwikkelworkflow die bij relevante pushes officiële bronbestanden in een tijdelijke runner-map valideert en uitsluitend een niet-prijsrapport uploadt. Read-only GitHub-rechten. | Geen automatische publicatie of dagelijkse planning; een publieke feed vraagt nog een expliciete rechten-/hergebruikcheck. |
 
 De geschiedenis staat in een eigen sleutel `holodex_cardmarket_history_v186`. Het oudere v183-historieformaat en zijn onbetrouwbare TCGdex-prijzen worden **niet** automatisch omgezet. De grafiek begint pas na twee **afzonderlijk daadwerkelijk opgehaalde** dagmomenten voor precies dezelfde bezitssamenstelling; voor 1W/1M/3M/1J/Alles zijn geen historische terugvullingen beschikbaar. Een volledige portefeuille-grafiek verschijnt pas als *alle* getelde kaarten veilig geprijsd kunnen worden. De eerste standalone implementatie staat alleen EN toe: JP blijft voor portefeuillehistorie voorlopig uitgesloten.
 
@@ -48,6 +50,14 @@ node scripts/build-cardmarket-public-v186.cjs \
 De builder weigert bestaande mappen, afwijkend bronformaat, dubbele product-ID's, te oude/futuristische brondatums en ontbreken van prijsdata. De browser leest alleen dezelfde-origin bestanden met een geldige checksum. De 256 shards + manifest bevatten **geen collectie-, cloud-, betaal- of persoonlijke gegevens**.
 
 **Geen automatische deployment:** eerst extra kaartmatching-audit, een handmatige publicatieproef in een niet-live omgeving, alle browser-, PWA-, cloud-, identiteit- en historiecontracttests, daarna expliciete releasegoedkeuring. De generieke public-download kan niet zomaar rechtstreeks vanuit GitHub Pages browsercode worden ingelezen (CORS). Een betrouwbare achtergrondimport op GitHub Actions is de voorkeursrichting, nog niet ingericht.
+
+**Duidelijke tussenstap (v186 vervolg):** de nieuwe broncontrole kan officiële data in CI controleren zonder die data te publiceren of terug te schrijven naar de repo. Dat de downloads openbaar zijn, bewijst op zichzelf nog geen recht om de prijsdatabase opnieuw publiek te distribueren. Voor een live-feed moet de toegestane vorm van gebruik/publicatie eerst bevestigd worden.
+
+### Echte auditmeting, 23 oktober 2026
+
+De extra controle op de daadwerkelijk gedownloade officiële Cardmarket-bestanden van 21/22 oktober leverde **66.786 geprijsde bronproducten**, waarvan **63.850** een gewone `trend` en **29.090** een `trend-holo` bevatten (overlap mogelijk). Bij de drie gecontroleerde set-ID-koppelingen stonden **211** (`base1`), **242** (`sv03.5`) en **210** (`sv2a`) bronproducten. Dit is uitsluitend **Cardmarket-brondekking**, geen volledige TCGdex-identiteitsvalidatie en geen bewezen NM/JP/Reverse Holo-prijs. De audit bevat zelf geen eurobedragen.
+
+De broncontrole wordt op een nieuwe v186-ontwikkelbranch ingericht als een **alleen-lezen GitHub Action** die op relevante pushes draait. Er zijn geen rechten om naar `main`, de feed, de collectie of de cloud te schrijven. De workflow uploadt alleen een geaggregeerd rapport; prijsbestanden blijven tijdelijk in de runner. Een automatische dagelijkse release/publishing job is nadrukkelijk nog niet ingericht.
 
 ## 4. Minimale acceptance criteria vóór activatie
 
