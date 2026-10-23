@@ -34,7 +34,21 @@ async function tabTo(p,selector){
 }
 test('natural Tab, Shift+Tab, Enter and Space activate Home actions and navigation',async t=>{
  const {page:p}=await setup(t,[C.initialize({...F.item,name:'Keyboard card'},2,null)]);await priced(p);
- await tabTo(p,'#homeSearch');await p.keyboard.press('Tab');assert.equal(await p.evaluate(()=>document.activeElement.id),'homeSnapshot');await p.keyboard.press('Shift+Tab');assert.equal(await p.evaluate(()=>document.activeElement.id),'homeSearch');await p.keyboard.press('Enter');assert.ok(await p.locator('#quickInput').isVisible());
+ await tabTo(p,'#homeSearch');
+ for(let i=0;i<4;i++){
+  await p.keyboard.press('Tab');
+  assert.ok(await p.locator('.v189-action').nth(i).evaluate(e=>e===document.activeElement));
+ }
+ await p.keyboard.press('Tab');
+ assert.ok(await p.locator('.v189-guide summary').evaluate(e=>e===document.activeElement));
+ await p.keyboard.press('Tab');
+ assert.equal(await p.evaluate(()=>document.activeElement.id),'homeSnapshot');
+ await p.keyboard.press('Shift+Tab');
+ assert.ok(await p.locator('.v189-guide summary').evaluate(e=>e===document.activeElement));
+ for(let i=0;i<5;i++) await p.keyboard.press('Shift+Tab');
+ assert.equal(await p.evaluate(()=>document.activeElement.id),'homeSearch');
+ await p.keyboard.press('Enter');
+ assert.ok(await p.locator('#quickInput').isVisible());
  await tabTo(p,'#navHome');await p.keyboard.press('Space');assert.ok(await p.locator('.homeView').isVisible());
  await tabTo(p,'#homeSnapshot');await p.keyboard.press('Enter');assert.ok(await p.locator('[data-view="collection"]').isVisible());
  await tabTo(p,'#navHome');await p.keyboard.press('Enter');await tabTo(p,'#homeAttention');await p.keyboard.press('Space');assert.equal(await p.locator('#collectionInsightFilter').inputValue(),'attention');
