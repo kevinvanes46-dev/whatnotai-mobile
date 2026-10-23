@@ -23,6 +23,12 @@
   $('cardSheetAction').textContent=uid?'Kaart bewerken':'Aan map toevoegen';
   $('cardSheetAction').onclick=()=>{detail.close();uid?ui().openItem(uid):ui().openAddFor(s);};
   if(!detail.open)detail.showModal();$('cardSheetClose').focus();
+  // Read-only card context for optional, isolated integrations. No market
+  // or collection state is changed by emitting this event.
+  document.dispatchEvent(new CustomEvent('holodex:detail-open',{detail:{
+   sourceId:x.sourceId,sourceSetId:x.source_set_id,language:x.language,
+   variant:x.variant,edition:x.edition,condition:x.condition
+  }}));
   const q=await quote(s);if(token!==generation)return;
   $('cardSheetPrice').textContent=q.value!=null?money(q.value):'Geen marktindicatie';
   $('cardSheetNote').textContent=[q.label,q.value!=null?q.condition:'',q.date].filter(Boolean).join(' · ');

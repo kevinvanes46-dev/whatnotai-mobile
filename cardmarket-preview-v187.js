@@ -135,7 +135,7 @@
       renderChart();
     });
     unavailableView('GEEN KAART GEKOZEN');
-    return Object.freeze({renderChart});
+    return Object.freeze({renderChart,dispose(){token++;pending?.abort();current=null;}});
   }
 
   return Object.freeze({itemFor,lookup,cardmarketUrl,controller});
