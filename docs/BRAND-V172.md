@@ -186,6 +186,7 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | docs/MARKET-V176.md | B, H | 98 | no |
 | docs/PORTFOLIO-INSIGHTS-V178.md | B, H | 37 | no |
 | docs/V182-PARITY.md | B, H | 35 | no |
+| docs/V186-NEXT-GATES.md | H | 28 | no |
 | icon-rareworth-180.png | E | — | yes |
 | icon-rareworth-192.png | E | — | yes |
 | icon-rareworth-512.png | E | — | yes |

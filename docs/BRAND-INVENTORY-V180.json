@@ -5337,6 +5337,15 @@
       "sha256": "beb64292b37114e35a0166db84eb7803317b2c6c831205e302015578b79407b7"
     },
     {
+      "file": "docs/V186-NEXT-GATES.md",
+      "line": 28,
+      "names": [
+        "rareworth"
+      ],
+      "category": "DOC_HISTORY",
+      "sha256": "64f218ddc68dd79c5c921c9b6c49514d6ad7bd7d6bdab583b8ed353fd97932c0"
+    },
+    {
       "file": "history-v183.js",
       "line": 8,
       "names": [
