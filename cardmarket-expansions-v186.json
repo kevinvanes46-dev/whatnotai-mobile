@@ -1,0 +1,11 @@
+{
+  "schema": 186,
+  "status": "initial-verified-sample-not-complete-coverage",
+  "verifiedAt": "2026-10-23",
+  "expansions": {
+    "base1": 1523,
+    "sv03.5": 5402,
+    "sv2a": 5328
+  },
+  "note": "Only three sets checked against Cardmarket's official Pokémon product catalog. All other sets must fail closed until individually audited."
+}

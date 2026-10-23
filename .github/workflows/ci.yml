@@ -99,3 +99,6 @@ jobs:
 
       - name: Historical routing with exact contextual EN condition checks
         run: node --test tests/cardmarket-engine-v147.test.cjs
+
+      - name: v186 official Cardmarket guide import, identity and immutable feed validation
+        run: node --test tests/cardmarket-public-v186.test.cjs tests/cardmarket-quote-v186.test.cjs tests/cardmarket-feed-v186.test.cjs tests/cardmarket-history-v186.test.cjs
