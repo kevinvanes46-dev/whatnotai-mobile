@@ -2,3 +2,5 @@ node_modules/
 .jp-image-import-v161.lock
 data/jp-image-import-report-v161.json
 *.tmp
+# Generated official price files for loopback-only preview; never commit them.
+cardmarket-public-v186/

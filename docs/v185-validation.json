@@ -1,0 +1,221 @@
+{
+  "date": "2026-10-22",
+  "environment": "Windows; Node 24.19.0; Chromium via Playwright 1.62.1; isolated provider/cloud fixtures",
+  "scope": "All current CI commands; historical routing suite separately run then added to CI. Resumed at corrected failures; passing unaffected steps retained. Counts use Node test runner semantics; freshness IIFE each counts as one test file.",
+  "totals": {
+    "tests": 1224,
+    "pass": 1224,
+    "fail": 0,
+    "skipped": 0
+  },
+  "steps": [
+    {
+      "command": "scripts/check-ci.cjs syntax",
+      "exit": 0
+    },
+    {
+      "command": "scripts/check-ci.cjs diff",
+      "exit": 0
+    },
+    {
+      "command": "scripts/generate-jp-cardmarket-v165.cjs --check",
+      "exit": 0
+    },
+    {
+      "command": "--test tests/line-ending-checks-v166.test.cjs",
+      "exit": 0,
+      "tests": 6,
+      "pass": 6,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "scripts/check-ci.cjs audit",
+      "exit": 0
+    },
+    {
+      "command": "scripts/check-ci.cjs core",
+      "exit": 0,
+      "tests": 72,
+      "pass": 72,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/product-shell-v168.test.cjs",
+      "exit": 0,
+      "tests": 2,
+      "pass": 2,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/pwa-v169.test.cjs",
+      "exit": 0,
+      "tests": 5,
+      "pass": 5,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/cloud-sync-v170.test.cjs tests/cloud-schema-v170.test.cjs",
+      "exit": 0,
+      "tests": 25,
+      "pass": 25,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/account-cloud-v170b.test.cjs tests/account-cloud-browser-v170b.test.cjs",
+      "exit": 0,
+      "tests": 27,
+      "pass": 27,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/onboarding-product-v171.test.cjs",
+      "exit": 0,
+      "tests": 12,
+      "pass": 12,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/launch-gate-v171-1.test.cjs",
+      "exit": 0,
+      "tests": 11,
+      "pass": 11,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/brand-foundation-v172.test.cjs",
+      "exit": 0,
+      "tests": 11,
+      "pass": 11,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/brand-rebrand-v173.test.cjs",
+      "exit": 0,
+      "tests": 13,
+      "pass": 13,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/en-dp-pop-coverage-v174.test.cjs",
+      "exit": 0,
+      "tests": 22,
+      "pass": 22,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/cardmarket-resolver-v146.test.cjs tests/cardmarket-host-v174-1.test.cjs",
+      "exit": 0,
+      "tests": 57,
+      "pass": 57,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/en-platinum-hgss-coverage-v175.test.cjs",
+      "exit": 0,
+      "tests": 25,
+      "pass": 25,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/market-value-trust-v176.test.cjs tests/market-value-browser-v176.test.cjs tests/collection-price-freshness.test.cjs",
+      "exit": 0,
+      "tests": 44,
+      "pass": 44,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/cost-basis-v177.test.cjs tests/cost-basis-browser-v177.test.cjs",
+      "exit": 0,
+      "tests": 44,
+      "pass": 44,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/portfolio-insights-v178.test.cjs tests/portfolio-insights-browser-v178.test.cjs",
+      "exit": 0,
+      "tests": 29,
+      "pass": 29,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/home-shell-v179.test.cjs tests/home-shell-browser-v179.test.cjs",
+      "exit": 0,
+      "tests": 19,
+      "pass": 19,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/beta-readiness-v180.test.cjs tests/beta-browser-v180.test.cjs",
+      "exit": 0,
+      "tests": 35,
+      "pass": 35,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/integration-v181.test.cjs tests/integration-browser-v181.test.cjs",
+      "exit": 0,
+      "tests": 21,
+      "pass": 21,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/cardmarket-reverse-v183.test.cjs",
+      "exit": 0,
+      "tests": 3,
+      "pass": 3,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/parity-v182.test.cjs tests/parity-browser-v182.test.cjs",
+      "exit": 0,
+      "tests": 15,
+      "pass": 15,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/history-v183.test.cjs tests/history-browser-v183.test.cjs",
+      "exit": 0,
+      "tests": 36,
+      "pass": 36,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test --test-concurrency=1 tests/library-v185.test.cjs tests/library-browser-v185.test.cjs tests/market-component-v185.test.cjs tests/history-component-v185.test.cjs tests/portfolio-component-v185.test.cjs tests/price-freshness-component-v185.test.cjs",
+      "exit": 0,
+      "tests": 28,
+      "pass": 28,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "--test tests/cardmarket-engine-v147.test.cjs",
+      "exit": 0,
+      "tests": 662,
+      "pass": 662,
+      "fail": 0,
+      "skipped": 0
+    }
+  ]
+}

@@ -6,12 +6,14 @@ const {context,fields,source,CACHE}=require('./helpers/cardmarket-harness.cjs');
 const {cards,productUrl,apiResponse}=require('./helpers/cardmarket-catalog.cjs');
 const databases=[['embedded',JSON.parse(source.match(/const EMBEDDED_DATA = (.*);/)[1])],['cards.json',JSON.parse(fs.readFileSync('cards.json','utf8'))]];
 const counts={database:0,direct:0,remote:cards.length,overlap:0,setLabels:0,async:0};
-function safe(result,c){
+function safe(result,c,contextualCondition=null){
  const u=new URL(result.url);assert.equal(u.protocol,'https:');
  if(result.exact) assert.ok(c.validCardmarketRoute(result.url.split('?')[0]));
  else{
   assert.equal(u.hostname,'www.cardmarket.com');assert.equal(u.pathname,'/en/Pokemon/Products/Search');
-  assert.deepEqual([...u.searchParams.keys()],['searchString']);
+  // v174 (73910a5) deliberately preserves condition for contextual EN DP/POP searches.
+  assert.deepEqual([...u.searchParams.keys()],contextualCondition===null?['searchString']:['searchString','minCondition']);
+  if(contextualCondition!==null)assert.equal(u.searchParams.get('minCondition'),String(contextualCondition));
   const term=u.searchParams.get('searchString');assert.ok(term);assert.doesNotMatch(term,/[Δδ\p{Cc}\p{Cf}\uFFFD]/u);assert.doesNotMatch(term,/delta species.*delta species/i);
  }
 }
@@ -25,7 +27,9 @@ for(const [label,data] of databases) for(const card of data.knownCards){
   const dirty=card.name+' Δ δ \u200b\ufffd Delta Species Delta Species #'+card.number+' #'+card.number;
   const term=c.cleanCardmarketName(dirty,card.number);
   assert.equal(term,c.cleanCardmarketName(card.name,card.number));
-  safe({url:c.searchUrl(dirty,card.number,card.language,'NM',card.set),exact:false},c);
+  const contextual=card.language==='EN'&&card.set==='LEGENDS AWAKENED';
+  safe({url:c.searchUrl(dirty,card.number,card.language,'NM',card.set),exact:false},c,contextual?c.CONDITION_IDS.NM:null);
+  if(contextual)assert.equal(new URL(c.searchUrl(dirty,card.number,card.language,'NM',card.set)).searchParams.get('searchString'),'Jirachi 31 Legends Awakened');
  });
 }
 for(const card of cards) test('remote catalog '+card.source_id+' '+card.language,async()=>{

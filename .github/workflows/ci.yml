@@ -93,3 +93,21 @@ jobs:
 
       - name: Local comparable history
         run: node --test tests/history-v183.test.cjs tests/history-browser-v183.test.cjs
+
+      - name: v185 library and retained isolated financial components
+        run: node --test --test-concurrency=1 tests/library-v185.test.cjs tests/library-browser-v185.test.cjs tests/market-component-v185.test.cjs tests/history-component-v185.test.cjs tests/portfolio-component-v185.test.cjs tests/price-freshness-component-v185.test.cjs
+
+      - name: Historical routing with exact contextual EN condition checks
+        run: node --test tests/cardmarket-engine-v147.test.cjs
+
+      - name: v186 official Cardmarket guide import, identity and immutable feed validation
+        run: node --test tests/cardmarket-public-v186.test.cjs tests/cardmarket-quote-v186.test.cjs tests/cardmarket-feed-v186.test.cjs tests/cardmarket-history-v186.test.cjs tests/cardmarket-audit-v186.test.cjs
+
+      - name: v187 isolated official Cardmarket preview safety and browser interaction
+        run: node --test tests/cardmarket-preview-unit-v187.test.cjs tests/cardmarket-preview-v187.test.cjs
+
+      - name: v188 opt-in HoloDex official price panel and localhost boundary
+        run: node --test tests/cardmarket-in-app-v188.test.cjs tests/cardmarket-in-app-browser-v188.test.cjs
+
+      - name: v189 mobile home, navigation and safe release appearance
+        run: node --test tests/home-experience-v189.test.cjs

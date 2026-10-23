@@ -98,16 +98,17 @@
 
   function render(){
     for(const button of buttons){button.disabled=false;button.dataset.range=button.textContent.trim();button.setAttribute('aria-pressed',String(button.textContent.trim()===active));}
-    let result={status:'UNAVAILABLE'};try{if(History&&Market)result=History.series(root.localStorage,items(),Market,active);}catch{writeFailure='STORAGE';}
+    let result={status:'UNAVAILABLE'};try{if(History&&Market&&Market.enabled!==false)result=History.series(root.localStorage,items(),Market,active);}catch{writeFailure='STORAGE';}
     if(writeFailure)result={status:'UNAVAILABLE'};
     draw(result);
+    if(Market?.enabled===false){const note=document.querySelector('.homeChartNote');if(note)note.textContent='Marktprijzen en prijsgrafiek uitgeschakeld: er is geen toegestane prijsbron gekoppeld. Aankoopkosten blijven bewaard.';}
   }
   function schedule(capture=true){
     writeRequested=writeRequested||capture;if(queued)return;queued=true;
     Promise.resolve().then(async()=>{
       const write=writeRequested;writeRequested=false;
       try{
-        if(write&&History&&Market){
+        if(write&&History&&Market&&Market.enabled!==false){
           if(!root.navigator?.locks?.request)writeFailure='LOCK_UNAVAILABLE';
           else await root.navigator.locks.request(History.KEY,()=>{const result=History.capture(root.localStorage,items(),Market);writeFailure=['STORAGE','CORRUPT','LIMIT'].includes(result.reason)?result.reason:null;});
         }

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.tcgdex.net; img-src 'none'; base-uri 'none'; object-src 'none'; form-action 'self'">
+  <title>Cardmarket-prijs-preview v187 — lokaal</title>
+  <style>
+    :root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;background:#081417;color:#f2f9f8}
+    *{box-sizing:border-box}body{margin:0;padding:18px}main{max-width:900px;margin:0 auto}
+    h1{font-size:clamp(1.5rem,5vw,2.25rem);line-height:1.2}h2{font-size:1.2rem;margin:0 0 12px}
+    .notice{border-left:4px solid #ffca7a;padding:12px;background:#25261c}
+    section{margin:20px 0;padding:18px;border-radius:16px;background:#13252a;border:1px solid #345459}
+    label{display:block;font-weight:600;margin:12px 0 4px}
+    input,select,button{font:inherit;min-height:44px;border-radius:9px;padding:8px 12px}
+    input,select{width:100%;color:inherit;background:#07191d;border:1px solid #799497}
+    button{cursor:pointer;background:#5ee0b6;border:1px solid #5ee0b6;color:#09271e;font-weight:700}
+    button:disabled{opacity:.5;cursor:not-allowed}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #f7cd7f;outline-offset:3px}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .muted{color:#c8d9d6;overflow-wrap:anywhere}.money{font-size:clamp(1.8rem,7vw,3rem);font-weight:800;margin:5px 0}
+    a{color:#9eeaff}.buttons{display:flex;gap:8px;flex-wrap:wrap}.buttons button{background:#1a383b;color:#fff;border-color:#64878c}
+    .buttons button[aria-pressed=true]{background:#5ee0b6;color:#0a2920}
+    svg{display:block;width:100%;height:auto;max-height:350px;min-height:160px;border:1px solid #406369;border-radius:10px;touch-action:manipulation}
+    svg circle:focus-visible{outline:none;stroke:#ffca7a;stroke-width:2}svg circle[role=button]{cursor:pointer}
+    [hidden]{display:none!important}@media(max-width:450px){body{padding:8px}section{padding:12px}.grid{grid-template-columns:1fr}.buttons button{flex:1 1 70px;padding:8px}}
+  </style>
+</head>
+<body>
+<main>
+  <h1>Cardmarket-prijs-preview v187</h1>
+  <p class="notice"><strong>Afgeschermde lokale proef.</strong> Deze pagina staat los van de collectie, cloud en live app. Geen fictieve prijzen. Alleen Engelse kaarten met een volledig gecontroleerde Cardmarket-identiteit kunnen een algemene trend tonen. De indicatie is niet NM/EX/GD/PL-, taal- of editie-specifiek.</p>
+  <section aria-label="Zoek exacte kaart">
+    <form id="lookup-form">
+      <label for="card-id">TCGdex-kaart-ID (bijvoorbeeld base1-4)</label>
+      <input id="card-id" type="text" placeholder="base1-4" maxlength="90" required autocomplete="off" pattern="[a-zA-Z0-9._\-]+">
+      <div class="grid">
+        <div><label for="condition">Conditie (alleen voor eigen meetpunt)</label><select id="condition"><option>NM</option><option>EX</option><option>GD</option><option>PL</option></select></div>
+        <div><label for="qty">Aantal in bezit (alleen preview)</label><input id="qty" type="number" value="1" min="1" max="1000" step="1" required></div>
+        <div><label for="lookup-button">Prijscontrole</label><button id="lookup-button" type="submit">Controleer kaart</button></div>
+      </div>
+      <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer">
+        <input id="edition-confirm" type="checkbox" style="width:24px;min-height:24px;flex:none;margin:2px 0" required>
+        <span>Ik bevestig dat dit mijn <strong>Unlimited, normale uitvoering</strong> is: geen 1st Edition, Reverse Holo of STAMPED.</span>
+      </label>
+    </form>
+    <p id="status" role="status" aria-live="polite">Nog geen kaart gekozen.</p>
+    <div id="result" hidden>
+      <p class="money" id="price"></p><p class="muted" id="source"></p>
+      <p><a id="product-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Controleer dit product bij Cardmarket</a></p>
+      <button id="capture" type="button" disabled>Meetpunt lokaal opslaan</button>
+      <p id="capture-status" role="status" class="muted"></p>
+    </div>
+  </section>
+  <section aria-label="Prijsgrafiek van echte dagen">
+    <h2>Prijsontwikkeling van exact dit bezit</h2>
+    <div class="buttons" aria-label="Grafiekperiode">
+      <button data-range="1W" type="button" aria-pressed="false">1W</button>
+      <button data-range="1M" type="button" aria-pressed="true">1M</button>
+      <button data-range="3M" type="button" aria-pressed="false">3M</button>
+      <button data-range="1J" type="button" aria-pressed="false">1J</button>
+      <button data-range="Alles" type="button" aria-pressed="false">Alles</button>
+    </div>
+    <p id="chart-status" class="muted" role="status"></p>
+    <svg id="chart" role="group" aria-label="Echte Cardmarket-trendpunten; met pijltoetsen door meetpunten"></svg>
+    <p id="chart-detail" role="status" aria-live="polite"></p>
+    <p class="muted">De grafiek wordt pas getoond na twee verschillende echte Cardmarket-publicatiedagen, voor dezelfde kaart, conditie en hoeveelheid. Er zijn geen teruggevulde of verzonnen dagen.</p>
+  </section>
+</main>
+<script src="cardmarket-price-v186.js"></script>
+<script src="cardmarket-feed-v186.js"></script>
+<script src="cardmarket-history-v186.js"></script>
+<script src="cardmarket-preview-v187.js"></script>
+<script>
+  (async()=>{
+    const status=document.getElementById('status');
+    try {
+      const response=await fetch('./cardmarket-expansions-v186.json',{credentials:'omit',cache:'no-store'});
+      if(!response.ok)throw Error('Geen gecontroleerde setlijst');
+      const data=await response.json();
+      if(data.schema!==186 || !data.expansions || typeof data.expansions!=='object')throw Error('Ongeldige setlijst');
+      window.CardmarketVerifiedExpansionsV187=Object.freeze(data.expansions);
+      CardmarketPreviewV187.controller({document,storage:localStorage,fetchImpl:fetch.bind(window),cryptoImpl:crypto});
+    } catch(error) {
+      status.textContent='Preview niet beschikbaar: bronconfiguratie of lokale opslag ontbreekt ('+error.message+').';
+      document.getElementById('lookup-button').disabled=true;
+    }
+  })();
+</script>
+</body>
+</html>

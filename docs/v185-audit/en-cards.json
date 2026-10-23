@@ -1,0 +1,743 @@
+[
+  {
+    "id": "30th-c-001",
+    "localId": "001",
+    "name": "Charizard"
+  },
+  {
+    "id": "pl4-1",
+    "localId": "1",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/pl/pl4/1"
+  },
+  {
+    "id": "2024sv-1",
+    "localId": "1",
+    "name": "Charizard"
+  },
+  {
+    "id": "gym2-2",
+    "localId": "2",
+    "name": "Blaine's Charizard",
+    "image": "https://assets.tcgdex.net/en/gym/gym2/2"
+  },
+  {
+    "id": "sm7.5-3",
+    "localId": "3",
+    "name": "Charizard"
+  },
+  {
+    "id": "dp3-3",
+    "localId": "3",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/dp/dp3/3"
+  },
+  {
+    "id": "lc-3",
+    "localId": "3",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/lc/lc/3"
+  },
+  {
+    "id": "ex14-4",
+    "localId": "4",
+    "name": "Charizard δ",
+    "image": "https://assets.tcgdex.net/en/ex/ex14/4"
+  },
+  {
+    "id": "base5-4",
+    "localId": "4",
+    "name": "Dark Charizard",
+    "image": "https://assets.tcgdex.net/en/base/base5/4"
+  },
+  {
+    "id": "base1-4",
+    "localId": "4",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/base/base1/4"
+  },
+  {
+    "id": "base4-4",
+    "localId": "4",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/base/base4/4"
+  },
+  {
+    "id": "det1-5",
+    "localId": "5",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/sm/det1/5"
+  },
+  {
+    "id": "ex16-6",
+    "localId": "6",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/ex/ex16/6"
+  },
+  {
+    "id": "ecard1-6",
+    "localId": "6",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/ecard/ecard1/6"
+  },
+  {
+    "id": "sv03.5-006",
+    "localId": "006",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/sv/sv03.5/006"
+  },
+  {
+    "id": "sm115-9",
+    "localId": "9",
+    "name": "Charizard GX",
+    "image": "https://assets.tcgdex.net/en/sm/sm115/9"
+  },
+  {
+    "id": "swsh10.5-010",
+    "localId": "010",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/swsh/swsh10.5/010"
+  },
+  {
+    "id": "A2b-010",
+    "localId": "010",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/tcgp/A2b/010"
+  },
+  {
+    "id": "xy2-11",
+    "localId": "11",
+    "name": "Charizard EX",
+    "image": "https://assets.tcgdex.net/en/xy/xy2/11"
+  },
+  {
+    "id": "g1-11",
+    "localId": "11",
+    "name": "Charizard EX",
+    "image": "https://assets.tcgdex.net/en/xy/g1/11"
+  },
+  {
+    "id": "xy12-11",
+    "localId": "11",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/xy/xy12/11"
+  },
+  {
+    "id": "swsh10.5-011",
+    "localId": "011",
+    "name": "Radiant Charizard",
+    "image": "https://assets.tcgdex.net/en/swsh/swsh10.5/011"
+  },
+  {
+    "id": "xy2-12",
+    "localId": "12",
+    "name": "Charizard EX",
+    "image": "https://assets.tcgdex.net/en/xy/xy2/12"
+  },
+  {
+    "id": "g1-12",
+    "localId": "12",
+    "name": "M Charizard EX",
+    "image": "https://assets.tcgdex.net/en/xy/g1/12"
+  },
+  {
+    "id": "xy12-12",
+    "localId": "12",
+    "name": "Charizard EX",
+    "image": "https://assets.tcgdex.net/en/xy/xy12/12"
+  },
+  {
+    "id": "xy2-13",
+    "localId": "13",
+    "name": "M Charizard EX",
+    "image": "https://assets.tcgdex.net/en/xy/xy2/13"
+  },
+  {
+    "id": "xy12-13",
+    "localId": "13",
+    "name": "M Charizard EX",
+    "image": "https://assets.tcgdex.net/en/xy/xy12/13"
+  },
+  {
+    "id": "me02-013",
+    "localId": "013",
+    "name": "Mega Charizard X ex",
+    "image": "https://assets.tcgdex.net/en/me/me02/013"
+  },
+  {
+    "id": "B1a-013",
+    "localId": "013",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/tcgp/B1a/013"
+  },
+  {
+    "id": "B1a-014",
+    "localId": "014",
+    "name": "Mega Charizard Y ex",
+    "image": "https://assets.tcgdex.net/en/tcgp/B1a/014"
+  },
+  {
+    "id": "sm9-14",
+    "localId": "14",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/sm/sm9/14"
+  },
+  {
+    "id": "swsh9-017",
+    "localId": "017",
+    "name": "Charizard V",
+    "image": "https://assets.tcgdex.net/en/swsh/swsh9/017"
+  },
+  {
+    "id": "swsh12.5-018",
+    "localId": "018",
+    "name": "Charizard V",
+    "image": "https://assets.tcgdex.net/en/swsh/swsh12.5/018"
+  },
+  {
+    "id": "swsh9-018",
+    "localId": "018",
+    "name": "Charizard VSTAR",
+    "image": "https://assets.tcgdex.net/en/swsh/swsh9/018"
+  },
+  {
+    "id": "bw11-19",
+    "localId": "19",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/bw/bw11/19"
+  },
+  {
+    "id": "swsh12.5-019",
+    "localId": "019",
+    "name": "Charizard VSTAR",
+    "image": "https://assets.tcgdex.net/en/swsh/swsh12.5/019"
+  },
+  {
+    "id": "swsh3-19",
+    "localId": "19",
+    "name": "Charizard V",
+    "image": "https://assets.tcgdex.net/en/swsh/swsh3/19"
+  },
+  {
+    "id": "bw7-20",
+    "localId": "20",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/bw/bw7/20"
+  },
+  {
+    "id": "sm10-20",
+    "localId": "20",
+    "name": "Reshiram & Charizard GX",
+    "image": "https://assets.tcgdex.net/en/sm/sm10/20"
+  },
+  {
+    "id": "pl3-20",
+    "localId": "20",
+    "name": "Charizard G",
+    "image": "https://assets.tcgdex.net/en/pl/pl3/20"
+  },
+  {
+    "id": "swsh12.5-020",
+    "localId": "020",
+    "name": "Radiant Charizard",
+    "image": "https://assets.tcgdex.net/en/swsh/swsh12.5/020"
+  },
+  {
+    "id": "swsh3-20",
+    "localId": "20",
+    "name": "Charizard VMAX",
+    "image": "https://assets.tcgdex.net/en/swsh/swsh3/20"
+  },
+  {
+    "id": "sm3-20",
+    "localId": "20",
+    "name": "Charizard GX",
+    "image": "https://assets.tcgdex.net/en/sm/sm3/20"
+  },
+  {
+    "id": "base5-21",
+    "localId": "21",
+    "name": "Dark Charizard",
+    "image": "https://assets.tcgdex.net/en/base/base5/21"
+  },
+  {
+    "id": "me02.5-022",
+    "localId": "022",
+    "name": "Mega Charizard Y ex",
+    "image": "https://assets.tcgdex.net/en/me/me02.5/022"
+  },
+  {
+    "id": "sm12-22",
+    "localId": "22",
+    "name": "Charizard & Braixen GX",
+    "image": "https://assets.tcgdex.net/en/sm/sm12/22"
+  },
+  {
+    "id": "mep-023",
+    "localId": "023",
+    "name": "Mega Charizard X ex"
+  },
+  {
+    "id": "swsh4-25",
+    "localId": "25",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/swsh/swsh4/25"
+  },
+  {
+    "id": "mep-029",
+    "localId": "029",
+    "name": "Mega Charizard X ex"
+  },
+  {
+    "id": "mep-030",
+    "localId": "030",
+    "name": "Mega Charizard Y ex"
+  },
+  {
+    "id": "A1-035",
+    "localId": "035",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/tcgp/A1/035"
+  },
+  {
+    "id": "A1-036",
+    "localId": "036",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/tcgp/A1/036"
+  },
+  {
+    "id": "ecard1-39",
+    "localId": "39",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/ecard/ecard1/39"
+  },
+  {
+    "id": "ecard1-40",
+    "localId": "40",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/ecard/ecard1/40"
+  },
+  {
+    "id": "sv04.5-054",
+    "localId": "054",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/sv/sv04.5/054"
+  },
+  {
+    "id": "svp-056",
+    "localId": "056",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/sv/svp/056"
+  },
+  {
+    "id": "xy2-69",
+    "localId": "69",
+    "name": "M Charizard EX",
+    "image": "https://assets.tcgdex.net/en/xy/xy2/69"
+  },
+  {
+    "id": "swsh3.5-74",
+    "localId": "74",
+    "name": "Charizard VMAX",
+    "image": "https://assets.tcgdex.net/en/swsh/swsh3.5/74"
+  },
+  {
+    "id": "svp-074",
+    "localId": "074",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/sv/svp/074"
+  },
+  {
+    "id": "xy12-75",
+    "localId": "75",
+    "name": "Charizard Spirit Link",
+    "image": "https://assets.tcgdex.net/en/xy/xy12/75"
+  },
+  {
+    "id": "B1a-077",
+    "localId": "077",
+    "name": "Mega Charizard Y ex",
+    "image": "https://assets.tcgdex.net/en/tcgp/B1a/077"
+  },
+  {
+    "id": "swsh3.5-79",
+    "localId": "79",
+    "name": "Charizard V",
+    "image": "https://assets.tcgdex.net/en/swsh/swsh3.5/79"
+  },
+  {
+    "id": "A2b-080",
+    "localId": "080",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/tcgp/A2b/080"
+  },
+  {
+    "id": "B1a-087",
+    "localId": "087",
+    "name": "Mega Charizard Y ex",
+    "image": "https://assets.tcgdex.net/en/tcgp/B1a/087"
+  },
+  {
+    "id": "B1a-091",
+    "localId": "091",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/tcgp/B1a/091"
+  },
+  {
+    "id": "xy2-100",
+    "localId": "100",
+    "name": "Charizard EX",
+    "image": "https://assets.tcgdex.net/en/xy/xy2/100"
+  },
+  {
+    "id": "ex15-100",
+    "localId": "100",
+    "name": "Charizard ☆ δ",
+    "image": "https://assets.tcgdex.net/en/ex/ex15/100"
+  },
+  {
+    "id": "ex3-100",
+    "localId": "100",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/ex/ex3/100"
+  },
+  {
+    "id": "xy12-101",
+    "localId": "101",
+    "name": "M Charizard EX",
+    "image": "https://assets.tcgdex.net/en/xy/xy12/101"
+  },
+  {
+    "id": "dp7-103",
+    "localId": "103",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/dp/dp7/103"
+  },
+  {
+    "id": "ex6-105",
+    "localId": "105",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/ex/ex6/105"
+  },
+  {
+    "id": "xy2-107",
+    "localId": "107",
+    "name": "M Charizard EX",
+    "image": "https://assets.tcgdex.net/en/xy/xy2/107"
+  },
+  {
+    "id": "neo4-107",
+    "localId": "107",
+    "name": "Shining Charizard",
+    "image": "https://assets.tcgdex.net/en/neo/neo4/107"
+  },
+  {
+    "id": "xy2-108",
+    "localId": "108",
+    "name": "M Charizard EX",
+    "image": "https://assets.tcgdex.net/en/xy/xy2/108"
+  },
+  {
+    "id": "A2b-108",
+    "localId": "108",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/tcgp/A2b/108"
+  },
+  {
+    "id": "me02-109",
+    "localId": "109",
+    "name": "Mega Charizard X ex",
+    "image": "https://assets.tcgdex.net/en/me/me02/109"
+  },
+  {
+    "id": "me02-125",
+    "localId": "125",
+    "name": "Mega Charizard X ex",
+    "image": "https://assets.tcgdex.net/en/me/me02/125"
+  },
+  {
+    "id": "sv03-125",
+    "localId": "125",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/sv/sv03/125"
+  },
+  {
+    "id": "me02-130",
+    "localId": "130",
+    "name": "Mega Charizard X ex",
+    "image": "https://assets.tcgdex.net/en/me/me02/130"
+  },
+  {
+    "id": "bw8-136",
+    "localId": "136",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/bw/bw8/136"
+  },
+  {
+    "id": "pl3-143",
+    "localId": "143",
+    "name": "Charizard G LV.X",
+    "image": "https://assets.tcgdex.net/en/pl/pl3/143"
+  },
+  {
+    "id": "ecard3-146",
+    "localId": "146",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/ecard/ecard3/146"
+  },
+  {
+    "id": "sm3-150",
+    "localId": "150",
+    "name": "Charizard GX",
+    "image": "https://assets.tcgdex.net/en/sm/sm3/150"
+  },
+  {
+    "id": "swsh9-153",
+    "localId": "153",
+    "name": "Charizard V",
+    "image": "https://assets.tcgdex.net/en/swsh/swsh9/153"
+  },
+  {
+    "id": "swsh9-154",
+    "localId": "154",
+    "name": "Charizard V",
+    "image": "https://assets.tcgdex.net/en/swsh/swsh9/154"
+  },
+  {
+    "id": "svp-161",
+    "localId": "161",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/sv/svp/161"
+  },
+  {
+    "id": "swsh9-174",
+    "localId": "174",
+    "name": "Charizard VSTAR",
+    "image": "https://assets.tcgdex.net/en/swsh/swsh9/174"
+  },
+  {
+    "id": "sv03.5-183",
+    "localId": "183",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/sv/sv03.5/183"
+  },
+  {
+    "id": "sm10-194",
+    "localId": "194",
+    "name": "Reshiram & Charizard GX",
+    "image": "https://assets.tcgdex.net/en/sm/sm10/194"
+  },
+  {
+    "id": "svp-196",
+    "localId": "196",
+    "name": "Charizard ex"
+  },
+  {
+    "id": "sv03.5-199",
+    "localId": "199",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/sv/sv03.5/199"
+  },
+  {
+    "id": "sm12-212",
+    "localId": "212",
+    "name": "Charizard & Braixen GX",
+    "image": "https://assets.tcgdex.net/en/sm/sm12/212"
+  },
+  {
+    "id": "sv03-215",
+    "localId": "215",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/sv/sv03/215"
+  },
+  {
+    "id": "sm10-217",
+    "localId": "217",
+    "name": "Reshiram & Charizard GX",
+    "image": "https://assets.tcgdex.net/en/sm/sm10/217"
+  },
+  {
+    "id": "sv03-223",
+    "localId": "223",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/sv/sv03/223"
+  },
+  {
+    "id": "sv03-228",
+    "localId": "228",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/sv/sv03/228"
+  },
+  {
+    "id": "sv04.5-234",
+    "localId": "234",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/sv/sv04.5/234"
+  },
+  {
+    "id": "sm12-251",
+    "localId": "251",
+    "name": "Charizard & Braixen GX",
+    "image": "https://assets.tcgdex.net/en/sm/sm12/251"
+  },
+  {
+    "id": "A1-253",
+    "localId": "253",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/tcgp/A1/253"
+  },
+  {
+    "id": "A1-280",
+    "localId": "280",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/tcgp/A1/280"
+  },
+  {
+    "id": "A1-284",
+    "localId": "284",
+    "name": "Charizard ex",
+    "image": "https://assets.tcgdex.net/en/tcgp/A1/284"
+  },
+  {
+    "id": "me02.5-294",
+    "localId": "294",
+    "name": "Mega Charizard Y ex",
+    "image": "https://assets.tcgdex.net/en/me/me02.5/294"
+  },
+  {
+    "id": "cel25cc-CC002",
+    "localId": "CC002",
+    "name": "Charizard"
+  },
+  {
+    "id": "dpp-DP45",
+    "localId": "DP45",
+    "name": "Charizard G",
+    "image": "https://assets.tcgdex.net/en/dp/dpp/DP45"
+  },
+  {
+    "id": "g1-RC5",
+    "localId": "RC5",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/xy/g1/RC5"
+  },
+  {
+    "id": "smp-SM158",
+    "localId": "SM158",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/sm/smp/SM158"
+  },
+  {
+    "id": "smp-SM195",
+    "localId": "SM195",
+    "name": "Charizard GX"
+  },
+  {
+    "id": "smp-SM201",
+    "localId": "SM201",
+    "name": "Reshiram & Charizard GX",
+    "image": "https://assets.tcgdex.net/en/sm/smp/SM201"
+  },
+  {
+    "id": "smp-SM211",
+    "localId": "SM211",
+    "name": "Charizard GX",
+    "image": "https://assets.tcgdex.net/en/sm/smp/SM211"
+  },
+  {
+    "id": "smp-SM226",
+    "localId": "SM226",
+    "name": "Charizard"
+  },
+  {
+    "id": "smp-SM230",
+    "localId": "SM230",
+    "name": "Charizard & Braixen GX"
+  },
+  {
+    "id": "smp-SM247",
+    "localId": "SM247",
+    "name": "Reshiram & Charizard GX"
+  },
+  {
+    "id": "smp-SM60",
+    "localId": "SM60",
+    "name": "Charizard GX",
+    "image": "https://assets.tcgdex.net/en/sm/smp/SM60"
+  },
+  {
+    "id": "swsh4.5sv-SV107",
+    "localId": "SV107",
+    "name": "Charizard VMAX"
+  },
+  {
+    "id": "sma-SV49",
+    "localId": "SV49",
+    "name": "Charizard-GX",
+    "image": "https://assets.tcgdex.net/en/sm/sma/SV49"
+  },
+  {
+    "id": "swshp-SWSH050",
+    "localId": "SWSH050",
+    "name": "Charizard V",
+    "image": "https://assets.tcgdex.net/en/swsh/swshp/SWSH050"
+  },
+  {
+    "id": "swshp-SWSH066",
+    "localId": "SWSH066",
+    "name": "Charizard",
+    "image": "https://assets.tcgdex.net/en/swsh/swshp/SWSH066"
+  },
+  {
+    "id": "swshp-SWSH075",
+    "localId": "SWSH075",
+    "name": "Special Delivery Charizard"
+  },
+  {
+    "id": "swshp-SWSH133",
+    "localId": "SWSH133",
+    "name": "Lance's Charizard V",
+    "image": "https://assets.tcgdex.net/en/swsh/swshp/SWSH133"
+  },
+  {
+    "id": "swshp-SWSH260",
+    "localId": "SWSH260",
+    "name": "Charizard V",
+    "image": "https://assets.tcgdex.net/en/swsh/swshp/SWSH260"
+  },
+  {
+    "id": "swshp-SWSH261",
+    "localId": "SWSH261",
+    "name": "Charizard VMAX",
+    "image": "https://assets.tcgdex.net/en/swsh/swshp/SWSH261"
+  },
+  {
+    "id": "swshp-SWSH262",
+    "localId": "SWSH262",
+    "name": "Charizard VSTAR",
+    "image": "https://assets.tcgdex.net/en/swsh/swshp/SWSH262"
+  },
+  {
+    "id": "swsh11tg-TG03",
+    "localId": "TG03",
+    "name": "Charizard"
+  },
+  {
+    "id": "xyp-XY121",
+    "localId": "XY121",
+    "name": "Charizard EX",
+    "image": "https://assets.tcgdex.net/en/xy/xyp/XY121"
+  },
+  {
+    "id": "xyp-XY17",
+    "localId": "XY17",
+    "name": "Charizard EX",
+    "image": "https://assets.tcgdex.net/en/xy/xyp/XY17"
+  },
+  {
+    "id": "xyp-XY29",
+    "localId": "XY29",
+    "name": "Charizard EX",
+    "image": "https://assets.tcgdex.net/en/xy/xyp/XY29"
+  }
+]

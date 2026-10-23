@@ -1,0 +1,15 @@
+/* Isolated detail panel, only instantiated in explicit local v188 mode. */
+.cm188{box-sizing:border-box;margin:16px 0;padding:14px;border:1px solid #537468;border-radius:16px;background:#12241d;overflow-wrap:anywhere}
+.cm188 h3{margin:0 0 8px;font-size:1.07rem}.cm188 h3 small{display:block;font-size:.72rem;color:#9fcbb8;font-weight:400}
+.cm188 h4{margin:14px 0 10px}.cm188 p{margin:8px 0;line-height:1.45}
+.cm188 .cm188-note{font-size:.81rem;color:#bdcfca}.cm188 label.cm188-confirm{display:flex;gap:9px;align-items:flex-start;margin:12px 0;font-size:.88rem}
+.cm188 input[type=checkbox]{width:22px;height:22px;flex:none;accent-color:#61dfaa}
+.cm188 button{max-width:100%;min-height:44px;cursor:pointer}.cm188 button:disabled{opacity:.55;cursor:not-allowed}
+.cm188 .cm188-price{display:block;font-size:1.7rem;line-height:1.3;color:#84f9ba;overflow-wrap:anywhere}
+.cm188 a{overflow-wrap:anywhere;color:#9fe9c6}.cm188 .cm188-ranges{display:flex;flex-wrap:wrap;gap:4px}
+.cm188 .cm188-ranges button{flex:1 1 auto;padding:7px;min-width:44px}.cm188 button[aria-pressed=true]{background:#62e5b2;color:#0b251c}
+.cm188 svg{display:block;width:100%;height:auto;min-height:110px;max-height:260px;touch-action:manipulation;overflow:visible}
+.cm188 svg:empty{display:none}.cm188 svg circle[role=button]{cursor:pointer}
+.cm188 svg circle:focus-visible{outline:3px solid #ffd58a;outline-offset:2px}
+.cm188 [hidden]{display:none!important}.cm188 :focus-visible{outline:3px solid #ffd58a;outline-offset:2px}
+@media(max-width:350px){.cm188{padding:10px}.cm188 .cm188-ranges button{padding:6px}}

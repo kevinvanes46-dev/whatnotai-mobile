@@ -6,127 +6,17 @@ before(async()=>{server=http.createServer((req,res)=>{try{const f=new URL(req.ur
 after(async()=>{await browser?.close();await new Promise(r=>server.close(r));});
 async function setup(t,options={}){const context=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce',...options});t.after(()=>context.close());await context.route('**/*',r=>{const u=new URL(r.request().url());if(u.origin===origin)return r.continue();if(u.hostname==='api.tcgdex.net'){const id=u.pathname.split('/').pop();if(u.pathname.includes('/cards/'))return r.fulfill({json:F.card});if(u.pathname.includes('/en/sets/')&&id==='base1')return r.fulfill({json:{cards:Array.from({length:10},(_,i)=>({id:'base1-'+(i+1),localId:String(i+1),name:i===3?'Charizard':'Fixture '+(i+1),image:'https://assets.tcgdex.net/en/base/base1/'+(i+1)}))}});if(u.pathname.includes('/en/sets/')&&id==='base2')return r.fulfill({json:require('./fixtures/beta-en-jungle-v180.json')});for(const folder of (u.pathname.includes('/ja/')?['jp-sets-v160']:['en-sets-v174','en-sets-v175'])){const f='tests/fixtures/'+folder+'/'+id+'.json';if(fs.existsSync(f))return r.fulfill({json:(()=>{const data=JSON.parse(fs.readFileSync(f));if(u.pathname.includes('/ja/'))data.cards=data.cards.map(c=>({...c,image:'https://assets.tcgdex.net/ja/base/'+id+'/'+c.id}));return data;})()});}return r.fulfill({json:{cards:[]}});}if(['assets.tcgdex.net','cdn.artofpkm.com'].includes(u.hostname))return r.fulfill({contentType:'image/png',body:fs.readFileSync('icon-rareworth-192.png')});return r.abort();});const p=await context.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));t.after(()=>assert.deepEqual(errors,[]));await p.clock.setFixedTime(new Date('2026-10-17T12:00:00Z'));await p.goto(origin);await p.locator('#onboardingGuest').click();return {p,context};}
 
-async function observe(p,day,value=25,qty=2){
-  await p.clock.setFixedTime(new Date('2026-10-'+day+'T12:00:00Z'));
-  await p.evaluate(({f,card,KEY,value,qty})=>{
-    const item={...f,edition:'UNLIMITED',qty};
-    localStorage.setItem(KEY,JSON.stringify([item]));
-    const source={...card,pricing:{cardmarket:{...card.pricing.cardmarket,'trend-holo':value,updated:new Date().toISOString()}}};
-    const entry=HoloKeepMarket.observe(source,item,{requestedLanguage:'en',now:Date.now()});
-    HoloKeepMarket.put(localStorage,item,entry);
-    cardscoutCollectionUI.render();
-    document.getElementById('navHome').click();
-  },{f:F.item,card:F.card,KEY,value,qty});
-  await p.waitForFunction(()=>HoloDexHistory.read(localStorage).data?.cohorts.some(c=>c.points.some(x=>x.observedAt===new Date().toISOString())));
+
+const Engine=require('../market-v176.js'),History=require('../history-v183.js');
+function recorded(values){const valuesByKey=new Map(),storage={getItem:k=>valuesByKey.get(k)||null,setItem:(k,v)=>valuesByKey.set(k,v)},item={...F.item,edition:'UNLIMITED',qty:2};
+ for(const [day,value] of values){const now=Date.parse('2026-10-'+day+'T12:00:00Z'),card={...F.card,pricing:{cardmarket:{...F.card.pricing.cardmarket,'trend-holo':value,updated:new Date(now).toISOString()}}};Engine.put(storage,item,Engine.observe(card,item,{requestedLanguage:'en',now}));assert.equal(History.capture(storage,[item],Engine,now).status,'STORED');}
+ return {item,history:storage.getItem(History.KEY),cache:storage.getItem(Engine.KEY)};
 }
-test('real local observations drive the existing chart, survive reload and never request prices',async t=>{
-  const {p,context}=await setup(t);let requests=0;
-  await p.locator('#navHome').click();
-  assert.match(await p.locator('.homeChartNote').innerText(),/Voeg eerst een kaart toe/);
-  p.on('request',r=>{if(new URL(r.url()).hostname==='api.tcgdex.net'&&r.url().includes('/cards/'))requests++;});
-  await observe(p,'17');
-  const panel=p.locator('#homeComparisonPanel');
-  assert.equal(await panel.locator('svg').count(),0);
-  await observe(p,'18',30);
-  await p.waitForFunction(()=>document.querySelector('#homeComparisonPanel svg circle'));
-  assert.equal(await panel.locator('svg circle').count(),2);
-  const lineVertices=await panel.locator('polyline').getAttribute('points');
-  assert.equal(await panel.locator('.homeObservedArea').getAttribute('d'),'M'+lineVertices.split(' ').join(' L')+' L296,200 L24,200 Z');
-  assert.ok(await panel.evaluate(el=>el.querySelector('.homeRanges').getBoundingClientRect().top>=el.querySelector('.homeChartStage').getBoundingClientRect().bottom));
-  assert.match(await panel.locator('.homeChartSummary').innerText(),/50,00.*60,00.*10,00/);
-  const stored=await p.evaluate(()=>localStorage.getItem(HoloDexHistory.KEY));
-  for(let i=0;i<3;i++)await p.locator('#navHome').click();
-  await p.evaluate(()=>navigator.locks.request(HoloDexHistory.KEY,()=>{}));
-  assert.equal(await p.evaluate(()=>localStorage.getItem(HoloDexHistory.KEY)),stored);
-  assert.equal(requests,0);
-  for(const width of [320,375,390,430]){
-    await p.setViewportSize({width,height:844});
-    assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
-    const out=path.join(os.tmpdir(),'holodex-v183-history');fs.mkdirSync(out,{recursive:true});
-    await panel.screenshot({path:path.join(out,width+'.png')});
-  }
-  await p.reload();await p.locator('#navHome').click();
-  await p.waitForFunction(()=>document.querySelectorAll('#homeComparisonPanel svg circle').length===2);
-  assert.equal(await p.evaluate(()=>localStorage.getItem(HoloDexHistory.KEY)),stored);
-  await observe(p,'28',35);
-  await panel.getByRole('button',{name:'1W',exact:true}).click();
-  assert.equal(await panel.locator('svg').count(),0);
-  await panel.getByRole('button',{name:'Alles',exact:true}).click();
-  assert.equal(await panel.locator('svg circle').count(),3);
-  await observe(p,'28',35,3);
-  await p.waitForFunction(()=>!document.querySelector('#homeComparisonPanel svg'));
-  assert.equal(await p.evaluate(()=>HoloDexHistory.read(localStorage).data.cohorts.length),2);
-  assert.equal(requests,0);
-});
-test('corrupt history stays untouched and duplicate UI initialization creates no second panel',async t=>{
-  const {p}=await setup(t);await observe(p,'17');
-  await p.evaluate(()=>{localStorage.setItem(HoloDexHistory.KEY,'{broken');dispatchEvent(new StorageEvent('storage',{key:HoloDexHistory.KEY}));});
-  await p.addScriptTag({content:fs.readFileSync('ui-v183-parity.js','utf8')});
-  await p.locator('#navHome').click();
-  await p.evaluate(()=>navigator.locks.request(HoloDexHistory.KEY,()=>{}));
-  assert.equal(await p.locator('.homeChartStage').count(),1);
-  assert.equal(await p.locator('#homeComparisonPanel svg').count(),0);
-  assert.equal(await p.evaluate(()=>localStorage.getItem(HoloDexHistory.KEY)),'{broken');
-});
+async function seed(p,values){const data=recorded(values);await p.clock.setFixedTime(new Date('2026-10-30T12:00:00Z'));await p.evaluate(({item,history,cache})=>{localStorage.setItem('cardscout_collection_v133',JSON.stringify([item]));localStorage.setItem(HoloDexHistory.KEY,history);localStorage.setItem(HoloKeepMarket.KEY,cache);cardscoutCollectionUI.render();document.getElementById('navHome').click();},data);return data;}
+async function disabled(p,data){assert.equal(await p.locator('#homeComparisonPanel svg').count(),0);assert.equal(await p.locator('.homeChartSummary').innerText(),'');assert.ok(await p.locator('.homeHistoryDetail').isHidden());assert.match(await p.locator('.homeChartNote').innerText(),/uitgeschakeld/);assert.equal(await p.evaluate(()=>localStorage.getItem(HoloDexHistory.KEY)),data.history);assert.equal(await p.evaluate(()=>localStorage.getItem(HoloKeepMarket.KEY)),data.cache);}
 
-test('polished summary follows real range endpoints, negative and flat changes',async t=>{
-  const {p}=await setup(t);await observe(p,'17',100);await observe(p,'18',106.26);
-  const panel=p.locator('#homeComparisonPanel'),summary=panel.locator('.homeChartSummary');
-  assert.match(await summary.innerText(),/200,00.*212,52.*12,52.*6,26%/);
-  assert.equal(await summary.getAttribute('data-direction'),'positive');
-  await observe(p,'28',50);
-  await panel.getByRole('button',{name:'1W',exact:true}).click();
-  assert.equal(await panel.locator('svg').count(),0);assert.equal(await summary.innerText(),'');
-  assert.ok(await panel.locator('.homeHistoryDetail').isHidden());
-  await panel.getByRole('button',{name:'Alles',exact:true}).click();
-  assert.match(await summary.innerText(),/200,00.*100,00.*100,00.*50,00%/);
-  assert.equal(await summary.getAttribute('data-direction'),'negative');
-  assert.equal(await panel.locator('polyline').evaluate(e=>e.points.numberOfItems),3);
-  await observe(p,'29',50);await panel.getByRole('button',{name:'1W',exact:true}).click();
-  assert.match(await summary.innerText(),/100,00.*100,00.*Ongewijzigd.*0,00.*0,00%/);
-  assert.equal(await summary.getAttribute('data-direction'),'flat');
-  assert.equal(await panel.locator('.homeChartY span').count(),1);
-  assert.equal(await panel.locator('polyline').evaluate(e=>e.points.numberOfItems),2);
-  await p.reload();await p.locator('#navHome').click();
-  await panel.getByRole('button',{name:'1W',exact:true}).click();
-  assert.match(await summary.innerText(),/Ongewijzigd.*0,00.*0,00%/);
-});
-
-test('hover and keyboard detail use observedAt, not later generatedAt',async t=>{
-  const {p}=await setup(t);await observe(p,'17');await observe(p,'18',30);
-  await p.clock.setFixedTime(new Date('2026-10-18T15:00:00Z'));
-  await p.evaluate(()=>{
-    const d=JSON.parse(localStorage.getItem(HoloDexHistory.KEY));
-    d.cohorts[0].points.at(-1).generatedAt=new Date().toISOString();
-    localStorage.setItem(HoloDexHistory.KEY,JSON.stringify(d));
-  });
-  await p.reload();await p.locator('#navHome').click();
-  const points=p.locator('.homeHistoryPoint'),detail=p.locator('.homeHistoryDetail');
-  await points.first().hover();
-  assert.equal(await detail.getAttribute('data-observed-at'),'2026-10-17T12:00:00.000Z');
-  await points.first().focus();await p.keyboard.press('ArrowRight');
-  assert.equal(await points.last().getAttribute('aria-pressed'),'true');
-  assert.equal(await points.last().evaluate(e=>e===document.activeElement),true);
-  assert.equal(await detail.getAttribute('data-observed-at'),'2026-10-18T12:00:00.000Z');
-  const dates=await p.evaluate(()=>['2026-10-18T12:00:00Z','2026-10-18T15:00:00Z'].map(v=>new Intl.DateTimeFormat('nl-NL',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(new Date(v))));
-  const text=await detail.innerText();assert.ok(text.includes(dates[0]));assert.ok(!text.includes(dates[1]));
-  assert.match(text,/60,00.*Cardmarket.*EUR.*Trend/);
-  assert.match(await points.last().getAttribute('aria-label'),/Cardmarket.*EUR.*Trend/);
-  await p.keyboard.press('Home');assert.equal(await points.first().evaluate(e=>e===document.activeElement),true);
-  await p.keyboard.press('End');assert.equal(await points.last().evaluate(e=>e===document.activeElement),true);
-});
-
-test('touch details and long EUR labels fit every required mobile width',async t=>{
-  const {p}=await setup(t,{hasTouch:true,isMobile:true});
-  await observe(p,'17',1240500);await observe(p,'18',1318200);
-  const out=path.join(os.tmpdir(),'holodex-v183-polish');fs.mkdirSync(out,{recursive:true});
-  for(const width of [320,375,390,430]){
-    await p.setViewportSize({width,height:844});
-    await p.locator('.homeHistoryPoint').first().tap();
-    assert.equal(await p.locator('.homeHistoryDetail').getAttribute('data-observed-at'),'2026-10-17T12:00:00.000Z');
-    assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
-    assert.ok(await p.locator('.homeHistoryDetail').evaluate(e=>{const r=e.getBoundingClientRect();return r.left>=0&&r.right<=innerWidth&&e.scrollWidth<=e.clientWidth;}));
-    assert.equal(await p.locator('.homeChartY span').count(),2);
-    await p.locator('#homeComparisonPanel').screenshot({path:path.join(out,width+'.png')});
-  }
-});
+test('validated historical observations survive reload but cannot display disabled provider prices',async t=>{const {p}=await setup(t);let requests=0;p.on('request',r=>{if(r.url().includes('/cards/'))requests++;});const data=await seed(p,[['17',25],['18',30]]);await disabled(p,data);for(let i=0;i<3;i++)await p.locator('#navHome').click();await p.reload();await p.locator('#navHome').click();await disabled(p,data);assert.equal(requests,0);assert.deepEqual(await p.evaluate(()=>JSON.parse(localStorage.getItem('cardscout_collection_v133'))),[data.item]);});
+test('corrupt history stays untouched and duplicate UI initialization creates no second panel',async t=>{const {p}=await setup(t);await p.evaluate(()=>{localStorage.setItem(HoloDexHistory.KEY,'{broken');dispatchEvent(new StorageEvent('storage',{key:HoloDexHistory.KEY}));});await p.addScriptTag({content:fs.readFileSync('ui-v183-parity.js','utf8')});await p.locator('#navHome').click();assert.equal(await p.locator('.homeChartStage').count(),1);assert.equal(await p.locator('#homeComparisonPanel svg').count(),0);assert.equal(await p.evaluate(()=>localStorage.getItem(HoloDexHistory.KEY)),'{broken');});
+test('positive, negative and flat cached histories remain suppressed for all five ranges',async t=>{const {p}=await setup(t);for(const values of [[['17',100],['18',106.26]],[['17',100],['28',50]],[['28',50],['29',50]]]){const data=await seed(p,values);for(const label of ['1W','1M','3M','1J','Alles']){const b=p.locator('.homeRanges').getByRole('button',{name:label,exact:true});await b.click();assert.equal(await b.getAttribute('aria-pressed'),'true');await disabled(p,data);}}});
+test('keyboard range controls remain accessible without exposing cached observedAt or generatedAt prices',async t=>{const {p}=await setup(t),data=await seed(p,[['17',25],['18',30]]);const parsed=JSON.parse(data.history);parsed.cohorts[0].points.at(-1).generatedAt='2026-10-18T15:00:00.000Z';data.history=JSON.stringify(parsed);await p.evaluate(raw=>localStorage.setItem(HoloDexHistory.KEY,raw),data.history);await p.reload();await p.locator('#navHome').click();for(const label of ['1W','1M','3M','1J','Alles']){const b=p.locator('.homeRanges').getByRole('button',{name:label,exact:true});await b.focus();await p.keyboard.press('Enter');assert.equal(await b.getAttribute('aria-pressed'),'true');assert.equal(await b.evaluate(e=>document.activeElement===e),true);}await disabled(p,data);assert.equal(await p.locator('.homeHistoryPoint').count(),0);});
+test('touch range controls and disabled-state copy fit all required mobile widths with large cached prices',async t=>{const {p}=await setup(t,{hasTouch:true,isMobile:true}),data=await seed(p,[['17',1240500],['18',1318200]]);for(const width of [320,375,390,430]){await p.setViewportSize({width,height:844});const b=p.locator('.homeRanges').getByRole('button',{name:'Alles',exact:true});await b.tap();assert.equal(await b.getAttribute('aria-pressed'),'true');await disabled(p,data);assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert.ok(await p.locator('.homeChartNote').evaluate(e=>e.scrollWidth<=e.clientWidth));}});

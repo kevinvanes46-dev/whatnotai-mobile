@@ -634,9 +634,11 @@
     return null;
   }
   function priceFrom(card,item){
+    if(Market.enabled===false)return null;
     return Market.observe(card,marketItem(item),{requestedLanguage:item.language==='JP'?'ja':'en'});
   }
   async function refreshOnePrice(uid){
+    if(Market.enabled===false)return 'disabled';
     const initial=read().map(normalizeItem).filter(Boolean).find(x=>x.uid===uid);
     if(!initial||initial.listType!=='OWNED')return;
     const requestKey=priceIdentity(initial);
@@ -671,6 +673,7 @@
     return request;
   }
   async function refreshPrices(force=false){
+    if(Market.enabled===false){if(priceStatus)priceStatus.textContent='Marktprijzen uitgeschakeld · geen toegestane prijsbron';return;}
     if(refreshingPrices)return;
     const arr=read().map(normalizeItem).filter(Boolean);
     const owned=arr.filter(x=>x.listType==='OWNED');

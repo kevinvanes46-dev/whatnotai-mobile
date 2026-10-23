@@ -38,5 +38,6 @@
     return {...card,set:set.key,set_name:set.label,source_set_id:set.source,
       search_aliases:searchAliases(card.name)};
   }
-  window.JPSetCatalog={sets:Object.freeze(sets),sourceSets:Object.fromEntries(sets.map(s=>[s.key,[s.source]])),identity,normalize,searchAliases};
+  window.JPSetCatalog={sets:Object.freeze(sets),sourceSets:Object.fromEntries(sets.map(s=>[s.key,[s.source]])),identity,normalize,searchAliases,
+    searchName:query=>species.find(([,en])=>en.toLowerCase()===String(query).trim().toLowerCase())?.[0]||query};
 })();

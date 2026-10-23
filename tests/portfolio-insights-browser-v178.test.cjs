@@ -18,9 +18,9 @@ const signature=p=>p.evaluate(KEY=>RareWorthCloudSync.createLocalSnapshot(JSON.p
 
 test('summary, unit/position and partial results; insights open existing editor',async t=>{
  const partial=C.addUnknown(C.initialize({...F.item,uid:'partial'},3,10),2),{page:p}=await setup(t,[partial]);
- assert.equal(await p.locator('#collectionCount').innerText(),'5');assert.match(await p.locator('#collectionMarket').innerText(),/125,00/);assert.match(await p.locator('#collectionPaid').innerText(),/30,00/);assert.match(await p.locator('#collectionDifference').innerText(),/45,00/);
- assert.match(await row(p,'partial').innerText(),/p\/st\. · €.*125,00 totaal/);assert.match(await row(p,'partial').innerText(),/Over 3 van 5/);
- assert.ok(await p.locator('#collectionInsightPreview > button').count()<=2);await p.locator('#collectionInsightPreview button').first().click();assert.ok(await p.locator('#collectionEditor').isVisible());await p.locator('#collectionEditorClose').click();
+ assert.equal(await p.locator('#collectionCount').innerText(),'5');assert.equal(await p.locator('#collectionMarket').innerText(),'—');assert.match(await p.locator('#collectionPaid').innerText(),/30,00/);assert.equal(await p.locator('#collectionDifference').innerText(),'—');
+ assert.match(await row(p,'partial').innerText(),/uitgeschakeld/);assert.equal((await read(p))[0].costBasis.knownQty,3);assert.equal((await read(p))[0].qty,5);
+ assert.equal(await p.locator('#collectionInsightPreview > button').count(),0);await row(p,'partial').locator('.collectionCardOpen').click();assert.ok(await p.locator('#collectionEditor').isVisible());await p.locator('#collectionEditorClose').click();
 });
 test('sorts, filters, attention and expanded insights do not request provider data or mutate collection',async t=>{
  const {page:p}=await setup(t,[F.item,C.initialize({...F.item,uid:'known'},3,30),C.addUnknown(C.initialize({...F.item,uid:'partial'},1,5),2)]);
@@ -43,7 +43,7 @@ test('offline reload retains identical insights, no provider calls, only local P
  await p.evaluate(()=>{for(const [suffix,card] of [['EN_v175',{source_id:'base1-4',source_set_id:'base1',name:'Charizard',number:'4',set:'BASE',language:'EN'}],['JP_v160',{source_id:'neo1-036',source_set_id:'neo1',name:'ピカチュウ',number:'036',set:'NEO GENESIS',language:'JP'}]])localStorage.setItem('cardscout_search_catalog_v152_'+suffix,JSON.stringify({savedAt:Date.now(),cards:[card]}));});
  await p.evaluate(()=>navigator.serviceWorker.ready);await p.waitForFunction(()=>!!navigator.serviceWorker.controller);await context.setOffline(true);let calls=0;p.on('request',r=>{if(new URL(r.url()).hostname==='api.tcgdex.net')calls++;});
  await p.reload();await p.locator('#navCollection').click();assert.equal(await p.locator('#collectionInsightPreview').innerText(),before);assert.deepEqual(await read(p),saved);await p.locator('#collectionAllInsights summary').click();assert.equal(calls,0);
- const urls=await p.evaluate(async()=> (await(await caches.open('rareworth-shell-v184-zip-design')).keys()).map(r=>r.url));assert.ok(urls.some(u=>u.includes('portfolio-insights-v178.js')));assert.ok(urls.every(u=>new URL(u).origin===origin));
+ const urls=await p.evaluate(async()=> (await(await caches.open('rareworth-shell-v189-app-experience')).keys()).map(r=>r.url));assert.ok(urls.some(u=>u.includes('portfolio-insights-v178.js')));assert.ok(urls.every(u=>new URL(u).origin===origin));
 });
 test('empty collection has useful search CTA and no empty dashboard',async t=>{
  const {page:p}=await setup(t,[]);assert.ok(await p.locator('.collectionSummary').isHidden());assert.ok(await p.locator('#collectionInsights').isHidden());await p.locator('#collectionFirstCard').click();assert.ok(await p.locator('#quickInput').isVisible());
@@ -52,6 +52,6 @@ test('mobile widths, long names, keyboard focus and signed partial comparisons',
  const partial=C.addUnknown(C.initialize({...F.item,uid:'partial'},3,50),2),{page:p}=await setup(t,[F.item,partial]);
  await p.evaluate(()=>{const items=JSON.parse(localStorage.getItem('cardscout_collection_v133'));items[0].name='Een bijzonder lange Pokémon kaartnaam met meerdere woorden';localStorage.setItem('cardscout_collection_v133',JSON.stringify(items));cardscoutCollectionUI.render();});
  for(const width of [320,375,390,430]){await p.setViewportSize({width,height:844});await p.locator('.collectionTools').evaluate(el=>el.open=true);await p.locator('#collectionAllInsights').evaluate(el=>el.open=true);
- assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert.match(await row(p,'partial').innerText(),/−€.*75,00/);assert.match(await row(p,'partial').innerText(),/Over 3 van 5/);await p.locator('#collectionAttention').focus();assert.equal(await p.evaluate(()=>document.activeElement.id),'collectionAttention');
+ assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert.match(await row(p,'partial').innerText(),/uitgeschakeld/);assert.equal(await p.locator('#collectionDifference').innerText(),'—');assert.equal((await read(p)).find(x=>x.uid==='partial').costBasis.total,150);await p.locator('#collectionAttention').focus();assert.equal(await p.evaluate(()=>document.activeElement.id),'collectionAttention');
  await p.screenshot({path:path.join(os.tmpdir(),'holokeep-v178-'+width+'.png'),fullPage:true});}
 });

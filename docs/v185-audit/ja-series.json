@@ -1,0 +1,58 @@
+[
+  {
+    "id": "PMCG",
+    "name": "ポケットモンスターカードゲーム"
+  },
+  {
+    "id": "neo",
+    "name": "ポケモンカード★neo"
+  },
+  {
+    "id": "VS",
+    "name": "VS"
+  },
+  {
+    "id": "web",
+    "name": "web"
+  },
+  {
+    "id": "e",
+    "name": "ポケモンカードe"
+  },
+  {
+    "id": "ADV",
+    "name": "ADV"
+  },
+  {
+    "id": "PCG",
+    "name": "PCG"
+  },
+  {
+    "id": "L",
+    "name": "LEGEND"
+  },
+  {
+    "id": "XY",
+    "name": "XY"
+  },
+  {
+    "id": "XYb",
+    "name": "XY BREAK"
+  },
+  {
+    "id": "SM",
+    "name": "サン＆ムーン"
+  },
+  {
+    "id": "S",
+    "name": "剣と盾"
+  },
+  {
+    "id": "M",
+    "name": "ポケモンカードゲーム MEGA"
+  },
+  {
+    "id": "SV",
+    "name": "ポケモンカードゲーム スカーレット&バイオレット"
+  }
+]
