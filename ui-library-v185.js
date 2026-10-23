@@ -18,10 +18,62 @@
   const showSets=button('Meer sets tonen',()=>{setLimit+=24;renderSets(false)});browser.append(heading,intro,filters,count,grid,showSets,details);
   host.append(tools,status,more,browser);$('smartSuggestions').before(host);
   const collectionLink=button('Blader door de kaartbibliotheek',()=>{$('navSearch').click();browser.hidden=false;toggle.setAttribute('aria-expanded','true');renderSets();host.scrollIntoView({block:'start'});});collectionLink.className='libraryCollectionLink';$('collectionSets').before(collectionLink);
-  let library,snapshot,seq=0,page=1,timer,setLimit=24,detailSeq=0,currentSet=null,cardPage=0,ownership='all';
+  let library,snapshot,seq=0,page=1,timer,setLimit=24,detailSeq=0,currentSet=null,cardPage=0,ownership='all',routeSeq=0,productIndexPromise;
+  const cardDetails=new Map();
   const active=()=>document.documentElement.dataset.activeTab==='search';
   const lang=()=>$('langSelect').value==='JP'?'JP':'EN';
-  const ownedIds=l=>new Set(window.cardscoutCollectionUI.items().filter(x=>x.language===l&&x.listType==='OWNED').map(x=>x.sourceId));
+  const ownedIds=(l,setId)=>new Set(window.cardscoutCollectionUI.items().filter(x=>{
+    const source=String(x.sourceId||''),explicit=x.source_set_id||x.sourceSetId;
+    return x.language===l&&x.listType==='OWNED'&&source.startsWith(setId+'-')&&(!explicit||explicit===setId);
+  }).map(x=>x.sourceId));
+  function officialIndex(){
+    if(!productIndexPromise)productIndexPromise=fetch('cardmarket-product-index-v191.json',{credentials:'omit'})
+      .then(r=>{if(!r.ok)throw Error('Productcatalogus ontbreekt');return r.json();})
+      .catch(e=>{productIndexPromise=null;throw e;});
+    return productIndexPromise;
+  }
+  function detailedCard(c){
+    if(!cardDetails.has(c.source_id))cardDetails.set(c.source_id,fetch('https://api.tcgdex.net/v2/en/cards/'+encodeURIComponent(c.source_id),
+      {credentials:'omit',headers:{Accept:'application/json'},signal:AbortSignal.timeout(12000)})
+      .then(r=>{if(!r.ok)throw Error('Kaartbron niet beschikbaar');return r.json();})
+      .catch(e=>{cardDetails.delete(c.source_id);throw e;}));
+    return cardDetails.get(c.source_id);
+  }
+  function setCardmarketLink(link,route){
+    if(route?.url){link.href=route.url;link.hidden=false;link.textContent=route.exact?'Bekijk exacte kaart op Cardmarket':'Zoek op Cardmarket · controleer set en nummer';}
+    else link.hidden=true;
+  }
+  async function resolveCardmarket(c,fallback,token){
+    const dialog=$('cardSheet'),link=$('cardSheetLink'),action=$('cardSheetAction');
+    const panel=el('div','Exacte set, kaartnummer en uitvoering controleren…','libraryStatus');
+    panel.id='libraryCmChoices191';panel.setAttribute('role','status');action.before(panel);
+    link.hidden=true;
+    try{
+      const [detailResult,indexResult]=await Promise.allSettled([detailedCard(c),officialIndex()]);
+      if(indexResult.status!=='fulfilled')throw Error('Cardmarket productindex niet beschikbaar');
+      const detail=detailResult.status==='fulfilled'?detailResult.value:{};
+      if(routeSeq!==token||!dialog.open)return;
+      const choices=HoloDexLibrary.cardmarketOptions(c,detail,indexResult.value,window.CM_PRODUCT_CATALOG);
+      panel.replaceChildren();
+      if(choices.length===1){setCardmarketLink(link,{url:choices[0].url,exact:true});panel.append(el('small','Product-ID gecontroleerd met officiële Cardmarket-catalogus; controleer taal en conditie bij aankoop.'));}
+      else if(choices.length>1){
+        link.hidden=true;panel.append(el('p','Kies de juiste uitvoering voor je Cardmarket-link:'));
+        for(const choice of choices){const b=button(choice.label,()=>{
+          setCardmarketLink(link,{url:choice.url,exact:true});
+          for(const n of panel.querySelectorAll('button'))n.setAttribute('aria-pressed',String(n===b));
+        });b.setAttribute('aria-pressed','false');panel.append(b);}
+      }else{setCardmarketLink(link,fallback);panel.append(el('small',fallback.exact?'Bestaande productkoppeling; specifieke uitvoering controleren.':'Geen bevestigde product-ID. Controleer set en kaartnummer in de zoekresultaten.'));}
+    }catch{
+      if(routeSeq!==token||!dialog.open)return;
+      panel.textContent='Productcontrole niet bereikbaar. '+(fallback.exact?'Bestaande koppeling beschikbaar.':'Gebruik de zoekresultaten en controleer de set.');
+      setCardmarketLink(link,fallback);
+    }
+  }
+  function openLibraryCard(c,l){
+    const route=l==='JP'?window.JPCardmarketNative?.route(c):HoloDexLibrary.cardmarketRoute(c);
+    window.HoloDexRedesign.open({card:c,condition:$('condSelect').value||'NM',edition:'AUTO',stamped:false,cardmarketUrl:route?.url||''});
+    if(l==='EN')void resolveCardmarket(c,route||{url:'',exact:false},routeSeq);
+  }
   function imageCard(c,parent){if(c.image){const img=el('img');img.loading='lazy';img.alt=c.name;const choices=[c.image+'/low.webp',c.image+'/low.png'];let index=0;img.src=choices[index];img.onerror=()=>{if(++index<choices.length)img.src=choices[index];else{img.remove();parent.prepend(el('span','Afbeelding ontbreekt','libraryNoArt'));}};parent.append(img);}else parent.append(el('span','Afbeelding ontbreekt','libraryNoArt'));}
   function setArt(s){
     const art=el('span',null,'librarySetArt');art.setAttribute('aria-hidden','true');
@@ -42,14 +94,14 @@
     showSets.hidden=sets.length<=setLimit;
   }
   async function openSet(s,l){const token=++detailSeq;details.replaceChildren(el('h3',s.name),el('p','Kaarten laden…'));details.scrollIntoView({block:'start'});try{const result=await library.loadSet(l,s.id);if(token!==detailSeq)return;CardCatalog.importLibrary(result.cards);currentSet={set:s,lang:l,result};cardPage=0;ownership='all';renderCards();}catch(e){if(token!==detailSeq)return;details.append(el('p','Kaartgegevens niet beschikbaar. '+(navigator.onLine?'Probeer opnieuw.':'Je bent offline.')),button('Opnieuw proberen',()=>openSet(s,l)));}}
-  function renderCards(){const {set,lang:l,result}=currentSet,mine=ownedIds(l);details.replaceChildren(el('h3',set.name));
+  function renderCards(){const {set,lang:l,result}=currentSet,mine=ownedIds(l,set.id);details.replaceChildren(el('h3',set.name));
     const owned=result.cards.filter(c=>mine.has(c.source_id)).length;
-    details.append(el('p',result.cards.length+' beschikbare kaarten · '+owned+' in bezit · '+(result.cards.length-owned)+' niet in bezit binnen deze dekking'));
+    details.append(el('p',set.name+': '+result.cards.length+' beschikbare kaarten · '+owned+' in bezit · '+(result.cards.length-owned)+' niet in bezit binnen deze set'));
     details.append(el('p',result.complete&&!result.stale?'Brondekking compleet: '+result.total+' kaartidentiteiten. Uitvoeringen tellen niet apart.':'Onvolledige of verouderde brondekking; geen volledige setvoortgang.', 'libraryStatus'));
     if(result.stale)details.append(el('p','Offline/eerdere cache: '+result.error,'libraryStatus'));
     const filter=el('div',null,'libraryFilters');for(const [key,label] of [['all','Alle kaarten'],['owned','In bezit'],['missing','Ontbreekt']]){const b=button(label,()=>{ownership=key;cardPage=0;renderCards()});b.setAttribute('aria-pressed',String(key===ownership));filter.append(b);}details.append(filter);
     const cards=result.cards.filter(c=>ownership==='all'||(ownership==='owned')===mine.has(c.source_id)),cardGrid=el('div',null,'libraryCardGrid');
-    for(const c of cards.slice(cardPage*24,cardPage*24+24)){const b=button('',()=>{const route=l==='JP'?window.JPCardmarketNative?.route(c):HoloDexLibrary.cardmarketRoute(c);window.HoloDexRedesign.open({card:c,condition:$('condSelect').value||'NM',edition:'AUTO',stamped:false,cardmarketUrl:route?.url||''});});b.className='libraryCard';imageCard(c,b);b.append(el('strong',c.name),el('small',(c.number?'#'+c.number+' · ':'')+c.source_id),el('span',mine.has(c.source_id)?'In bezit':'Ontbreekt'));cardGrid.append(b);}details.append(cardGrid);
+    for(const c of cards.slice(cardPage*24,cardPage*24+24)){const b=button('',()=>openLibraryCard(c,l));b.className='libraryCard';imageCard(c,b);b.append(el('strong',c.name),el('small',(c.number?'#'+c.number+' · ':'')+c.source_id),el('span',mine.has(c.source_id)?'In bezit':'Ontbreekt'));cardGrid.append(b);}details.append(cardGrid);
     if(!cards.length)details.append(el('p','Geen kaarten beschikbaar in dit filter.'));
     const nav=el('div',null,'libraryToolbar'),prev=button('Vorige kaarten',()=>{cardPage--;renderCards()}),next=button('Volgende kaarten',()=>{cardPage++;renderCards()});prev.disabled=cardPage===0;next.disabled=(cardPage+1)*24>=cards.length;nav.append(prev,el('span',(cardPage+1)+' / '+Math.max(1,Math.ceil(cards.length/24))),next);details.append(nav);
   }
@@ -59,7 +111,7 @@
     }catch(e){if(token!==seq)return;page=append?Math.max(1,page-1):1;status.textContent=navigator.onLine?'Online bibliotheek niet beschikbaar; de geladen basis blijft doorzoekbaar.':'Offline: alleen eerder geladen kaarten zijn doorzoekbaar.';}}
   search.addEventListener('input',()=>{clearTimeout(timer);++seq;more.hidden=true;timer=setTimeout(()=>runSearch(false),500)});
   $('langSelect').addEventListener('change',()=>{++seq;language.value=lang();renderSets();clearTimeout(timer);timer=setTimeout(()=>runSearch(false),500)});
-  document.addEventListener('holodex:detail-open',()=>{const link=$('cardSheetLink');if(!link||link.hidden)return;const searchLink=new URL(link.href).pathname.endsWith('/Search');link.textContent=searchLink?'Zoek op Cardmarket · controleer set en nummer':'Bekijk kaart op Cardmarket';});
+  document.addEventListener('holodex:detail-open',()=>{routeSeq++;$('libraryCmChoices191')?.remove();const link=$('cardSheetLink');if(!link||link.hidden)return;const searchLink=new URL(link.href).pathname.endsWith('/Search');link.textContent=searchLink?'Zoek op Cardmarket · controleer set en nummer':'Bekijk kaart op Cardmarket';});
   for(const n of [language,series,setFilter])n.addEventListener(n===setFilter?'input':'change',()=>renderSets());
   (async()=>{try{const r=await fetch('catalog-sets-v185.json');if(!r.ok)throw Error('snapshot');snapshot=await r.json();library=HoloDexLibrary.create({fetch:window.fetch.bind(window),storage:localStorage,snapshot,legacyCard:c=>window.CardCatalog.normalizeLibrary(c),translateQuery:q=>window.JPSetCatalog.searchName(q)});window.HoloDexLibraryUI={library};CardCatalog.importLibrary(library.restore());language.value=lang();renderSets();status.textContent='Zoek in de uitgebreide EN/JP-bibliotheek, of ontdek een set.';}catch{status.textContent='Setbibliotheek niet beschikbaar; de bestaande zoekfunctie blijft werken.';toggle.disabled=true;retry.disabled=true;}})();
 })();
