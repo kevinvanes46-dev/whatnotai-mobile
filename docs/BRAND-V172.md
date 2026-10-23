@@ -251,4 +251,4 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | ui-v150-experience.js | A, B | 40, 55, 68, 83, 95 | no |
 | ui-v153-mobile.js | B | 8, 31 | no |
 | ui-v154-keyboard.js | B | 17, 24, 76 | no |
-| ui-v181-redesign.js | B | 55 | no |
+| ui-v181-redesign.js | B | 61 | no |
