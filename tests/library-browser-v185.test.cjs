@@ -18,12 +18,14 @@ test('verified Cardmarket page opens directly; missing JP logos show honest plac
   await p.locator('[data-set-id="me02"]').click();
   await p.locator('.libraryCard').first().click();
   const link=p.locator('#cardSheetLink');
+  await p.locator('#libraryCmChoices191').filter({hasText:'Bestaande productkoppeling; specifieke uitvoering controleren.'}).waitFor();
   assert.equal(await link.getAttribute('href'),'https://www.cardmarket.com/en/Pokemon/Products/Singles/Phantasmal-Flames/Oddish-PFL001');
-  assert.match(await link.innerText(),/Bekijk kaart op Cardmarket/);
+  assert.match(await link.innerText(),/Bekijk exacte kaart op Cardmarket/);
   await p.locator('#cardSheetClose').click();
   await p.getByLabel('Filter sets',{exact:true}).fill('151');
   await p.locator('[data-set-id="sv03.5"]').click();
   await p.locator('.libraryCard').first().click();
+  await p.locator('#libraryCmChoices191').filter({hasText:'Geen bevestigde product-ID'}).waitFor();
   assert.equal(new URL(await link.getAttribute('href')).searchParams.get('searchString'),await p.locator('#cardSheetName').innerText());
   assert.match(await link.innerText(),/controleer set en nummer/);
   await p.locator('#cardSheetClose').click();
@@ -33,4 +35,30 @@ test('verified Cardmarket page opens directly; missing JP logos show honest plac
   assert.ok(await noLogo.isVisible());
   assert.match(await noLogo.locator('.librarySetArtFallback').innerText(),/Setlogo niet beschikbaar/);
   assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+});
+test('v191 Base Set ownership stays scoped and verified Cardmarket variants require a deliberate choice',async t=>{
+  const {p}=await setup(t);
+  await p.evaluate(()=>{localStorage.setItem('cardscout_collection_v133',JSON.stringify([
+    {uid:'owned-base',sourceId:'base1-2',source_set_id:'base1',set:'BASE',name:'Blastoise',number:'2',language:'EN',listType:'OWNED',qty:1,condition:'NM',variant:'NORMAL'},
+    {uid:'owned-jungle',sourceId:'base2-3',source_set_id:'base2',set:'JUNGLE',name:'Flareon',number:'3',language:'EN',listType:'OWNED',qty:1},
+    {uid:'bad-set',sourceId:'base1-4',source_set_id:'base2',set:'JUNGLE',name:'Wrong set',number:'4',language:'EN',listType:'OWNED',qty:1}
+  ]));});
+  await p.route('https://api.tcgdex.net/v2/en/cards/base1-2',r=>r.fulfill({json:{id:'base1-2',localId:'2',name:'Blastoise',set:{id:'base1'},variants_detailed:[
+    {type:'holo',subtype:'unlimited',thirdParty:{cardmarket:273697}},
+    {type:'holo',subtype:'shadowless',stamp:['1st-edition'],thirdParty:{cardmarket:660226}}]}}));
+  await p.locator('#libraryToggle').click();await p.getByLabel('Filter sets',{exact:true}).fill('Base Set');
+  await p.locator('[data-set-id="base1"]').click();
+  await p.getByRole('button',{name:'In bezit',exact:true}).click();
+  assert.equal(await p.locator('.libraryCard').count(),1);
+  assert.match(await p.locator('.libraryCard').first().innerText(),/Blastoise/);
+  assert.match(await p.locator('#librarySetDetail').innerText(),/Base Set: 102 beschikbare kaarten · 1 in bezit/);
+  await p.locator('.libraryCard').click();
+  await p.locator('#libraryCmChoices191 button').first().waitFor();
+  assert.equal(await p.locator('#libraryCmChoices191 button').count(),2);
+  assert.equal(await p.locator('#cardSheetLink').isVisible(),false);
+  await p.locator('#libraryCmChoices191 button').first().click();
+  assert.equal(await p.locator('#cardSheetLink').getAttribute('href'),'https://www.cardmarket.com/en/Pokemon/Products?idProduct=273697');
+  await p.locator('#libraryCmChoices191 button').nth(1).click();
+  assert.equal(await p.locator('#cardSheetLink').getAttribute('href'),'https://www.cardmarket.com/en/Pokemon/Products?idProduct=660226');
+  await p.locator('#cardSheetNote').filter({hasText:'uitgeschakeld'}).waitFor();
 });

@@ -1,6 +1,6 @@
 'use strict';
 // Bump this version when the shell changes. Never cache remote card data/artwork.
-const CACHE = 'rareworth-shell-v189-app-experience';
+const CACHE = 'rareworth-shell-v191-cardmarket-identity';
 const SCOPE = new URL('./', self.registration.scope);
 const INDEX = new URL('index.html', SCOPE).href;
 const ASSETS = [

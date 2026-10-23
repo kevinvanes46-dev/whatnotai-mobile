@@ -22,5 +22,10 @@
 .libraryCard img{width:100%;aspect-ratio:245/342;object-fit:contain;border-radius:6px}.libraryCard strong{font-size:12px}.libraryCard small,.libraryCard span{font-size:10px;color:#a0b6aa}
 .libraryNoArt{display:grid;place-items:center;aspect-ratio:245/342;text-align:center;border:1px dashed #355243;padding:4px}
 .libraryCollectionLink{margin:12px 0;color:#b9ffdd}.library185 [hidden]{display:none!important}
+#libraryCmChoices191{display:grid;gap:8px;margin:9px 0 14px;max-width:100%;overflow-wrap:anywhere}
+#libraryCmChoices191 p{margin:0 0 3px;font-size:13px;color:#b9ffdd}
+#libraryCmChoices191 button{font:inherit;font-size:12px;text-align:left;min-height:44px;padding:10px 12px;border:1px solid #35604e;border-radius:12px;background:#142921;color:#def9e8;max-width:100%;overflow-wrap:anywhere}
+#libraryCmChoices191 button[aria-pressed="true"]{border-color:#8bf8c7;background:#205741}
+#libraryCmChoices191 button:focus-visible{outline:2px solid #8bf8c7;outline-offset:2px}
 @media(min-width:760px){.librarySetGrid{grid-template-columns:repeat(4,minmax(0,1fr))}.libraryCardGrid{grid-template-columns:repeat(6,minmax(0,1fr))}}
 @media(max-width:350px){.library185 .librarySet{padding:12px}.libraryToolbar>button{flex:1}.librarySet strong{font-size:14px}}

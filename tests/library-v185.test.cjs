@@ -21,3 +21,41 @@ test('Cardmarket uses verified product identity or a broad honest name-only sear
   assert.equal(Library.cardmarketRoute({name:'Mega Charizard X ex',language:'EN'}).url.endsWith('Mega%20Charizard%20X%20ex'),true);
   assert.equal(Library.cardmarketRoute({name:''}).url,'');
 });
+test('v191 restores legacy Cardmarket IDs only after independent official-catalog verification',()=>{
+  const card={source_id:'base1-2',source_set_id:'base1',name:'Blastoise',number:'2',set_name:'Base Set',language:'EN'};
+  const legacy={'base1-2':{id:'base1-2',name:'Blastoise',number:'2',set:{id:'base1'},product:273697}};
+  const index=require('../cardmarket-product-index-v191.json');
+  assert.equal(Library.cardmarketRoute(card,legacy).exact,false);
+  assert.deepEqual(Library.cardmarketOptions(card,{},index,legacy),[{
+    id:273697,label:'Bekend product · uitvoering controleren',url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct=273697'}]);
+  for(const invalid of [{...card,source_set_id:'base2'},{...card,name:'Dark Blastoise'},
+    {...card,number:'4'},{...card,language:'JP'},{...card,source_id:'base1-4'}]){
+    assert.equal(Library.cardmarketOptions(invalid,{},index,legacy).length,0,JSON.stringify(invalid));
+  }
+  assert.equal(Library.cardmarketOptions(card,{},index,{'base1-2':{...legacy['base1-2'],product:0}}).length,0);
+});
+test('v191 official Cardmarket index validates identity without reading a price',()=>{
+  const index=require('../cardmarket-product-index-v191.json');
+  assert.equal(index.source,'CARDMARKET_OFFICIAL_PRODUCT_CATALOG');assert.ok(index.count>=70000);
+  const card={source_id:'me02-039',source_set_id:'me02',name:'Cresselia',number:'039',set_name:'Phantasmal Flames',language:'EN'};
+  const detail={id:'me02-039',localId:'039',name:'Cresselia',set:{id:'me02'},variants_detailed:[
+    {type:'normal',thirdParty:{cardmarket:857614}},{type:'reverse',thirdParty:{cardmarket:857614}}]};
+  assert.deepEqual(Library.cardmarketOptions(card,detail,index),[{
+    id:857614,label:'Normaal / Reverse Holo',url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct=857614'}]);
+  assert.equal(Library.cardmarketOptions({...card,source_set_id:'base1'},detail,index).length,0);
+  assert.equal(Library.cardmarketOptions(card,{...detail,name:'Blastoise'},index).length,0);
+  assert.equal(Library.cardmarketOptions(card,{...detail,variants_detailed:[{type:'normal',thirdParty:{cardmarket:273697}}]},index).length,0);
+});
+test('v191 keeps Base Set 1st Edition separate from Unlimited; unknown variants do not create direct links',()=>{
+  const index=require('../cardmarket-product-index-v191.json');
+  const card={source_id:'base1-2',source_set_id:'base1',name:'Blastoise',number:'2',language:'EN'};
+  const detail={id:'base1-2',localId:'2',name:'Blastoise',set:{id:'base1'},variants_detailed:[
+    {type:'holo',subtype:'unlimited',thirdParty:{cardmarket:273697}},
+    {type:'holo',subtype:'shadowless',stamp:['1st-edition'],thirdParty:{cardmarket:660226}},
+    {type:'normal',thirdParty:{cardmarket:99999999}}]};
+  const choices=Library.cardmarketOptions(card,detail,index);
+  assert.equal(choices.length,2);
+  assert.equal(choices[0].id,273697);assert.equal(choices[1].id,660226);
+  assert.match(choices[0].label,/unlimited/);assert.match(choices[1].label,/1st-edition/);
+  assert.equal(Library.cardmarketRoute({source_id:'xy4-23',source_set_id:'xy4',number:'23',name:'Manectric EX',set_name:'Phantom Forces',language:'EN'}).exact,true);
+});

@@ -4,17 +4,67 @@
   const normalize=s=>String(s||'').normalize('NFKC').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
   const validId=s=>typeof s==='string'&&s.length>0&&s.length<100&&!/[\s/\\?#]/.test(s);
   const artwork=s=>{try{const u=new URL(s);return u.protocol==='https:'&&u.hostname==='assets.tcgdex.net'?u.href:'';}catch{return '';}};
-  function cardmarketRoute(card={}){
+  const exactLinks=Object.freeze({
+    'me02-001':['Oddish','001','Phantasmal Flames','Oddish-PFL001'],
+    'me02-039':['Cresselia','039','Phantasmal Flames','Cresselia-PFL039'],
+    'xy4-23':['Manectric EX','23','Phantom Forces','Manectric-EX-PHF23']
+  });
+  const exactSets=Object.freeze({'me02':'Phantasmal-Flames','xy4':'Phantom-Forces'});
+  const normalizedNumber=s=>String(s||'').replace(/^0+(?=\d)/,'');
+  const searchLink=name=>'https://www.cardmarket.com/en/Pokemon/Products/Search?searchString='+encodeURIComponent(name);
+  function cardmarketRoute(card={},legacyCatalog){
     const name=String(card.name||'').trim();
     if(!name)return {url:'',exact:false};
-    // A direct product page is used only for a separately verified identity.
-    // The collector number and expansion must not be concatenated into a
-    // Cardmarket full-text search: doing so can hide genuine matches.
-    if(card.language==='EN'&&card.source_id==='me02-001'&&card.source_set_id==='me02'&&
-      name==='Oddish'&&card.number==='001'&&card.set_name==='Phantasmal Flames'){
-      return {url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/Phantasmal-Flames/Oddish-PFL001',exact:true};
+    if(card.language==='EN'&&card.source_id===card.source_set_id+'-'+card.number){
+      const known=exactLinks[card.source_id];
+      if(known&&name===known[0]&&card.number===known[1]&&card.set_name===known[2])
+        return {url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/'+exactSets[card.source_set_id]+'/'+known[3],exact:true};
     }
-    return {url:'https://www.cardmarket.com/en/Pokemon/Products/Search?searchString='+encodeURIComponent(name),exact:false};
+    // Cardmarket's full-text search often rejects combined name + set + number.
+    // A broad search is labeled as such, never called an exact listing.
+    return {url:searchLink(name),exact:false};
+  }
+  function cardmarketOptions(card={},detail={},index={},legacyCatalog){
+    if(card.language!=='EN'||!card.source_set_id||card.source_id!==card.source_set_id+'-'+card.number||
+      index?.schema!==191||index.source!=='CARDMARKET_OFFICIAL_PRODUCT_CATALOG'||index.count<70000||
+      !index.rows||typeof index.rows!=='object')return [];
+    const detailMatches=detail?.id===card.source_id&&detail.localId===card.number&&
+      detail.set?.id===card.source_set_id&&normalize(detail.name)===normalize(card.name)&&
+      Array.isArray(detail.variants_detailed);
+    const choices=new Map();
+    for(const variant of detailMatches?detail.variants_detailed:[]){
+      const id=variant?.thirdParty?.cardmarket,product=index.rows[id];
+      if(!Number.isSafeInteger(id)||id<=0||!Array.isArray(product)||!Number.isSafeInteger(product[0])||
+        typeof product[1]!=='string'||normalize(product[1].split(' [')[0])!==normalize(card.name))continue;
+      const parts=[String(variant.type||'').replace('reverse','Reverse holo').replace('normal','Normaal').replace('holo','Holo')];
+      if(variant.subtype)parts.push(String(variant.subtype));
+      if(Array.isArray(variant.stamp)&&variant.stamp.length)parts.push(variant.stamp.join(', '));
+      if(variant.foil)parts.push(String(variant.foil));
+      const label=parts.filter(Boolean).join(' · ');
+      if(choices.has(id)){const old=choices.get(id);if(!old.labels.includes(label))old.labels.push(label);}
+      else choices.set(id,{id,labels:[label],url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct='+id});
+    }
+    if(!choices.size){
+      // v152 identities are accepted only after *independent* matching against
+      // the official Cardmarket product catalog and the expansion's majority.
+      const row=legacyCatalog?.[card.source_id],p=index.rows[row?.product];
+      if(row&&row.id===card.source_id&&row.set?.id===card.source_set_id&&
+        normalize(row.name)===normalize(card.name)&&normalizedNumber(row.number)===normalizedNumber(card.number)&&
+        Number.isSafeInteger(row.product)&&row.product>0&&Array.isArray(p)&&
+        typeof p[1]==='string'&&normalize(p[1].split(' [')[0])===normalize(card.name)){
+        const counts=new Map();
+        for(const value of Object.values(legacyCatalog)){
+          if(value.set?.id!==card.source_set_id)continue;
+          const expansion=index.rows[value.product]?.[0];
+          if(Number.isSafeInteger(expansion))counts.set(expansion,(counts.get(expansion)||0)+1);
+        }
+        const top=[...counts].sort((a,b)=>b[1]-a[1])[0];
+        if(top&&top[0]===p[0])choices.set(row.product,{id:row.product,
+          labels:['Bekend product · uitvoering controleren'],
+          url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct='+row.product});
+      }
+    }
+    return [...choices.values()].map(c=>({id:c.id,label:c.labels.join(' / '),url:c.url}));
   }
   function cards(data,set,language){
     const seen=new Set();return (Array.isArray(data)?data:[]).flatMap(c=>{
@@ -74,5 +124,5 @@
     }
     return {getSets,loadSet,discover,search,state,restore};
   }
-  return Object.freeze({create,cards,normalize,artwork,cardmarketRoute,TTL});
+  return Object.freeze({create,cards,normalize,artwork,cardmarketRoute,cardmarketOptions,TTL});
 });
