@@ -7648,6 +7648,24 @@
       "sha256": "35978f51aa35d58e76ab6569fc0218e021bf22af74c59b2b44dd9f68484f0eaf"
     },
     {
+      "file": "tests/cardmarket-in-app-v188.test.cjs",
+      "line": 53,
+      "names": [
+        "HoloKeep"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "46ee8151571dd988fd4b9ac488036025d5f89be16a26ce52fe62942bfc867860"
+    },
+    {
+      "file": "tests/cardmarket-in-app-v188.test.cjs",
+      "line": 55,
+      "names": [
+        "HoloKeep"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "30c3d6446cb797d8042cb48bdf2de9e1eceb80843532f5d544680e24183df64d"
+    },
+    {
       "file": "tests/cardmarket-resolver-v146.test.cjs",
       "line": 6,
       "names": [
@@ -11102,7 +11120,7 @@
     },
     {
       "file": "ui-v181-redesign.js",
-      "line": 31,
+      "line": 37,
       "names": [
         "cardscout"
       ],
@@ -11111,7 +11129,7 @@
     },
     {
       "file": "ui-v181-redesign.js",
-      "line": 53,
+      "line": 59,
       "names": [
         "HoloKeep"
       ],
@@ -11120,7 +11138,7 @@
     },
     {
       "file": "ui-v181-redesign.js",
-      "line": 55,
+      "line": 61,
       "names": [
         "RareWorth"
       ],
@@ -11129,7 +11147,7 @@
     },
     {
       "file": "ui-v181-redesign.js",
-      "line": 84,
+      "line": 90,
       "names": [
         "cardscout"
       ],
