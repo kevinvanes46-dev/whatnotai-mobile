@@ -108,3 +108,6 @@ jobs:
 
       - name: v188 opt-in HoloDex official price panel and localhost boundary
         run: node --test tests/cardmarket-in-app-v188.test.cjs tests/cardmarket-in-app-browser-v188.test.cjs
+
+      - name: v189 mobile home, navigation and safe release appearance
+        run: node --test tests/home-experience-v189.test.cjs

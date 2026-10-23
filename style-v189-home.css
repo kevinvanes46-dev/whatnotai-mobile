@@ -1,0 +1,51 @@
+/* v189 — progressive home/polish layer; collection and pricing remain untouched. */
+:root{--v189-lilac:#bbadff;--v189-peach:#ffc2a8}
+html{background:#090e10}
+body{background:radial-gradient(ellipse 65% 26% at 88% 0%,#314e5033 0%,transparent 75%),radial-gradient(ellipse 50% 22% at 0% 60%,#47346b1a 0%,transparent 74%),var(--base)}
+.appShell{isolation:isolate}
+.topbar{background:#090e10ea;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.homeView{padding-top:8px}
+.homeView .homeHero{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:0;min-height:230px;margin:0 0 22px;padding:29px 24px;overflow:hidden;border:1px solid #415a5166;border-radius:26px;background:linear-gradient(129deg,#1a332d,#141c25 62%,#231d38);box-shadow:0 22px 50px -34px #88cfb644;color:var(--text)}
+.homeView .homeHero::before{content:"";position:absolute;z-index:-1;inset:-80px -110px auto auto;width:300px;height:270px;opacity:.8;border-radius:50%;background:conic-gradient(from 25deg,#b3f0cf33,#b5a9ff44,#ffb7a322,#b3f0cf33);filter:blur(44px);transform:translate3d(0,0,0);animation:v189-glow 16s ease-in-out infinite alternate;pointer-events:none}
+.homeView .homeHero::after{content:"✧";position:absolute;right:20px;top:19px;font:32px var(--sans);color:#c8ffde85;pointer-events:none}
+.homeView .homeHero .v189-kicker{display:inline-flex;align-items:center;gap:7px;margin:0 0 17px;padding:7px 10px;border:1px solid #a1bfc04a;border-radius:99px;background:#ffffff0c;color:#d5f6e5;font:600 10px/1.2 var(--sans);letter-spacing:.1em}
+.homeView .homeHero .v189-kicker::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gain);box-shadow:0 0 10px #5ff0a455}
+.homeView .homeHero h1,.homeView .homeHero>p{position:static;width:auto;height:auto;clip-path:none;overflow:visible;white-space:normal}
+.homeView .homeHero h1{margin:0 0 10px;font:700 clamp(24px,6vw,34px)/1.18 var(--display);letter-spacing:-.035em;text-wrap:balance;color:#f6fff9}
+.homeView .homeHero>p:not(.homeEyebrow){max-width:35ch;margin:0 0 21px;color:#c0d0ce;font:400 13px/1.6 var(--sans)}
+.homeView .homeHero>.homeEyebrow{display:none}
+.homeView .homeHero #homeSearch{display:inline-flex;width:auto;min-height:46px;padding:0 18px;border:0;border-radius:13px;background:var(--mint);color:#0e2820;font:600 13px var(--sans);box-shadow:0 8px 25px #0003;transition:transform .2s ease,filter .2s ease}
+.homeView .homeHero #homeSearch:active{transform:scale(.98)}
+.v189-actions{margin:0 0 29px}
+.v189-section-title{margin:0 0 14px;font:600 17px/1.25 var(--sans);letter-spacing:-.02em;color:#eff7f2}
+.v189-action-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.v189-action{min-width:0;min-height:132px;display:flex;flex-direction:column;align-items:flex-start;gap:12px;position:relative;padding:17px 14px;text-align:left;border:1px solid #35403a;background:linear-gradient(150deg,#161e1c,#111715);border-radius:20px;color:var(--text);transition:border-color .18s ease,transform .18s ease,background .18s ease}
+.v189-action svg{display:block;width:24px;height:24px;fill:none;stroke:#b3f0cf;stroke-width:1.65;stroke-linejoin:round;stroke-linecap:round}
+.v189-action:nth-child(2) svg{stroke:var(--v189-lilac)}
+.v189-action:nth-child(3) svg{stroke:#8bdef2}
+.v189-action:nth-child(4) svg{stroke:var(--v189-peach)}
+.v189-action-copy{display:flex;flex-direction:column;gap:4px;max-width:100%}
+.v189-action-copy strong{font:600 13px/1.4 var(--sans);color:#f3f7f3}
+.v189-action-copy small{font:400 11px/1.4 var(--sans);color:#a6b6ae}
+.v189-action-arrow{position:absolute;top:15px;right:15px;color:#8aaba0;font-size:16px;line-height:1}
+.v189-guide{margin:16px 0 0;padding:0 16px;border:1px solid #32443b;background:#101a16;border-radius:16px;color:#c8dacf;font:400 13px/1.55 var(--sans)}
+.v189-guide summary{min-height:52px;display:flex;align-items:center;cursor:pointer;color:#e7f8ef;font-weight:600;list-style:none}
+.v189-guide summary::-webkit-details-marker{display:none}
+.v189-guide summary::after{content:"+";margin-left:auto;color:var(--mint);font-size:21px;font-weight:400}
+.v189-guide[open] summary::after{content:"−"}
+.v189-guide ol{padding:0 0 16px 18px;margin:0;color:#aabdb4}
+.v189-guide li+li{margin-top:7px}
+.homeView .homeSnapshot{padding:22px 19px;border:1px solid #33473d;border-radius:22px;background:linear-gradient(155deg,#14231c,#0e1714);box-shadow:0 15px 40px -32px #000}
+.homeView .homeSnapshot #homeMarket{color:#e5fff1}
+.homeView .homeComparisonPanel{padding:20px 18px;border:1px solid #2c3933;border-radius:20px;background:#111916}
+.homeView .homeEmpty{border:1px solid #314a3b;background:linear-gradient(145deg,#16241d,#101816);border-radius:20px}
+.homeView #homeSets .homeStack{border-color:#39463e;background:linear-gradient(150deg,#151f1c,#111613);transition:transform .2s ease,border-color .2s ease}
+.bottomNav{background:#141c19e8;backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-color:#3b5145aa;box-shadow:0 14px 34px #0009}
+.bottomNav .navBtn.active{background:linear-gradient(145deg,#243c30,#1a2d25);color:#c9f9dd}
+.bottomNav .navBtn.active svg{filter:drop-shadow(0 0 5px #9ee5ba66)}
+.bottomNav .navBtn{transition:color .18s ease,background .18s ease}
+@media (hover:hover){.v189-action:hover{border-color:#678d7b;transform:translateY(-2px);background:#1b2922}.homeView #homeSets .homeStack:hover{border-color:#678d7b;transform:translateY(-2px)}}
+@keyframes v189-glow{from{transform:translate3d(0,0,0) rotate(-8deg)}to{transform:translate3d(-32px,24px,0) rotate(12deg)}}
+@media(min-width:640px){.homeView .homeHero{min-height:254px;padding:35px}.v189-action-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.v189-action{min-height:145px;padding:19px 16px}.v189-action-copy strong{font-size:14px}}
+@media(max-width:350px){.homeView .homeHero{padding:24px 18px;min-height:210px}.v189-action{padding:14px 12px;min-height:128px}.v189-action-copy strong{font-size:12px}.v189-action-copy small{font-size:10px}.v189-section-title{font-size:16px}}
+@media(prefers-reduced-motion:reduce){.homeView .homeHero::before{animation:none}.v189-action,.homeView .homeHero #homeSearch,.homeView #homeSets .homeStack,.bottomNav .navBtn{transition:none}}
