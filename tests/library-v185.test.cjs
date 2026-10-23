@@ -9,3 +9,15 @@ test('expired cache survives offline and incomplete refresh without discarding c
 test('concurrent set loads share one request and unknown set fails closed',async()=>{const s=setup();await Promise.all([s.api.loadSet('EN','sv03.5'),s.api.loadSet('EN','sv03.5')]);assert.equal(s.calls(),1);await assert.rejects(s.api.loadSet('EN','invented'));});
 test('combined name number and numeric set title resolves the actual set',async()=>{const s=setup(),r=await s.api.search('EN','Charizard 199 151');assert.deepEqual(r.cards.map(c=>c.source_id),['sv03.5-199']);assert.equal(r.more,false);});
 test('remote search uses bounded pages, explicit metadata-only identities and special numbers',async()=>{let url;const s=setup(u=>{url=u;return [fixture.cards[0]]});const r=await s.api.search('EN','Charizard',2);assert.equal(r.cards.length,1);assert.match(url,/pagination%3Apage=2/);assert.match(url,/pagination%3AitemsPerPage=80/);await s.api.search('EN','Pikachu TG05');assert.match(url,/localId=eq%3ATG05/);});
+test('Cardmarket uses verified product identity or a broad honest name-only search',()=>{
+  const oddish={source_id:'me02-001',source_set_id:'me02',name:'Oddish',number:'001',set_name:'Phantasmal Flames',language:'EN'};
+  const direct=Library.cardmarketRoute(oddish);
+  assert.equal(direct.exact,true);
+  assert.equal(direct.url,'https://www.cardmarket.com/en/Pokemon/Products/Singles/Phantasmal-Flames/Oddish-PFL001');
+  const result=Library.cardmarketRoute({...oddish,source_id:'other-001'});
+  assert.equal(result.exact,false);
+  assert.equal(new URL(result.url).searchParams.get('searchString'),'Oddish');
+  assert.doesNotMatch(result.url,/Phantasmal|001/);
+  assert.equal(Library.cardmarketRoute({name:'Mega Charizard X ex',language:'EN'}).url.endsWith('Mega%20Charizard%20X%20ex'),true);
+  assert.equal(Library.cardmarketRoute({name:''}).url,'');
+});

@@ -4,6 +4,18 @@
   const normalize=s=>String(s||'').normalize('NFKC').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
   const validId=s=>typeof s==='string'&&s.length>0&&s.length<100&&!/[\s/\\?#]/.test(s);
   const artwork=s=>{try{const u=new URL(s);return u.protocol==='https:'&&u.hostname==='assets.tcgdex.net'?u.href:'';}catch{return '';}};
+  function cardmarketRoute(card={}){
+    const name=String(card.name||'').trim();
+    if(!name)return {url:'',exact:false};
+    // A direct product page is used only for a separately verified identity.
+    // The collector number and expansion must not be concatenated into a
+    // Cardmarket full-text search: doing so can hide genuine matches.
+    if(card.language==='EN'&&card.source_id==='me02-001'&&card.source_set_id==='me02'&&
+      name==='Oddish'&&card.number==='001'&&card.set_name==='Phantasmal Flames'){
+      return {url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/Phantasmal-Flames/Oddish-PFL001',exact:true};
+    }
+    return {url:'https://www.cardmarket.com/en/Pokemon/Products/Search?searchString='+encodeURIComponent(name),exact:false};
+  }
   function cards(data,set,language){
     const seen=new Set();return (Array.isArray(data)?data:[]).flatMap(c=>{
       if(!validId(c?.localId)||c.id!==set.id+'-'+c.localId||!String(c.name||'').trim()||seen.has(c.id))return [];
@@ -62,5 +74,5 @@
     }
     return {getSets,loadSet,discover,search,state,restore};
   }
-  return Object.freeze({create,cards,normalize,artwork,TTL});
+  return Object.freeze({create,cards,normalize,artwork,cardmarketRoute,TTL});
 });
