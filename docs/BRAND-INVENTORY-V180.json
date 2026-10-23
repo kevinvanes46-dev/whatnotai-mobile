@@ -10443,6 +10443,24 @@
       "sha256": "152c470fb332201f483f1369dcb333f2680bbc5d8b2fb9bd83c4735602265ece"
     },
     {
+      "file": "tests/v191-scope.cjs",
+      "line": 8,
+      "names": [
+        "rareworth"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "11deea0fa3bdbd73525e1748907831756f44c38df354997bac3573bcefb8d590"
+    },
+    {
+      "file": "tests/v191-scope.cjs",
+      "line": 9,
+      "names": [
+        "rareworth"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "e6a7aa2e31081db53859ed1f8562991ca4c77bcabfaa4f756d703bd633277c8e"
+    },
+    {
       "file": "ui-library-v185.js",
       "line": 25,
       "names": [
