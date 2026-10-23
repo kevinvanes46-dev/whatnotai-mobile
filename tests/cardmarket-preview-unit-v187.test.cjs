@@ -40,7 +40,7 @@ test('unrecognized identity and missing manifest do not yield a guessed price',a
 });
 test('local server exposes only allowlisted preview assets and official shards',()=>{
   assert.match(fileFor('/cardmarket-preview-v187.html'),/cardmarket-preview-v187\.html$/);
-  assert.match(fileFor('/cardmarket-public-v186/00.json'),/cardmarket-public-v186\/00\.json$/);
+ assert.match(fileFor('/cardmarket-public-v186/00.json'),/cardmarket-public-v186[\\/]00\.json$/);
   assert.equal(fileFor('/cardmarket-public-v186/secret.json'),null);
   assert.equal(fileFor('/docs/BRAND-V172.md'),null);
   assert.equal(fileFor('/.git/config'),null);
