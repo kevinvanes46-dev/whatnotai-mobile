@@ -45,6 +45,7 @@ test('in actual app: no fetch/price/storage before user confirms; missing source
   assert.equal(await page.locator('#cm188-result').isVisible(),false);
   const old=await page.locator('#cardSheetLink').getAttribute('href');
   await page.locator('#cm188-open').click();
+  await page.locator('#cm188-body').waitFor({state:'visible'});
   assert.equal(await page.locator('#cm188-body').isVisible(),true);
   assert.equal(await page.evaluate(()=>localStorage.getItem('holodex_cardmarket_history_v186')),null);
   assert.equal(requests.some(x=>x.includes('cardmarket-public-v186/manifest.json')),false);
