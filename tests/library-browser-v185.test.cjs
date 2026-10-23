@@ -18,7 +18,7 @@ test('verified Cardmarket page opens directly; missing JP logos show honest plac
   await p.locator('[data-set-id="me02"]').click();
   await p.locator('.libraryCard').first().click();
   const link=p.locator('#cardSheetLink');
-  await p.locator('#libraryCmChoices191').filter({hasText:'Bestaande koppeling'}).waitFor();
+  await p.locator('#libraryCmChoices191').filter({hasText:'Bestaande productkoppeling; specifieke uitvoering controleren.'}).waitFor();
   assert.equal(await link.getAttribute('href'),'https://www.cardmarket.com/en/Pokemon/Products/Singles/Phantasmal-Flames/Oddish-PFL001');
   assert.match(await link.innerText(),/Bekijk exacte kaart op Cardmarket/);
   await p.locator('#cardSheetClose').click();
