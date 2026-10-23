@@ -102,3 +102,6 @@ jobs:
 
       - name: v186 official Cardmarket guide import, identity and immutable feed validation
         run: node --test tests/cardmarket-public-v186.test.cjs tests/cardmarket-quote-v186.test.cjs tests/cardmarket-feed-v186.test.cjs tests/cardmarket-history-v186.test.cjs tests/cardmarket-audit-v186.test.cjs
+
+      - name: v187 isolated official Cardmarket preview safety and browser interaction
+        run: node --test tests/cardmarket-preview-unit-v187.test.cjs tests/cardmarket-preview-v187.test.cjs
