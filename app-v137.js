@@ -45,7 +45,7 @@ const STORAGE_FAV = 'whatnotai_mobile_favorites_v37'; // keep v37 key so favorit
 const MAX_RECENT = 10;
 const MAX_FAV = 40;
 
-const CONDITION_IDS = { NM: '2', EX: '3', GD: '4', PL: '6' };
+const CONDITION_IDS = { M: '1', MT: '1', MINT: '1', NM: '2', EX: '3', GD: '4', LP: '5', PL: '6', PO: '7' };
 const LANGUAGE_IDS = { EN: '1', JP: '7' };
 
 const SET_ALIASES = [["BASE",["base set","base","bs","wotc base"]],["JUNGLE",["jungle","ju"]],["FOSSIL",["fossil","fossile","fo"]],["BASE SET 2",["base set 2","base 2","baseset2","b2"]],["ROCKET",["team rocket","rocket","tr"]],["GYM HEROES",["gym heroes","gym hero","gh"]],["GYM CHALLENGE",["gym challenge","gym chall","gc"]],["NEO GENESIS",["neo genesis","neo 1","ng"]],["NEO DISCOVERY",["neo discovery","neo disc","neo 2","ndi"]],["NEO REVELATION",["neo revelation","neo rev","neo 3","nr"]],["NEO DESTINY",["neo destiny","neo 4","nde"]],["LEGENDARY COLLECTION",["legendary collection","legendary","lc"]],["SOUTHERN ISLANDS",["southern islands","southern","si"]],["WOTC PROMO",["wotc promo","black star promo","wizards promo","promo","wp"]],["EXPEDITION",["expedition","ecard","e card","ecard1"]],["AQUAPOLIS",["aquapolis","ecard2"]],["SKYRIDGE",["skyridge","ecard3"]],["EX RUBY SAPPHIRE",["ex ruby sapphire","ruby sapphire","ex ruby","rs"]],["EX SANDSTORM",["ex sandstorm","sandstorm","ss"]],["EX DRAGON",["ex dragon","dragon ex","dr"]],["EX TEAM MAGMA AQUA",["ex team magma aqua","team magma vs team aqua","magma aqua","ma"]],["EX HIDDEN LEGENDS",["ex hidden legends","hidden legends","hl"]],["EX FIRERED LEAFGREEN",["ex firered leafgreen","firered leafgreen","fire red leaf green","frlg","fl"]],["EX TEAM ROCKET RETURNS",["ex team rocket returns","team rocket returns","rocket returns","trr"]],["EX DEOXYS",["ex deoxys","deoxys","dx"]],["EX EMERALD",["ex emerald","emerald","em"]],["EX UNSEEN FORCES",["ex unseen forces","unseen forces","uf"]],["EX DELTA SPECIES",["ex delta species","delta species","ex delta","ds"]],["EX LEGEND MAKER",["ex legend maker","legend maker","lm"]],["EX HOLON PHANTOMS",["ex holon phantoms","holon phantoms","hp"]],["EX CRYSTAL GUARDIANS",["ex crystal guardians","crystal guardians","crystal","cg"]],["EX DRAGON FRONTIERS",["ex dragon frontiers","dragon frontiers","df"]],["EX POWER KEEPERS",["ex power keepers","power keepers","pk"]],["EX TRAINER KIT 2",["ex trainer kit 2","trainer kit 2","tk2"]]];
@@ -303,12 +303,12 @@ function withFilters(url, lang, cond, edition=(editionSelect?.value || 'AUTO')){
     for(const key of ['minCondition','language','isFirstEd']) parsed.searchParams.delete(key);
     return parsed.href;
   }
-  const params = [];
-  if(CONDITION_IDS[cond]) params.push(`minCondition=${CONDITION_IDS[cond]}`);
-  if(LANGUAGE_IDS[lang]) params.push(`language=${LANGUAGE_IDS[lang]}`);
-  if(edition === '1ST') params.push('isFirstEd=Y');
-  if(!params.length) return url;
-  return url + (url.includes('?') ? '&' : '?') + params.join('&');
+  const condition=String(cond||'NM').toUpperCase();
+  if(CONDITION_IDS[condition]) parsed.searchParams.set('minCondition',CONDITION_IDS[condition]);
+  if(LANGUAGE_IDS[lang]) parsed.searchParams.set('language',LANGUAGE_IDS[lang]);
+  if(edition === '1ST') parsed.searchParams.set('isFirstEd','Y');
+  if(edition === 'UNLIMITED') parsed.searchParams.set('isFirstEd','N');
+  return parsed.href;
 }
 function cleanCardmarketText(value){
   return String(value || '').normalize('NFKC')

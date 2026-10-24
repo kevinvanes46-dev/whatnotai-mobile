@@ -12,19 +12,35 @@
   const exactSets=Object.freeze({'me02':'Phantasmal-Flames','xy4':'Phantom-Forces'});
   const normalizedNumber=s=>String(s||'').replace(/^0+(?=\d)/,'');
   const searchLink=name=>'https://www.cardmarket.com/en/Pokemon/Products/Search?searchString='+encodeURIComponent(name);
+  // Values verified against Cardmarket's public product filter form (2026-10-24).
+  // Its website uses numeric values; the authenticated API uses different codes.
+  function offerUrl(url,card={}){
+    const u=new URL(url),condition=String(card.condition||'NM').toUpperCase();
+    if(u.protocol!=='https:'||u.hostname!=='www.cardmarket.com')return '';
+    if(u.pathname.endsWith('/Search'))return searchLink(card.name||u.searchParams.get('searchString')||'Pokemon');
+    const conditions={M:1,MT:1,MINT:1,NM:2,EX:3,GD:4,LP:5,PL:6,PO:7};
+    if(!conditions[condition])return searchLink(card.name||'Pokemon');
+    u.searchParams.set('minCondition',conditions[condition]);
+    if(card.language==='EN')u.searchParams.set('language','1');
+    else if(card.language==='JP')u.searchParams.set('language','7');
+    else u.searchParams.delete('language');
+    return u.href;
+  }
   function cardmarketRoute(card={},legacyCatalog){
     const name=String(card.name||'').trim();
     if(!name)return {url:'',exact:false};
+    if(!['','M','MT','MINT','NM','EX','GD','LP','PL','PO'].includes(String(card.condition||'').toUpperCase()))return {url:searchLink(name),exact:false};
     if(card.language==='EN'&&card.source_id===card.source_set_id+'-'+card.number){
       const known=exactLinks[card.source_id];
       if(known&&name===known[0]&&card.number===known[1]&&card.set_name===known[2])
-        return {url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/'+exactSets[card.source_set_id]+'/'+known[3]+'?language=1',exact:true};
+        return {url:offerUrl('https://www.cardmarket.com/en/Pokemon/Products/Singles/'+exactSets[card.source_set_id]+'/'+known[3]+'?language=1',card),exact:true};
     }
     // Cardmarket's full-text search often rejects combined name + set + number.
     // A broad search is labeled as such, never called an exact listing.
     return {url:searchLink(name),exact:false};
   }
   function cardmarketOptions(card={},detail={},index={},legacyCatalog){
+    if(!['','M','MT','MINT','NM','EX','GD','LP','PL','PO'].includes(String(card.condition||'').toUpperCase()))return [];
     if(card.language!=='EN'||!card.source_set_id||card.source_id!==card.source_set_id+'-'+card.number||
       index?.schema!==191||index.source!=='CARDMARKET_OFFICIAL_PRODUCT_CATALOG'||index.count<70000||
       !index.rows||typeof index.rows!=='object')return [];
@@ -34,17 +50,26 @@
     const choices=new Map();
     for(const variant of detailMatches?detail.variants_detailed:[]){
       const id=variant?.thirdParty?.cardmarket,product=index.rows[id];
+      const expansion={base1:1523,'sv03.5':5402,me02:6299}[card.source_set_id];
       if(!Number.isSafeInteger(id)||id<=0||!Array.isArray(product)||!Number.isSafeInteger(product[0])||
+        product[0]!==expansion||!['normal','holo','reverse'].includes(variant.type)||
+        (variant.size&&variant.size!=='standard')||
+        (variant.stamp&&(!Array.isArray(variant.stamp)||variant.stamp.some(s=>s!=='1st-edition')))||
         typeof product[1]!=='string'||normalize(product[1].split(' [')[0])!==normalize(card.name))continue;
       const parts=[String(variant.type||'').replace('reverse','Reverse holo').replace('normal','Normaal').replace('holo','Holo')];
       if(variant.subtype)parts.push(String(variant.subtype));
       if(Array.isArray(variant.stamp)&&variant.stamp.length)parts.push(variant.stamp.join(', '));
       if(variant.foil)parts.push(String(variant.foil));
       const label=parts.filter(Boolean).join(' · ');
-      if(choices.has(id)){const old=choices.get(id);if(!old.labels.includes(label))old.labels.push(label);}
-      else choices.set(id,{id,labels:[label],url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct='+id+'&language=1'});
+      const key=JSON.stringify([id,variant.type,variant.subtype||'',variant.stamp||[],variant.foil||'']);
+      const url=new URL('https://www.cardmarket.com/en/Pokemon/Products?idProduct='+id+'&language=1');
+      if(variant.type==='reverse')url.searchParams.set('isReverseHolo','Y');
+      else if(detail.variants?.reverse===true)url.searchParams.set('isReverseHolo','N');
+      if(variant.stamp?.includes('1st-edition'))url.searchParams.set('isFirstEd','Y');
+      else if(['unlimited','shadowless'].includes(variant.subtype))url.searchParams.set('isFirstEd','N');
+      if(!choices.has(key))choices.set(key,{id,labels:[label],url:url.href,variant});
     }
-    if(!choices.size){
+    if(!choices.size&&!detailMatches){
       // v152 identities are accepted only after *independent* matching against
       // the official Cardmarket product catalog and the expansion's majority.
       const row=legacyCatalog?.[card.source_id],p=index.rows[row?.product];
@@ -64,7 +89,7 @@
           url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct='+row.product+'&language=1'});
       }
     }
-    return [...choices.values()].map(c=>({id:c.id,label:c.labels.join(' / '),url:c.url}));
+    return [...choices.values()].map(c=>({id:c.id,label:c.labels.join(' / '),url:offerUrl(c.url,card),...(c.variant?{variant:c.variant}:{})}));
   }
   function cards(data,set,language){
     const seen=new Set();return (Array.isArray(data)?data:[]).flatMap(c=>{
@@ -124,5 +149,5 @@
     }
     return {getSets,loadSet,discover,search,state,restore};
   }
-  return Object.freeze({create,cards,normalize,artwork,cardmarketRoute,cardmarketOptions,TTL});
+  return Object.freeze({create,cards,normalize,artwork,cardmarketRoute,cardmarketOptions,offerUrl,TTL});
 });

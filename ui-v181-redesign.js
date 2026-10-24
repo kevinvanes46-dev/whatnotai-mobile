@@ -29,7 +29,7 @@
    sourceId:x.sourceId,sourceSetId:x.source_set_id,language:x.language,
    variant:x.variant,edition:x.edition,condition:x.condition
   }}));
-  const q=await quote(s);if(token!==generation)return;
+  const q=window.HoloKeepOfficialMarket&&!c.catalogOnly?window.HoloKeepOfficialMarket.display(await window.HoloKeepOfficialMarket.quote(x)):await quote(s);if(token!==generation)return;
   $('cardSheetPrice').textContent=q.value!=null?money(q.value):'Geen marktindicatie';
   $('cardSheetNote').textContent=[q.label,q.value!=null?q.condition:'',q.date].filter(Boolean).join(' · ');
  }

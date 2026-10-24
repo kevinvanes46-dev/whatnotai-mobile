@@ -26,7 +26,7 @@ test('only checksum-verified official trend is displayed, not numeric TCGdex pri
   const x=await preview.lookup('base1-4',{fetchImpl:fakeFetch(),cryptoImpl:webcrypto,now:when,qty:2,confirmed:true});
   assert.equal(x.quote.state,'AVAILABLE');assert.equal(x.quote.value,7);
   assert.equal(x.item.qty,2);assert.equal(x.item.edition,'UNLIMITED');
-  assert.equal(preview.cardmarketUrl(x.quote),'https://www.cardmarket.com/en/Pokemon/Products?idProduct=273699');
+  assert.equal(preview.cardmarketUrl(x.quote),'https://www.cardmarket.com/en/Pokemon/Products?idProduct=273699&language=1&minCondition=2');
   assert.equal(x.quote.conditionSpecific,false);assert.equal(x.quote.languageSpecific,false);
 });
 test('unrecognized identity and missing manifest do not yield a guessed price',async()=>{

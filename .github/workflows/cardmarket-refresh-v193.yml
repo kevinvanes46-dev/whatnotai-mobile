@@ -1,0 +1,132 @@
+name: Official Cardmarket daily snapshot
+on:
+  workflow_dispatch:
+  schedule:
+    # 05:17 UTC daily; GitHub may delay scheduled runs.
+    - cron: '17 5 * * *'
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: official-cardmarket-daily-snapshot
+  cancel-in-progress: false
+jobs:
+  snapshot:
+    # Only the default branch can publish. Feature branches remain review-only.
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: scripts/package-lock.json
+      - name: Verify Pages still publishes main root
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          source="$(gh api "repos/${GITHUB_REPOSITORY}/pages" --jq '[.build_type, .source.branch, .source.path] | join(":")')"
+          if [ "$source" != 'legacy:main:/' ]; then
+            echo "::error::Pages source changed ($source). Refusing automatic publication."
+            exit 1
+          fi
+      - name: Build and audit a fresh snapshot
+        run: |
+          node scripts/build-cardmarket-public-v186.cjs --out "$RUNNER_TEMP/cardmarket-v193"
+          node scripts/audit-cardmarket-feed-v186.cjs --dir "$RUNNER_TEMP/cardmarket-v193" --report "$RUNNER_TEMP/cardmarket-v193/source-audit.json"
+      - name: Verify guide freshness and actual new publication
+        id: guide
+        env:
+          CANDIDATE_MANIFEST: ${{ runner.temp }}/cardmarket-v193/manifest.json
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const current = JSON.parse(fs.readFileSync('cardmarket-public-v193/manifest.json', 'utf8'));
+          const next = JSON.parse(fs.readFileSync(process.env.CANDIDATE_MANIFEST, 'utf8'));
+          const oldTime = Date.parse(current.priceGuideCreatedAt);
+          const newTime = Date.parse(next.priceGuideCreatedAt);
+          if (!Number.isFinite(oldTime) || !Number.isFinite(newTime)) throw Error('Invalid guide dates');
+          const age = Date.now() - newTime;
+          if (age < -3600000 || age > 36 * 3600000) throw Error('Official guide is not fresh enough to publish');
+          if (newTime < oldTime) throw Error('Refusing older Cardmarket guide');
+          const update = newTime > oldTime;
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `update=${update}\n`);
+          console.log(update ? `New official guide: ${next.priceGuideCreatedAt}` : 'Official guide unchanged; no publication necessary');
+          NODE
+      - name: Stage only official public data and audit
+        if: steps.guide.outputs.update == 'true'
+        run: |
+          cp "$RUNNER_TEMP/cardmarket-v193/manifest.json" cardmarket-public-v193/manifest.json
+          cp "$RUNNER_TEMP/cardmarket-v193/"[0-9a-f][0-9a-f].json cardmarket-public-v193/
+          cp "$RUNNER_TEMP/cardmarket-v193/source-audit.json" docs/v193/source-audit.json
+          node scripts/audit-cardmarket-feed-v186.cjs --dir cardmarket-public-v193 > /dev/null
+      - name: Install locked test dependencies
+        if: steps.guide.outputs.update == 'true'
+        run: npm ci --prefix scripts
+      - name: Install Chromium
+        if: steps.guide.outputs.update == 'true'
+        run: node scripts/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Verify v193, official feed, legacy UI and offline regressions
+        if: steps.guide.outputs.update == 'true'
+        run: |
+          node --test --test-concurrency=1 \
+            tests/cardmarket-v193.test.cjs \
+            tests/cardmarket-browser-v193.test.cjs \
+            tests/cardmarket-public-v186.test.cjs \
+            tests/cardmarket-quote-v186.test.cjs \
+            tests/cardmarket-feed-v186.test.cjs \
+            tests/cardmarket-history-v186.test.cjs \
+            tests/cardmarket-audit-v186.test.cjs \
+            tests/library-browser-v185.test.cjs \
+            tests/integration-browser-v181.test.cjs \
+            tests/pwa-v169.test.cjs
+      - name: Commit only the approved daily price data
+        if: steps.guide.outputs.update == 'true'
+        run: |
+          git add -- cardmarket-public-v193/ docs/v193/source-audit.json
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo 'No tracked price changes to publish'
+            exit 1
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "data: refresh official Cardmarket guide $(date -u +%F)"
+          # Ordinary, non-force push; branch protection and concurrent edits win.
+          git push origin HEAD:main
+      - name: Explicitly request a legacy Pages build
+        if: steps.guide.outputs.update == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/${GITHUB_REPOSITORY}/pages/builds"
+      - name: Verify published website contains the exact tested manifest
+        if: steps.guide.outputs.update == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          site="$(gh api "repos/${GITHUB_REPOSITORY}/pages" --jq '.html_url')"
+          if [[ "$site" != https://* ]]; then
+            echo '::error::Could not determine Pages site URL'
+            exit 1
+          fi
+          site="${site%/}/cardmarket-public-v193/manifest.json"
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error --location --max-time 15 "$site?refresh=${GITHUB_RUN_ID}-${attempt}" | cmp --silent cardmarket-public-v193/manifest.json -; then
+              echo 'Verified: production manifest matches the reviewed official guide.'
+              exit 0
+            fi
+            sleep 10
+          done
+          echo '::error::Pages has not published the exact tested manifest within five minutes.'
+          exit 1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: official-cardmarket-snapshot-candidate
+          path: ${{ runner.temp }}/cardmarket-v193
+          retention-days: 3
+          if-no-files-found: warn

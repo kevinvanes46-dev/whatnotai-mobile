@@ -111,3 +111,6 @@ jobs:
 
       - name: v189 mobile home, navigation and safe release appearance
         run: node --test tests/home-experience-v189.test.cjs
+
+      - name: v193 official Cardmarket condition, quote and visible Chromium flow
+        run: node --test tests/cardmarket-v193.test.cjs tests/cardmarket-browser-v193.test.cjs

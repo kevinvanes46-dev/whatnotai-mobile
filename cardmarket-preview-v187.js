@@ -48,9 +48,10 @@
     }
   }
 
-  function cardmarketUrl(quote) {
+  function cardmarketUrl(quote,condition='NM') {
+    const minimum={M:1,MT:1,MINT:1,NM:2,EX:3,GD:4,LP:5,PL:6,PO:7}[String(condition||'NM').toUpperCase()];
     return quote?.state==='AVAILABLE' && Number.isSafeInteger(quote.productId) && quote.productId>0
-      ? 'https://www.cardmarket.com/en/Pokemon/Products?idProduct='+quote.productId : null;
+      && minimum ? 'https://www.cardmarket.com/en/Pokemon/Products?idProduct='+quote.productId+'&language=1&minCondition='+minimum : null;
   }
 
   function controller({document,storage,fetchImpl,cryptoImpl,now=()=>Date.now()}={}) {
@@ -122,7 +123,7 @@
       say(price,fmt(data.quote.value));
       say(source,'Cardmarket · EUR · trend · '+date(data.quote.asOf)+' · '+data.card.name+
         ' · '+data.item.sourceId+' · conditie en taal niet verwerkt');
-      const href=cardmarketUrl(data.quote);link.href=href;link.hidden=!href;
+      const href=cardmarketUrl(data.quote,data.item.condition);link.href=href;link.hidden=!href;
       say(captureStatus,'Klik zelf op Meetpunt opslaan om deze echte dagwaarde lokaal vast te leggen.');
       renderChart();
     });
