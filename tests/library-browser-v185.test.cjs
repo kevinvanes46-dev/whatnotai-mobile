@@ -7,12 +7,17 @@ after(async()=>{await browser?.close();await new Promise(r=>server.close(r));});
 async function setup(t){const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,acceptDownloads:true});t.after(()=>context.close());const requests=[];
 await context.route('**/*',r=>{const u=new URL(r.request().url());if(u.origin===origin)return r.continue();requests.push(u.href);if(u.hostname==='api.tcgdex.net'){const parts=u.pathname.split('/'),lang=parts[2],id=decodeURIComponent(parts.at(-1));if(parts[3]==='sets'&&parts.length===5){const f='tests/fixtures/library-v185/'+lang+'-'+id+'.json';return r.fulfill({json:fs.existsSync(f)?JSON.parse(fs.readFileSync(f)):{id,cards:[],cardCount:{total:0}}});}if(parts[3]==='cards'&&parts.length===4){const all=JSON.parse(fs.readFileSync('docs/v185-audit/en-cards.json')),n=Number(u.searchParams.get('pagination:page')||1);return r.fulfill({json:all.slice((n-1)*80,n*80)});}return r.fulfill({json:F.card});}if(u.hostname==='assets.tcgdex.net')return r.fulfill({contentType:'image/png',body:fs.readFileSync('icon-rareworth-192.png')});return r.abort();});
 const p=await context.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));t.after(()=>assert.deepEqual(errors,[]));await p.goto(origin);await p.locator('#onboardingGuest').click();await p.locator('#navSearch').click();await p.waitForFunction(()=>window.HoloDexLibraryUI);return {p,context,requests};}
-test('v192 starts searches in English, permits Japanese, and resets to English',async t=>{
+test('v192 starts searches in English and preserves explicit language choices across reloads',async t=>{
   const {p}=await setup(t);
   assert.equal(await p.locator('#langSelect').inputValue(),'EN');
-  await p.locator('[data-choice-target="langSelect"] [data-value="JP"]').first().click();
+  await p.locator('.visiblePreferences [data-value="JP"]').click();
   assert.equal(await p.locator('#langSelect').inputValue(),'JP');
-  await p.locator('#clearBtn').click();
+  await p.reload();
+  await p.locator('#navSearch').click();
+  assert.equal(await p.locator('#langSelect').inputValue(),'JP');
+  await p.locator('.visiblePreferences [data-value="EN"]').click();
+  await p.reload();
+  await p.locator('#navSearch').click();
   assert.equal(await p.locator('#langSelect').inputValue(),'EN');
 });
 test('unified search finds modern combined match, pages broad results and keeps exact identity when adding and reloading',async t=>{const {p}=await setup(t);await p.locator('#quickInput').fill('Charizard 199 151');await p.locator('.suggestion').filter({hasText:'Charizard ex #199'}).waitFor();assert.equal(await p.locator('.suggestion').count(),1);await p.locator('.suggestion').first().click();await p.locator('#selectedCardOpen').click();assert.match(await p.locator('#cardSheetNote').innerText(),/uitgeschakeld/);await p.locator('#cardSheetAction').click();await p.locator('#collectionEditorSave').click();let items=await p.evaluate(()=>JSON.parse(localStorage.getItem('cardscout_collection_v133')));assert.equal(items.length,1);assert.equal(items[0].sourceId,'sv03.5-199');assert.equal(items[0].source_set_id,'sv03.5');assert.equal(items[0].language,'EN');const original=JSON.stringify(items);await p.reload();assert.equal(await p.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),original);await p.locator('#navSearch').click();await p.locator('#quickInput').fill('Charizard');await p.locator('#libraryMore').waitFor({state:'visible'});await p.locator('#libraryMore').click();await p.waitForFunction(()=>document.getElementById('libraryStatus').textContent.includes('pagina 2'));assert.ok(await p.locator('.suggestion').count()>=80);});

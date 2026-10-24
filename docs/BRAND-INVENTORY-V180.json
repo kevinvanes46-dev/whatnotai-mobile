@@ -9257,7 +9257,7 @@
     },
     {
       "file": "tests/library-browser-v185.test.cjs",
-      "line": 18,
+      "line": 23,
       "names": [
         "cardscout"
       ],
@@ -9266,7 +9266,7 @@
     },
     {
       "file": "tests/library-browser-v185.test.cjs",
-      "line": 20,
+      "line": 25,
       "names": [
         "cardscout",
         "holokeep",
@@ -9277,7 +9277,7 @@
     },
     {
       "file": "tests/library-browser-v185.test.cjs",
-      "line": 50,
+      "line": 55,
       "names": [
         "cardscout"
       ],
