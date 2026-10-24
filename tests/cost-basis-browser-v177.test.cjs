@@ -61,7 +61,7 @@ test('old and v177 backups roundtrip, malformed basis and unknown fields survive
 test('market refresh is immutable; offline PWA v177 retains user costs and comparison',async t=>{
  const {page:p,context}=await setup(t,[C.initialize(F.item,2,10)]);const before=await read(p),sig=await signature(p);await p.evaluate(()=>cardscoutCollectionUI.refreshPrices(true));assert.deepEqual(await read(p),before);assert.equal(await signature(p),sig);assert.equal(await p.locator('#collectionDifference').innerText(),'—');assert.match(await p.locator('#collectionPaid').innerText(),/20,00/);
  await p.evaluate(()=>navigator.serviceWorker.ready);await p.waitForFunction(()=>!!navigator.serviceWorker.controller);await context.setOffline(true);await p.reload();await p.locator('#navCollection').click();assert.deepEqual(await read(p),before);assert.equal(await p.locator('#collectionDifference').innerText(),'—');assert.match(await p.locator('#collectionPaid').innerText(),/20,00/);
- const urls=await p.evaluate(async()=> (await(await caches.open('rareworth-shell-v191-cardmarket-identity')).keys()).map(r=>r.url));assert.ok(urls.some(u=>u.includes('cost-basis-v177.js')));assert.ok(urls.every(u=>new URL(u).origin===origin));
+ const urls=await p.evaluate(async()=> (await(await caches.open('rareworth-shell-v192-cardmarket-language')).keys()).map(r=>r.url));assert.ok(urls.some(u=>u.includes('cost-basis-v177.js')));assert.ok(urls.every(u=>new URL(u).origin===origin));
 });
 test('mobile summary, legacy choices, acquisition and positive/negative partial results',async t=>{
  const negative=C.initialize({...F.item,uid:'negative'},2,50),partial=C.addUnknown(C.initialize({...F.item,uid:'partial'},2,10),3),{page:p}=await setup(t,[F.item,negative,partial]);
