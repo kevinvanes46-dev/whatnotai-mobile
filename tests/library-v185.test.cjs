@@ -13,10 +13,11 @@ test('Cardmarket uses verified product identity or a broad honest name-only sear
   const oddish={source_id:'me02-001',source_set_id:'me02',name:'Oddish',number:'001',set_name:'Phantasmal Flames',language:'EN'};
   const direct=Library.cardmarketRoute(oddish);
   assert.equal(direct.exact,true);
-  assert.equal(direct.url,'https://www.cardmarket.com/en/Pokemon/Products/Singles/Phantasmal-Flames/Oddish-PFL001');
+  assert.equal(direct.url,'https://www.cardmarket.com/en/Pokemon/Products/Singles/Phantasmal-Flames/Oddish-PFL001?language=1');
   const result=Library.cardmarketRoute({...oddish,source_id:'other-001'});
   assert.equal(result.exact,false);
   assert.equal(new URL(result.url).searchParams.get('searchString'),'Oddish');
+  assert.equal(new URL(result.url).searchParams.has('language'),false,'Broad search must not exclude cards of unknown variants');
   assert.doesNotMatch(result.url,/Phantasmal|001/);
   assert.equal(Library.cardmarketRoute({name:'Mega Charizard X ex',language:'EN'}).url.endsWith('Mega%20Charizard%20X%20ex'),true);
   assert.equal(Library.cardmarketRoute({name:''}).url,'');
@@ -27,7 +28,7 @@ test('v191 restores legacy Cardmarket IDs only after independent official-catalo
   const index=require('../cardmarket-product-index-v191.json');
   assert.equal(Library.cardmarketRoute(card,legacy).exact,false);
   assert.deepEqual(Library.cardmarketOptions(card,{},index,legacy),[{
-    id:273697,label:'Bekend product · uitvoering controleren',url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct=273697'}]);
+    id:273697,label:'Bekend product · uitvoering controleren',url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct=273697&language=1'}]);
   for(const invalid of [{...card,source_set_id:'base2'},{...card,name:'Dark Blastoise'},
     {...card,number:'4'},{...card,language:'JP'},{...card,source_id:'base1-4'}]){
     assert.equal(Library.cardmarketOptions(invalid,{},index,legacy).length,0,JSON.stringify(invalid));
@@ -41,7 +42,7 @@ test('v191 official Cardmarket index validates identity without reading a price'
   const detail={id:'me02-039',localId:'039',name:'Cresselia',set:{id:'me02'},variants_detailed:[
     {type:'normal',thirdParty:{cardmarket:857614}},{type:'reverse',thirdParty:{cardmarket:857614}}]};
   assert.deepEqual(Library.cardmarketOptions(card,detail,index),[{
-    id:857614,label:'Normaal / Reverse Holo',url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct=857614'}]);
+    id:857614,label:'Normaal / Reverse Holo',url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct=857614&language=1'}]);
   assert.equal(Library.cardmarketOptions({...card,source_set_id:'base1'},detail,index).length,0);
   assert.equal(Library.cardmarketOptions(card,{...detail,name:'Blastoise'},index).length,0);
   assert.equal(Library.cardmarketOptions(card,{...detail,variants_detailed:[{type:'normal',thirdParty:{cardmarket:273697}}]},index).length,0);

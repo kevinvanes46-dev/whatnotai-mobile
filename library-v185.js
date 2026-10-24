@@ -18,7 +18,7 @@
     if(card.language==='EN'&&card.source_id===card.source_set_id+'-'+card.number){
       const known=exactLinks[card.source_id];
       if(known&&name===known[0]&&card.number===known[1]&&card.set_name===known[2])
-        return {url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/'+exactSets[card.source_set_id]+'/'+known[3],exact:true};
+        return {url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/'+exactSets[card.source_set_id]+'/'+known[3]+'?language=1',exact:true};
     }
     // Cardmarket's full-text search often rejects combined name + set + number.
     // A broad search is labeled as such, never called an exact listing.
@@ -42,7 +42,7 @@
       if(variant.foil)parts.push(String(variant.foil));
       const label=parts.filter(Boolean).join(' · ');
       if(choices.has(id)){const old=choices.get(id);if(!old.labels.includes(label))old.labels.push(label);}
-      else choices.set(id,{id,labels:[label],url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct='+id});
+      else choices.set(id,{id,labels:[label],url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct='+id+'&language=1'});
     }
     if(!choices.size){
       // v152 identities are accepted only after *independent* matching against
@@ -61,7 +61,7 @@
         const top=[...counts].sort((a,b)=>b[1]-a[1])[0];
         if(top&&top[0]===p[0])choices.set(row.product,{id:row.product,
           labels:['Bekend product · uitvoering controleren'],
-          url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct='+row.product});
+          url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct='+row.product+'&language=1'});
       }
     }
     return [...choices.values()].map(c=>({id:c.id,label:c.labels.join(' / '),url:c.url}));
