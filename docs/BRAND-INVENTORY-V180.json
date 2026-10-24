@@ -7529,6 +7529,24 @@
       "sha256": "d4af819d698c32e07af0ea32234a48ddb4cb7449f42b573018418ff985d4c432"
     },
     {
+      "file": "tests/cardmarket-browser-v193.test.cjs",
+      "line": 70,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "b33f3f813c109700fda9fc1a1064ca43b26ab7b5eb4f53b80b183a56c92a1123"
+    },
+    {
+      "file": "tests/cardmarket-browser-v193.test.cjs",
+      "line": 71,
+      "names": [
+        "HoloKeep"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "ac92add1ae796ea5fc2e633d956cf698933e97cd76089fbf073bc9184cd232b0"
+    },
+    {
       "file": "tests/cardmarket-engine-v147.test.cjs",
       "line": 60,
       "names": [
