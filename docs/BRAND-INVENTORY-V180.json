@@ -5649,7 +5649,7 @@
     },
     {
       "file": "scripts/sync-brand-audits-v189.cjs",
-      "line": 20,
+      "line": 23,
       "names": [
         "HoloKeep"
       ],
