@@ -6,9 +6,12 @@ const crypto=require('node:crypto');
 const {execFileSync}=require('node:child_process');
 const {inventory}=require('../tests/brand-support-v172.cjs');
 const docs='docs/BRAND-V172.md',v180='docs/BRAND-INVENTORY-V180.json';
-const content=fs.readFileSync(docs,'utf8'),marker='|---|---|---|---|\n';
+const normalize=text=>text.replace(/\r\n?/g,'\n');
+const content=normalize(fs.readFileSync(docs,'utf8')),marker='|---|---|---|---|\n';
 if(content.split(marker).length!==2)throw Error('Expected a single brand inventory table');
-const nextDoc=content.split(marker)[0]+marker+inventory()+'\n';
+// Compute the Markdown table only AFTER the JSON inventory is regenerated:
+// the table includes line numbers in the JSON inventory itself.
+const renderDoc=()=>content.split(marker)[0]+marker+inventory()+'\n';
 const previous=JSON.parse(fs.readFileSync(v180,'utf8'));
 const matches=[];
 const files=execFileSync('git',['ls-files','-z'],{encoding:'utf8'}).split('\0').filter(Boolean);
@@ -25,10 +28,10 @@ for(const file of files){
 }
 const next180=JSON.stringify({...previous,matches},null,2)+'\n';
 if(process.argv.includes('--check')){
-  if(content!==nextDoc||fs.readFileSync(v180,'utf8')!==next180)throw Error('Brand inventories are stale');
+  if(normalize(fs.readFileSync(v180,'utf8'))!==next180||content!==renderDoc())throw Error('Brand inventories are stale');
   process.stdout.write('Brand inventories match tracked source\n');
 }else{
-  fs.writeFileSync(docs,nextDoc);
   fs.writeFileSync(v180,next180);
+  fs.writeFileSync(docs,renderDoc());
   process.stdout.write('Regenerated v172 and v180 brand inventories\n');
 }

@@ -32,7 +32,7 @@ test('verified Cardmarket page opens directly; missing JP logos show honest plac
   await p.locator('.libraryCard').first().click();
   const link=p.locator('#cardSheetLink');
   await p.locator('#libraryCmChoices191').filter({hasText:'Bestaande productkoppeling; specifieke uitvoering controleren.'}).waitFor();
-  assert.equal(await link.getAttribute('href'),'https://www.cardmarket.com/en/Pokemon/Products/Singles/Phantasmal-Flames/Oddish-PFL001?language=1');
+  assert.equal(await link.getAttribute('href'),'https://www.cardmarket.com/en/Pokemon/Products/Singles/Phantasmal-Flames/Oddish-PFL001?language=1&minCondition=2');
   assert.match(await link.innerText(),/Bekijk exacte kaart op Cardmarket/);
   await p.locator('#cardSheetClose').click();
   await p.getByLabel('Filter sets',{exact:true}).fill('151');
@@ -68,11 +68,11 @@ test('v191 Base Set ownership stays scoped and verified Cardmarket variants requ
   assert.match(await p.locator('#librarySetDetail').innerText(),/Base Set: 102 beschikbare kaarten · 1 in bezit/);
   await p.locator('.libraryCard').click();
   await p.locator('#libraryCmChoices191 button').first().waitFor();
-  assert.equal(await p.locator('#libraryCmChoices191 button').count(),2);
+  assert.equal(await p.locator('#libraryCmChoices191 button[aria-pressed]').count(),2);
   assert.equal(await p.locator('#cardSheetLink').isVisible(),false);
   await p.locator('#libraryCmChoices191 button').first().click();
-  assert.equal(await p.locator('#cardSheetLink').getAttribute('href'),'https://www.cardmarket.com/en/Pokemon/Products?idProduct=273697&language=1');
+  assert.equal(await p.locator('#cardSheetLink').getAttribute('href'),'https://www.cardmarket.com/en/Pokemon/Products?idProduct=273697&language=1&isFirstEd=N&minCondition=2');
   await p.locator('#libraryCmChoices191 button').nth(1).click();
-  assert.equal(await p.locator('#cardSheetLink').getAttribute('href'),'https://www.cardmarket.com/en/Pokemon/Products?idProduct=660226&language=1');
-  await p.locator('#cardSheetNote').filter({hasText:'uitgeschakeld'}).waitFor();
+  assert.equal(await p.locator('#cardSheetLink').getAttribute('href'),'https://www.cardmarket.com/en/Pokemon/Products?idProduct=660226&language=1&isFirstEd=Y&minCondition=2');
+  await p.locator('#cardSheetNote').filter({hasText:'Deze editie of uitvoering heeft nog geen geverifieerde prijsdekking.'}).waitFor();
 });

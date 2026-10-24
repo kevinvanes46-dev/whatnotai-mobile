@@ -54,15 +54,30 @@
       const detail=detailResult.status==='fulfilled'?detailResult.value:{};
       if(routeSeq!==token||!dialog.open)return;
       const choices=HoloDexLibrary.cardmarketOptions(c,detail,indexResult.value,window.CM_PRODUCT_CATALOG);
+      let quoteSeq=0,lastChoice=null;
+      async function showQuote(choice){
+        lastChoice=choice;
+        const request=++quoteSeq;
+        $('cardSheetPrice').textContent='';$('cardSheetNote').textContent='Officiële Cardmarket-snapshot controleren…';
+        const item={...c,sourceId:c.source_id,source_set_id:c.source_set_id,variant:'NORMAL',edition:'UNLIMITED'};
+        const unsupported=choice.variant&&(choice.variant.type==='reverse'||choice.variant.stamp?.length||choice.variant.subtype==='shadowless');
+        const q=unsupported?{state:'UNAVAILABLE',reason:'SPECIAL_VARIANT'}:await HoloKeepOfficialMarket.quote(item,{card:detail,productId:choice.id});
+        if(routeSeq!==token||request!==quoteSeq||!dialog.open)return;
+        const shown=HoloKeepOfficialMarket.display(q);
+        $('cardSheetPrice').textContent=shown.value==null?'Geen marktindicatie':new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR'}).format(shown.value);
+        $('cardSheetNote').textContent=[shown.label,shown.date].filter(Boolean).join(' · ');
+      }
       panel.replaceChildren();
-      if(choices.length===1){setCardmarketLink(link,{url:choices[0].url,exact:true});panel.append(el('small','Product-ID gecontroleerd met officiële Cardmarket-catalogus; controleer taal en conditie bij aankoop.'));}
+      if(choices.length===1){setCardmarketLink(link,{url:choices[0].url,exact:true});panel.append(el('small','Product-ID gecontroleerd met officiële Cardmarket-catalogus; controleer taal en conditie bij aankoop.'));void showQuote(choices[0]);}
       else if(choices.length>1){
         link.hidden=true;panel.append(el('p','Kies de juiste uitvoering voor je Cardmarket-link:'));
         for(const choice of choices){const b=button(choice.label,()=>{
           setCardmarketLink(link,{url:choice.url,exact:true});
+          void showQuote(choice);
           for(const n of panel.querySelectorAll('button'))n.setAttribute('aria-pressed',String(n===b));
         });b.setAttribute('aria-pressed','false');panel.append(b);}
       }else{setCardmarketLink(link,fallback);panel.append(el('small',fallback.exact?'Bestaande productkoppeling; specifieke uitvoering controleren.':'Geen bevestigde product-ID. Controleer set en kaartnummer in de zoekresultaten.'));}
+      if(choices.length)panel.append(button('Prijs opnieuw controleren',()=>{if(lastChoice)void showQuote(lastChoice);}));
     }catch{
       if(routeSeq!==token||!dialog.open)return;
       panel.textContent='Productcontrole niet bereikbaar. '+(fallback.exact?'Bestaande koppeling beschikbaar.':'Gebruik de zoekresultaten en controleer de set.');
@@ -70,6 +85,7 @@
     }
   }
   function openLibraryCard(c,l){
+    c={...c,condition:$('condSelect').value||'NM'};
     const route=l==='JP'?window.JPCardmarketNative?.route(c):HoloDexLibrary.cardmarketRoute(c);
     window.HoloDexRedesign.open({card:c,condition:$('condSelect').value||'NM',edition:'AUTO',stamped:false,cardmarketUrl:route?.url||''});
     if(l==='EN')void resolveCardmarket(c,route||{url:'',exact:false},routeSeq);

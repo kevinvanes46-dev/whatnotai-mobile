@@ -21,7 +21,7 @@ test('v168 shell metadata, navigation and product script order',()=>{
     'brand-v172.js','cardmarket-products-v152.js','card-identity-v154.js','app-v137.js','jp-cardmarket-twin-v157.js',
     'jp-artwork-v158.js','cardmarket-ui-v156.js','jp-set-catalog-v160.js','jp-cardmarket-native-v165.js',
     'jp-cardmarket-native-v163.js','jp-image-manifest-v161.js','jp-image-library-v161.js','beta-search-v180.js','ui-v137-focus.js',
-    'market-v176.js','cost-basis-v177.js','portfolio-insights-v178.js','ui-v137-collection.js','ui-v150-experience.js','home-v179.js','ui-v154-keyboard.js','ui-v153-mobile.js','cloud-sync-v170.js','supabase-config-v170.js','supabase-client-v170.js','cloud-adapter-v170.js','account-ui-v170.js','onboarding-v171.js','pwa-v169.js','ui-v181-redesign.js','ui-v183-cardmarket.js','history-v183.js','ui-v183-parity.js','library-v185.js','ui-library-v185.js','ui-v189-home.js']);
+    'market-v176.js','cost-basis-v177.js','portfolio-insights-v178.js','ui-v137-collection.js','ui-v150-experience.js','home-v179.js','ui-v154-keyboard.js','ui-v153-mobile.js','cloud-sync-v170.js','supabase-config-v170.js','supabase-client-v170.js','cloud-adapter-v170.js','account-ui-v170.js','onboarding-v171.js','pwa-v169.js','cardmarket-price-v186.js','cardmarket-feed-v186.js','cardmarket-production-v193.js','ui-v181-redesign.js','ui-v183-cardmarket.js','history-v183.js','ui-v183-parity.js','library-v185.js','ui-library-v185.js','ui-market-v193.js','ui-v189-home.js']);
   assert.match(fs.readFileSync('ui-v137-collection.js','utf8'),/cardscout_collection_v133/);
 });
 

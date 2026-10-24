@@ -1,0 +1,36 @@
+{
+  "schema": 186,
+  "source": "CARDMARKET_PUBLIC_GUIDE",
+  "generatedAt": "2026-10-24T11:26:02.356Z",
+  "catalogCreatedAt": "2026-10-24T09:13:34.000Z",
+  "priceGuideCreatedAt": "2026-10-24T00:45:46.000Z",
+  "matchedSourceProducts": 66837,
+  "withOrdinaryTrend": 63907,
+  "withReverseHoloTrend": 29107,
+  "approvedExpansionSourceCoverage": [
+    {
+      "tcgdexSetId": "base1",
+      "cardmarketExpansionId": 1523,
+      "sourceProducts": 211,
+      "withOrdinaryTrend": 211,
+      "withReverseHoloTrend": 100
+    },
+    {
+      "tcgdexSetId": "sv03.5",
+      "cardmarketExpansionId": 5402,
+      "sourceProducts": 242,
+      "withOrdinaryTrend": 238,
+      "withReverseHoloTrend": 161
+    },
+    {
+      "tcgdexSetId": "sv2a",
+      "cardmarketExpansionId": 5328,
+      "sourceProducts": 210,
+      "withOrdinaryTrend": 210,
+      "withReverseHoloTrend": 153
+    }
+  ],
+  "assessment": "SOURCE_COVERAGE_ONLY_NOT_VERIFIED_CARD_IDENTITY_OR_CONDITION_PRICES",
+  "containsPrices": false,
+  "containsPersonalData": false
+}

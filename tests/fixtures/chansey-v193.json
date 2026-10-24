@@ -1,0 +1,114 @@
+{
+  "category": "Pokemon",
+  "id": "base1-3",
+  "illustrator": "Ken Sugimori",
+  "image": "https://assets.tcgdex.net/en/base/base1/3",
+  "localId": "3",
+  "name": "Chansey",
+  "rarity": "Rare",
+  "set": {
+    "cardCount": {
+      "official": 102,
+      "total": 102
+    },
+    "id": "base1",
+    "logo": "https://assets.tcgdex.net/en/base/base1/logo",
+    "name": "Base Set"
+  },
+  "variants": {
+    "firstEdition": true,
+    "holo": true,
+    "normal": false,
+    "reverse": false,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "holo",
+      "subtype": "unlimited",
+      "size": "standard",
+      "thirdParty": {
+        "cardmarket": 273698,
+        "tcgplayer": 42371
+      },
+      "variantId": "4ffrmhcfiaejakhepqdkx7o"
+    },
+    {
+      "type": "holo",
+      "subtype": "shadowless",
+      "size": "standard",
+      "stamp": [
+        "1st-edition"
+      ],
+      "thirdParty": {
+        "tcgplayer": 106998,
+        "cardmarket": 660225
+      },
+      "variantId": "mtltux8qtgdu4exu903oasum21juxbvx6lx"
+    },
+    {
+      "type": "holo",
+      "subtype": "shadowless",
+      "size": "standard",
+      "thirdParty": {
+        "tcgplayer": 106998,
+        "cardmarket": 660225
+      },
+      "variantId": "3takscxpcqoqcfnxk1ivs2y6"
+    },
+    {
+      "type": "holo",
+      "subtype": "1999-2000-copyright",
+      "size": "standard",
+      "variantId": "zqq5g2u9n0st0gren5bssktmac2ywqaw"
+    }
+  ],
+  "dexId": [
+    113
+  ],
+  "hp": 120,
+  "types": [
+    "Colorless"
+  ],
+  "description": "A rare and elusive Pokémon that is said to bring happiness to those who manage to catch it.",
+  "stage": "Basic",
+  "attacks": [
+    {
+      "cost": [
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Scrunch",
+      "effect": "Flip a coin. If heads, prevent all damage done to Chansey during your opponent's next turn. (Any other effects of attacks still happen.)"
+    },
+    {
+      "cost": [
+        "Colorless",
+        "Colorless",
+        "Colorless",
+        "Colorless"
+      ],
+      "name": "Double-edge",
+      "effect": "Chansey does 80 damage to itself.",
+      "damage": 80
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Fighting",
+      "value": "×2"
+    }
+  ],
+  "resistances": [
+    {
+      "type": "Psychic",
+      "value": "-30"
+    }
+  ],
+  "retreat": 1,
+  "legal": {
+    "standard": false,
+    "expanded": false
+  },
+  "updated": "2026-08-20T08:25:49+01:00"
+}

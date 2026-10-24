@@ -72,7 +72,7 @@ test('v170B integration preserves every existing product engine and storage key'
     if(file==='ui-v150-experience.js')current=require('./experience-scope-v171.cjs')(current);
     assert.equal(current,before.replace(/\r\n?/g,'\n'),file);
   }
-  assert.match(fs.readFileSync('sw.js','utf8'),/rareworth-shell-v192-cardmarket-language/);
+  assert.match(fs.readFileSync('sw.js','utf8'),/rareworth-shell-v193-cardmarket-nm-prices/);
   assert.match(fs.readFileSync('sw.js','utf8'),/cloud-sync-v170/);
   assert.match(fs.readFileSync('ui-v137-collection.js','utf8'),/cardscout_collection_v133/);
 });

@@ -56,7 +56,7 @@ test('real service worker offline reload retains validated cache, provenance, us
  await context.setOffline(true);await page.reload();await page.locator('#navCollection').click();
  assert.match(await page.locator('#collectionMarket').textContent(),/50/);assert.match(await page.locator('#collectionList').textContent(),/Cardmarket trend/);assert.match(await page.locator('#collectionList').textContent(),/Bijgewerkt/);
  assert.deepEqual(await snapshot(page),before);assert.equal(await page.evaluate(()=>localStorage.getItem(HoloKeepMarket.KEY)),cached);
- const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v192-cardmarket-language')).keys()).map(r=>r.url));assert.ok(urls.some(u=>u.includes('market-v176.js?build=176-market-value-trust')));assert.ok(urls.every(u=>new URL(u).origin===origin));
+ const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v193-cardmarket-nm-prices')).keys()).map(r=>r.url));assert.ok(urls.some(u=>u.includes('market-v176.js?build=176-market-value-trust')));assert.ok(urls.every(u=>new URL(u).origin===origin));
 });
 test('mismatched response and in-flight identity change cannot attach wrong price',async t=>{
  const {page,response}=await setup(t);const c=structuredClone(fixture.card);c.id='base2-4';response(c);const before=await snapshot(page);
