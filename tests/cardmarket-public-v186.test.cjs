@@ -78,8 +78,9 @@ test('offline importer stages new directory; refuses overwrite and keeps source 
   const root = await fs.mkdtemp(path.join(os.tmpdir(),'holodex-v186-test-'));
   try {
     const from = path.join(root,'source.json'),to = path.join(root,'prices.json'),out = path.join(root,'build');
-    await fs.writeFile(from,JSON.stringify(catalog()));
-    await fs.writeFile(to,JSON.stringify(prices()));
+    const freshDate = new Date(Date.now() - 3600000).toISOString().replace(/\.\d{3}Z$/, 'Z');
+    await fs.writeFile(from,JSON.stringify({...catalog(),createdAt:freshDate}));
+    await fs.writeFile(to,JSON.stringify({...prices(),createdAt:freshDate}));
     const manifest=await run(['--catalog',from,'--prices',to,'--out',out]);
     assert.equal(manifest.matched,2);
     assert.equal((await fs.readdir(out)).length,257);
