@@ -18,7 +18,7 @@
   $('cardSheetMeta').textContent=[x.setName||x.set,x.number&&'#'+x.number,x.language,x.condition,x.variant,x.edition==='1ST'?'1st Edition':''].filter(Boolean).join(' · ');
   $('cardSheetArt').classList.toggle('owned',!!uid);$('cardSheetArt').replaceChildren();window.CardArtwork.mount(c,$('cardSheetArt'));
   $('cardSheetPrice').textContent='';$('cardSheetNote').textContent='Marktindicatie ophalen…';
-  let url=s.cardmarketUrl;try{url=url||ui().cardmarketLink(x);const parsed=new URL(url);if(parsed.protocol!=='https:'||parsed.hostname!=='www.cardmarket.com')url='';}catch{url='';}
+  let url=x.language==='EN'&&window.HoloDexLibrary?.safeRoute?window.HoloDexLibrary.safeRoute(x).url:s.cardmarketUrl;try{url=url||ui().cardmarketLink(x);const parsed=new URL(url);if(parsed.protocol!=='https:'||parsed.hostname!=='www.cardmarket.com')url='';}catch{url='';}
   delete $('cardSheetLink').dataset.cmVariantOwner;
   $('cardSheetLink').hidden=!url;if(url)$('cardSheetLink').href=url;
   $('cardSheetAction').textContent=uid?'Kaart bewerken':'Aan map toevoegen';

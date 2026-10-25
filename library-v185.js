@@ -38,6 +38,38 @@
     return Object.values(catalog).some(other=>other.set?.id===row.set?.id&&
       normalize(other.name)===normalize(row.name)&&normalizedNumber(other.number)!==normalizedNumber(row.number));
   }
+  // Codes evidenced by the independently checked product URLs above and the
+  // user's verified Base Set example (Blastoise-V1-BS2); never derive a code.
+  const searchSets=Object.freeze({base1:['BS','Base Set','BASE'],ecard2:['AQ','Aquapolis','AQUAPOLIS'],
+    me02:['PFL','Phantasmal Flames'],xy4:['PHF','Phantom Forces']});
+  function safeRoute(input={},jpRoute){
+    const card={...input,source_id:input.source_id||input.sourceId,set_name:input.set_name||input.setName};
+    if(card.language==='JP')return jpRoute?jpRoute(card):{url:'',exact:false,kind:'UNAVAILABLE'};
+    const name=String(card.name||'').trim();
+    if(!name)return {url:'',exact:false,kind:'UNAVAILABLE'};
+    const number=String(card.number||''),sourceSet=card.source_id?.slice(0,card.source_id.lastIndexOf('-'));
+    const setId=card.source_set_id||sourceSet||Object.keys(searchSets).find(id=>searchSets[id].slice(1).some(label=>normalize(label)===normalize(card.set_name||card.set)));
+    const set=searchSets[setId];
+    const consistent=card.language==='EN'&&set&&/^(?:\d+|H\d+)$/i.test(number)&&
+      (!card.source_id||card.source_id===setId+'-'+number)&&
+      (!card.set_name||set.slice(1).some(label=>normalize(label)===normalize(card.set_name)));
+    if(consistent){
+      const exact=cardmarketRoute({...card,source_set_id:setId,set_name:set[1]});
+      const variant=String(card.variant||'').toUpperCase(),edition=String(card.edition||'').toUpperCase();
+      if(exact.exact&&(exact.confirmed||(!variant&&!edition)))return {...exact,kind:'EXACT'};
+    }
+    const query=consistent?name+' '+set[0].toLowerCase()+number:name;
+    const url=new URL(searchLink(query));
+    const conditions={M:1,MT:1,MINT:1,NM:2,EX:3,GD:4,LP:5,PL:6,PO:7};
+    if(card.language==='EN')url.searchParams.set('language','1');
+    const condition=conditions[String(card.condition||'NM').toUpperCase()];
+    if(condition)url.searchParams.set('minCondition',condition);
+    if(card.edition==='1ST')url.searchParams.set('isFirstEd','Y');
+    if(card.edition==='UNLIMITED')url.searchParams.set('isFirstEd','N');
+    if(['REVERSE','REVERSE_HOLO','STAMPED'].includes(card.variant))url.searchParams.set('isReverseHolo','Y');
+    else if(card.variant==='NORMAL')url.searchParams.set('isReverseHolo','N');
+    return {url:url.href,exact:false,kind:consistent?'TARGETED_SEARCH':'BROAD_SEARCH',note:'Exacte link niet geverifieerd · controleer set, nummer en uitvoering'};
+  }
   // Values verified against Cardmarket's public product filter form (2026-10-24).
   // Its website uses numeric values; the authenticated API uses different codes.
   function offerUrl(url,card={}){
@@ -179,5 +211,5 @@
     }
     return {getSets,loadSet,discover,search,state,restore};
   }
-  return Object.freeze({create,cards,normalize,artwork,cardmarketRoute,cardmarketOptions,offerUrl,ambiguousLegacy,confirmedRoute,TTL});
+  return Object.freeze({create,cards,normalize,artwork,cardmarketRoute,cardmarketOptions,offerUrl,ambiguousLegacy,confirmedRoute,safeRoute,TTL});
 });
