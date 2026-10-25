@@ -12,6 +12,32 @@
   const exactSets=Object.freeze({'me02':'Phantasmal-Flames','xy4':'Phantom-Forces'});
   const normalizedNumber=s=>String(s||'').replace(/^0+(?=\d)/,'');
   const searchLink=name=>'https://www.cardmarket.com/en/Pokemon/Products/Search?searchString='+encodeURIComponent(name);
+  // Personally checked by the user, 2026-10-25. No product-ID inference.
+  const confirmedLinks=Object.freeze({
+    'ecard2-15':['Houndoom','15','Houndoom-V3-AQ15'],
+    'ecard2-1':['Ampharos','1','Ampharos-V2-AQ1']
+  });
+  function confirmedRoute(card={}){
+    const id=card.source_id||card.sourceId,known=confirmedLinks[id];
+    if(!known||card.language!=='EN'||normalize(card.name)!==normalize(known[0])||
+      String(card.number)!==known[1]||(card.source_set_id&&card.source_set_id!=='ecard2')||
+      (card.set_name&&normalize(card.set_name)!=='aquapolis')||
+      !['','AUTO','UNLIMITED'].includes(String(card.edition||'').toUpperCase())||
+      !['','NORMAL','REVERSE','REVERSE_HOLO','STAMPED'].includes(String(card.variant||'').toUpperCase())||
+      !['','M','MT','MINT','NM','EX','GD','LP','PL','PO'].includes(String(card.condition||'').toUpperCase()))return null;
+    const url=new URL('https://www.cardmarket.com/en/Pokemon/Products/Singles/Aquapolis/'+known[2]);
+    const variant=String(card.variant||'').toUpperCase();
+    if(variant)url.searchParams.set('isReverseHolo',variant==='NORMAL'?'N':'Y');
+    return {url:offerUrl(url.href,card),exact:true,confirmed:true};
+  }
+  // A name shared by different collector numbers cannot independently confirm
+  // a legacy product ID: the public product index contains no collector number.
+  function ambiguousLegacy(card={},catalog={}){
+    const row=catalog?.[card.source_id||card.sourceId];
+    if(!row)return false;
+    return Object.values(catalog).some(other=>other.set?.id===row.set?.id&&
+      normalize(other.name)===normalize(row.name)&&normalizedNumber(other.number)!==normalizedNumber(row.number));
+  }
   // Values verified against Cardmarket's public product filter form (2026-10-24).
   // Its website uses numeric values; the authenticated API uses different codes.
   function offerUrl(url,card={}){
@@ -27,6 +53,7 @@
     return u.href;
   }
   function cardmarketRoute(card={},legacyCatalog){
+    const confirmed=confirmedRoute(card);if(confirmed)return confirmed;
     const name=String(card.name||'').trim();
     if(!name)return {url:'',exact:false};
     if(!['','M','MT','MINT','NM','EX','GD','LP','PL','PO'].includes(String(card.condition||'').toUpperCase()))return {url:searchLink(name),exact:false};
@@ -56,6 +83,9 @@
         (variant.size&&variant.size!=='standard')||
         (variant.stamp&&(!Array.isArray(variant.stamp)||variant.stamp.some(s=>s!=='1st-edition')))||
         typeof product[1]!=='string'||normalize(product[1].split(' [')[0])!==normalize(card.name))continue;
+      const attacks=product[1].match(/ \[([^\]]+)\]$/)?.[1];
+      if(attacks&&Array.isArray(detail.attacks)&&
+        normalize(attacks.split(' | ').join(' '))!==normalize(detail.attacks.map(a=>a.name).join(' ')))continue;
       const parts=[String(variant.type||'').replace('reverse','Reverse holo').replace('normal','Normaal').replace('holo','Holo')];
       if(variant.subtype)parts.push(String(variant.subtype));
       if(Array.isArray(variant.stamp)&&variant.stamp.length)parts.push(variant.stamp.join(', '));
@@ -64,12 +94,12 @@
       const key=JSON.stringify([id,variant.type,variant.subtype||'',variant.stamp||[],variant.foil||'']);
       const url=new URL('https://www.cardmarket.com/en/Pokemon/Products?idProduct='+id+'&language=1');
       if(variant.type==='reverse')url.searchParams.set('isReverseHolo','Y');
-      else if(detail.variants?.reverse===true)url.searchParams.set('isReverseHolo','N');
+      else if(detail.variants?.reverse===true||detail.variants_detailed.some(v=>v.type==='reverse'))url.searchParams.set('isReverseHolo','N');
       if(variant.stamp?.includes('1st-edition'))url.searchParams.set('isFirstEd','Y');
       else if(['unlimited','shadowless'].includes(variant.subtype))url.searchParams.set('isFirstEd','N');
       if(!choices.has(key))choices.set(key,{id,labels:[label],url:url.href,variant});
     }
-    if(!choices.size&&!detailMatches){
+    if(!choices.size&&!detailMatches&&!ambiguousLegacy(card,legacyCatalog)){
       // v152 identities are accepted only after *independent* matching against
       // the official Cardmarket product catalog and the expansion's majority.
       const row=legacyCatalog?.[card.source_id],p=index.rows[row?.product];
@@ -149,5 +179,5 @@
     }
     return {getSets,loadSet,discover,search,state,restore};
   }
-  return Object.freeze({create,cards,normalize,artwork,cardmarketRoute,cardmarketOptions,offerUrl,TTL});
+  return Object.freeze({create,cards,normalize,artwork,cardmarketRoute,cardmarketOptions,offerUrl,ambiguousLegacy,confirmedRoute,TTL});
 });

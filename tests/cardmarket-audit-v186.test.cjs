@@ -21,10 +21,14 @@ const guides = {version:1,createdAt,priceGuides:[
   {idProduct:733795,trend:99,'trend-holo':null}
 ]};
 
-async function fixture(fn) {
+async function fixture(fn, {realClock = false} = {}) {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'v186-audit-'));
   try {
-    const files = serialize(build(catalog,guides,{now:NOW}));
+    const now = realClock ? Date.now() : NOW;
+    const freshDate = new Date(now - 3600000).toISOString().replace(/\.\d{3}Z$/, 'Z');
+    const sourceCatalog = realClock ? {...catalog, createdAt:freshDate} : catalog;
+    const sourceGuides = realClock ? {...guides, createdAt:freshDate} : guides;
+    const files = serialize(build(sourceCatalog,sourceGuides,{now}));
     for (const [name,data] of files) await fs.writeFile(path.join(dir,name),data);
     return await fn(dir);
   } finally {await fs.rm(dir,{recursive:true,force:true});}
@@ -75,4 +79,4 @@ test('CLI reads the actual wrapped expansion-registry shape and writes a report 
   assert.equal(report.matchedSourceProducts,2);
   assert.equal(report.approvedExpansionSourceCoverage.length,3);
   await assert.rejects(()=>main(['--dir',dir,'--report',reportFile]),/EEXIST/);
-}));
+}, {realClock:true}));
