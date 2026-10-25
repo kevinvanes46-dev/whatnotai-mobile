@@ -58,6 +58,7 @@ test('confirmed library route returns before any TCGdex or index request can ove
 });
 test('selected-card resolver prefers confirmation over a conflicting saved product URL',()=>{
   const {context:load}=require('./helpers/cardmarket-harness.cjs');const {c}=load();c.window.HoloDexLibrary=L;
+  const adapter=fs.readFileSync('ui-library-v185.js','utf8').split('(()=>{')[0];vm.runInContext(adapter,c);
   const card={source_id:'ecard2-15',number:'15',name:'Houndoom',language:'EN',verified:true,direct:true,url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct=275086'};
   assert.equal(c.resolveFinalCardmarketRoute(card).url,L.confirmedRoute(card).url);
 });

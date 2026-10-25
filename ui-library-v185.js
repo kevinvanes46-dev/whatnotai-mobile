@@ -1,4 +1,42 @@
 'use strict';
+// v194 routing adapter: keep the protected legacy engine and collection intact.
+(function installCardmarketRouting194(root){
+  const library=root.HoloDexLibrary;
+  const fallback=card=>({url:'https://www.cardmarket.com/en/Pokemon/Products/Search?searchString='+encodeURIComponent(card.name),exact:false,note:'Exacte link niet geverifieerd: meerdere kaartnummers met dezelfde naam'});
+  if(typeof resolveFinalCardmarketRoute==='function'){
+    const original=resolveFinalCardmarketRoute;
+    resolveFinalCardmarketRoute=function(input){
+      const card={...input,language:input.language||'EN',edition:input.edition||'AUTO'};
+      const confirmed=library.confirmedRoute(card);if(confirmed)return confirmed;
+      if(!(card.verified&&card.direct&&validCardmarketRoute(card.url))&&card.language==='EN'&&library.ambiguousLegacy(card,root.CM_PRODUCT_CATALOG))return fallback(card);
+      return original(input);
+    };
+  }
+  const ui=root.cardscoutCollectionUI;
+  if(ui?.cardmarketLink){
+    const original=ui.cardmarketLink.bind(ui);
+    ui.cardmarketLink=function(item){
+      const card={...item,source_id:item.sourceId||item.source_id,set_name:item.setName||item.set_name};
+      const confirmed=library.confirmedRoute(card);if(confirmed)return confirmed.url;
+      if(card.language==='EN'&&library.ambiguousLegacy(card,root.CM_PRODUCT_CATALOG))return fallback(card).url;
+      return original(item);
+    };
+    // Legacy collection rendering closes over its private link builder. Adapt
+    // only the rendered outbound anchors; never mutate collection records.
+    const list=root.document?.getElementById('collectionList');
+    if(list&&root.MutationObserver){
+      const sync=()=>{
+        const items=new Map(ui.items().map(item=>[item.uid,item]));
+        for(const row of list.querySelectorAll('.collectionCard[data-id]')){
+          const item=items.get(row.dataset.id),link=row.querySelector('a[target="_blank"]');
+          if(!item||!link)continue;
+          const url=ui.cardmarketLink(item);if(url&&link.getAttribute('href')!==url)link.setAttribute('href',url);
+        }
+      };
+      new root.MutationObserver(sync).observe(list,{childList:true,subtree:true});sync();
+    }
+  }
+})(window);
 (()=>{
   const $=id=>document.getElementById(id),el=(tag,text,cls)=>{const n=document.createElement(tag);if(text)n.textContent=text;if(cls)n.className=cls;return n;};
   const button=(text,fn)=>{const b=el('button',text);b.type='button';b.onclick=fn;return b;};

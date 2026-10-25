@@ -668,11 +668,9 @@ function matchesCardmarketApiCard(card, data){
 }
 function resolveFinalCardmarketRoute(input){
   const card = {...input, language:input.language || 'EN', edition:input.edition || 'AUTO'};
-  const confirmed=window.HoloDexLibrary?.confirmedRoute(card);if(confirmed)return confirmed;
   if(card.verified && card.direct && validCardmarketRoute(card.url)){
     return {url:withFilters(card.url, card.language, card.condition, card.edition), exact:true, note:'Direct geverifieerd'};
   }
-  if(card.language==='EN'&&window.HoloDexLibrary?.ambiguousLegacy(card,window.CM_PRODUCT_CATALOG))return {url:'https://www.cardmarket.com/en/Pokemon/Products/Search?searchString='+encodeURIComponent(card.name),exact:false,note:'Exacte link niet geverifieerd: meerdere kaartnummers met dezelfde naam'};
   const product=window.CM_PRODUCT_CATALOG?.[card.source_id];
   if(card.language==='EN'&&product&&matchesCardmarketApiCard(card,product)&&Number.isSafeInteger(product.product)&&product.product>0){
     return {url:withFilters('https://www.cardmarket.com/en/Pokemon/Products?idProduct='+product.product,card.language,card.condition,card.edition),exact:true,note:'Direct: gecontroleerde product-ID'};

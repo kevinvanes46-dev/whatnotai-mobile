@@ -76,3 +76,24 @@ test('v191 Base Set ownership stays scoped and verified Cardmarket variants requ
   assert.equal(await p.locator('#cardSheetLink').getAttribute('href'),'https://www.cardmarket.com/en/Pokemon/Products?idProduct=660226&language=1&isFirstEd=Y&minCondition=2');
   await p.locator('#cardSheetNote').filter({hasText:'Deze editie of uitvoering heeft nog geen geverifieerde prijsdekking.'}).waitFor();
 });
+
+test('v194 adapter preserves confirmed search, collection anchors and detail links in the browser',async t=>{
+  const {p}=await setup(t);
+  const result=await p.evaluate(async()=>{
+    const card={source_id:'ecard2-15',source_set_id:'ecard2',number:'15',name:'Houndoom',set:'AQUAPOLIS',set_name:'Aquapolis',language:'EN'};
+    const wrong='https://www.cardmarket.com/en/Pokemon/Products?idProduct=275086';
+    const item={uid:'v194-link-check',listType:'OWNED',sourceId:card.source_id,source_set_id:'ecard2',number:'15',name:'Houndoom',set:'AQUAPOLIS',setName:'Aquapolis',language:'EN',condition:'NM',edition:'UNLIMITED',variant:'NORMAL',qty:1,cardmarketUrl:wrong};
+    localStorage.setItem('cardscout_collection_v133',JSON.stringify([item]));
+    cardscoutCollectionUI.render();
+    await new Promise(resolve=>setTimeout(resolve,0));
+    const anchor=document.querySelector('.collectionCard[data-id="v194-link-check"] a[target="_blank"]')?.href;
+    const route=await resolveFinalCardmarketRoute({...card,verified:true,direct:true,url:wrong,condition:'NM'});
+    HoloDexRedesign.open({card,condition:'NM',edition:'UNLIMITED',stamped:false,cardmarketUrl:route.url});
+    return {search:route.url,collection:cardscoutCollectionUI.cardmarketLink(item),anchor,detail:document.getElementById('cardSheetLink').href};
+  });
+  for(const [surface,url] of Object.entries(result)){
+    assert.equal(new URL(url).pathname,'/en/Pokemon/Products/Singles/Aquapolis/Houndoom-V3-AQ15',surface);
+    assert.equal(new URL(url).searchParams.get('language'),'1',surface);
+    assert.equal(new URL(url).searchParams.get('minCondition'),'2',surface);
+  }
+});
