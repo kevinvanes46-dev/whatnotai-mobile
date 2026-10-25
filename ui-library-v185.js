@@ -40,6 +40,7 @@
     return cardDetails.get(c.source_id);
   }
   function setCardmarketLink(link,route){
+    link.dataset.cmVariantOwner=route?.exact?'library':'';
     if(route?.url){link.href=route.url;link.hidden=false;link.textContent=route.exact?'Bekijk exacte kaart op Cardmarket':'Zoek op Cardmarket · controleer set en nummer';}
     else link.hidden=true;
   }
@@ -47,6 +48,7 @@
     const dialog=$('cardSheet'),link=$('cardSheetLink'),action=$('cardSheetAction');
     const panel=el('div','Exacte set, kaartnummer en uitvoering controleren…','libraryStatus');
     panel.id='libraryCmChoices191';panel.setAttribute('role','status');action.before(panel);
+    if(fallback.confirmed){setCardmarketLink(link,fallback);panel.textContent='Exacte kaart en set persoonlijk gecontroleerd; controleer de gewenste uitvoering bij aankoop.';return;}
     link.hidden=true;
     try{
       const [detailResult,indexResult]=await Promise.allSettled([detailedCard(c),officialIndex()]);
@@ -76,7 +78,7 @@
           void showQuote(choice);
           for(const n of panel.querySelectorAll('button'))n.setAttribute('aria-pressed',String(n===b));
         });b.setAttribute('aria-pressed','false');panel.append(b);}
-      }else{setCardmarketLink(link,fallback);panel.append(el('small',fallback.exact?'Bestaande productkoppeling; specifieke uitvoering controleren.':'Geen bevestigde product-ID. Controleer set en kaartnummer in de zoekresultaten.'));}
+      }else{setCardmarketLink(link,fallback);panel.append(el('small',fallback.exact?'Bestaande productkoppeling; specifieke uitvoering controleren.':'Geen bevestigde product-ID. Exacte link niet geverifieerd: kaartnummer of uitvoering ontbreekt of is tegenstrijdig; zoekresultaten zijn geen exacte koppeling.'));}
       if(choices.length)panel.append(button('Prijs opnieuw controleren',()=>{if(lastChoice)void showQuote(lastChoice);}));
     }catch{
       if(routeSeq!==token||!dialog.open)return;

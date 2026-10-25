@@ -65,6 +65,7 @@
   function syncDetail(){
     const link=$('cardSheetLink');
     if(!link||link.hidden)return;
+    if(link.dataset?.cmVariantOwner==='library')return;
 
     const current=link.getAttribute('href')||link.href||'';
     const next=cardmarketUrl(current,detailStamped());

@@ -154,8 +154,10 @@
     const sourceId=item.sourceId||(item.language==='EN'&&ids?.length===1?ids[0]+'-'+String(item.number).replace(/^0+(?=\d)/,''):'');
     const product=window.CM_PRODUCT_CATALOG?.[sourceId];
     const card={...item,source_id:sourceId,set_name:item.setName};
+    const confirmed=window.HoloDexLibrary?.confirmedRoute(card);if(confirmed)return confirmed.url;
     // Re-resolve saved JP links so pre-v163 Western URLs cannot return on reload.
     if(item.language==='JP'&&window.JPCardmarketNative)return window.JPCardmarketNative.route(card).url;
+    if(item.language==='EN'&&window.HoloDexLibrary?.ambiguousLegacy(card,window.CM_PRODUCT_CATALOG))return 'https://www.cardmarket.com/en/Pokemon/Products/Search?searchString='+encodeURIComponent(item.name);
     if(item.language==='EN'&&product&&typeof matchesCardmarketApiCard==='function'&&matchesCardmarketApiCard(card,product))return withFilters('https://www.cardmarket.com/en/Pokemon/Products?idProduct='+product.product,item.language,item.condition,item.edition);
     return item.cardmarketUrl ? safeCardmarketLink(item.cardmarketUrl,card) : '';
   }
