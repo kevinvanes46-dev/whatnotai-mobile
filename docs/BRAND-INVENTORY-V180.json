@@ -7647,7 +7647,7 @@
     },
     {
       "file": "tests/cardmarket-host-v174-1.test.cjs",
-      "line": 50,
+      "line": 67,
       "names": [
         "cardscout",
         "whatnotai"
@@ -7657,7 +7657,7 @@
     },
     {
       "file": "tests/cardmarket-host-v174-1.test.cjs",
-      "line": 54,
+      "line": 71,
       "names": [
         "cardscout"
       ],
@@ -7666,7 +7666,7 @@
     },
     {
       "file": "tests/cardmarket-host-v174-1.test.cjs",
-      "line": 61,
+      "line": 78,
       "names": [
         "rareworth"
       ],
@@ -7675,7 +7675,7 @@
     },
     {
       "file": "tests/cardmarket-host-v174-1.test.cjs",
-      "line": 62,
+      "line": 79,
       "names": [
         "rareworth"
       ],
@@ -7684,7 +7684,7 @@
     },
     {
       "file": "tests/cardmarket-host-v174-1.test.cjs",
-      "line": 63,
+      "line": 80,
       "names": [
         "rareworth",
         "RareWorth"
@@ -7736,6 +7736,24 @@
       ],
       "category": "TEST_HISTORY",
       "sha256": "7177610e757a63e2ae6b3db03b6f209b3f24648d138fc7760664761d716d1351"
+    },
+    {
+      "file": "tests/cardmarket-safe-v195.test.cjs",
+      "line": 5,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "1442839889949a7ed412e2d1e99eeaab98ab1766afd4821e986f551316d35b8d"
+    },
+    {
+      "file": "tests/cardmarket-safe-v195.test.cjs",
+      "line": 9,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "5b50fed13bf65f267b3636374e2d0179eaaf4b9d296aa921938f2c0c21b87da7"
     },
     {
       "file": "tests/cardmarket-ui-v146.test.cjs",
@@ -8138,7 +8156,7 @@
     },
     {
       "file": "tests/en-dp-pop-coverage-v174.test.cjs",
-      "line": 104,
+      "line": 112,
       "names": [
         "whatnotai"
       ],
@@ -8147,7 +8165,7 @@
     },
     {
       "file": "tests/en-dp-pop-coverage-v174.test.cjs",
-      "line": 107,
+      "line": 115,
       "names": [
         "cardscout"
       ],
@@ -8156,7 +8174,7 @@
     },
     {
       "file": "tests/en-dp-pop-coverage-v174.test.cjs",
-      "line": 124,
+      "line": 132,
       "names": [
         "cardscout",
         "whatnotai"
@@ -8166,7 +8184,7 @@
     },
     {
       "file": "tests/en-dp-pop-coverage-v174.test.cjs",
-      "line": 125,
+      "line": 133,
       "names": [
         "whatnotai"
       ],
@@ -8175,7 +8193,7 @@
     },
     {
       "file": "tests/en-dp-pop-coverage-v174.test.cjs",
-      "line": 133,
+      "line": 141,
       "names": [
         "rareworth"
       ],
@@ -8184,7 +8202,7 @@
     },
     {
       "file": "tests/en-dp-pop-coverage-v174.test.cjs",
-      "line": 134,
+      "line": 142,
       "names": [
         "cardscout"
       ],
@@ -8284,7 +8302,7 @@
     },
     {
       "file": "tests/en-platinum-hgss-coverage-v175.test.cjs",
-      "line": 194,
+      "line": 201,
       "names": [
         "cardscout",
         "whatnotai",
@@ -8295,7 +8313,7 @@
     },
     {
       "file": "tests/en-platinum-hgss-coverage-v175.test.cjs",
-      "line": 195,
+      "line": 202,
       "names": [
         "cardscout"
       ],
@@ -8304,7 +8322,7 @@
     },
     {
       "file": "tests/en-platinum-hgss-coverage-v175.test.cjs",
-      "line": 198,
+      "line": 205,
       "names": [
         "rareworth"
       ],
@@ -10570,7 +10588,7 @@
     },
     {
       "file": "ui-library-v185.js",
-      "line": 15,
+      "line": 17,
       "names": [
         "cardscout"
       ],
@@ -10579,7 +10597,7 @@
     },
     {
       "file": "ui-library-v185.js",
-      "line": 63,
+      "line": 64,
       "names": [
         "cardscout"
       ],
@@ -10588,7 +10606,7 @@
     },
     {
       "file": "ui-library-v185.js",
-      "line": 104,
+      "line": 105,
       "names": [
         "HoloKeep"
       ],
@@ -10597,7 +10615,7 @@
     },
     {
       "file": "ui-library-v185.js",
-      "line": 106,
+      "line": 107,
       "names": [
         "HoloKeep"
       ],

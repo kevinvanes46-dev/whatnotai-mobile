@@ -92,7 +92,15 @@ for(const [key,id,code,label,aliases] of targets)test(`${id}: aliases, exact EN 
     await page.waitForFunction(expected=>new URL(document.querySelector('#openBtn').href).searchParams.get('minCondition')===expected,expected);
     const u=new URL(await page.locator('#openBtn').getAttribute('href'));assert.equal(u.origin,'https://www.cardmarket.com');
     if(id==='dp6'){
-      assert.equal(u.pathname,'/en/Pokemon/Products');assert.equal(u.searchParams.get('idProduct'),'278150');
+      // User-approved v195 contract: legacy ID existence cannot prove print identity.
+      assert.equal(c.id,'dp6-1');assert.equal(c.localId,'1');assert.equal(c.name,'Deoxys Normal Forme');
+      assert.equal(u.pathname,'/en/Pokemon/Products/Search');
+      assert.equal(u.searchParams.get('searchString'),'Deoxys Normal Forme Legends Awakened 1');
+      assert.equal(u.searchParams.has('idProduct'),false);
+      assert.equal(u.searchParams.get('language'),'1');assert.equal(u.searchParams.get('minCondition'),expected);
+      assert.equal(await page.locator('#openBtn').getAttribute('data-cm-route'),'SEARCH');
+      const edition=await page.evaluate(()=>selectedCardIdentity(document.querySelector('#openBtn').href).edition);
+      assert.equal(u.searchParams.get('isFirstEd'),edition==='1ST'?'Y':edition==='UNLIMITED'?'N':null);
       assert.equal(await page.evaluate(()=>CM_PRODUCT_CATALOG['dp6-1'].product),278150);
     }else{
     assert.equal(u.pathname,'/en/Pokemon/Products/Search');assert.ok(u.searchParams.get('searchString').includes(label));assert.ok(u.searchParams.get('searchString').includes(c.localId));assert.ok(u.searchParams.get('searchString').toLowerCase().includes(c.name.replace(' δ','').toLowerCase()));assert.equal(u.searchParams.has('idProduct'),false);

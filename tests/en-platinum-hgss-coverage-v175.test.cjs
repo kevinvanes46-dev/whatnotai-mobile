@@ -167,13 +167,20 @@ for(const id of ['pl1-SH4','pl4-AR1','hgss1-ONE','hgss3-THREE'])test(id+': speci
   const url=new URL(saved.cardmarketUrl);assert.equal(url.hostname,'www.cardmarket.com');assert.ok(url.searchParams.get('searchString').includes(c.localId));
 });
 
-test('verified Prime metadata uses idProduct; LV.X and LEGEND names retain source identity',async t=>{
+test('unproven Prime product ID stays SEARCH; LV.X and LEGEND names retain source identity',async t=>{
   const {page}=await setup(t,{prime:true});await ready(page);
   const prime=require('./fixtures/en-sets-v175/prime-hgss3-86.json');assert.equal(prime.suffix,'Prime');assert.equal(prime.rarity,'Rare PRIME');
-  await choose(page,prime.id);await page.waitForFunction(()=>new URL(document.querySelector('#openBtn').href).searchParams.get('idProduct')==='279339');
+  assert.equal(prime.id,'hgss3-86');assert.equal(prime.localId,'86');assert.equal(prime.set.name,'Undaunted');
+  assert.equal(prime.variants.normal,false);assert.equal(prime.variants.holo,true);assert.equal(prime.variants.reverse,false);
+  await choose(page,prime.id);await page.waitForFunction(()=>document.querySelector('#openBtn').dataset.cmRoute==='SEARCH');
   for(const [cond,value] of [['NM','2'],['EX','3'],['GD','4'],['PL','6']]){
     await page.locator(`.visiblePreferences [data-value="${cond}"]`).click();await page.waitForFunction(value=>new URL(document.querySelector('#openBtn').href).searchParams.get('minCondition')===value,value);
-    const u=new URL(await page.locator('#openBtn').getAttribute('href'));assert.equal(u.origin,'https://www.cardmarket.com');assert.equal(u.searchParams.get('idProduct'),String(prime.pricing.cardmarket.idProduct));
+    const u=new URL(await page.locator('#openBtn').getAttribute('href'));assert.equal(u.origin,'https://www.cardmarket.com');assert.equal(u.pathname,'/en/Pokemon/Products/Search');assert.equal(u.searchParams.has('idProduct'),false);
+    assert.deepEqual(u.searchParams.get('searchString').split(/\s+/).sort(),['Umbreon','Undaunted','86'].sort());assert.equal(u.searchParams.get('language'),'1');assert.equal(u.searchParams.get('minCondition'),value);
+    assert.equal(await page.locator('#openBtn').getAttribute('data-cm-route'),'SEARCH');
+    const selected=await page.evaluate(()=>selectedCardIdentity(document.querySelector('#openBtn').href));
+    for(const [key,expected]of Object.entries({name:'Umbreon',number:'86',source_id:'hgss3-86',source_set_id:'hgss3',set_name:'Undaunted',language:'EN',condition:cond}))assert.equal(selected[key],expected,key);
+    assert.equal(u.searchParams.get('isFirstEd'),selected.edition==='1ST'?'Y':selected.edition==='UNLIMITED'?'N':null);
   }
   for(const id of ['pl1-122','hgss1-111','hgss1-112']){
     await choose(page,id);const c=fixtures[id.split('-')[0]].cards.find(c=>c.id===id),actual=await page.evaluate(()=>selectedCardIdentity());assert.equal(actual.name,c.name);assert.equal(actual.number,c.localId);assert.equal(actual.source_id,id);

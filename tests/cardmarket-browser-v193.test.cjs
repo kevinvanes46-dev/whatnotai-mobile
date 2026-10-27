@@ -26,7 +26,7 @@ test('Home → Base Set → Chansey → Unlimited: filtered outgoing link, offic
   await p.getByRole('button',{name:'Holo · unlimited',exact:true}).click();
   await p.locator('#cardSheetNote').filter({hasText:'Algemene Cardmarket-marktindicatie'}).waitFor();
   const u=new URL(await p.locator('#cardSheetLink').getAttribute('href'));
-  assert.equal(u.searchParams.get('idProduct'),'273698');assert.equal(u.searchParams.get('minCondition'),'2');assert.equal(u.searchParams.get('language'),'1');
+  assert.equal(u.pathname,'/en/Pokemon/Products/Singles/Base-Set/Chansey-V1-BS3');assert.equal(u.searchParams.has('idProduct'),false);assert.equal(u.searchParams.get('minCondition'),'2');assert.equal(u.searchParams.get('language'),'1');
   assert.match(await p.locator('#cardSheetPrice').innerText(),/€/);assert.match(await p.locator('#cardSheetNote').innerText(),/conditie, taal en editie niet verwerkt/);
   assert.match(await p.locator('#cardSheetNote').innerText(),new RegExp(manifest.priceGuideCreatedAt.replaceAll('.','\\.')));
   assert.equal(u.searchParams.get('isFirstEd'),'N');

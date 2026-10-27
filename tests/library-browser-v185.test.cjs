@@ -40,7 +40,7 @@ test('verified Cardmarket page opens directly; missing JP logos show honest plac
   await p.locator('.libraryCard').first().click();
   await p.locator('#libraryCmChoices191').filter({hasText:'Geen bevestigde product-ID'}).waitFor();
   assert.equal(new URL(await link.getAttribute('href')).searchParams.get('searchString'),await p.locator('#cardSheetName').innerText());
-  assert.equal(new URL(await link.getAttribute('href')).searchParams.has('language'),false);
+  assert.equal(new URL(await link.getAttribute('href')).searchParams.get('language'),'1');
   assert.match(await link.innerText(),/controleer set en nummer/);
   await p.locator('#cardSheetClose').click();
   await p.getByLabel('Bibliotheektaal').selectOption('JP');
@@ -71,9 +71,9 @@ test('v191 Base Set ownership stays scoped and verified Cardmarket variants requ
   assert.equal(await p.locator('#libraryCmChoices191 button[aria-pressed]').count(),2);
   assert.equal(await p.locator('#cardSheetLink').isVisible(),false);
   await p.locator('#libraryCmChoices191 button').first().click();
-  assert.equal(await p.locator('#cardSheetLink').getAttribute('href'),'https://www.cardmarket.com/en/Pokemon/Products?idProduct=273697&language=1&isFirstEd=N&minCondition=2');
+  assert.equal(await p.locator('#cardSheetLink').getAttribute('href'),'https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Blastoise-V1-BS2?minCondition=2&language=1&isFirstEd=N');
   await p.locator('#libraryCmChoices191 button').nth(1).click();
-  assert.equal(await p.locator('#cardSheetLink').getAttribute('href'),'https://www.cardmarket.com/en/Pokemon/Products?idProduct=660226&language=1&isFirstEd=Y&minCondition=2');
+assert.equal(await p.locator('#cardSheetLink').getAttribute('href'),'https://www.cardmarket.com/en/Pokemon/Products/Search?searchString=Blastoise+bs2&language=1&minCondition=2&isFirstEd=Y');
   await p.locator('#cardSheetNote').filter({hasText:'Deze editie of uitvoering heeft nog geen geverifieerde prijsdekking.'}).waitFor();
 });
 
