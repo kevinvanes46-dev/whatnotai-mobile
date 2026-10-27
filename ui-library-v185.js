@@ -6,7 +6,11 @@
     const original=resolveFinalCardmarketRoute;
     resolveFinalCardmarketRoute=function(input){
       const card={...input,language:input.language||'EN',edition:input.edition||'AUTO'};
-      if(card.language==='EN')return library.safeRoute(card);
+      if(card.language==='EN'){
+        // Retain legacy expiry/unsafe-host cleanup, without trusting cached URLs.
+        if(typeof readCardmarketRouteCache==='function')readCardmarketRouteCache();
+        return library.safeRoute(card);
+      }
       return original(input);
     };
   }
@@ -101,7 +105,8 @@
         const q=unsupported?{state:'UNAVAILABLE',reason:'SPECIAL_VARIANT'}:await HoloKeepOfficialMarket.quote(item,{card:detail,productId:choice.id});
         if(routeSeq!==token||request!==quoteSeq||!dialog.open)return;
         const shown=HoloKeepOfficialMarket.display(q);
-        if(!unsupported && q?.state==='AVAILABLE' && q.productId===choice.id && shown.value!=null) setCardmarketLink(link,{url:choice.url,exact:true});
+        // A price quote is not proof of collector number or print identity.
+        // Keep the independently resolved outbound link; pricing stays separate.
         $('cardSheetPrice').textContent=shown.value==null?'Geen marktindicatie':new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR'}).format(shown.value);
         $('cardSheetNote').textContent=[shown.label,shown.date].filter(Boolean).join(' · ');
       }
@@ -110,7 +115,7 @@
       else if(choices.length>1){
         link.hidden=true;panel.append(el('p','Kies de juiste uitvoering voor je Cardmarket-link:'));
         for(const choice of choices){const b=button(choice.label,()=>{
-          setCardmarketLink(link,HoloDexLibrary.safeRoute({...c,variant:choice.variant?.type==='reverse'?'REVERSE':choice.variant?.type==='holo'?'HOLO':'NORMAL',edition:choice.variant?.stamp?.includes('1st-edition')?'1ST':choice.variant?.subtype==='unlimited'?'UNLIMITED':'AUTO'}));
+          setCardmarketLink(link,HoloDexLibrary.safeRoute({...c,subtype:choice.variant?.subtype,variant:choice.variant?.type==='reverse'?'REVERSE':choice.variant?.type==='holo'?'HOLO':'NORMAL',edition:choice.variant?.stamp?.includes('1st-edition')?'1ST':choice.variant?.subtype==='unlimited'?'UNLIMITED':'AUTO'}));
           void showQuote(choice);
           for(const n of panel.querySelectorAll('button'))n.setAttribute('aria-pressed',String(n===b));
         });b.setAttribute('aria-pressed','false');panel.append(b);}
