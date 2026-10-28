@@ -73,7 +73,7 @@ test('v191 Base Set ownership stays scoped and verified Cardmarket variants requ
   await p.locator('#libraryCmChoices191 button').first().click();
   assert.equal(await p.locator('#cardSheetLink').getAttribute('href'),'https://www.cardmarket.com/en/Pokemon/Products/Singles/Base-Set/Blastoise-V1-BS2?minCondition=2&language=1&isFirstEd=N');
   await p.locator('#libraryCmChoices191 button').nth(1).click();
-assert.equal(await p.locator('#cardSheetLink').getAttribute('href'),'https://www.cardmarket.com/en/Pokemon/Products/Search?searchString=Blastoise+bs2&language=1&minCondition=2&isFirstEd=Y');
+assert.equal(await p.locator('#cardSheetLink').getAttribute('href'),'https://www.cardmarket.com/en/Pokemon/Products/Search?searchString=Blastoise&language=1&minCondition=2&isFirstEd=Y');
   await p.locator('#cardSheetNote').filter({hasText:'Deze editie of uitvoering heeft nog geen geverifieerde prijsdekking.'}).waitFor();
 });
 

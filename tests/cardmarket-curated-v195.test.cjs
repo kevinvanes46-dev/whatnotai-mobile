@@ -9,8 +9,8 @@ test('dp6-1 keeps full search identity, language, conditions and explicit editio
   const card={source_id:'dp6-1',source_set_id:'dp6',set:'LEGENDS AWAKENED',set_name:'Legends Awakened',number:'1',name:'Deoxys Normal Forme',language:'EN',verified:true,direct:true,url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct=278150'};
   for(const [condition,min] of [['NM','2'],['EX','3'],['GD','4'],['PL','6']])for(const [edition,first] of [['AUTO',null],['1ST','Y'],['UNLIMITED','N']]){
     const r=L.safeRoute({...card,condition,edition}),u=new URL(r.url);
-    assert.equal(r.exact,false);assert.equal(r.kind,'TARGETED_SEARCH');assert.match(r.note,/niet geverifieerd/);
-    assert.equal(u.pathname,'/en/Pokemon/Products/Search');assert.equal(u.searchParams.get('searchString'),'Deoxys Normal Forme Legends Awakened 1');
+    assert.equal(r.exact,false);assert.equal(r.kind,'BROAD_SEARCH');assert.match(r.note,/niet geverifieerd/);
+    assert.equal(u.pathname,'/en/Pokemon/Products/Search');assert.equal(u.searchParams.get('searchString'),'Deoxys Normal Forme');assert.equal(r.identity.set,'Legends Awakened');assert.equal(r.identity.number,'1');
     assert.equal(u.searchParams.get('language'),'1');assert.equal(u.searchParams.get('minCondition'),min);assert.equal(u.searchParams.get('isFirstEd'),first);assert.equal(u.searchParams.has('idProduct'),false);
   }
   assert.equal(L.safeRoute({...card,source_set_id:'dp1'}).kind,'BROAD_SEARCH');

@@ -8156,7 +8156,7 @@
     },
     {
       "file": "tests/en-dp-pop-coverage-v174.test.cjs",
-      "line": 112,
+      "line": 113,
       "names": [
         "whatnotai"
       ],
@@ -8165,7 +8165,7 @@
     },
     {
       "file": "tests/en-dp-pop-coverage-v174.test.cjs",
-      "line": 115,
+      "line": 116,
       "names": [
         "cardscout"
       ],
@@ -8174,7 +8174,7 @@
     },
     {
       "file": "tests/en-dp-pop-coverage-v174.test.cjs",
-      "line": 132,
+      "line": 133,
       "names": [
         "cardscout",
         "whatnotai"
@@ -8184,7 +8184,7 @@
     },
     {
       "file": "tests/en-dp-pop-coverage-v174.test.cjs",
-      "line": 133,
+      "line": 134,
       "names": [
         "whatnotai"
       ],
@@ -8193,7 +8193,7 @@
     },
     {
       "file": "tests/en-dp-pop-coverage-v174.test.cjs",
-      "line": 141,
+      "line": 142,
       "names": [
         "rareworth"
       ],
@@ -8202,7 +8202,7 @@
     },
     {
       "file": "tests/en-dp-pop-coverage-v174.test.cjs",
-      "line": 142,
+      "line": 143,
       "names": [
         "cardscout"
       ],
@@ -8229,7 +8229,7 @@
     },
     {
       "file": "tests/en-platinum-hgss-coverage-v175.test.cjs",
-      "line": 101,
+      "line": 102,
       "names": [
         "whatnotai"
       ],
@@ -8238,7 +8238,7 @@
     },
     {
       "file": "tests/en-platinum-hgss-coverage-v175.test.cjs",
-      "line": 104,
+      "line": 105,
       "names": [
         "cardscout"
       ],
@@ -8247,7 +8247,7 @@
     },
     {
       "file": "tests/en-platinum-hgss-coverage-v175.test.cjs",
-      "line": 114,
+      "line": 115,
       "names": [
         "cardscout",
         "whatnotai"
@@ -8257,7 +8257,7 @@
     },
     {
       "file": "tests/en-platinum-hgss-coverage-v175.test.cjs",
-      "line": 115,
+      "line": 116,
       "names": [
         "whatnotai"
       ],
@@ -8266,7 +8266,7 @@
     },
     {
       "file": "tests/en-platinum-hgss-coverage-v175.test.cjs",
-      "line": 124,
+      "line": 125,
       "names": [
         "rareworth"
       ],
@@ -8275,7 +8275,7 @@
     },
     {
       "file": "tests/en-platinum-hgss-coverage-v175.test.cjs",
-      "line": 125,
+      "line": 126,
       "names": [
         "cardscout"
       ],
@@ -8284,7 +8284,7 @@
     },
     {
       "file": "tests/en-platinum-hgss-coverage-v175.test.cjs",
-      "line": 162,
+      "line": 163,
       "names": [
         "whatnotai"
       ],
@@ -8293,7 +8293,7 @@
     },
     {
       "file": "tests/en-platinum-hgss-coverage-v175.test.cjs",
-      "line": 166,
+      "line": 167,
       "names": [
         "cardscout"
       ],
@@ -8302,7 +8302,7 @@
     },
     {
       "file": "tests/en-platinum-hgss-coverage-v175.test.cjs",
-      "line": 201,
+      "line": 202,
       "names": [
         "cardscout",
         "whatnotai",
@@ -8313,7 +8313,7 @@
     },
     {
       "file": "tests/en-platinum-hgss-coverage-v175.test.cjs",
-      "line": 202,
+      "line": 203,
       "names": [
         "cardscout"
       ],
@@ -8322,7 +8322,7 @@
     },
     {
       "file": "tests/en-platinum-hgss-coverage-v175.test.cjs",
-      "line": 205,
+      "line": 206,
       "names": [
         "rareworth"
       ],

@@ -15,14 +15,14 @@ test('Aquapolis verified pages win over conflicting provider IDs; other numbers 
     assert.equal(r.kind,'EXACT');assert.equal(new URL(r.url).pathname.split('/').at(-1),slug);
   }
   for(const [number,name] of [['14','Houndoom'],['H11','Houndoom'],['H1','Ampharos']]){
-    const r=L.safeRoute(card('ecard2',number,name));assert.equal(r.kind,'TARGETED_SEARCH');
-    assert.equal(new URL(r.url).searchParams.get('searchString'),name+' aq'+number);
+    const r=L.safeRoute(card('ecard2',number,name));assert.equal(r.kind,'BROAD_SEARCH');
+    assert.equal(new URL(r.url).searchParams.get('searchString'),name);assert.equal(r.identity.number,number);assert.equal(r.identity.source_set_id,'ecard2');
   }
 });
 test('controlled codes, untrusted IDs and conflicting identity fail to labelled search',()=>{
   for(const [set,number,name,query] of [['base1','4','Charizard','Charizard bs4'],['xy4','1','Venonat','Venonat phf1'],['me02','2','Gloom','Gloom pfl2']]){
     const r=L.safeRoute({...card(set,number,name),verified:true,direct:true,url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct=1'});
-    assert.equal(r.exact,false);assert.equal(new URL(r.url).searchParams.get('searchString'),query);
+    assert.equal(r.exact,false);assert.equal(new URL(r.url).searchParams.get('searchString'),name);assert.equal(r.identity.number,number);assert.equal(r.identity.source_set_id,set);
   }
   for(const c of [{...card('unknown','1','Pikachu'),code:'FAKE'},{...card('ecard2','15','Houndoom'),source_set_id:'base1'},{...card('ecard2','15','Houndoom'),set_name:'Skyridge'}])assert.equal(L.safeRoute(c).kind,'BROAD_SEARCH');
   assert.equal(L.safeRoute({}).kind,'UNAVAILABLE');

@@ -1,4 +1,28 @@
 'use strict';
+// v197: user-confirmed product pages and name-only fallbacks retain independent identity.
+require('node:test')('v197 Ruby & Sapphire links enforce identity and print filters',()=>{
+  const assert=require('node:assert/strict'),L=require('../library-v185.js');
+  for(const [name,number,slug]of [['Beautifly','2','Beautifly-RS2'],['Seaking','21','Seaking-RS21']]){
+    const card={source_id:'ex1-'+number,source_set_id:'ex1',name,number,set_name:'EX Ruby & Sapphire',set:'EX RUBY SAPPHIRE',language:'EN',condition:'NM',edition:'UNLIMITED'};
+    for(const variant of ['NORMAL','REVERSE','REVERSE_HOLO']){
+      const route=L.safeRoute({...card,variant,url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct=1'}),u=new URL(route.url);
+      assert.equal(route.confirmed,true);assert.equal(route.exact,true);assert.equal(u.pathname,'/en/Pokemon/Products/Singles/EX-Ruby-Sapphire/'+slug);
+      assert.equal(u.searchParams.has('idProduct'),false);assert.equal(u.searchParams.get('language'),'1');assert.equal(u.searchParams.get('minCondition'),'2');assert.equal(u.searchParams.get('isFirstEd'),'N');assert.equal(u.searchParams.get('isReverseHolo'),variant==='NORMAL'?'N':'Y');
+    }
+    for(const change of [{number:'3'},{name:'Pikachu'},{source_id:'ex2-'+number},{source_set_id:'ex2'},{set_name:'Aquapolis'},{set:'AQUAPOLIS'},{language:'JP'},{edition:'1ST'},{variant:'STAMPED'},{subtype:'shadowless'},{condition:'PSA10'}])assert.equal(L.confirmedRoute({...card,...change}),null,JSON.stringify(change));
+    assert.equal(!!L.confirmedRoute({...card,variant:'HOLO'}),name==='Beautifly');
+    assert.equal(L.safeRoute({...card,set:'Ruby & Sapphire',set_name:'Ruby & Sapphire'}).confirmed,true);
+  }
+});
+require('node:test')('v197 unverified EN search contains only name and preserves identity outside the URL',()=>{
+  const assert=require('node:assert/strict'),L=require('../library-v185.js');
+  const card={source_id:'ex1-3',source_set_id:'ex1',name:'Blaziken',number:'3',set_name:'EX Ruby & Sapphire',language:'EN',condition:'EX',edition:'1ST',variant:'STAMPED',verified:true,direct:true,url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct=1'};
+  const original=JSON.stringify(card),r=L.safeRoute(card),u=new URL(r.url);
+  assert.equal(r.exact,false);assert.equal(r.kind,'BROAD_SEARCH');assert.equal(u.pathname,'/en/Pokemon/Products/Search');assert.equal(u.searchParams.get('searchString'),'Blaziken');assert.equal(u.searchParams.has('idProduct'),false);
+  assert.equal(r.identity.set,'EX Ruby & Sapphire');assert.equal(r.identity.number,'3');assert.equal(r.identity.source_id,'ex1-3');assert.match(r.note,/niet geverifieerd/);assert.match(r.note,/#3/);
+  for(const [key,value]of [['language','1'],['minCondition','3'],['isFirstEd','Y'],['isReverseHolo','Y']])assert.equal(u.searchParams.get(key),value);
+  assert.equal(JSON.stringify(card),original);
+});
 const {test}=require('node:test'),assert=require('node:assert/strict'),Library=require('../library-v185.js'),snapshot=require('../catalog-sets-v185.json');
 const fixture=require('./fixtures/library-v185/en-sv03.5.json');
 function setup(handler=()=>fixture){let time=1000000000000,calls=0;const store=new Map(),storage={getItem:k=>store.get(k),setItem:(k,v)=>store.set(k,v)};const api=Library.create({snapshot,storage,now:()=>time,fetch:async(url)=>{calls++;return {ok:true,json:async()=>handler(url)}}});return {api,store,advance:()=>time+=Library.TTL+1,calls:()=>calls};}
