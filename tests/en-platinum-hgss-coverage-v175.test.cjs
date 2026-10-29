@@ -93,7 +93,8 @@ for(const [key,id,code,label,aliases] of targets)test(`${id}: aliases, exact EN 
     await page.locator(`.visiblePreferences [data-value="${condition}"]`).click();
     await page.waitForFunction(expected=>new URL(document.querySelector('#openBtn').href).searchParams.get('minCondition')===expected,expected);
     const u=new URL(await page.locator('#openBtn').getAttribute('href'));assert.equal(u.origin,'https://www.cardmarket.com');
-    assert.equal(u.pathname,'/en/Pokemon/Products/Search');assert.ok(u.searchParams.get('searchString').includes(label));assert.ok(u.searchParams.get('searchString').includes(c.localId));assert.ok(u.searchParams.get('searchString').includes(await page.evaluate(c=>cleanCardmarketName(c.name,c.localId),c)));assert.equal(u.searchParams.has('idProduct'),false);
+    assert.equal(u.pathname,'/en/Pokemon/Products/Search');assert.equal(u.searchParams.get('searchString'),await page.evaluate(c=>cleanCardmarketName(c.name,c.localId),c));assert.equal(u.searchParams.has('idProduct'),false);
+    const identity=await page.evaluate(()=>selectedCardIdentity());assert.equal(identity.set_name,label);assert.equal(identity.number,c.localId);assert.equal(identity.source_id,c.id);
   }
   await page.locator('.visiblePreferences [data-value="EX"]').click();await page.evaluate(()=>makeLink(false));
   await page.reload();await ready(page);await page.locator('#navRecent').click();
@@ -164,7 +165,7 @@ for(const id of ['pl1-SH4','pl4-AR1','hgss1-ONE','hgss3-THREE'])test(id+': speci
   await page.locator('#collectionAddBtn').click();await page.locator('#collectionEditorSave').click();await page.reload();await ready(page);await page.locator('#navCollection').click();
   await page.locator('#collectionList .collectionCard').waitFor();
   const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('cardscout_collection_v133'))[0]);assert.equal(saved.number,c.localId);assert.equal(saved.name,c.name);assert.equal(saved.sourceId,id);assert.equal(saved.source_set_id,sid);
-  const url=new URL(saved.cardmarketUrl);assert.equal(url.hostname,'www.cardmarket.com');assert.ok(url.searchParams.get('searchString').includes(c.localId));
+  const url=new URL(saved.cardmarketUrl);assert.equal(url.hostname,'www.cardmarket.com');assert.equal(url.searchParams.get('searchString'),await page.evaluate(c=>cleanCardmarketName(c.name,c.localId),c));assert.equal(saved.number,c.localId);assert.equal(saved.sourceId,id);
 });
 
 test('unproven Prime product ID stays SEARCH; LV.X and LEGEND names retain source identity',async t=>{
@@ -176,7 +177,7 @@ test('unproven Prime product ID stays SEARCH; LV.X and LEGEND names retain sourc
   for(const [cond,value] of [['NM','2'],['EX','3'],['GD','4'],['PL','6']]){
     await page.locator(`.visiblePreferences [data-value="${cond}"]`).click();await page.waitForFunction(value=>new URL(document.querySelector('#openBtn').href).searchParams.get('minCondition')===value,value);
     const u=new URL(await page.locator('#openBtn').getAttribute('href'));assert.equal(u.origin,'https://www.cardmarket.com');assert.equal(u.pathname,'/en/Pokemon/Products/Search');assert.equal(u.searchParams.has('idProduct'),false);
-    assert.deepEqual(u.searchParams.get('searchString').split(/\s+/).sort(),['Umbreon','Undaunted','86'].sort());assert.equal(u.searchParams.get('language'),'1');assert.equal(u.searchParams.get('minCondition'),value);
+    assert.equal(u.searchParams.get('searchString'),'Umbreon');assert.equal(u.searchParams.get('language'),'1');assert.equal(u.searchParams.get('minCondition'),value);
     assert.equal(await page.locator('#openBtn').getAttribute('data-cm-route'),'SEARCH');
     const selected=await page.evaluate(()=>selectedCardIdentity(document.querySelector('#openBtn').href));
     for(const [key,expected]of Object.entries({name:'Umbreon',number:'86',source_id:'hgss3-86',source_set_id:'hgss3',set_name:'Undaunted',language:'EN',condition:cond}))assert.equal(selected[key],expected,key);

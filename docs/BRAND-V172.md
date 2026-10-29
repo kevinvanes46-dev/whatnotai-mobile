@@ -220,8 +220,8 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | tests/collection-price-freshness.test.cjs | B, C, H | 17 | no |
 | tests/collector-experience.test.cjs | H | 4, 27 | no |
 | tests/cost-basis-browser-v177.test.cjs | B, C, E, H | 8, 9, 17, 64 | no |
-| tests/en-dp-pop-coverage-v174.test.cjs | B, C, E, H | 47, 63, 141 | no |
-| tests/en-platinum-hgss-coverage-v175.test.cjs | B, C, E, H | 48, 65, 124, 201, 205 | no |
+| tests/en-dp-pop-coverage-v174.test.cjs | B, C, E, H | 47, 63, 142 | no |
+| tests/en-platinum-hgss-coverage-v175.test.cjs | B, C, E, H | 48, 65, 125, 202, 206 | no |
 | tests/experience-scope-v171.cjs | H | 8 | no |
 | tests/fixtures/history-scope-v183.json | B, H | 14, 15 | no |
 | tests/fixtures/integration-scope-v181.json | B, H | 58, 59 | no |

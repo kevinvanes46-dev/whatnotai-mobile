@@ -17,7 +17,23 @@
     'ecard2-15':['Houndoom','15','Houndoom-V3-AQ15'],
     'ecard2-1':['Ampharos','1','Ampharos-V2-AQ1']
   });
+  // Official product pages supplied as independently checked by the user, 2026-10-27.
+  const rubyLinks=Object.freeze({'ex1-2':['Beautifly','2','Beautifly-RS2','HOLO'],'ex1-21':['Seaking','21','Seaking-RS21','NORMAL']});
   function confirmedRoute(card={}){
+    const ruby=rubyLinks[card.source_id||card.sourceId];
+    if(ruby){
+      const edition=String(card.edition||'AUTO').toUpperCase(),variant=String(card.variant||'NORMAL').toUpperCase();
+      if(card.language!=='EN'||normalize(card.name)!==normalize(ruby[0])||String(card.number)!==ruby[1]||
+        (card.source_set_id&&card.source_set_id!=='ex1')||
+        [card.set_name,card.setName,card.set].filter(Boolean).some(value=>!['ex ruby sapphire','ruby sapphire'].includes(normalize(value)))||
+        (card.subtype&&card.subtype!=='unlimited')||!['AUTO','UNLIMITED'].includes(edition)||
+        !['NORMAL','REVERSE','REVERSE_HOLO',ruby[3]].includes(variant)||
+        !['','M','MT','MINT','NM','EX','GD','LP','PL','PO'].includes(String(card.condition||'').toUpperCase()))return null;
+      const url=new URL(offerUrl('https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Ruby-Sapphire/'+ruby[2],card));
+      url.searchParams.set('isReverseHolo',['REVERSE','REVERSE_HOLO'].includes(variant)?'Y':'N');
+      if(edition==='UNLIMITED')url.searchParams.set('isFirstEd','N');
+      return {url:url.href,exact:true,confirmed:true};
+    }
     const id=card.source_id||card.sourceId,known=confirmedLinks[id];
     if(!known||card.language!=='EN'||normalize(card.name)!==normalize(known[0])||
       String(card.number)!==known[1]||(card.source_set_id&&card.source_set_id!=='ecard2')||
@@ -93,12 +109,9 @@
     }
     const knownSet=Object.keys(curatedSets).find(key=>curatedSets[key].includes(setId));
     const label=curatedLabels[knownSet]?.label;
-    const contextual=card.language==='EN'&&label&&/^[a-z0-9]+$/i.test(number)&&
-      (!card.source_id||card.source_id===setId+'-'+number)&&
-      (!card.set_name||[label,knownSet].some(value=>normalize(value)===normalize(card.set_name)))&&
-      (!card.set||[label,knownSet,'TCGDEX EN '+setId].some(value=>normalize(value)===normalize(card.set)));
     const searchName=typeof cleanCardmarketName==='function'?cleanCardmarketName(name,number):name;
-    const query=consistent?name+' '+set[0].toLowerCase()+number:contextual?searchName+' '+label+' '+number:name;
+    // Cardmarket does not reliably interpret set labels/codes and collector numbers as search terms.
+    const query=searchName;
     const url=new URL(searchLink(query));
     const conditions={M:1,MT:1,MINT:1,NM:2,EX:3,GD:4,LP:5,PL:6,PO:7};
     if(card.language==='EN')url.searchParams.set('language','1');
@@ -108,7 +121,8 @@
     if(card.edition==='UNLIMITED')url.searchParams.set('isFirstEd','N');
     if(['REVERSE','REVERSE_HOLO','STAMPED'].includes(card.variant))url.searchParams.set('isReverseHolo','Y');
     else if(card.variant==='NORMAL')url.searchParams.set('isReverseHolo','N');
-    return {url:url.href,exact:false,kind:consistent||contextual?'TARGETED_SEARCH':'BROAD_SEARCH',note:'Exacte link niet geverifieerd · controleer set, nummer en uitvoering'};
+    const identity={name,number,set:card.set_name||label||card.set||set?.[1]||'',source_id:card.source_id||'',source_set_id:setId||'',language:card.language||''};
+    return {url:url.href,exact:false,kind:'BROAD_SEARCH',identity,note:'Exacte link niet geverifieerd · controleer '+[identity.set,number&&'#'+number,card.variant||'uitvoering'].filter(Boolean).join(' · ')};
   }
   // Values verified against Cardmarket's public product filter form (2026-10-24).
   // Its website uses numeric values; the authenticated API uses different codes.

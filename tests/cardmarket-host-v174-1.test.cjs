@@ -44,8 +44,8 @@ for(const hasProduct of [true,false])test('Chromium POP5 redirect → safe SEARC
  const {ctx,page,requests}=await fixture(t,hasProduct?secondary:{...secondary,pricing:{}});await ctx.addInitScript(({CACHE,redirect})=>{localStorage.setItem(CACHE,JSON.stringify([{source_id:'pop5-3',url:redirect,timestamp:Date.now()}]));window.published=[];window.addEventListener('cardscout:cm-route-ready',e=>published.push(e.detail.cardmarketUrl));},{CACHE,redirect});await page.goto(origin+'/#search');await page.waitForFunction(()=>!!window.CardCatalog?.byId('pop5-3','EN'));await page.locator('#quickInput').fill('Mew 3 pop 5');await page.locator('.suggestion').filter({hasText:'#3'}).first().click();
  for(const [cond,value]of [['NM','2'],['EX','3'],['GD','4'],['PL','6']]){await page.locator('.visiblePreferences [data-value="'+cond+'"]').click();await page.waitForFunction(value=>{const a=document.querySelector('#openBtn');return a.dataset.cmState==='ready'&&new URL(a.href).searchParams.get('minCondition')===value},value);const u=new URL(await page.locator('#openBtn').getAttribute('href'));
    assert.equal(u.origin,'https://www.cardmarket.com');assert.equal(u.pathname,'/en/Pokemon/Products/Search');assert.equal(await page.locator('#openBtn').getAttribute('data-cm-route'),'SEARCH');assert.equal(u.searchParams.has('idProduct'),false);
-   // Word order is not externally verified; require precisely the identity tokens.
-   assert.deepEqual(u.searchParams.get('searchString').split(/\s+/).sort(),['Mew','3','POP','Series','5'].sort());assert.ok(u.searchParams.get('searchString').includes('POP Series 5'));
+   // Search only by name; the selected identity below retains the exact set and number.
+   assert.equal(u.searchParams.get('searchString'),'Mew');
    assert.equal(u.searchParams.get('language'),'1');assert.equal(u.searchParams.get('minCondition'),value);
    const selected=await page.evaluate(()=>selectedCardIdentity(document.querySelector('#openBtn').href));
    for(const [key,expected]of Object.entries({name:'Mew δ',number:'3',source_id:'pop5-3',source_set_id:'pop5',set_name:'POP Series 5',language:'EN',condition:cond}))assert.equal(selected[key],expected,key);
