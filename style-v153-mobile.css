@@ -1,7 +1,7 @@
 /* Fixed controls keep their size; only the true page and results scrollports reserve space. */
 html { scroll-padding-bottom:var(--fixed-clearance,180px); }
 body { min-height:100svh; }
-.appShell { padding-bottom:var(--fixed-clearance,180px)!important; }
+.appShell { padding-bottom:calc(var(--fixed-clearance,180px) + var(--results-runway,0px))!important; }
 .tabView { scroll-margin-bottom:var(--fixed-clearance,180px); }
 #smartSuggestions { max-height:min(52dvh,var(--results-room,52dvh),520px); overflow-y:auto; overflow-x:clip; padding-bottom:20px; scroll-padding-block:44px 20px; min-height:0; }
 #smartSuggestions .suggestion:last-child { margin-bottom:0; }

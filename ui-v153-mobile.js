@@ -10,17 +10,30 @@
   let obstacle=bottom;
   for(const el of [document.querySelector('.bottomNav'),$('actionDock')]){
    if(!el)continue;const style=getComputedStyle(el),rect=el.getBoundingClientRect();
-   if(style.display!=='none'&&style.visibility!=='hidden'&&Number(style.opacity)>.01&&rect.height&&rect.bottom>0)obstacle=Math.min(obstacle,rect.top);
+   const readyDock=el.id==='actionDock'&&el.classList.contains('ready')&&!document.body.classList.contains('resultOpen')&&!keyboard;
+   if(style.display!=='none'&&style.visibility!=='hidden'&&(Number(style.opacity)>.01||readyDock)&&rect.height&&rect.bottom>0)obstacle=Math.min(obstacle,rect.top);
   }
   const header=document.querySelector('.topbar');
-  root.style.setProperty('--top-clearance',Math.max(0,header?.getBoundingClientRect().bottom||0)+12+'px');
+  const headerBottom=Math.max(0,header?.getBoundingClientRect().bottom||0);
+  const top=vv?.offsetTop||0,topClearance=Math.max(headerBottom,top)+12;
+  root.style.setProperty('--top-clearance',topClearance+'px');
   root.style.setProperty('--fixed-clearance',Math.max(0,innerHeight-obstacle)+20+'px');
   const results=$('smartSuggestions');
   if(results&&!results.hidden){
-   const top=results.getBoundingClientRect().top;
-   // A bounded nested scrollport ends above the actual fixed controls.
-   root.style.setProperty('--results-room',Math.max(90,obstacle-Math.max(top,12)-20)+'px');
-  }
+   const maxRoom=Math.min(520,(vv?.height||innerHeight)*.52);
+   const largestResult=[...results.children].reduce((height,result)=>Math.max(height,result.getBoundingClientRect().height),0);
+   const paddingBottom=parseFloat(getComputedStyle(results).paddingBottom)||0;
+   const desiredRoom=Math.min(maxRoom,Math.max(90,largestResult+paddingBottom));
+   const resultsTop=results.getBoundingClientRect().top;
+   const availableRoom=obstacle-Math.max(resultsTop,topClearance)-20;
+   const neededShift=Math.max(0,desiredRoom-availableRoom);
+   const runway=parseFloat(root.style.getPropertyValue('--results-runway'))||0;
+   root.style.setProperty('--results-runway',Math.max(runway,neededShift)+'px');
+   const pageShift=Math.min(neededShift,Math.max(0,resultsTop-topClearance));
+   if(pageShift>1)window.scrollBy(0,pageShift);
+   const visibleTop=Math.max(results.getBoundingClientRect().top,topClearance);
+   root.style.setProperty('--results-room',Math.max(0,obstacle-visibleTop-20)+'px');
+  }else root.style.setProperty('--results-runway','0px');
  }
  function schedule(){if(!scheduled){scheduled=true;requestAnimationFrame(measure);}}
  new ResizeObserver(schedule).observe($('actionDock'));
