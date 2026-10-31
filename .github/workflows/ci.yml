@@ -123,3 +123,6 @@ jobs:
 
       - name: V208 vintage print and promo routes
         run: node --test tests/cardmarket-variants-v208.test.cjs tests/cardmarket-variants-v208.browser.test.cjs
+
+      - name: V203 verified routes and V208 exact-count delta
+        run: node --test tests/cardmarket-v203-regressions.test.cjs

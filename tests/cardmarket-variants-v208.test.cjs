@@ -51,6 +51,15 @@ test('unverified Pidgeotto prints and conflicting identities fail closed to sear
   assert.equal(japanese.url,'');
 });
 
+test('ambiguous Pidgeotto catalog products cannot produce edition-specific prices',()=>{
+  const detail={id:'base1-22',localId:'22',name:'Pidgeotto',set:{id:'base1'},
+    variants_detailed:[{type:'normal'}]};
+  const index=require('../cardmarket-product-index-v191.json');
+  for(const edition of ['UNLIMITED','SHADOWLESS','1ST']){
+    assert.deepEqual(Library.cardmarketOptions({...pidgeotto,edition},detail,index),[],edition);
+  }
+});
+
 test('Jigglypuff WOTC Promo #7 uses the supplied exact page; other promos remain searches',()=>{
   const promo={source_id:'basep-7',source_set_id:'basep',name:'Jigglypuff',number:'7',
     set:'WOTC PROMO',set_name:'Wizards Black Star Promos',language:'EN',condition:'NM'};

@@ -13,3 +13,7 @@ The route uses the supplied product slugs and the existing Cardmarket condition/
 The confirmed Wizards Black Star Promos route is Jigglypuff #7 (`basep-7`) to `Wizards-Black-Star-Promos/Jigglypuff-WP7`. Other promo cards remain search-only until their product pages are independently confirmed. The previous Jigglypuff route was search-only because the promo set had no exact route mapping.
 
 The First Edition option sends `isFirstEd=Y` on the supplied Shadowless product page. Cardmarket returned HTTP 403 when the product pages were checked in this environment, so current live offer availability for that filter combination could not be independently confirmed. No Shadowless or First Edition market price is displayed as a general Cardmarket trend.
+
+The V203 audit contained 218 exact routes. An exhaustive rerun over all 21,290 English identities found 219: the original 218 URLs are unchanged, and the sole addition is `basep-7` / Jigglypuff WP7. CI compares the full prior exact-route projection and verifies that WP7 is the only new exact identity.
+
+The V203 user-provided evidence verifies only Unown W/V/X. The shared source IDs for L/M/N remain search-only. For Pidgeotto, the official catalog contains multiple candidates without an independent collector-number match, so the app returns no price product for Unlimited, Shadowless, or Shadowless First Edition. Shadowless and First Edition also fail closed in the market engine rather than displaying a general trend. The public guide is a general EUR trend, not condition-specific or proof of print identity.
