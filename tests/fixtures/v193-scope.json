@@ -22,7 +22,7 @@
   "sw.js": [
     {
       "before": "const CACHE = 'rareworth-shell-v192-cardmarket-language';\n",
-      "after": "const CACHE = 'rareworth-shell-v193-cardmarket-nm-prices';\n"
+      "after": "const CACHE = 'rareworth-shell-v199-english-cardmarket';\n"
     },
     {
       "before": "",

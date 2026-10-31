@@ -5,20 +5,44 @@
  const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text)n.textContent=text;if(cls)n.className=cls;return n;};
  const button=(text,fn)=>{const b=el('button',text);b.type='button';b.onclick=fn;return b;};
  const money=v=>new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR'}).format(v);
+ const editionLabel=(value,sourceId)=>value==='1ST'&&sourceId==='base1-22'?'Shadowless · 1st Edition':
+  ({UNLIMITED:'Unlimited',SHADOWLESS:'Shadowless',SHADOWLESS_1ST:'Shadowless · 1st Edition','1ST':'1st Edition'})[value]||'';
  const selection=c=>({card:c,condition:$('condSelect')?.value||'NM',edition:$('editionSelect')?.value||'AUTO',stamped:$('stampedToggle')?.getAttribute('aria-pressed')==='true',cardmarketUrl:''});
  function item(s){const c=s.card;return {name:c.name,number:String(c.number||''),set:c.set,setName:c.set_name||c.setName,sourceId:c.source_id||c.sourceId,source_set_id:c.source_set_id,language:c.language||'EN',condition:s.condition,edition:s.edition,variant:s.stamped?'STAMPED':'NORMAL'};}
  async function quote(s){if(window.HoloKeepMarket.enabled===false)return window.HoloKeepMarket.display();if(s.card.catalogOnly)return {value:null,label:'Catalogusmetadata · geen geverifieerde Cardmarket-prijs',date:''};const data=await window.CardArtwork.lookup(s.card).catch(()=>null),x=item(s);return window.HoloKeepMarket.display(ui().priceFrom(data,x),x);}
  const detail=el('dialog',null,'holoDetail');detail.id='cardSheet';detail.setAttribute('aria-labelledby','cardSheetName');
- detail.innerHTML='<button type="button" id="cardSheetClose" aria-label="Kaartdetail sluiten">Sluiten</button><div id="cardSheetArt" class="holoArt"></div><h2 id="cardSheetName"></h2><p id="cardSheetMeta"></p><strong id="cardSheetPrice"></strong><p id="cardSheetNote" role="status"></p><a id="cardSheetLink" target="_blank" rel="noopener noreferrer">Bekijk op Cardmarket</a><button type="button" id="cardSheetAction"></button>';
+ detail.innerHTML='<button type="button" id="cardSheetClose" aria-label="Kaartdetail sluiten">Sluiten</button><div id="cardSheetArt" class="holoArt"></div><h2 id="cardSheetName"></h2><p id="cardSheetMeta"></p><div id="cardSheetPrints" class="libraryStatus" hidden></div><strong id="cardSheetPrice"></strong><p id="cardSheetNote" role="status"></p><a id="cardSheetLink" target="_blank" rel="noopener noreferrer">Bekijk op Cardmarket</a><button type="button" id="cardSheetAction"></button>';
  document.body.append(detail);let selected=null,generation=0;
  $('cardSheetClose').onclick=()=>detail.close();
  detail.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const nodes=[...detail.querySelectorAll('button,a[href]')].filter(n=>!n.hidden&&!n.disabled&&n.getClientRects().length);const first=nodes[0],last=nodes.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}});
  detail.addEventListener('click',e=>{if(e.target===detail){const r=detail.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)detail.close();}});
- async function open(s,uid){const token=++generation,c=s.card,x=item(s);$('cardSheetName').textContent=c.name;
-  $('cardSheetMeta').textContent=[x.setName||x.set,x.number&&'#'+x.number,x.language,x.condition,x.variant,x.edition==='1ST'?'1st Edition':''].filter(Boolean).join(' · ');
+ async function open(s,uid){const token=++generation,c=s.card,x=item(s),routeVariant=s.stamped?'STAMPED':s.variant||c.variant||undefined,printChoices=x.language==='EN'?window.HoloDexLibrary?.cardmarketPrintChoices(x)||[]:[];$('cardSheetName').textContent=c.name;
+  $('cardSheetMeta').textContent=[x.setName||x.set,x.number&&'#'+x.number,x.language,x.condition,routeVariant,editionLabel(x.edition,x.sourceId)].filter(Boolean).join(' · ');
+  const printPanel=$('cardSheetPrints');
+  printPanel.hidden=!printChoices.length;printPanel.replaceChildren();
+  if(printChoices.length){
+   printPanel.append(el('strong','Base Set · Pidgeotto #22'));
+   const status=el('small','Kies een uitvoering; zonder keuze blijft de Cardmarket-link een veilige zoekroute.');
+   printPanel.append(status);
+   for(const choice of printChoices){
+    const b=button(choice.label,()=>{
+     const route=window.HoloDexLibrary.safeRoute({...x,edition:choice.edition,variant:routeVariant});
+     if(!route.exact||!route.confirmed)throw Error('Bevestigde Pidgeotto-route ontbreekt');
+     s.edition=choice.edition;s.cardmarketUrl=route.url;
+     const link=$('cardSheetLink');link.href=route.url;link.hidden=false;link.textContent='Bekijk '+choice.label+' op Cardmarket';
+     $('cardSheetMeta').textContent=[x.setName||x.set,x.number&&'#'+x.number,x.language,x.condition,routeVariant,choice.label].filter(Boolean).join(' · ');
+     $('cardSheetPrice').textContent='Geen marktindicatie';
+     $('cardSheetNote').textContent='Geen algemene marktprijs voor de gekozen specifieke uitvoering.';
+     status.textContent='Gekozen uitvoering: '+choice.label+'.';
+     for(const other of printPanel.querySelectorAll('button'))other.setAttribute('aria-pressed',String(other===b));
+    });
+    b.dataset.edition=choice.edition;
+    b.setAttribute('aria-pressed',String(choice.edition===x.edition));printPanel.append(b);
+   }
+  }
   $('cardSheetArt').classList.toggle('owned',!!uid);$('cardSheetArt').replaceChildren();window.CardArtwork.mount(c,$('cardSheetArt'));
   $('cardSheetPrice').textContent='';$('cardSheetNote').textContent='Marktindicatie ophalen…';
-  let url=x.language==='EN'&&window.HoloDexLibrary?.safeRoute?window.HoloDexLibrary.safeRoute(x).url:s.cardmarketUrl;try{url=url||ui().cardmarketLink(x);const parsed=new URL(url);if(parsed.protocol!=='https:'||parsed.hostname!=='www.cardmarket.com')url='';}catch{url='';}
+  let url=x.language==='EN'&&window.HoloDexLibrary?.safeRoute?window.HoloDexLibrary.safeRoute({...x,variant:routeVariant}).url:s.cardmarketUrl;try{url=url||ui().cardmarketLink(x);const parsed=new URL(url);if(parsed.protocol!=='https:'||parsed.hostname!=='www.cardmarket.com')url='';}catch{url='';}
   delete $('cardSheetLink').dataset.cmVariantOwner;
   $('cardSheetLink').hidden=!url;if(url)$('cardSheetLink').href=url;
   $('cardSheetAction').textContent=uid?'Kaart bewerken':'Aan map toevoegen';
@@ -31,6 +55,7 @@
    variant:x.variant,edition:x.edition,condition:x.condition
   }}));
   const q=window.HoloKeepOfficialMarket&&!c.catalogOnly?window.HoloKeepOfficialMarket.display(await window.HoloKeepOfficialMarket.quote(x)):await quote(s);if(token!==generation)return;
+  if(printChoices.length&&s.edition!==x.edition){$('cardSheetPrice').textContent='Geen marktindicatie';$('cardSheetNote').textContent='Geen algemene marktprijs voor de gekozen specifieke uitvoering.';return;}
   $('cardSheetPrice').textContent=q.value!=null?money(q.value):'Geen marktindicatie';
   $('cardSheetNote').textContent=[q.label,q.value!=null?q.condition:'',q.date].filter(Boolean).join(' · ');
  }
@@ -71,7 +96,7 @@
  function renderBinder(){
   const g=current; binder.replaceChildren();binder.append(button('Sluiten',()=>binder.close()));
   const title=el('h2',g.name||g.id);title.id='binderTitle';binder.append(title,el('p',g.language+' · '+progress(g).join(' / ')+' unieke kaarten'));
-  const ownRows=ui().items().filter(x=>x.listType==='OWNED'&&x.language===g.language),first=c=>ownRows.some(x=>x.sourceId===c.source_id&&x.edition==='1ST');
+  const ownRows=ui().items().filter(x=>x.listType==='OWNED'&&x.language===g.language),first=c=>ownRows.some(x=>x.sourceId===c.source_id&&['1ST','SHADOWLESS_1ST'].includes(x.edition));
   const filters=el('div',null,'binderFilters');filters.setAttribute('aria-label','Kaarten filteren');
   for(const [key,label] of [['all','Alle'],['owned','In bezit'],['missing','Ontbreekt'],...(g.cards.some(first)?[['first','1st Ed.']]:[])]){const b=button(label,()=>{filter=key;page=0;renderBinder();binder.querySelector('[data-filter="'+key+'"]').focus();});b.dataset.filter=key;b.setAttribute('aria-pressed',String(key===filter));filters.append(b);}binder.append(filters);
   const cards=g.cards.filter(c=>filter==='all'||(filter==='first'?first(c):(filter==='owned')===g.owned.has(c.source_id)));
@@ -79,10 +104,10 @@
   const grid=el('div',null,'binderGrid');binder.append(grid);
   let touch=null;grid.addEventListener('touchstart',e=>{const t=e.touches[0];touch=t?{x:t.clientX,y:t.clientY}:null;},{passive:true});grid.addEventListener('touchend',e=>{const t=e.changedTouches[0];if(!touch||!t)return;const dx=t.clientX-touch.x,dy=t.clientY-touch.y;touch=null;if(Math.abs(dx)<60||Math.abs(dy)>50)return;const next=Math.max(0,Math.min(Math.ceil(cards.length/9)-1,page+(dx<0?1:-1)));if(next!==page){page=next;renderBinder();}},{passive:true});
   for(const c of cards.slice(page*9,page*9+9)){
-   const variants=ui().items().filter(x=>x.listType==='OWNED'&&x.sourceId===c.source_id&&x.language===g.language&&(filter!=='first'||x.edition==='1ST')),mine=variants[0];
+   const variants=ui().items().filter(x=>x.listType==='OWNED'&&x.sourceId===c.source_id&&x.language===g.language&&(filter!=='first'||['1ST','SHADOWLESS_1ST'].includes(x.edition))),mine=variants[0];
    const show=x=>{binder.close();open(x?{card:c,condition:x.condition,edition:x.edition,stamped:x.variant==='STAMPED',cardmarketUrl:x.cardmarketUrl}:selection(c),x?.uid);};
    const b=button('',()=>{if(variants.length<2)return show(mine);binder.querySelector('.binderVariants')?.remove();const choices=el('section',null,'binderVariants');choices.append(el('h3','Kies jouw exemplaar'));for(const x of variants)choices.append(button([x.condition,x.variant,x.edition==='1ST'?'1st Edition':'',x.qty+'×'].filter(Boolean).join(' · '),()=>show(x)));binder.append(choices);choices.querySelector('button').focus();});
-   b.className='binderSlot '+(mine?'owned':'missing');const art=el('span',null,'binderArt');b.append(art,el('span',c.name),el('small',mine?(variants.length>1?variants.length+' exemplaren':mine.condition+' · '+mine.variant+(mine.edition==='1ST'?' · 1st Ed':'')):'Ontbreekt'));grid.append(b);directArt(c,art);
+   b.className='binderSlot '+(mine?'owned':'missing');const art=el('span',null,'binderArt');b.append(art,el('span',c.name),el('small',mine?(variants.length>1?variants.length+' exemplaren':[mine.condition,mine.variant,editionLabel(mine.edition,mine.sourceId)].filter(Boolean).join(' · ')):'Ontbreekt'));grid.append(b);directArt(c,art);
   }
   if(!cards.length)grid.append(el('p','Geen kaarten in dit filter.','binderEmpty'));
   const nav=el('div',null,'binderControls'),prev=button('Vorige',()=>{page--;renderBinder();}),next=button('Volgende',()=>{page++;renderBinder();});prev.disabled=page===0;next.disabled=(page+1)*9>=cards.length;nav.append(prev,el('span',(page+1)+' / '+Math.max(1,Math.ceil(cards.length/9))),next);binder.append(nav);
@@ -93,5 +118,23 @@
  new MutationObserver(()=>{if($('collectionEditor').hidden)renderSets();}).observe($('collectionEditor'),{attributes:true,attributeFilter:['hidden']});
  const comparison=el('section',null,'homeComparisonPanel');comparison.id='homeComparisonPanel';comparison.append(el('h3','Waardevergelijking'));
  const ranges=el('div',null,'homeRanges');for(const label of ['1W','1M','3M','1J','Alles']){const b=button(label,()=>{});b.disabled=true;ranges.append(b);}comparison.append(ranges,el('p','Nog geen vergelijkbare historische metingen beschikbaar.','homeChartNote'),el('small','Je actuele marktindicatie staat hierboven. Er wordt geen historische waarde geschat.'));$('homeSnapshot').after(comparison);comparison.after(home);
+ function syncPrintBadges(){
+  const list=$('collectionList');if(!list)return;
+  const items=new Map(ui().items().map(x=>[x.uid,x]));
+  for(const row of list.querySelectorAll('.collectionCard[data-id]')){
+   const item=items.get(row.dataset.id),badges=row.querySelector('.collectionCardBadges');
+   if(!badges)continue;
+   const label=item?.sourceId==='base1-22'&&item.edition==='SHADOWLESS'?'Shadowless':
+    item?.sourceId==='base1-22'&&item.edition==='UNLIMITED'?'Unlimited':
+    item?.sourceId==='base1-22'&&item.edition==='1ST'?'Shadowless':null;
+   let badge=badges.querySelector('[data-v208-print]');
+   if(!label){badge?.remove();continue;}
+   if(!badge){badge=el('span',null,'stampBadge');badge.dataset.v208Print='true';badges.append(badge);}
+   if(badge.textContent!==label)badge.textContent=label;
+  }
+ }
+ const collectionList=$('collectionList');
+ if(collectionList&&window.MutationObserver)new window.MutationObserver(syncPrintBadges).observe(collectionList,{childList:true,subtree:true});
+ syncPrintBadges();
  window.HoloDexRedesign=Object.freeze({open,groups,progress,nearlyComplete});renderSets();observe();
 })();

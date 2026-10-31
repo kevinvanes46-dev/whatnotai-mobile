@@ -22,7 +22,7 @@ const result={stamped:[],jp:[],contracts:[]};
   if(i===8){await page.locator('#smartSuggestions').evaluate(e=>{e.scrollTop=0;e.scrollIntoView({block:'start'});});await page.waitForTimeout(200);await page.waitForFunction(()=>document.querySelector('#toast').hidden);await page.screenshot({path:out+'/stamped-images-390.png'});}
   result.stamped.push({set:keys[i],status:'PASS',cards:checked});console.log('PASS '+keys[i]+' 3 real card images, preset without Enter');
  }
- await page.locator('#stampedToggle').click();await page.locator('.visiblePreferences [data-value="JP"]').click();await page.waitForFunction(()=>window.CardCatalog?.byId('neo1-001','JP'));
+ await page.locator('#stampedToggle').click();await require('./retained-jp-v199.cjs')(page);await page.waitForFunction(()=>window.CardCatalog?.byId('neo1-001','JP'));
  for(const set of sets.filter(s=>s.lang==='ja'))for(const card of set.cards.slice(0,3)){
   await page.locator('#quickInput').fill(card.name);const row=page.locator('.suggestion').filter({has:page.locator('.suggestionTitle',{hasText:card.name})}).first();await row.scrollIntoViewIfNeeded();await row.locator('.artUnavailable').waitFor();assert.equal(await row.locator('img').count(),0);
   await row.click();await page.waitForFunction(id=>JSON.parse(localStorage.getItem('whatnotai_mobile_recent_v37')||'[]')[0]?.source_id===id,card.id);

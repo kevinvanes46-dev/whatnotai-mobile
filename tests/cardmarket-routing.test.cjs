@@ -4,7 +4,8 @@ const vm = require('node:vm');
 const assert = require('node:assert/strict');
 const {execFileSync} = require('node:child_process');
 const source = fs.readFileSync('app-v137.js','utf8');
-const baseline = execFileSync('git',['show','80cbcfc:app-v137.js'],{encoding:'utf8',maxBuffer:2000000});
+// 80cbcfc predates later set metadata; pin the last app-v137 update instead.
+const baseline = execFileSync('git',['show','6853fef81d999c9b9e86c667720fef717e25eb84:app-v137.js'],{encoding:'utf8',maxBuffer:2000000});
 const embedded = s => JSON.parse(s.match(/const EMBEDDED_DATA = (.*);/)[1]);
 function context(s, data){
   const c = {URL, DATA:data, CONDITION_IDS:{NM:1},LANGUAGE_IDS:{EN:1,JP:7},updateCustomSelects(){}};

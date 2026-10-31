@@ -64,7 +64,7 @@ test('previous links, price models and storage stay untouched by the home layer'
   assert.match(html,/id="collectionEditorSave"/);
   assert.match(html,/ui-v189-home\.js\?build=189-app-experience/);
   const worker=fs.readFileSync('sw.js','utf8');
-  assert.match(worker,/const CACHE = 'rareworth-shell-v193-cardmarket-nm-prices'/);
+  assert.match(worker,/const CACHE = 'rareworth-shell-v199-english-cardmarket'/);
   assert.match(worker,/style-v189-home\.css\?build=189-app-experience/);
   assert.match(worker,/ui-v189-home\.js\?build=189-app-experience/);
 });

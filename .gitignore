@@ -4,3 +4,5 @@ data/jp-image-import-report-v161.json
 *.tmp
 # Generated official price files for loopback-only preview; never commit them.
 cardmarket-public-v186/
+# Reproducible audit inputs and verbose local test evidence, not application data.
+artifacts/en-cardmarket-audit/

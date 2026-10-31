@@ -36,7 +36,7 @@ async function loadedArtwork(page,selector,source_id){
   await page.evaluate(()=>{for(const [id,card] of [['wrong-language',{source_id:'neo3-038',language:'EN',set:'NEO REVELATION'}],['wrong-set',{source_id:'neo3-038',source_set_id:'neo1',language:'JP',set:'NEO REVELATION'}],['unknown',{source_id:'neo3-999',language:'JP',set:'NEO REVELATION'}]]){const target=document.createElement('span');target.id=id;document.body.append(target);CardArtwork.mount(card,target);target.scrollIntoView();}});
   for(const id of ['wrong-language','wrong-set','unknown']){const target=page.locator('#'+id);await target.evaluate(el=>{el.style.display='block';el.style.minHeight='24px';});await target.scrollIntoViewIfNeeded();await page.locator('#'+id+'.artUnavailable').waitFor({timeout:5000});assert.equal(await target.locator('img').count(),0);}
   await page.locator('[id^="jp-art-"], #wrong-language, #wrong-set, #unknown').evaluateAll(els=>els.forEach(el=>el.remove()));
-  await page.locator('.visiblePreferences [data-value="JP"]').click();await page.waitForFunction(()=>window.CardCatalog?.byId('neo3-038','JP'));
+  await require('./retained-jp-v199.cjs')(page);await page.waitForFunction(()=>window.CardCatalog?.byId('neo3-038','JP'));
   // Existing routing maps EX to 3 (NM maps to 2).
   await page.locator('.visiblePreferences [data-value="EX"]').click();await page.locator('#quickInput').fill('swinub');
   const row=page.locator('.suggestion').filter({hasText:/Swinub/i}).filter({hasText:'Awakening Legends'});await row.waitFor();assert.equal(await row.count(),1);await loadedArtwork(page,'.suggestion .suggestionArt','neo3-038 search');await row.click();
