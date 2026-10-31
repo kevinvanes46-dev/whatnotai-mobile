@@ -1,12 +1,12 @@
 {
   "schema": 186,
   "source": "CARDMARKET_PUBLIC_GUIDE",
-  "generatedAt": "2026-10-27T17:32:19.628Z",
-  "catalogCreatedAt": "2026-10-27T12:57:38.000Z",
-  "priceGuideCreatedAt": "2026-10-27T01:45:41.000Z",
-  "matchedSourceProducts": 66878,
-  "withOrdinaryTrend": 63945,
-  "withReverseHoloTrend": 29120,
+  "generatedAt": "2026-10-31T10:58:23.368Z",
+  "catalogCreatedAt": "2026-10-30T12:18:51.000Z",
+  "priceGuideCreatedAt": "2026-10-31T01:42:33.000Z",
+  "matchedSourceProducts": 67020,
+  "withOrdinaryTrend": 64090,
+  "withReverseHoloTrend": 29159,
   "approvedExpansionSourceCoverage": [
     {
       "tcgdexSetId": "base1",
