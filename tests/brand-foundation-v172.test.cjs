@@ -76,5 +76,5 @@ test('Chromium: fresh guest gate, same-session reload and offline v172 brand pre
   await context.setOffline(true);await page.reload();assert.equal(await page.locator('#onboarding').isVisible(),true);assert.equal(await page.locator('#onboardingLogin').isDisabled(),true);
   await page.locator('#onboardingGuest').click();for(const tab of ['home','search','collection','recent','settings']){await page.locator(`[data-tab="${tab}"]`).click();assert.equal(await page.locator(`[data-view="${tab}"]`).isVisible(),true);}
   assert.match(await page.locator('.aboutMeta').innerText(),/v185 · Beta/);
-  const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v193-cardmarket-nm-prices')).keys()).map(r=>r.url));assert.ok(urls.some(u=>u.endsWith('/brand-v172.js?build=180-beta-readiness')));assert.ok(urls.every(u=>new URL(u).origin===origin));
+  const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v199-english-cardmarket')).keys()).map(r=>r.url));assert.ok(urls.some(u=>u.endsWith('/brand-v172.js?build=180-beta-readiness')));assert.ok(urls.every(u=>new URL(u).origin===origin));
 });

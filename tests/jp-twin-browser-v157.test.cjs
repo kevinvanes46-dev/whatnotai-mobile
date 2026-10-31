@@ -10,7 +10,7 @@ const recent='whatnotai_mobile_recent_v37',collection='cardscout_collection_v133
   browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH});
   const page=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'}),errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.route('**/*',r=>{const u=new URL(r.request().url());if(u.hostname==='127.0.0.1')return r.continue();if(u.hostname==='api.tcgdex.net'){const p=u.pathname.split('/'),name=`${p[2]}-${p.at(-1)}${p[3]==='sets'?'-set':''}.json`,f=['tests/fixtures/jp-twin-v157/','tests/fixtures/artwork-v155/'].map(d=>d+name).find(f=>fs.existsSync(f));return r.fulfill({json:f?JSON.parse(fs.readFileSync(f)):{cards:[]}});}return r.abort();});
-  await page.goto('http://127.0.0.1:'+server.address().port);await page.locator('.visiblePreferences [data-value="JP"]').click();
+  await page.goto('http://127.0.0.1:'+server.address().port);await require('./retained-jp-v199.cjs')(page);
   await page.waitForFunction(()=>window.CardCatalog?.byId('neo3-048','JP')&&window.CardCatalog?.byId('neo1-061','JP'));
   const urls=[];
   for(const [label,id,number,product] of [['Neo Revelation','neo3-048','55','274641'],['Neo Genesis','neo1-061','74','274474']]){

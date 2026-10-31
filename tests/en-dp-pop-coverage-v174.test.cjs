@@ -95,7 +95,7 @@ for(const [key,id,code,label,aliases] of targets)test(`${id}: aliases, exact EN 
       // User-approved v195 contract: legacy ID existence cannot prove print identity.
       assert.equal(c.id,'dp6-1');assert.equal(c.localId,'1');assert.equal(c.name,'Deoxys Normal Forme');
       assert.equal(u.pathname,'/en/Pokemon/Products/Search');
-      assert.equal(u.searchParams.get('searchString'),'Deoxys Normal Forme');
+      assert.equal(u.searchParams.get('searchString'),'Deoxys Normal Forme 1');
       assert.equal(u.searchParams.has('idProduct'),false);
       assert.equal(u.searchParams.get('language'),'1');assert.equal(u.searchParams.get('minCondition'),expected);
       assert.equal(await page.locator('#openBtn').getAttribute('data-cm-route'),'SEARCH');
@@ -103,7 +103,10 @@ for(const [key,id,code,label,aliases] of targets)test(`${id}: aliases, exact EN 
       assert.equal(u.searchParams.get('isFirstEd'),edition==='1ST'?'Y':edition==='UNLIMITED'?'N':null);
       assert.equal(await page.evaluate(()=>CM_PRODUCT_CATALOG['dp6-1'].product),278150);
     }else{
-    assert.equal(u.pathname,'/en/Pokemon/Products/Search');assert.equal(u.searchParams.get('searchString'),await page.evaluate(c=>cleanCardmarketName(c.name,c.localId),c));assert.equal(u.searchParams.has('idProduct'),false);
+    assert.equal(u.pathname,'/en/Pokemon/Products/Search');const expectedSearch = await page.evaluate(c=>
+  cleanCardmarketName(c.name,c.localId) +
+  (/^dpp-/.test(c.id) ? ' '+c.localId.toLowerCase() : /^(?:dp[1-7]|pop[1-9])-/.test(c.id) ? ' '+String(Number(c.localId)) : ''),c);
+assert.equal(u.searchParams.get('searchString'),expectedSearch);assert.equal(u.searchParams.has('idProduct'),false);
     const identity=await page.evaluate(()=>selectedCardIdentity());assert.equal(identity.set_name,label);assert.equal(identity.number,c.localId);assert.equal(identity.source_id,c.id);
     }
   }
@@ -139,6 +142,6 @@ test('same-storage real offline reload finds DP/POP; empty cache retains local c
   requests.length=0;await setOffline(true);await page.reload();await ready(page);assert.ok(!requests.some(p=>p.includes('/en/sets/')));
   for(const id of ['dp1','dp7','dpp','pop5']){const c=sample(id);await search(page,`${c.name} ${id}`);await page.locator('.suggestion').first().waitFor();}
   assert.equal(await page.locator('.brandText strong').innerText(),'HoloDex');await page.locator('#navSettings').click();assert.match(await page.locator('.aboutCard').innerText(),/v185 · Beta/);
-  const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v193-cardmarket-nm-prices')).keys()).map(r=>r.url));assert.ok(urls.length>20);assert.ok(urls.every(u=>new URL(u).origin===origin));assert.ok(urls.some(u=>u.endsWith('/cards.json?build=175-en-platinum-hgss-coverage')));
+  const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v199-english-cardmarket')).keys()).map(r=>r.url));assert.ok(urls.length>20);assert.ok(urls.every(u=>new URL(u).origin===origin));assert.ok(urls.some(u=>u.endsWith('/cards.json?build=175-en-platinum-hgss-coverage')));
   await page.evaluate(()=>localStorage.removeItem('cardscout_search_catalog_v152_EN_v175'));await page.reload();await search(page,'charizard base');await page.locator('.suggestion').first().waitFor();
 });

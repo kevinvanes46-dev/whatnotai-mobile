@@ -114,3 +114,12 @@ jobs:
 
       - name: v193 official Cardmarket condition, quote and visible Chromium flow
         run: node --test tests/cardmarket-v193.test.cjs tests/cardmarket-browser-v193.test.cjs
+
+      - name: Full English catalog routing and contradictory identity safety
+        run: node --test tests/english-catalog-v199.test.cjs tests/cardmarket-safe-v195.test.cjs tests/cardmarket-exact-v194.test.cjs tests/cardmarket-curated-v195.test.cjs
+
+      - name: V200 targeted and V201 candidate routes
+        run: node --test tests/cardmarket-targeted-v200.test.cjs tests/cardmarket-candidates-v201.test.cjs
+
+      - name: V208 vintage print and promo routes
+        run: node --test tests/cardmarket-variants-v208.test.cjs tests/cardmarket-variants-v208.browser.test.cjs

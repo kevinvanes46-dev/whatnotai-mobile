@@ -14,12 +14,12 @@ require('node:test')('v197 Ruby & Sapphire links enforce identity and print filt
     assert.equal(L.safeRoute({...card,set:'Ruby & Sapphire',set_name:'Ruby & Sapphire'}).confirmed,true);
   }
 });
-require('node:test')('v197 unverified EN search contains only name and preserves identity outside the URL',()=>{
+require('node:test')('v200 unverified EN search includes controlled collector code and preserves identity',()=>{
   const assert=require('node:assert/strict'),L=require('../library-v185.js');
   const card={source_id:'ex1-3',source_set_id:'ex1',name:'Blaziken',number:'3',set_name:'EX Ruby & Sapphire',language:'EN',condition:'EX',edition:'1ST',variant:'STAMPED',verified:true,direct:true,url:'https://www.cardmarket.com/en/Pokemon/Products?idProduct=1'};
   const original=JSON.stringify(card),r=L.safeRoute(card),u=new URL(r.url);
-  assert.equal(r.exact,false);assert.equal(r.kind,'BROAD_SEARCH');assert.equal(u.pathname,'/en/Pokemon/Products/Search');assert.equal(u.searchParams.get('searchString'),'Blaziken');assert.equal(u.searchParams.has('idProduct'),false);
-  assert.equal(r.identity.set,'EX Ruby & Sapphire');assert.equal(r.identity.number,'3');assert.equal(r.identity.source_id,'ex1-3');assert.match(r.note,/niet geverifieerd/);assert.match(r.note,/#3/);
+  assert.equal(r.exact,false);assert.equal(r.kind,'BROAD_SEARCH');assert.equal(u.pathname,'/en/Pokemon/Products/Search');assert.equal(u.searchParams.get('searchString'),'Blaziken rs3');assert.equal(u.searchParams.has('idProduct'),false);
+  assert.equal(u.origin,'https://www.cardmarket.com');assert.equal(r.identity.source_set_id,'ex1');assert.equal(r.identity.set,'EX Ruby & Sapphire');assert.equal(r.identity.number,'3');assert.equal(r.identity.source_id,'ex1-3');assert.match(r.note,/niet geverifieerd/);assert.match(r.note,/#3/);
   for(const [key,value]of [['language','1'],['minCondition','3'],['isFirstEd','Y'],['isReverseHolo','Y']])assert.equal(u.searchParams.get(key),value);
   assert.equal(JSON.stringify(card),original);
 });

@@ -64,7 +64,8 @@
     const entry={...i,source:'TCGDEX_CARDMARKET',finish:null,metric:null,metricField:null,value:null,currency:null,
       quality:'UNAVAILABLE',reason:'NO_PRICE',sourceUpdatedAt:null,fetchedAt:new Date(now).toISOString()};
     if(!validateIdentity(card,item,requestedLanguage))return {...entry,reason:'IDENTITY'};
-    if(i.editionScope==='1ST')return {...entry,reason:'FIRST_EDITION'};
+    if(['1ST','SHADOWLESS_1ST'].includes(i.editionScope))return {...entry,reason:'FIRST_EDITION'};
+    if(i.editionScope==='SHADOWLESS')return {...entry,reason:'SPECIAL_VARIANT'};
     if(i.variant==='STAMPED')return {...entry,reason:'STAMPED'};
     if(i.variant!=='NORMAL')return {...entry,reason:'FINISH'};
     entry.finish=finish(card);
@@ -96,7 +97,7 @@
     if(!Number.isFinite(Date.parse(entry.fetchedAt)))return null;
     if(entry.quality!=='UNAVAILABLE'&&(!['trend','avg7','avg30'].includes(entry.metric)||entry.currency!=='EUR'||
       !['non-foil','holo'].includes(entry.finish)||typeof entry.value!=='number'||!Number.isFinite(entry.value)||entry.value<=0||
-      entry.variant!=='NORMAL'||entry.editionScope==='1ST'))return null;
+      entry.variant!=='NORMAL'||['1ST','SHADOWLESS','SHADOWLESS_1ST'].includes(entry.editionScope)))return null;
     return entry;
   }
   function put(storage,item,entry){
@@ -111,8 +112,9 @@
   }
   function due(entry,now=Date.now()){const at=Date.parse(entry?.fetchedAt);return !Number.isFinite(at)||at>now||now-at>=TTL;}
   function display(entry,item,{now=Date.now(),failed=false}={}){
-    const reasons={FIRST_EDITION:'Geen passende 1st Edition-prijs',STAMPED:'Geen betrouwbare stamped-prijs',FINISH:'Uitvoering niet zeker genoeg voor prijs',IDENTITY:'Kaart niet zeker genoeg voor prijs',SOURCE:'Geen passende marktprijs beschikbaar',NO_PRICE:'Geen marktprijs beschikbaar'};
-    const special=item.edition==='1ST'?'FIRST_EDITION':item.variant==='STAMPED'?'STAMPED':null;
+    const reasons={FIRST_EDITION:'Geen passende 1st Edition-prijs',SPECIAL_VARIANT:'Geen passende Shadowless-prijs',STAMPED:'Geen betrouwbare stamped-prijs',FINISH:'Uitvoering niet zeker genoeg voor prijs',IDENTITY:'Kaart niet zeker genoeg voor prijs',SOURCE:'Geen passende marktprijs beschikbaar',NO_PRICE:'Geen marktprijs beschikbaar'};
+    const special=['1ST','SHADOWLESS_1ST'].includes(item.edition)?'FIRST_EDITION':
+      item.edition==='SHADOWLESS'?'SPECIAL_VARIANT':item.variant==='STAMPED'?'STAMPED':null;
     const legacy=!special&&!entry&&typeof item.price==='number'&&Number.isFinite(item.price)&&item.price>0;
     const value=special?null:entry?.value??(legacy?item.price:null);
     const labels={trend:'Cardmarket trend',avg7:'Cardmarket · 7-daags gemiddelde',avg30:'Cardmarket · 30-daags gemiddelde'};

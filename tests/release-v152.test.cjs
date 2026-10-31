@@ -20,7 +20,7 @@ const jpFixture=JSON.parse(fs.readFileSync(fixturesDir+'/catalog.json')).find(x=
  await page.locator('#normalVariant').click();assert.equal(await page.locator('#stampedToggle').getAttribute('aria-pressed'),'false');
  await page.waitForFunction(()=>document.querySelector('#toast').hidden&&document.querySelector('#collectionUndo').hidden);await page.screenshot({path:out+'/detail-'+width+'.png',fullPage:true});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
  const notice=await page.locator('.selectedCardInfo small').boundingBox();assert.ok(notice.x>=0&&notice.x+notice.width<=width);
- await page.locator('.visiblePreferences [data-value="JP"]').click();assert.equal(await page.locator('#selectedCardPanel').isVisible(),false);assert.equal(await page.locator('#openBtn').getAttribute('aria-disabled'),'true');
+ await require('./retained-jp-v199.cjs')(page);assert.equal(await page.locator('#selectedCardPanel').isVisible(),false);assert.equal(await page.locator('#openBtn').getAttribute('aria-disabled'),'true');
  await page.locator('#quickInput').fill(jpFixture.name);await page.locator('.suggestion').first().click();assert.equal(await page.locator('#selectedCardTitle').textContent(),jpFixture.name);assert.match(await page.locator('#selectedCardMeta').textContent(),/JP/);await page.waitForFunction(()=>document.querySelector('#selectedCardArt').classList.contains('artUnavailable'));
 
  if(width===375){
