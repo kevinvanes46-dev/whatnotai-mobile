@@ -18,7 +18,7 @@ test('manifest changes only user-facing names; Apple title and static copy are H
 });
 test('existing production scripts and backend remain exact except reviewed brand presentation',()=>{
   const files=execFileSync('git',['ls-tree','-r','--name-only',baseline],{encoding:'utf8'}).trim().split('\n').filter(f=>/\.js$/.test(f)||f.startsWith('supabase/')).filter(f=>! /^(tests|scripts)\//.test(f)&&!['brand-v172.js','sw.js'].includes(f));
-  for(const f of files)assert.equal(require('./rebrand-scope-v173.cjs')(f,text(f).replace(/\r\n?/g,'\n')),old(f).toString().replace(/\r\n?/g,'\n'),f);
+  for(const f of files){let current=require('./rebrand-scope-v173.cjs')(f,text(f).replace(/\r\n?/g,'\n'));if(f==='ui-v153-mobile.js')current=require('./mobile-scope-v224.cjs')(current);assert.equal(current,old(f).toString().replace(/\r\n?/g,'\n'),f);}
 });
 test('remaining production brand occurrences match technical-only allowlist',()=>{
   const snapshot=require('./brand-support-v172.cjs').productionSnapshot();assert.deepEqual(snapshot,JSON.parse(text('tests/brand-allowlist-v172.json')));
@@ -76,9 +76,9 @@ test('actual v172→v174 service-worker update preserves data/session, removes o
     await page.goto(origin);await page.evaluate(()=>navigator.serviceWorker.ready);await page.waitForFunction(()=>!!navigator.serviceWorker.controller);await page.locator('#onboardingGuest').click();await page.waitForLoadState('networkidle');
     await page.evaluate(async data=>{for(const [k,v] of Object.entries(data))if(k==='rareworth_guest_session_v171_1')sessionStorage.setItem(k,v);else localStorage.setItem(k,v);await caches.open('unrelated-cache');},data);
     const values=()=>page.evaluate(keys=>Object.fromEntries(keys.map(k=>[k,k==='rareworth_guest_session_v171_1'?sessionStorage.getItem(k):localStorage.getItem(k)])),Object.keys(data));assert.deepEqual(await values(),data);
-    previous=false;await page.evaluate(async()=>{const changed=new Promise(resolve=>navigator.serviceWorker.addEventListener('controllerchange',resolve,{once:true}));await (await navigator.serviceWorker.getRegistration()).update();await changed;});await page.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('rareworth-shell-v199-english-cardmarket')&&!keys.includes('rareworth-shell-v172');});
+    previous=false;await page.evaluate(async()=>{const changed=new Promise(resolve=>navigator.serviceWorker.addEventListener('controllerchange',resolve,{once:true}));await (await navigator.serviceWorker.getRegistration()).update();await changed;});await page.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('rareworth-shell-v224-mobile-layout')&&!keys.includes('rareworth-shell-v172');});
     await page.reload();assert.equal(await page.title(),'HoloDex · Zoek. Bewaar. Check.');assert.equal(await page.locator('#onboarding').isVisible(),false);assert.deepEqual(await values(),data);
     await context.setOffline(true);await page.reload();await page.locator('#navCollection').click();assert.match(await page.locator('#collectionList').innerText(),/Neo Genesis/);await noOldBrand(page);assert.deepEqual(await values(),data);
-    const cache=await page.evaluate(async()=>({keys:await caches.keys(),urls:(await (await caches.open('rareworth-shell-v199-english-cardmarket')).keys()).map(r=>r.url)}));assert.ok(cache.keys.includes('unrelated-cache'));assert.ok(!cache.keys.includes('rareworth-shell-v172'));assert.ok(cache.urls.every(u=>new URL(u).origin===origin));assert.ok(cache.urls.some(u=>u.includes('brand-v172.js?build=180-beta-readiness')),JSON.stringify(cache));
+    const cache=await page.evaluate(async()=>({keys:await caches.keys(),urls:(await (await caches.open('rareworth-shell-v224-mobile-layout')).keys()).map(r=>r.url)}));assert.ok(cache.keys.includes('unrelated-cache'));assert.ok(!cache.keys.includes('rareworth-shell-v172'));assert.ok(cache.urls.every(u=>new URL(u).origin===origin));assert.ok(cache.urls.some(u=>u.includes('brand-v172.js?build=180-beta-readiness')),JSON.stringify(cache));
   }finally{previous=false;}
 });
