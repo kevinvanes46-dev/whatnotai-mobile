@@ -56,5 +56,25 @@
       "before": "art.textContent='HK'",
       "after": "art.textContent='HD'"
     }
+  ],
+  "style-v153-mobile.css": [
+    {
+      "before": ".appShell { padding-bottom:var(--fixed-clearance,180px)!important; }",
+      "after": ".appShell { padding-bottom:calc(var(--fixed-clearance,180px) + var(--results-runway,0px))!important; }"
+    }
+  ],
+  "ui-v153-mobile.js": [
+    {
+      "before": "   if(style.display!=='none'&&style.visibility!=='hidden'&&Number(style.opacity)>.01&&rect.height&&rect.bottom>0)obstacle=Math.min(obstacle,rect.top);",
+      "after": "   const readyDock=el.id==='actionDock'&&el.classList.contains('ready')&&!document.body.classList.contains('resultOpen')&&!keyboard;\n   if(style.display!=='none'&&style.visibility!=='hidden'&&(Number(style.opacity)>.01||readyDock)&&rect.height&&rect.bottom>0)obstacle=Math.min(obstacle,rect.top);"
+    },
+    {
+      "before": "  root.style.setProperty('--top-clearance',Math.max(0,header?.getBoundingClientRect().bottom||0)+12+'px');",
+      "after": "  const headerBottom=Math.max(0,header?.getBoundingClientRect().bottom||0);\n  const top=vv?.offsetTop||0,topClearance=Math.max(headerBottom,top)+12;\n  root.style.setProperty('--top-clearance',topClearance+'px');"
+    },
+    {
+      "before": "   const top=results.getBoundingClientRect().top;\n   // A bounded nested scrollport ends above the actual fixed controls.\n   root.style.setProperty('--results-room',Math.max(90,obstacle-Math.max(top,12)-20)+'px');\n  }",
+      "after": "   const maxRoom=Math.min(520,(vv?.height||innerHeight)*.52);\n   const largestResult=[...results.children].reduce((height,result)=>Math.max(height,result.getBoundingClientRect().height),0);\n   const paddingBottom=parseFloat(getComputedStyle(results).paddingBottom)||0;\n   const desiredRoom=Math.min(maxRoom,Math.max(90,largestResult+paddingBottom));\n   const resultsTop=results.getBoundingClientRect().top;\n   const availableRoom=obstacle-Math.max(resultsTop,topClearance)-20;\n   const neededShift=Math.max(0,desiredRoom-availableRoom);\n   const runway=parseFloat(root.style.getPropertyValue('--results-runway'))||0;\n   root.style.setProperty('--results-runway',Math.max(runway,neededShift)+'px');\n   const pageShift=Math.min(neededShift,Math.max(0,resultsTop-topClearance));\n   if(pageShift>1)window.scrollBy(0,pageShift);\n   const visibleTop=Math.max(results.getBoundingClientRect().top,topClearance);\n   root.style.setProperty('--results-room',Math.max(0,obstacle-visibleTop-20)+'px');\n  }else root.style.setProperty('--results-runway','0px');"
+    }
   ]
 }

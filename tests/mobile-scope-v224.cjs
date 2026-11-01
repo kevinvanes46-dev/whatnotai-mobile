@@ -1,7 +1,23 @@
 'use strict';
 const assert=require('node:assert/strict');
 
-module.exports=code=>{
+module.exports=(code,file='ui-v153-mobile.js')=>{
+  if(file==='index.html'||file==='sw.js'){
+    for(const [updated,baseline] of [
+      ['style-v153-mobile.css?build=224-mobile-layout','style-v153-mobile.css?build=168-product-shell-cleanup'],
+      ['ui-v153-mobile.js?build=224-mobile-layout','ui-v153-mobile.js?build=154-keyboard']
+    ]){
+      const updatedCount=code.split(updated).length-1;
+      if(updatedCount===0){
+        assert.equal(code.split(baseline).length-1,1,'Expected one reviewed mobile asset reference');
+        continue;
+      }
+      assert.equal(updatedCount,1,'Expected one reviewed mobile asset reference');
+      code=code.replace(updated,baseline);
+    }
+    return code;
+  }
+  if(file!=='ui-v153-mobile.js')return code;
   const changes=[
     [
       `   const readyDock=el.id==='actionDock'&&el.classList.contains('ready')&&!document.body.classList.contains('resultOpen')&&!keyboard;\n   if(style.display!=='none'&&style.visibility!=='hidden'&&(Number(style.opacity)>.01||readyDock)&&rect.height&&rect.bottom>0)obstacle=Math.min(obstacle,rect.top);`,
@@ -17,7 +33,12 @@ module.exports=code=>{
     ]
   ];
   for(const [updated,baseline] of changes){
-    assert.equal(code.split(updated).length-1,1,'Expected one reviewed mobile layout change');
+    const updatedCount=code.split(updated).length-1;
+    if(updatedCount===0){
+      assert.equal(code.split(baseline).length-1,1,'Expected one reviewed mobile layout baseline');
+      continue;
+    }
+    assert.equal(updatedCount,1,'Expected one reviewed mobile layout change');
     code=code.replace(updated,baseline);
   }
   return code;
