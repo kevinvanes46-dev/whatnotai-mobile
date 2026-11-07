@@ -154,4 +154,3 @@ test('explicit wrong names at #20, #33 and #64 are refused, even for search-only
   assert.notEqual(api.routeFor(card(20, 'Jolteon'), {}).url, '');
   assert.notEqual(api.routeFor(card(33, 'butterfree'), {}).url, '');
 });
-
