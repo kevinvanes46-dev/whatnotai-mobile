@@ -20,7 +20,7 @@
     },
     {
       "before": "  <script src=\"library-v185.js\"></script><script src=\"ui-library-v185.js\"></script><script src=\"ui-market-v193.js\"></script>\n",
-      "after": "  <script src=\"library-v185.js\"></script><script src=\"ui-library-v185.js\"></script>\n  <script src=\"nl-jungle-v242.js?build=242-nl-en-jungle\"></script>\n  <script src=\"ui-market-v193.js\"></script>\n"
+      "after": "  <script src=\"library-v185.js\"></script><script src=\"ui-library-v185.js\"></script>\n  <script src=\"nl-jungle-v242.js?build=244-nl-jungle-routes\"></script>\n  <script src=\"ui-market-v193.js\"></script>\n"
     }
   ],
   "sw.js": [
@@ -34,11 +34,11 @@
     },
     {
       "before": "const CACHE = 'rareworth-shell-v193-cardmarket-nm-prices';\n",
-      "after": "const CACHE = 'rareworth-shell-v242-nl-jungle';\n"
+      "after": "const CACHE = 'rareworth-shell-v244-nl-jungle-routes';\n"
     },
     {
       "before": "  'library-v185.js', 'ui-library-v185.js', 'style-library-v185.css', 'catalog-sets-v185.json',\n",
-      "after": "  'library-v185.js', 'ui-library-v185.js', 'nl-jungle-v242.js?build=242-nl-en-jungle', 'style-library-v185.css', 'catalog-sets-v185.json',\n"
+      "after": "  'library-v185.js', 'ui-library-v185.js', 'nl-jungle-v242.js?build=244-nl-jungle-routes', 'style-library-v185.css', 'catalog-sets-v185.json',\n"
     }
   ],
   "ui-v181-redesign.js": [
