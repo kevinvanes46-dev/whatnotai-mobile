@@ -5256,6 +5256,24 @@
       "sha256": "abf92f2c12b9a7975162d08ea253aaf7e3b38de34902d98dc0f6c3169370d81b"
     },
     {
+      "file": "docs/JUNGLE-AUDIT-V244.md",
+      "line": 18,
+      "names": [
+        "rareworth"
+      ],
+      "category": "DOC_HISTORY",
+      "sha256": "800483e2ced5daf4e1514f650085ead727a0c51cb144a474e93291c4c891d7ed"
+    },
+    {
+      "file": "docs/JUNGLE-AUDIT-V244.md",
+      "line": 27,
+      "names": [
+        "whatnotai"
+      ],
+      "category": "DOC_HISTORY",
+      "sha256": "56a0aa5559bef15ae45a19896342696f3ce0a654311fa77605a6c5fdcc46c5ce"
+    },
+    {
       "file": "docs/MARKET-V176.md",
       "line": 1,
       "names": [

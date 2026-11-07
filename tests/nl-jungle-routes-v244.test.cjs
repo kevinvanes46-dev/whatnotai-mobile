@@ -91,3 +91,67 @@ test('cards without live verification are labelled as search, never exact', () =
     assert.equal(new URL(r.url).searchParams.get('language'), '12');
   }
 });
+
+// Independent copy of the Jungle (base2) catalogue as served by the EN library, number 1-64.
+const JUNGLE = ['Clefable', 'Electrode', 'Flareon', 'Jolteon', 'Kangaskhan', 'Mr. Mime', 'Nidoqueen', 'Pidgeot',
+  'Pinsir', 'Scyther', 'Snorlax', 'Vaporeon', 'Venomoth', 'Victreebel', 'Vileplume', 'Wigglytuff', 'Clefable',
+  'Electrode', 'Flareon', 'Jolteon', 'Kangaskhan', 'Mr. Mime', 'Nidoqueen', 'Pidgeot', 'Pinsir', 'Scyther',
+  'Snorlax', 'Vaporeon', 'Venomoth', 'Victreebel', 'Vileplume', 'Wigglytuff', 'Butterfree', 'Dodrio',
+  'Exeggutor', 'Fearow', 'Gloom', 'Lickitung', 'Marowak', 'Nidorina', 'Parasect', 'Persian', 'Primeape',
+  'Rapidash', 'Rhydon', 'Seaking', 'Tauros', 'Weepinbell', 'Bellsprout', 'Cubone', 'Eevee', 'Exeggcute',
+  'Goldeen', 'Jigglypuff', 'Mankey', 'Meowth', 'Nidoran♀', 'Oddish', 'Paras', 'Pikachu', 'Rhyhorn', 'Spearow',
+  'Venonat', 'Poké Ball'];
+
+test('catalogue has exactly 64 Jungle identities matching the independent copy', () => {
+  assert.equal(JUNGLE.length, 64);
+  assert.deepEqual([...api.CATALOG], JUNGLE);
+});
+
+test('all 64 cards: correct identity gives a Jungle-only route for NL and EN', () => {
+  JUNGLE.forEach((name, i) => {
+    const n = i + 1, c = card(n, name);
+    for (const [fn, lang] of [['routeFor', '12'], ['englishRouteFor', '1']]) {
+      for (const [cond, min] of [['NM', '2'], ['EX', '3']]) {
+        const r = api[fn](c, {condition: cond});
+        const u = new URL(r.url);
+        assert.equal(u.origin, 'https://www.cardmarket.com', name);
+        assert.ok(u.pathname.startsWith('/en/Pokemon/Products/Singles/Jungle/') ||
+          (u.pathname === '/en/Pokemon/Products/Search' && u.searchParams.get('searchString') === name + ' JU' + n), '#' + n);
+        assert.equal(u.searchParams.get('language'), lang);
+        assert.equal(u.searchParams.get('minCondition'), min);
+        assert.equal(r.exact, Boolean(api.LIVE[n] || api.CONFIRMED[n]), '#' + n);
+      }
+    }
+  });
+});
+
+test('all 64 cards: wrong name, number, set or source_id never yields a link', () => {
+  JUNGLE.forEach((name, i) => {
+    const n = i + 1;
+    const other = JUNGLE[(i + 7) % 64] === name ? 'Wrong Card' : JUNGLE[(i + 7) % 64];
+    const bad = [
+      card(n, other), card(n, 'Wrong Name'), card(n, ''),
+      {...card(n, name), source_set_id: 'base1'}, {...card(n, name), source_set_id: 'base3'},
+      {...card(n, name), source_id: 'base1-' + n}, {...card(n, name), source_id: 'base2-' + (n % 64 + 1)},
+      {...card(n, name), source_id: undefined}, {...card(n, name), number: String(n % 64 + 1)},
+      {...card(n, name), number: '0'}, {...card(n, name), number: '65'}
+    ];
+    for (const c of bad) {
+      for (const fn of ['routeFor', 'englishRouteFor']) {
+        const r = api[fn](c, {});
+        assert.equal(r.url, '', `#${n} ${fn} ${JSON.stringify(c)}`);
+        assert.equal(r.exact, false);
+      }
+    }
+  });
+});
+
+test('explicit wrong names at #20, #33 and #64 are refused, even for search-only cards', () => {
+  for (const [n, wrong] of [[20, 'Flareon'], [20, 'Jolteon X'], [33, 'Dodrio'], [33, 'Butterfree EX'], [64, 'Poke Ball Deluxe'], [64, 'Oddish']]) {
+    for (const fn of ['routeFor', 'englishRouteFor']) assert.equal(api[fn](card(n, wrong), {}).url, '', n + ' ' + wrong);
+  }
+  assert.notEqual(api.routeFor(card(64, 'Poke Ball'), {}).url, '');
+  assert.notEqual(api.routeFor(card(20, 'Jolteon'), {}).url, '');
+  assert.notEqual(api.routeFor(card(33, 'butterfree'), {}).url, '');
+});
+

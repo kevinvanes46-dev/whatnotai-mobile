@@ -36,6 +36,17 @@
     '17': ['Clefable', 'Clefable-V2-JU17'], '18': ['Electrode', 'Electrode-V2-JU18'],
     '19': ['Flareon', 'Flareon-V2-JU19'], '52': ['Exeggcute', 'Exeggcute-JU52']
   });
+  // Jungle (base2) identity per number, as served by the existing EN catalogue (library-v185 / TCGdex).
+  const CATALOG = Object.freeze(['Clefable', 'Electrode', 'Flareon', 'Jolteon', 'Kangaskhan', 'Mr. Mime',
+    'Nidoqueen', 'Pidgeot', 'Pinsir', 'Scyther', 'Snorlax', 'Vaporeon', 'Venomoth', 'Victreebel', 'Vileplume',
+    'Wigglytuff', 'Clefable', 'Electrode', 'Flareon', 'Jolteon', 'Kangaskhan', 'Mr. Mime', 'Nidoqueen',
+    'Pidgeot', 'Pinsir', 'Scyther', 'Snorlax', 'Vaporeon', 'Venomoth', 'Victreebel', 'Vileplume', 'Wigglytuff',
+    'Butterfree', 'Dodrio', 'Exeggutor', 'Fearow', 'Gloom', 'Lickitung', 'Marowak', 'Nidorina', 'Parasect',
+    'Persian', 'Primeape', 'Rapidash', 'Rhydon', 'Seaking', 'Tauros', 'Weepinbell', 'Bellsprout', 'Cubone',
+    'Eevee', 'Exeggcute', 'Goldeen', 'Jigglypuff', 'Mankey', 'Meowth', 'Nidoran♀', 'Oddish', 'Paras', 'Pikachu',
+    'Rhyhorn', 'Spearow', 'Venonat', 'Poké Ball']);
+  const sameName = (a, b) => normalize(a) === normalize(b) &&
+    ['♀', '♂'].every(sign => String(a).includes(sign) === String(b).includes(sign));
   const normalize = value => String(value || '').normalize('NFKC').toLowerCase()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
   const validNumber = n => /^[1-9]\d?$/.test(n) && Number(n) <= 64;
@@ -52,8 +63,9 @@
     if (card.source_id !== 'base2-' + n || (card.source_set_id && card.source_set_id !== 'base2')) {
       return {url: '', exact: false, verified: ''};
     }
+    if (!sameName(name, CATALOG[Number(n) - 1])) return {url: '', exact: false, verified: ''};
     const live = LIVE[n], confirmed = CONFIRMED[n], known = live || confirmed;
-    if (known && normalize(name) !== normalize(known[0])) return {url: '', exact: false, verified: ''};
+    if (known && !sameName(name, known[0])) return {url: '', exact: false, verified: ''};
     let url, exact = false, verified = '';
     if (known) {
       url = CARDMARKET + '/Singles/Jungle/' + known[1];
@@ -230,5 +242,5 @@
     };
     return true;
   }
-  return Object.freeze({routeFor, englishRouteFor, mount, LIVE, CONFIRMED});
+  return Object.freeze({routeFor, englishRouteFor, mount, LIVE, CONFIRMED, CATALOG});
 });
