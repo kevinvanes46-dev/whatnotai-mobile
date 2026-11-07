@@ -28,7 +28,7 @@ test('v169 manifest, real icon dimensions, shell coverage and unchanged engine/o
   }
   const old=execFileSync('git',['show',base+':index.html'],{encoding:'utf8'});
   const scripts=text=>[...text.matchAll(/<script src="([^"]+)"/g)].map(m=>m[1]);
-  assert.deepEqual(scripts(html),['brand-v172.js?build=180-beta-readiness',...scripts(old).flatMap(src=>src.startsWith('ui-v137-focus.js?')?['beta-search-v180.js?build=180-beta-readiness','ui-v137-focus.js?build=180-beta-readiness']:src.startsWith('ui-v137-collection.js?')?['market-v176.js?build=176-market-value-trust','cost-basis-v177.js?build=177-cost-basis-result','portfolio-insights-v178.js?build=178-portfolio-insights','ui-v137-collection.js?build=180-beta-readiness']:/^cardmarket-ui-v156\.js\?/.test(src)?src.split('?')[0]+'?build=174-1-cardmarket-host-hotfix':/^(app-v137|ui-v137-focus|ui-v137-collection)\.js\?/.test(src)?src.split('?')[0]+'?build=175-en-platinum-hgss-coverage':src.startsWith('app-v137.js?')?'app-v137.js?build=169-pwa-foundation':src.startsWith('ui-v150-experience.js?')?['ui-v150-experience.js?build=173-holokeep-rebrand','home-v179.js?build=180-beta-readiness']:src),'cloud-sync-v170.js?build=170b-account-cloud-sync','supabase-config-v170.js?build=170b-account-cloud-sync','supabase-client-v170.js?build=170b-account-cloud-sync','cloud-adapter-v170.js?build=170b-account-cloud-sync','account-ui-v170.js?build=170b-account-cloud-sync','onboarding-v171.js?build=171-1-launch-gate','pwa-v169.js?build=169-pwa-foundation','cardmarket-price-v186.js','cardmarket-feed-v186.js','cardmarket-production-v193.js','ui-v181-redesign.js?build=181-live-integration','ui-v183-cardmarket.js?build=183-reverse-holo','history-v183.js?build=183-local-history','ui-v183-parity.js?build=183-comparison-ui','library-v185.js','ui-library-v185.js','ui-market-v193.js','ui-v189-home.js?build=189-app-experience']);
+  assert.deepEqual(scripts(html),['brand-v172.js?build=180-beta-readiness',...scripts(old).flatMap(src=>src.startsWith('ui-v137-focus.js?')?['beta-search-v180.js?build=180-beta-readiness','ui-v137-focus.js?build=180-beta-readiness']:src.startsWith('ui-v137-collection.js?')?['market-v176.js?build=176-market-value-trust','cost-basis-v177.js?build=177-cost-basis-result','portfolio-insights-v178.js?build=178-portfolio-insights','ui-v137-collection.js?build=180-beta-readiness']:/^cardmarket-ui-v156\.js\?/.test(src)?src.split('?')[0]+'?build=174-1-cardmarket-host-hotfix':/^(app-v137|ui-v137-focus|ui-v137-collection)\.js\?/.test(src)?src.split('?')[0]+'?build=175-en-platinum-hgss-coverage':src.startsWith('app-v137.js?')?'app-v137.js?build=169-pwa-foundation':src.startsWith('ui-v150-experience.js?')?['ui-v150-experience.js?build=173-holokeep-rebrand','home-v179.js?build=180-beta-readiness']:src),'cloud-sync-v170.js?build=170b-account-cloud-sync','supabase-config-v170.js?build=170b-account-cloud-sync','supabase-client-v170.js?build=170b-account-cloud-sync','cloud-adapter-v170.js?build=170b-account-cloud-sync','account-ui-v170.js?build=170b-account-cloud-sync','onboarding-v171.js?build=171-1-launch-gate','pwa-v169.js?build=169-pwa-foundation','cardmarket-price-v186.js','cardmarket-feed-v186.js','cardmarket-production-v193.js','ui-v181-redesign.js?build=181-live-integration','ui-v183-cardmarket.js?build=183-reverse-holo','history-v183.js?build=183-local-history','ui-v183-parity.js?build=183-comparison-ui','library-v185.js','ui-library-v185.js','nl-jungle-v242.js?build=242-nl-en-jungle','ui-market-v193.js','ui-v189-home.js?build=189-app-experience']);
   const assets=new Set(workerContext().assets);
   for(const asset of [...scripts(html),...[...html.matchAll(/<link[^>]+href="([^"]+)"/g)].map(m=>m[1]),...manifest.icons.map(i=>i.src)]){
     assert.ok(assets.has(asset),`Missing precache: ${asset}`);
@@ -40,7 +40,7 @@ test('v169 manifest, real icon dimensions, shell coverage and unchanged engine/o
     assert.equal(html.match(pattern)?.[0],old.match(pattern)?.[0].replace('RareWorth','HoloDex'));
   }
   assert.doesNotMatch(worker,/unregister\s*\(/);
-  assert.match(worker,/rareworth-shell-v193-cardmarket-nm-prices/);
+  assert.match(worker,/rareworth-shell-v242-nl-jungle/);
   assert.doesNotMatch(worker+registration,/localStorage|sessionStorage/);
   // Byte comparison, except checkout line endings; protect every existing production script.
   for(const src of scripts(old)){
@@ -96,7 +96,7 @@ test('v169 failed precache never activates an incomplete worker',async()=>{
 });
 
 test('v169 Chromium: scoped worker, offline collection, engine smoke and safe update', {timeout:180000}, async()=>{
-  let revision='v193-cardmarket-nm-prices',marker='initial';
+  let revision='v242-nl-jungle',marker='initial';
   const server=http.createServer((req,res)=>{
     try{
       const pathname=new URL(req.url,'http://localhost').pathname;
@@ -105,7 +105,7 @@ test('v169 Chromium: scoped worker, offline collection, engine smoke and safe up
       const file=pathname.slice('/whatnotai-mobile/'.length)||'index.html';
       res.setHeader('Content-Type',({js:'text/javascript',html:'text/html',css:'text/css',json:'application/json',svg:'image/svg+xml',png:'image/png'})[file.split('.').pop()]||'application/octet-stream');
       res.setHeader('Cache-Control','no-store');
-      if(file==='sw.js')return res.end(worker.replaceAll('rareworth-shell-v193-cardmarket-nm-prices','rareworth-shell-'+revision));
+      if(file==='sw.js')return res.end(worker.replaceAll('rareworth-shell-v242-nl-jungle','rareworth-shell-'+revision));
       if(file==='index.html')return res.end(html.replace('</head>',`<meta name="pwa-test-revision" content="${marker}"></head>`));
       res.end(fs.readFileSync(path.resolve(file)));
     }catch{res.writeHead(404).end();}
@@ -130,7 +130,7 @@ test('v169 Chromium: scoped worker, offline collection, engine smoke and safe up
     });
     await page.goto(url+'seed');
     await page.evaluate(async()=>{
-      for(const name of ['rareworth-shell-v168-test','whatnotai-mobile-v36','cardscout-v133','unrelated-cache','cardscout-other-app'])await caches.open(name);
+      for(const name of ['rareworth-shell-v193-cardmarket-nm-prices','rareworth-shell-v168-test','whatnotai-mobile-v36','cardscout-v133','unrelated-cache','cardscout-other-app'])await caches.open(name);
       localStorage.setItem('whatnotai_mobile_favorites_v37',JSON.stringify([{name:'Bagon',number:'43',set:'EX DRAGON FRONTIERS',lang:'EN',cond:'EX',source_id:'ex15-43',url:'https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Dragon-Frontiers/Bagon-Delta-Species-DF43?minCondition=3&language=1'}]));
       localStorage.setItem('pwa-test-preserved','unchanged');
     });
@@ -139,8 +139,8 @@ test('v169 Chromium: scoped worker, offline collection, engine smoke and safe up
     await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
     assert.deepEqual(await page.evaluate(async()=> (await navigator.serviceWorker.getRegistrations()).map(r=>({scope:r.scope,state:r.active.state}))),[{scope:url,state:'activated'}]);
     const cacheNames=await page.evaluate(()=>caches.keys());
-    assert.ok(cacheNames.includes('rareworth-shell-v193-cardmarket-nm-prices'));assert.ok(cacheNames.includes('unrelated-cache'));assert.ok(cacheNames.includes('cardscout-other-app'));
-    for(const name of ['rareworth-shell-v168-test','whatnotai-mobile-v36','cardscout-v133'])assert.ok(!cacheNames.includes(name));
+    assert.ok(cacheNames.includes('rareworth-shell-v242-nl-jungle'));assert.ok(cacheNames.includes('unrelated-cache'));assert.ok(cacheNames.includes('cardscout-other-app'));
+    for(const name of ['rareworth-shell-v193-cardmarket-nm-prices','rareworth-shell-v168-test','whatnotai-mobile-v36','cardscout-v133'])assert.ok(!cacheNames.includes(name));
     await page.reload();
     console.log('PASS initial worker, legacy cleanup and online reload');
     await page.locator('.visiblePreferences [data-value="JP"]').click();
@@ -162,6 +162,7 @@ test('v169 Chromium: scoped worker, offline collection, engine smoke and safe up
     assert.equal(JSON.parse(before.cardscout_collection_v133)[0].sourceId,'PMCG1-057');
     assert.equal(JSON.parse(before.whatnotai_mobile_favorites_v37)[0].source_id,'ex15-43');
     await context.setOffline(true);await page.reload();
+    assert.equal(await page.locator('#nlJungleToggle').count(),1);
     assert.match(await page.locator('#brandHomeBtn').innerText(),/HoloDex/);
     assert.deepEqual(await page.locator('.bottomNav button span').allTextContents(),['Home','Zoeken','Collectie','Recent','Instellingen']);
     await page.locator('#navCollection').click();assert.match(await page.locator('#collectionList').innerText(),/Expansion Pack/);
@@ -180,26 +181,27 @@ test('v169 Chromium: scoped worker, offline collection, engine smoke and safe up
     console.log('PASS online recovery and EN route');
     // Real external fetches through the controlled page remain absent from Cache Storage.
     await page.evaluate(()=>Promise.all(['https://www.cardmarket.com/en/Pokemon/Products','https://api.tcgdex.net/v2/ja/cards'].map(url=>fetch(url,{signal:AbortSignal.timeout(3000)}).catch(()=>{}))));
-    const cached=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v193-cardmarket-nm-prices')).keys()).map(request=>request.url));
+    const cached=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v242-nl-jungle')).keys()).map(request=>request.url));
     assert.ok(cached.length>=27);assert.ok(cached.every(u=>new URL(u).origin===origin),'same origin only');
+    assert.ok(cached.some(u=>u.endsWith('/nl-jungle-v242.js?build=242-nl-en-jungle')));
     assert.ok(cached.every(u=>new URL(u).pathname.startsWith('/whatnotai-mobile/')));
     console.log('PASS same-origin cache inventory');
     // Real worker update, without changing repository assets or reloading in a loop.
-    revision='v193-cardmarket-nm-prices-test';
+    revision='v242-nl-jungle-test';
     await page.evaluate(async()=>{window.__previousWorker=navigator.serviceWorker.controller;const r=await navigator.serviceWorker.getRegistration();await r.update();});
     // Wait on the actual controller replacement, not the truthiness of an async predicate.
     await page.waitForFunction(()=>navigator.serviceWorker.controller!==window.__previousWorker&&navigator.serviceWorker.controller?.state==='activated');
     const updated=await page.evaluate(async()=>{const r=await navigator.serviceWorker.getRegistration();return {keys:await caches.keys(),active:r.active?.state,installing:!!r.installing,waiting:!!r.waiting,controls:r.active===navigator.serviceWorker.controller};});
     assert.equal(updated.active,'activated');assert.equal(updated.controls,true);
     assert.equal(updated.installing,false);assert.equal(updated.waiting,false);
-    assert.ok(updated.keys.includes('rareworth-shell-v193-cardmarket-nm-prices-test'));
-    assert.ok(!updated.keys.includes('rareworth-shell-v193-cardmarket-nm-prices'));
+    assert.ok(updated.keys.includes('rareworth-shell-v242-nl-jungle-test'));
+    assert.ok(!updated.keys.includes('rareworth-shell-v242-nl-jungle'));
     assert.equal(await page.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),before.cardscout_collection_v133);
     assert.equal(await page.evaluate(()=>localStorage.getItem('whatnotai_mobile_favorites_v37')),before.whatnotai_mobile_favorites_v37);
     assert.ok((await page.evaluate(()=>caches.keys())).includes('unrelated-cache'));
     console.log('PASS real worker update and cache cleanup');
     // The newly activated shell also works offline, with the same collection.
-    assert.ok((await page.evaluate(()=>caches.keys())).includes('rareworth-shell-v193-cardmarket-nm-prices-test'));
+    assert.ok((await page.evaluate(()=>caches.keys())).includes('rareworth-shell-v242-nl-jungle-test'));
     await context.setOffline(true);await page.reload();
     await page.locator('#navCollection').click();assert.match(await page.locator('#collectionList').innerText(),/Expansion Pack/);
     assert.deepEqual(errors,[]);
