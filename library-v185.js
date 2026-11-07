@@ -204,7 +204,9 @@
   function create({fetch:request,storage,now=Date.now,snapshot,legacyCard=c=>c,translateQuery=q=>q}){
     const inflight=new Map(),sets=new Map(),state=new Map();
     for(const language of ['EN','JP'])sets.set(language,(snapshot.languages[language]||[]).filter(s=>validId(s.id)&&s.name&&s.series!=='tcgp'));
-    const code=lang=>{if(!['EN','JP'].includes(lang))throw Error('Onbekende taal');return lang==='JP'?'ja':'en';};
+    const englishJungle=sets.get('EN').find(s=>s.id==='base2');
+    sets.set('NL',englishJungle?[{...englishJungle,language:'NL',imageLanguage:'EN'}]:[]);
+    const code=lang=>{if(!['EN','JP','NL'].includes(lang))throw Error('Onbekende taal');return lang==='JP'?'ja':'en';};
     function read(key){try{const x=JSON.parse(storage.getItem(PREFIX+key));return x&&Number.isFinite(x.savedAt)&&x.savedAt<=now()&&x.value?x:null;}catch{return null;}}
     function write(key,value){try{storage.setItem(PREFIX+key,JSON.stringify({savedAt:now(),value}));return true;}catch{return false;}}
     async function json(path){const response=await request(API+'/'+path,{signal:AbortSignal.timeout(15000),cache:'no-cache',headers:{Accept:'application/json'}});if(!response.ok)throw Error('HTTP '+response.status);return response.json();}
@@ -226,17 +228,21 @@
         }catch(error){if(old){const result={...old,cards:convert(old.cards,set,lang),cached:true,stale:true,error:error.message};state.set(key,result);return result;}throw error;}
       });
     }
-    async function discover(lang){const key=lang+'-sets';code(lang);const previous=getSets(lang);try{const data=await json(code(lang)+'/sets');if(!Array.isArray(data)||!data.length)throw Error('Ongeldige setlijst');
+    async function discover(lang){const key=lang+'-sets';code(lang);const previous=getSets(lang);if(lang==='NL')return {sets:previous,unclassified:0,curated:true};try{const data=await json(code(lang)+'/sets');if(!Array.isArray(data)||!data.length)throw Error('Ongeldige setlijst');
       const next=previous.map(s=>{const live=data.find(x=>x.id===s.id);return live?{...s,name:live.name||s.name,logo:artwork(live.logo),cardCount:live.cardCount||s.cardCount}:s;});
       const extra=data.filter(s=>validId(s.id)&&s.name&&!previous.some(x=>x.id===s.id));
       let index=0,unclassified=0;await Promise.all(Array.from({length:Math.min(4,extra.length)},async()=>{while(index<extra.length){const s=extra[index++];try{const d=await json(code(lang)+'/sets/'+encodeURIComponent(s.id));if(d.id!==s.id||!d.serie?.id)throw Error('Serie ontbreekt');if(d.serie.id==='tcgp')continue;next.push({...s,logo:artwork(s.logo),series:d.serie.id,seriesName:d.serie.name||d.serie.id,available:cards(d.cards,s,lang).length});}catch{unclassified++;}}}));
       sets.set(lang,next);write(key,next);return {sets:next,unclassified};
     }catch(error){return {sets:previous,error:error.message};}}
-    function restore(){const restored=[];for(const lang of ['EN','JP']){const meta=read(lang+'-sets');if(Array.isArray(meta?.value))sets.set(lang,meta.value.filter(s=>validId(s.id)&&s.name&&s.series&&s.series!=='tcgp'));
+    function restore(){const restored=[];for(const lang of ['EN','JP','NL']){const meta=read(lang+'-sets');if(lang!=='NL'&&Array.isArray(meta?.value))sets.set(lang,meta.value.filter(s=>validId(s.id)&&s.name&&s.series&&s.series!=='tcgp'));
       for(const s of getSets(lang)){const cached=read(lang+'-set-'+s.id);if(Array.isArray(cached?.value?.cards))restored.push(...convert(cached.value.cards,s,lang));}}
       return restored;
     }
     async function search(lang,query,page=1){code(lang);if(!Number.isSafeInteger(page)||page<1)throw Error('Ongeldige pagina');const q=normalize(query);if(q.length<2)return {cards:[],more:false};
+      if(lang==='NL'){const set=getSets(lang).find(s=>s.id==='base2');if(!set)return {cards:[],more:false,incomplete:true,total:0};
+        const loaded=await loadSet(lang,'base2'),terms=q.split(' ').filter(t=>t!=='jungle'&&t!=='base2');
+        const matches=loaded.cards.filter(c=>terms.every(t=>normalize(c.name+' '+c.number).includes(t)));
+        return {cards:matches.slice((page-1)*80,page*80),more:matches.length>page*80,stale:loaded.stale,incomplete:!loaded.complete,total:matches.length};}
       const set=getSets(lang).map(s=>({set:s,alias:[s.name,s.id].map(normalize).sort((a,b)=>b.length-a.length).find(a=>a&&(' '+q+' ').includes(' '+a+' '))})).filter(x=>x.alias).sort((a,b)=>b.alias.length-a.alias.length)[0];
       if(set){const loaded=await loadSet(lang,set.set.id);const rest=(' '+q+' ').replace(' '+set.alias+' ',' ').trim().split(' ').filter(Boolean);const matches=loaded.cards.filter(c=>rest.every(t=>normalize(c.name+' '+c.number+' '+(c.search_aliases||[]).join(' ')).includes(t)));return {cards:matches.slice((page-1)*80,page*80),more:matches.length>page*80,stale:loaded.stale,incomplete:!loaded.complete,total:matches.length};}
       const terms=query.trim().split(/\s+/),number=terms.find(t=>/^(?:\d+|(?:TG|GG|SH|SL|AR|RT)\d+)$/i.test(t));

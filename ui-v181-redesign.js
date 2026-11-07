@@ -18,7 +18,7 @@
   $('cardSheetMeta').textContent=[x.setName||x.set,x.number&&'#'+x.number,x.language,x.condition,x.variant,x.edition==='1ST'?'1st Edition':''].filter(Boolean).join(' · ');
   $('cardSheetArt').classList.toggle('owned',!!uid);$('cardSheetArt').replaceChildren();window.CardArtwork.mount(c,$('cardSheetArt'));
   $('cardSheetPrice').textContent='';$('cardSheetNote').textContent='Marktindicatie ophalen…';
-  let url=x.language==='EN'&&window.HoloDexLibrary?.safeRoute?window.HoloDexLibrary.safeRoute(x).url:s.cardmarketUrl;try{url=url||ui().cardmarketLink(x);const parsed=new URL(url);if(parsed.protocol!=='https:'||parsed.hostname!=='www.cardmarket.com')url='';}catch{url='';}
+  let url=s.cardmarketUrl||(x.language==='EN'&&window.HoloDexLibrary?.safeRoute?window.HoloDexLibrary.safeRoute(x).url:'');try{url=url||ui().cardmarketLink(x);const parsed=new URL(url);if(parsed.protocol!=='https:'||parsed.hostname!=='www.cardmarket.com')url='';}catch{url='';}
   delete $('cardSheetLink').dataset.cmVariantOwner;
   $('cardSheetLink').hidden=!url;if(url)$('cardSheetLink').href=url;
   $('cardSheetAction').textContent=uid?'Kaart bewerken':'Aan map toevoegen';
@@ -89,6 +89,7 @@
   const share=button('Deel leesbare map',()=>{const payload={v:1,set:g.id,language:g.language,owned:[...g.owned.keys()].filter(id=>g.cards.some(c=>c.source_id===id))};const url=new URL('share-v181.html',location.href);url.hash=btoa(JSON.stringify(payload));const field=el('input');field.readOnly=true;field.value=url.href;field.setAttribute('aria-label','Alleen-lezen deellink');share.replaceWith(field);field.select();});binder.append(share);
  }
  window.addEventListener('cardscout:catalog-ready',renderSets);window.addEventListener('storage',renderSets);
+ new MutationObserver(renderSets).observe($('collectionList'),{childList:true});
  document.querySelectorAll('.navBtn').forEach(b=>b.addEventListener('click',renderSets));
  new MutationObserver(()=>{if($('collectionEditor').hidden)renderSets();}).observe($('collectionEditor'),{attributes:true,attributeFilter:['hidden']});
  const comparison=el('section',null,'homeComparisonPanel');comparison.id='homeComparisonPanel';comparison.append(el('h3','Waardevergelijking'));
