@@ -39,7 +39,7 @@
   const grid = make('div', 'v189-action-grid');
   const choices = [
     ['search', 'Kaart zoeken', 'Naam, set of nummer', () => go('navSearch')],
-    ['library', 'Sets ontdekken', 'EN & JP bibliotheek', () => {
+    ['library', 'Sets ontdekken', 'Engelse kaartbibliotheek', () => {
       go('navSearch');
       const toggle = document.getElementById('libraryToggle');
       if (toggle && !toggle.disabled && toggle.getAttribute('aria-expanded') !== 'true') toggle.click();

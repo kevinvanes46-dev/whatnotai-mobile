@@ -18,7 +18,7 @@ const recent='whatnotai_mobile_recent_v37',collection='cardscout_collection_v133
   page.on('pageerror',e=>errors.push(e.message));
   await page.route('**/*',r=>{const u=new URL(r.request().url());if(u.hostname==='127.0.0.1')return r.continue();if(u.hostname==='api.tcgdex.net'){const p=u.pathname.split('/'),f=`tests/fixtures/artwork-v155/${p[2]}-${p.at(-1)}${p[3]==='sets'?'-set':''}.json`;return r.fulfill({json:fs.existsSync(f)?JSON.parse(fs.readFileSync(f)):{cards:[]}});}return r.abort();});
   await page.goto('http://127.0.0.1:'+server.address().port);
-  await page.locator('.visiblePreferences [data-value="JP"]').click();
+  await require('./retained-jp-v199.cjs')(page);
   await page.waitForFunction(()=>window.CardCatalog?.byId('neo1-061','JP'));
   // Preserve the v156 SEARCH scenario: this fixture has no marketplace counterpart.
   await page.evaluate(()=>{delete window.CM_PRODUCT_CATALOG['neo1-74'];});

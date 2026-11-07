@@ -12,19 +12,21 @@ const seed=[{uid:'original',name:'Charizard',number:'4',set:'EX CRYSTAL GUARDIAN
   browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{})});
   for(const width of [320,375,390,768,1280]){
    const ctx=await browser.newContext({viewport:{width,height:900},reducedMotion:'reduce'}),page=await ctx.newPage(),errors=[];
-   page.on('pageerror',e=>errors.push(e.message));
+   page.on('pageerror',e=>errors.push(e.stack||e.message));
    await ctx.route('**/*',r=>{
     const u=new URL(r.request().url());if(u.hostname==='127.0.0.1')return r.continue();
     if(u.hostname==='assets.tcgdex.net'){const id=u.pathname.includes('/ex15/')?'ex15-43':'ex14-4';return r.fulfill({contentType:'image/webp',body:fs.readFileSync(path.join(__dirname,'fixtures/artwork',id+'.webp'))});}
     if(u.hostname==='api.tcgdex.net'){
      const id=u.pathname.split('/').pop();
-     if(u.pathname.includes('/cards/')&&fixtures[id])return r.fulfill({json:{...fixtures[id],pricing:{cardmarket:{trend:12,'trend-holo':20,updated:new Date().toISOString()}}}});
+      if(u.pathname.includes('/cards/')&&fixtures[id])return r.fulfill({json:fixtures[id]});
      return r.fulfill({json:{cards:[]}});
     }
     return r.fulfill({json:{}});
    });
    await page.goto(`http://127.0.0.1:${server.address().port}/`);
-   assert.equal(await page.title(),'Rareworth · Zoek. Bewaar. Check.');
+   assert.equal(await page.title(),'HoloDex · Zoek. Bewaar. Check.');
+   if(await page.locator('#onboardingGuest').isVisible())await page.locator('#onboardingGuest').click();
+   await page.locator('#navSearch').click();
    assert.equal(await page.locator('#manualDetails').getAttribute('open'),null);
    assert.equal(await page.locator('#quickClear').isVisible(),false);
    const shot=async name=>{await page.waitForFunction(()=>document.querySelector('#toast').hidden);await page.screenshot({path:path.join(out,`${name}-${width}.png`),fullPage:true});if(width===375)await page.screenshot({path:path.join(out,`${name}-${width}-viewport.png`)});};
@@ -36,7 +38,7 @@ const seed=[{uid:'original',name:'Charizard',number:'4',set:'EX CRYSTAL GUARDIAN
    await page.locator('.suggestion').first().click();
    await page.waitForFunction(()=>document.querySelector('#selectedCardArt img')?.naturalWidth>0);
    assert.match(await page.locator('#selectedCardTitle').textContent(),/Bagon/);
-   await page.waitForFunction(()=>document.querySelector('#selectedCardPrice').textContent.includes('12'));
+   assert.match(await page.locator('#selectedCardPrice').textContent(),/Marktprijzen uitgeschakeld/);
    await shot('detail');
    await page.locator('#quickClear').click();
    assert.equal(await page.locator('#langSelect').inputValue(),'EN');
@@ -57,7 +59,11 @@ const seed=[{uid:'original',name:'Charizard',number:'4',set:'EX CRYSTAL GUARDIAN
    await page.locator('#collectionUndo button').click();assert.equal(await page.evaluate(key=>JSON.parse(localStorage.getItem(key))[0].qty,key),1);
    await page.evaluate(({key,seed})=>{const arr=JSON.parse(localStorage.getItem(key));localStorage.setItem(key,JSON.stringify([...seed,...arr]));},{key,seed});
    await page.locator('#navCollection').click();
-   await page.waitForFunction(()=>[...document.querySelectorAll('.collectionArtwork img')].length===2&&[...document.querySelectorAll('.collectionArtwork img')].every(i=>i.naturalWidth>0));
+   assert.equal(await page.locator('.collectionArtwork').count(),2);
+   for(const artwork of await page.locator('.collectionArtwork').all()){
+    await artwork.scrollIntoViewIfNeeded();
+    await page.waitForFunction(node=>node.querySelector('img')?.naturalWidth>0,await artwork.elementHandle());
+   }
    await shot('collection-grid');
    await page.locator('[data-collection-view="list"]').click();await shot('collection-list');
    assert.equal(await page.locator('#collectionList').getAttribute('data-view'),'list');

@@ -29,7 +29,7 @@ test('STAMPED adds Reverse Holo and preserves existing Cardmarket filters',()=>{
   assert.equal(url.searchParams.get('isReverseHolo'),'Y');
 });
 
-test('NORMAL removes stale Reverse Holo filter',()=>{
+test('explicit NORMAL replaces stale Reverse Holo filter with N',()=>{
   const filter=load();
 
   const url=new URL(filter(
@@ -38,7 +38,7 @@ test('NORMAL removes stale Reverse Holo filter',()=>{
   ));
 
   assert.equal(url.searchParams.get('language'),'1');
-  assert.equal(url.searchParams.get('isReverseHolo'),null);
+  assert.equal(url.searchParams.get('isReverseHolo'),'N');
 });
 
 test('non Cardmarket URL remains untouched',()=>{
@@ -49,3 +49,4 @@ test('non Cardmarket URL remains untouched',()=>{
     'https://example.com/test?isReverseHolo=Y'
   );
 });
+test('unspecified print preserves routing for every supported condition',()=>{const filter=load();for(const min of ['2','3','4','6','7'])for(const value of [null,'N','Y']){const u=new URL('https://www.cardmarket.com/en/Pokemon/Products/Search?language=1&minCondition='+min+'&isFirstEd=N');if(value)u.searchParams.set('isReverseHolo',value);assert.equal(filter(u.href),u.href);for(const [selection,want] of [[false,'N'],[true,'Y']]){const out=new URL(filter(u.href,selection));assert.equal(out.searchParams.get('isReverseHolo'),want);assert.equal(out.searchParams.get('minCondition'),min);assert.equal(out.searchParams.get('language'),'1');assert.equal(out.searchParams.get('isFirstEd'),'N');}}});

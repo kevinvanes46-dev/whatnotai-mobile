@@ -1,0 +1,32 @@
+{
+  "schema": "holokeep-v202-official-product-evidence-v1",
+  "verifiedAt": "2026-10-30",
+  "scope": "THREE_CARDS_ONLY",
+  "source": "User-provided V203 verified evidence",
+  "records": [
+    {
+      "holoKeepCardId": "exu-W",
+      "letter": "W",
+      "printedNumber": "W-28",
+      "productId": 276635,
+      "canonicalUrl": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Unseen-Forces/Unown-W-UFW-28",
+      "rejectedSharedOwner": "exu-L"
+    },
+    {
+      "holoKeepCardId": "exu-V",
+      "letter": "V",
+      "printedNumber": "V-28",
+      "productId": 276636,
+      "canonicalUrl": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Unseen-Forces/Unown-V-UFV-28",
+      "rejectedSharedOwner": "exu-M"
+    },
+    {
+      "holoKeepCardId": "exu-X",
+      "letter": "X",
+      "printedNumber": "X-28",
+      "productId": 276637,
+      "canonicalUrl": "https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Unseen-Forces/Unown-X-UFX-28",
+      "rejectedSharedOwner": "exu-N"
+    }
+  ]
+}

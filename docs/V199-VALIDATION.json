@@ -1,0 +1,1395 @@
+{
+  "status": "LOCAL_CHECKS_PASSED_RELEASE_BLOCKED",
+  "githubCIForNewChanges": "NOT_RUN_NOT_PUSHED",
+  "originalWorkflow": [
+    {
+      "command": "node scripts/node_modules/playwright/cli.js install --with-deps chromium",
+      "exitCode": 0,
+      "durationMs": 1244,
+      "tests": 0,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\01.txt"
+    },
+    {
+      "command": "node scripts/check-ci.cjs syntax",
+      "exitCode": 0,
+      "durationMs": 12394,
+      "tests": 0,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\02.txt"
+    },
+    {
+      "command": "node scripts/check-ci.cjs diff",
+      "exitCode": 0,
+      "durationMs": 330,
+      "tests": 0,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\03.txt"
+    },
+    {
+      "command": "node scripts/generate-jp-cardmarket-v165.cjs --check",
+      "exitCode": 0,
+      "durationMs": 78,
+      "tests": 0,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\04.txt"
+    },
+    {
+      "command": "node --test tests/line-ending-checks-v166.test.cjs",
+      "exitCode": 0,
+      "durationMs": 148,
+      "tests": 6,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\05.txt"
+    },
+    {
+      "command": "node scripts/check-ci.cjs audit",
+      "exitCode": 0,
+      "durationMs": 75,
+      "tests": 0,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\06.txt"
+    },
+    {
+      "command": "node scripts/check-ci.cjs core",
+      "exitCode": 1,
+      "durationMs": 74979,
+      "tests": 72,
+      "failed": 1,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\07.txt"
+    },
+    {
+      "command": "node --test tests/product-shell-v168.test.cjs",
+      "exitCode": 0,
+      "durationMs": 2892,
+      "tests": 2,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\08.txt"
+    },
+    {
+      "command": "node --test tests/pwa-v169.test.cjs",
+      "exitCode": 0,
+      "durationMs": 5419,
+      "tests": 5,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\09.txt"
+    },
+    {
+      "command": "node --test tests/cloud-sync-v170.test.cjs tests/cloud-schema-v170.test.cjs",
+      "exitCode": 0,
+      "durationMs": 1423,
+      "tests": 25,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\10.txt"
+    },
+    {
+      "command": "node --test tests/account-cloud-v170b.test.cjs tests/account-cloud-browser-v170b.test.cjs",
+      "exitCode": 0,
+      "durationMs": 4110,
+      "tests": 27,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\11.txt"
+    },
+    {
+      "command": "node --test tests/onboarding-product-v171.test.cjs",
+      "exitCode": 0,
+      "durationMs": 8165,
+      "tests": 12,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\12.txt"
+    },
+    {
+      "command": "node --test tests/launch-gate-v171-1.test.cjs",
+      "exitCode": 0,
+      "durationMs": 7703,
+      "tests": 11,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\13.txt"
+    },
+    {
+      "command": "node --test tests/brand-foundation-v172.test.cjs",
+      "exitCode": 1,
+      "durationMs": 7074,
+      "tests": 11,
+      "failed": 1,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\14.txt"
+    },
+    {
+      "command": "node --test tests/brand-rebrand-v173.test.cjs",
+      "exitCode": 1,
+      "durationMs": 22991,
+      "tests": 13,
+      "failed": 1,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\15.txt"
+    },
+    {
+      "command": "node --test tests/en-dp-pop-coverage-v174.test.cjs",
+      "exitCode": 0,
+      "durationMs": 36474,
+      "tests": 22,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\16.txt"
+    },
+    {
+      "command": "node --test tests/cardmarket-resolver-v146.test.cjs tests/cardmarket-host-v174-1.test.cjs",
+      "exitCode": 0,
+      "durationMs": 11298,
+      "tests": 57,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\17.txt"
+    },
+    {
+      "command": "node --test tests/en-platinum-hgss-coverage-v175.test.cjs",
+      "exitCode": 0,
+      "durationMs": 34047,
+      "tests": 25,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\18.txt"
+    },
+    {
+      "command": "node --test tests/market-value-trust-v176.test.cjs tests/market-value-browser-v176.test.cjs tests/collection-price-freshness.test.cjs",
+      "exitCode": 0,
+      "durationMs": 8805,
+      "tests": 44,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\19.txt"
+    },
+    {
+      "command": "node --test tests/cost-basis-v177.test.cjs tests/cost-basis-browser-v177.test.cjs",
+      "exitCode": 0,
+      "durationMs": 10580,
+      "tests": 44,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\20.txt"
+    },
+    {
+      "command": "node --test tests/portfolio-insights-v178.test.cjs tests/portfolio-insights-browser-v178.test.cjs",
+      "exitCode": 0,
+      "durationMs": 6182,
+      "tests": 29,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\21.txt"
+    },
+    {
+      "command": "node --test tests/home-shell-v179.test.cjs tests/home-shell-browser-v179.test.cjs",
+      "exitCode": 0,
+      "durationMs": 17946,
+      "tests": 19,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\22.txt"
+    },
+    {
+      "command": "node --test tests/beta-readiness-v180.test.cjs tests/beta-browser-v180.test.cjs",
+      "exitCode": 0,
+      "durationMs": 81089,
+      "tests": 35,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\23.txt"
+    },
+    {
+      "command": "node --test tests/integration-v181.test.cjs tests/integration-browser-v181.test.cjs",
+      "exitCode": 1,
+      "durationMs": 39729,
+      "tests": 21,
+      "failed": 1,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\24.txt"
+    },
+    {
+      "command": "node --test tests/cardmarket-reverse-v183.test.cjs",
+      "exitCode": 0,
+      "durationMs": 169,
+      "tests": 3,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\25.txt"
+    },
+    {
+      "command": "node --test tests/parity-v182.test.cjs tests/parity-browser-v182.test.cjs",
+      "exitCode": 0,
+      "durationMs": 10720,
+      "tests": 15,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\26.txt"
+    },
+    {
+      "command": "node --test tests/history-v183.test.cjs tests/history-browser-v183.test.cjs",
+      "exitCode": 0,
+      "durationMs": 7238,
+      "tests": 36,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\27.txt"
+    },
+    {
+      "command": "node --test --test-concurrency=1 tests/library-v185.test.cjs tests/library-browser-v185.test.cjs tests/market-component-v185.test.cjs tests/history-component-v185.test.cjs tests/portfolio-component-v185.test.cjs tests/price-freshness-component-v185.test.cjs",
+      "exitCode": 0,
+      "durationMs": 43562,
+      "tests": 38,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\28.txt"
+    },
+    {
+      "command": "node --test tests/cardmarket-engine-v147.test.cjs",
+      "exitCode": 0,
+      "durationMs": 1507,
+      "tests": 662,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\29.txt"
+    },
+    {
+      "command": "node --test tests/cardmarket-public-v186.test.cjs tests/cardmarket-quote-v186.test.cjs tests/cardmarket-feed-v186.test.cjs tests/cardmarket-history-v186.test.cjs tests/cardmarket-audit-v186.test.cjs",
+      "exitCode": 0,
+      "durationMs": 1646,
+      "tests": 26,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\30.txt"
+    },
+    {
+      "command": "node --test tests/cardmarket-preview-unit-v187.test.cjs tests/cardmarket-preview-v187.test.cjs",
+      "exitCode": 0,
+      "durationMs": 1521,
+      "tests": 6,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\31.txt"
+    },
+    {
+      "command": "node --test tests/cardmarket-in-app-v188.test.cjs tests/cardmarket-in-app-browser-v188.test.cjs",
+      "exitCode": 0,
+      "durationMs": 2287,
+      "tests": 9,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\32.txt"
+    },
+    {
+      "command": "node --test tests/home-experience-v189.test.cjs",
+      "exitCode": 0,
+      "durationMs": 3887,
+      "tests": 2,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\33.txt"
+    },
+    {
+      "command": "node --test tests/cardmarket-v193.test.cjs tests/cardmarket-browser-v193.test.cjs",
+      "exitCode": 0,
+      "durationMs": 9350,
+      "tests": 5,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\34.txt"
+    },
+    {
+      "command": "node --test tests/english-catalog-v199.test.cjs tests/cardmarket-safe-v195.test.cjs tests/cardmarket-exact-v194.test.cjs tests/cardmarket-curated-v195.test.cjs",
+      "exitCode": 0,
+      "durationMs": 3916,
+      "tests": 18,
+      "failed": 0,
+      "log": "artifacts\\en-cardmarket-audit\\ci\\35.txt"
+    }
+  ],
+  "successfulRechecks": [
+    {
+      "file": "core-recheck.txt",
+      "tests": 72,
+      "passed": 72,
+      "failed": 0,
+      "skipped": 0,
+      "sha256": "376ba6f8444981fe004a1bf390aab0ce4a8101aa0eb263b7c67c862ed1aa153a"
+    },
+    {
+      "file": "recheck.txt",
+      "tests": 45,
+      "passed": 45,
+      "failed": 0,
+      "skipped": 0,
+      "sha256": "59f4fba9af2a053cbe8dcc98d7cc20b11381d6b6f95c7a044c87f6c48352c906"
+    },
+    {
+      "file": "final-catalog-tests.txt",
+      "tests": 32,
+      "passed": 32,
+      "failed": 0,
+      "skipped": 0,
+      "sha256": "418b77f69db9b9b4897fcfcf9292209c9b05ab290e674180866b8b289090b5ae"
+    },
+    {
+      "file": "final-browser-tests.txt",
+      "tests": 9,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "sha256": "1b21fb0ac57ea50d89d7272749e9de767a96468995d6d0252cea1230d1e756fc"
+    },
+    {
+      "file": "final-pwa-tests.txt",
+      "tests": 5,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "sha256": "72b5be2cd3cb6bc451bb880d0e0fbe41f854f8ff10cb3207781f7107a57c404b"
+    }
+  ],
+  "workflowTestCasesAfterAddedRegression": 1301,
+  "routes": {
+    "records": 21290,
+    "existingExact": 215,
+    "fallback": 21075,
+    "unavailable": 0,
+    "printRoutes": 63870
+  },
+  "audit": {
+    "schema": 199,
+    "officialCreatedAt": "2026-10-28T13:49:46+0100",
+    "officialProducts": 75066,
+    "officialSha256": "ab890778fb6f78363e5c612a952cb535f51f993b5a11f2c7a8c0659a05fa88c5",
+    "providerCommit": "cbddf7e54033b1b58e44af1049c88832e55b94d0",
+    "expectedRecords": 21290,
+    "apiScopedRecords": 21290,
+    "apiSha256": "82fdf91ddb77bf56539b0fd3a69239bfc244f4877aba19b4de8e25edb209a2d2",
+    "observedRecords": 21290,
+    "missingSourceRecords": [],
+    "nameAndProviderSetOnly": 17410,
+    "singleCandidate": 15833,
+    "multipleCandidates": 569,
+    "noConsistentCandidate": 4888,
+    "independentlyVerifiedFromDownload": 0,
+    "liveVerified": 0,
+    "errors": [],
+    "setCounts": [
+      {
+        "id": "miscp",
+        "expected": 1,
+        "observed": 1
+      },
+      {
+        "id": "base1",
+        "expected": 102,
+        "observed": 102
+      },
+      {
+        "id": "base2",
+        "expected": 64,
+        "observed": 64
+      },
+      {
+        "id": "basep",
+        "expected": 53,
+        "observed": 53
+      },
+      {
+        "id": "wp",
+        "expected": 0,
+        "observed": 0
+      },
+      {
+        "id": "base3",
+        "expected": 62,
+        "observed": 62
+      },
+      {
+        "id": "jumbo",
+        "expected": 0,
+        "observed": 0
+      },
+      {
+        "id": "base4",
+        "expected": 130,
+        "observed": 130
+      },
+      {
+        "id": "base5",
+        "expected": 83,
+        "observed": 83
+      },
+      {
+        "id": "gym1",
+        "expected": 132,
+        "observed": 132
+      },
+      {
+        "id": "gym2",
+        "expected": 132,
+        "observed": 132
+      },
+      {
+        "id": "neo1",
+        "expected": 111,
+        "observed": 111
+      },
+      {
+        "id": "neo2",
+        "expected": 75,
+        "observed": 75
+      },
+      {
+        "id": "si1",
+        "expected": 18,
+        "observed": 18
+      },
+      {
+        "id": "neo3",
+        "expected": 66,
+        "observed": 66
+      },
+      {
+        "id": "neo4",
+        "expected": 113,
+        "observed": 113
+      },
+      {
+        "id": "lc",
+        "expected": 110,
+        "observed": 110
+      },
+      {
+        "id": "sp",
+        "expected": 0,
+        "observed": 0
+      },
+      {
+        "id": "ecard1",
+        "expected": 165,
+        "observed": 165
+      },
+      {
+        "id": "bog",
+        "expected": 9,
+        "observed": 9
+      },
+      {
+        "id": "ecard2",
+        "expected": 186,
+        "observed": 186
+      },
+      {
+        "id": "ecard3",
+        "expected": 182,
+        "observed": 182
+      },
+      {
+        "id": "ex1",
+        "expected": 109,
+        "observed": 109
+      },
+      {
+        "id": "ex2",
+        "expected": 100,
+        "observed": 100
+      },
+      {
+        "id": "np",
+        "expected": 40,
+        "observed": 40
+      },
+      {
+        "id": "ex3",
+        "expected": 100,
+        "observed": 100
+      },
+      {
+        "id": "ex4",
+        "expected": 97,
+        "observed": 97
+      },
+      {
+        "id": "ex5",
+        "expected": 102,
+        "observed": 102
+      },
+      {
+        "id": "ex5.5",
+        "expected": 5,
+        "observed": 5
+      },
+      {
+        "id": "tk-ex-latia",
+        "expected": 10,
+        "observed": 10
+      },
+      {
+        "id": "tk-ex-latio",
+        "expected": 10,
+        "observed": 10
+      },
+      {
+        "id": "ex6",
+        "expected": 116,
+        "observed": 116
+      },
+      {
+        "id": "pop1",
+        "expected": 17,
+        "observed": 17
+      },
+      {
+        "id": "ex7",
+        "expected": 111,
+        "observed": 111
+      },
+      {
+        "id": "ex8",
+        "expected": 108,
+        "observed": 108
+      },
+      {
+        "id": "ex9",
+        "expected": 107,
+        "observed": 107
+      },
+      {
+        "id": "pop2",
+        "expected": 17,
+        "observed": 17
+      },
+      {
+        "id": "exu",
+        "expected": 28,
+        "observed": 28
+      },
+      {
+        "id": "ex10",
+        "expected": 117,
+        "observed": 117
+      },
+      {
+        "id": "ex11",
+        "expected": 114,
+        "observed": 114
+      },
+      {
+        "id": "ex12",
+        "expected": 93,
+        "observed": 93
+      },
+      {
+        "id": "tk-ex-p",
+        "expected": 12,
+        "observed": 12
+      },
+      {
+        "id": "tk-ex-m",
+        "expected": 12,
+        "observed": 12
+      },
+      {
+        "id": "pop3",
+        "expected": 17,
+        "observed": 17
+      },
+      {
+        "id": "ex13",
+        "expected": 111,
+        "observed": 111
+      },
+      {
+        "id": "pop4",
+        "expected": 17,
+        "observed": 17
+      },
+      {
+        "id": "ex14",
+        "expected": 100,
+        "observed": 100
+      },
+      {
+        "id": "ex15",
+        "expected": 101,
+        "observed": 101
+      },
+      {
+        "id": "ex16",
+        "expected": 108,
+        "observed": 108
+      },
+      {
+        "id": "pop5",
+        "expected": 17,
+        "observed": 17
+      },
+      {
+        "id": "dpp",
+        "expected": 56,
+        "observed": 56
+      },
+      {
+        "id": "dp1",
+        "expected": 130,
+        "observed": 130
+      },
+      {
+        "id": "dp2",
+        "expected": 124,
+        "observed": 124
+      },
+      {
+        "id": "tk-dp-l",
+        "expected": 11,
+        "observed": 11
+      },
+      {
+        "id": "tk-dp-m",
+        "expected": 12,
+        "observed": 12
+      },
+      {
+        "id": "pop6",
+        "expected": 17,
+        "observed": 17
+      },
+      {
+        "id": "dp3",
+        "expected": 132,
+        "observed": 132
+      },
+      {
+        "id": "dp4",
+        "expected": 106,
+        "observed": 106
+      },
+      {
+        "id": "pop7",
+        "expected": 17,
+        "observed": 17
+      },
+      {
+        "id": "dp5",
+        "expected": 100,
+        "observed": 100
+      },
+      {
+        "id": "dp6",
+        "expected": 146,
+        "observed": 146
+      },
+      {
+        "id": "pop8",
+        "expected": 17,
+        "observed": 17
+      },
+      {
+        "id": "dp7",
+        "expected": 106,
+        "observed": 106
+      },
+      {
+        "id": "pl1",
+        "expected": 133,
+        "observed": 133
+      },
+      {
+        "id": "pop9",
+        "expected": 17,
+        "observed": 17
+      },
+      {
+        "id": "pl2",
+        "expected": 120,
+        "observed": 120
+      },
+      {
+        "id": "pl3",
+        "expected": 153,
+        "observed": 153
+      },
+      {
+        "id": "pl4",
+        "expected": 111,
+        "observed": 111
+      },
+      {
+        "id": "ru1",
+        "expected": 16,
+        "observed": 16
+      },
+      {
+        "id": "hgss1",
+        "expected": 124,
+        "observed": 124
+      },
+      {
+        "id": "hgssp",
+        "expected": 25,
+        "observed": 25
+      },
+      {
+        "id": "tk-hs-r",
+        "expected": 30,
+        "observed": 30
+      },
+      {
+        "id": "tk-hs-g",
+        "expected": 30,
+        "observed": 30
+      },
+      {
+        "id": "hgss2",
+        "expected": 96,
+        "observed": 96
+      },
+      {
+        "id": "hgss3",
+        "expected": 91,
+        "observed": 91
+      },
+      {
+        "id": "hgss4",
+        "expected": 103,
+        "observed": 103
+      },
+      {
+        "id": "col1",
+        "expected": 106,
+        "observed": 106
+      },
+      {
+        "id": "bw1",
+        "expected": 115,
+        "observed": 115
+      },
+      {
+        "id": "bwp",
+        "expected": 101,
+        "observed": 101
+      },
+      {
+        "id": "2011bw",
+        "expected": 12,
+        "observed": 12
+      },
+      {
+        "id": "bw2",
+        "expected": 98,
+        "observed": 98
+      },
+      {
+        "id": "tk-bw-e",
+        "expected": 30,
+        "observed": 30
+      },
+      {
+        "id": "tk-bw-z",
+        "expected": 30,
+        "observed": 30
+      },
+      {
+        "id": "bw3",
+        "expected": 102,
+        "observed": 102
+      },
+      {
+        "id": "bw4",
+        "expected": 103,
+        "observed": 103
+      },
+      {
+        "id": "bw5",
+        "expected": 111,
+        "observed": 111
+      },
+      {
+        "id": "2012bw",
+        "expected": 12,
+        "observed": 12
+      },
+      {
+        "id": "bw6",
+        "expected": 128,
+        "observed": 128
+      },
+      {
+        "id": "dv1",
+        "expected": 21,
+        "observed": 21
+      },
+      {
+        "id": "bw7",
+        "expected": 153,
+        "observed": 153
+      },
+      {
+        "id": "bw8",
+        "expected": 138,
+        "observed": 138
+      },
+      {
+        "id": "bw9",
+        "expected": 122,
+        "observed": 122
+      },
+      {
+        "id": "bw10",
+        "expected": 105,
+        "observed": 105
+      },
+      {
+        "id": "xyp",
+        "expected": 216,
+        "observed": 216
+      },
+      {
+        "id": "bw11",
+        "expected": 140,
+        "observed": 140
+      },
+      {
+        "id": "rc",
+        "expected": 0,
+        "observed": 0
+      },
+      {
+        "id": "xy0",
+        "expected": 39,
+        "observed": 39
+      },
+      {
+        "id": "xy1",
+        "expected": 146,
+        "observed": 146
+      },
+      {
+        "id": "xya",
+        "expected": 6,
+        "observed": 6
+      },
+      {
+        "id": "tk-xy-sy",
+        "expected": 30,
+        "observed": 30
+      },
+      {
+        "id": "tk-xy-n",
+        "expected": 30,
+        "observed": 30
+      },
+      {
+        "id": "xy2",
+        "expected": 110,
+        "observed": 110
+      },
+      {
+        "id": "2014xy",
+        "expected": 12,
+        "observed": 12
+      },
+      {
+        "id": "xy3",
+        "expected": 114,
+        "observed": 114
+      },
+      {
+        "id": "tk-xy-b",
+        "expected": 30,
+        "observed": 30
+      },
+      {
+        "id": "tk-xy-w",
+        "expected": 30,
+        "observed": 30
+      },
+      {
+        "id": "xy4",
+        "expected": 124,
+        "observed": 124
+      },
+      {
+        "id": "xy5",
+        "expected": 164,
+        "observed": 164
+      },
+      {
+        "id": "dc1",
+        "expected": 34,
+        "observed": 34
+      },
+      {
+        "id": "tk-xy-latia",
+        "expected": 30,
+        "observed": 30
+      },
+      {
+        "id": "tk-xy-latio",
+        "expected": 30,
+        "observed": 30
+      },
+      {
+        "id": "xy6",
+        "expected": 112,
+        "observed": 112
+      },
+      {
+        "id": "xy7",
+        "expected": 101,
+        "observed": 101
+      },
+      {
+        "id": "xy8",
+        "expected": 165,
+        "observed": 165
+      },
+      {
+        "id": "2015xy",
+        "expected": 12,
+        "observed": 12
+      },
+      {
+        "id": "xy9",
+        "expected": 126,
+        "observed": 126
+      },
+      {
+        "id": "g1",
+        "expected": 117,
+        "observed": 117
+      },
+      {
+        "id": "tk-xy-su",
+        "expected": 30,
+        "observed": 30
+      },
+      {
+        "id": "tk-xy-p",
+        "expected": 30,
+        "observed": 30
+      },
+      {
+        "id": "xy10",
+        "expected": 129,
+        "observed": 129
+      },
+      {
+        "id": "xy11",
+        "expected": 116,
+        "observed": 116
+      },
+      {
+        "id": "2016xy",
+        "expected": 12,
+        "observed": 12
+      },
+      {
+        "id": "xy12",
+        "expected": 113,
+        "observed": 113
+      },
+      {
+        "id": "smp",
+        "expected": 248,
+        "observed": 248
+      },
+      {
+        "id": "sm1",
+        "expected": 172,
+        "observed": 172
+      },
+      {
+        "id": "tk-sm-l",
+        "expected": 18,
+        "observed": 18
+      },
+      {
+        "id": "tk-sm-r",
+        "expected": 30,
+        "observed": 30
+      },
+      {
+        "id": "sm2",
+        "expected": 169,
+        "observed": 169
+      },
+      {
+        "id": "2017sm",
+        "expected": 12,
+        "observed": 12
+      },
+      {
+        "id": "sm3",
+        "expected": 169,
+        "observed": 169
+      },
+      {
+        "id": "sm3.5",
+        "expected": 78,
+        "observed": 78
+      },
+      {
+        "id": "sm4",
+        "expected": 125,
+        "observed": 125
+      },
+      {
+        "id": "sm5",
+        "expected": 173,
+        "observed": 173
+      },
+      {
+        "id": "sm6",
+        "expected": 146,
+        "observed": 146
+      },
+      {
+        "id": "sm7",
+        "expected": 183,
+        "observed": 183
+      },
+      {
+        "id": "sm7.5",
+        "expected": 78,
+        "observed": 78
+      },
+      {
+        "id": "2018sm",
+        "expected": 12,
+        "observed": 12
+      },
+      {
+        "id": "sm8",
+        "expected": 236,
+        "observed": 236
+      },
+      {
+        "id": "sm9",
+        "expected": 196,
+        "observed": 196
+      },
+      {
+        "id": "det1",
+        "expected": 18,
+        "observed": 18
+      },
+      {
+        "id": "sm10",
+        "expected": 234,
+        "observed": 234
+      },
+      {
+        "id": "sm11",
+        "expected": 258,
+        "observed": 258
+      },
+      {
+        "id": "sm115",
+        "expected": 69,
+        "observed": 69
+      },
+      {
+        "id": "sma",
+        "expected": 94,
+        "observed": 94
+      },
+      {
+        "id": "2019sm",
+        "expected": 12,
+        "observed": 12
+      },
+      {
+        "id": "sm12",
+        "expected": 271,
+        "observed": 271
+      },
+      {
+        "id": "swshp",
+        "expected": 307,
+        "observed": 307
+      },
+      {
+        "id": "swsh1",
+        "expected": 216,
+        "observed": 216
+      },
+      {
+        "id": "swsh2",
+        "expected": 209,
+        "observed": 209
+      },
+      {
+        "id": "swsh3",
+        "expected": 201,
+        "observed": 201
+      },
+      {
+        "id": "fut2020",
+        "expected": 5,
+        "observed": 5
+      },
+      {
+        "id": "swsh3.5",
+        "expected": 80,
+        "observed": 80
+      },
+      {
+        "id": "swsh4",
+        "expected": 203,
+        "observed": 203
+      },
+      {
+        "id": "2021swsh",
+        "expected": 25,
+        "observed": 25
+      },
+      {
+        "id": "swsh4.5sv",
+        "expected": 122,
+        "observed": 122
+      },
+      {
+        "id": "swsh4.5",
+        "expected": 73,
+        "observed": 73
+      },
+      {
+        "id": "swsh5",
+        "expected": 183,
+        "observed": 183
+      },
+      {
+        "id": "swsh6",
+        "expected": 233,
+        "observed": 233
+      },
+      {
+        "id": "swsh7",
+        "expected": 237,
+        "observed": 237
+      },
+      {
+        "id": "cel25",
+        "expected": 25,
+        "observed": 25
+      },
+      {
+        "id": "cel25cc",
+        "expected": 25,
+        "observed": 25
+      },
+      {
+        "id": "swsh8",
+        "expected": 284,
+        "observed": 284
+      },
+      {
+        "id": "swsh9tg",
+        "expected": 30,
+        "observed": 30
+      },
+      {
+        "id": "swsh9",
+        "expected": 186,
+        "observed": 186
+      },
+      {
+        "id": "swsh10tg",
+        "expected": 30,
+        "observed": 30
+      },
+      {
+        "id": "swsh10",
+        "expected": 216,
+        "observed": 216
+      },
+      {
+        "id": "swsh10.5",
+        "expected": 88,
+        "observed": 88
+      },
+      {
+        "id": "2022swsh",
+        "expected": 15,
+        "observed": 15
+      },
+      {
+        "id": "swsh11",
+        "expected": 217,
+        "observed": 217
+      },
+      {
+        "id": "swsh11tg",
+        "expected": 30,
+        "observed": 30
+      },
+      {
+        "id": "swsh12tg",
+        "expected": 30,
+        "observed": 30
+      },
+      {
+        "id": "swsh12",
+        "expected": 215,
+        "observed": 215
+      },
+      {
+        "id": "swsh12.5gg",
+        "expected": 70,
+        "observed": 70
+      },
+      {
+        "id": "swsh12.5",
+        "expected": 160,
+        "observed": 160
+      },
+      {
+        "id": "sv01",
+        "expected": 258,
+        "observed": 258
+      },
+      {
+        "id": "sve",
+        "expected": 24,
+        "observed": 24
+      },
+      {
+        "id": "svp",
+        "expected": 226,
+        "observed": 226
+      },
+      {
+        "id": "sv02",
+        "expected": 279,
+        "observed": 279
+      },
+      {
+        "id": "2023sv",
+        "expected": 15,
+        "observed": 15
+      },
+      {
+        "id": "sv03",
+        "expected": 230,
+        "observed": 230
+      },
+      {
+        "id": "sv03.5",
+        "expected": 207,
+        "observed": 207
+      },
+      {
+        "id": "mfb",
+        "expected": 34,
+        "observed": 34
+      },
+      {
+        "id": "sv04",
+        "expected": 266,
+        "observed": 266
+      },
+      {
+        "id": "sv04.5",
+        "expected": 245,
+        "observed": 245
+      },
+      {
+        "id": "sv05",
+        "expected": 218,
+        "observed": 218
+      },
+      {
+        "id": "sv06",
+        "expected": 226,
+        "observed": 226
+      },
+      {
+        "id": "sv06.5",
+        "expected": 99,
+        "observed": 99
+      },
+      {
+        "id": "sv07",
+        "expected": 175,
+        "observed": 175
+      },
+      {
+        "id": "sv08",
+        "expected": 252,
+        "observed": 252
+      },
+      {
+        "id": "2024sv",
+        "expected": 15,
+        "observed": 15
+      },
+      {
+        "id": "sv08.5",
+        "expected": 180,
+        "observed": 180
+      },
+      {
+        "id": "sv09",
+        "expected": 190,
+        "observed": 190
+      },
+      {
+        "id": "sv10",
+        "expected": 244,
+        "observed": 244
+      },
+      {
+        "id": "sv10.5w",
+        "expected": 173,
+        "observed": 173
+      },
+      {
+        "id": "sv10.5b",
+        "expected": 172,
+        "observed": 172
+      },
+      {
+        "id": "mee",
+        "expected": 16,
+        "observed": 16
+      },
+      {
+        "id": "mep",
+        "expected": 112,
+        "observed": 112
+      },
+      {
+        "id": "me01",
+        "expected": 188,
+        "observed": 188
+      },
+      {
+        "id": "me02",
+        "expected": 130,
+        "observed": 130
+      },
+      {
+        "id": "me02.5",
+        "expected": 295,
+        "observed": 295
+      },
+      {
+        "id": "me03",
+        "expected": 124,
+        "observed": 124
+      },
+      {
+        "id": "me04",
+        "expected": 122,
+        "observed": 122
+      },
+      {
+        "id": "me05",
+        "expected": 120,
+        "observed": 120
+      },
+      {
+        "id": "30th-c",
+        "expected": 30,
+        "observed": 30
+      },
+      {
+        "id": "30th",
+        "expected": 161,
+        "observed": 161
+      }
+    ]
+  },
+  "remaining": [
+    "Independent official set/number/edition/variant identity evidence unavailable",
+    "No complete live-link verification",
+    "Automatic product-index refresh not implemented"
+  ],
+  "protectedPatchSha256": "82568145c226faea78ade6b9221e96aa0dc0e1e60ebdece0858daf5069c9c9fd",
+  "productionSourceHashes": {
+    "library-v185.js": "d449c34554a8621c464c87a924dcfad4d988e192dfd1556343d27a70068137a7",
+    "ui-library-v185.js": "2c4f1a0bfc3cf3a7f5cb3c5aeb2a7b2e351dbda7cfa2db549a1574fa2334a5f3",
+    "ui-v189-home.js": "bb9500a403e3924a98dcba34542f262a77359e9118aa85360edce05a506de47e",
+    "sw.js": "543e729fd2e5f7cefcc923ac079df7a0302fe9cd1ead81196638ce3f844a5b41",
+    "cardmarket-product-index-v191.json": "a63e6de1ae1369034c4ad9ff5a0ef250e22c6567e315b918b7acc54fcd29abbe"
+  }
+}

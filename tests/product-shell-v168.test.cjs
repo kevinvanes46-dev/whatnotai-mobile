@@ -54,7 +54,7 @@ test('v168 mobile shell and search → Recent → collection reload',async()=>{
       return r.abort();
     });
     await page.goto('http://127.0.0.1:'+server.address().port);
-    await page.locator('.visiblePreferences [data-value="JP"]').click();
+    await require('./retained-jp-v199.cjs')(page);
     await page.waitForFunction(()=>window.CardCatalog?.byId?.('neo4-001','JP'));
     await page.locator('.visiblePreferences [data-value="EX"]').click();
     await page.locator('#quickInput').fill('Pikachu');

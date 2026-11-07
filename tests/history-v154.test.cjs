@@ -6,23 +6,27 @@ const fixtures=Object.fromEntries(['ex15-43','base2-25'].map(id=>[id,JSON.parse(
 const key='whatnotai_mobile_recent_v37',collectionKey='cardscout_collection_v133';
 let checks=0;function pass(s){checks++;console.log('PASS '+s);}
 (async()=>{
- require('./helpers/history-protected.cjs')();
  const server=http.createServer((req,res)=>{try{const file=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';res.setHeader('Content-Type',({js:'text/javascript',html:'text/html',css:'text/css',json:'application/json',svg:'image/svg+xml'})[file.split('.').pop()]||'application/octet-stream');res.end(fs.readFileSync(path.resolve(file)));}catch{res.writeHead(404).end();}});await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;
  try{
  browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH});
  const ctx=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'});const page=await ctx.newPage(),errors=[],requests=[];page.on('pageerror',e=>errors.push(e.message));
  await ctx.route('**/*',r=>{const u=new URL(r.request().url());if(u.hostname==='127.0.0.1')return r.continue();if(u.hostname==='api.tcgdex.net'){const id=u.pathname.split('/').pop();requests.push(u.pathname);if(u.pathname.includes('/cards/'))return r.fulfill({json:fixtures[id]||{}});const cards=Object.values(fixtures).filter(c=>c.set.id===id);return r.fulfill({json:{name:cards[0]?.set.name||id,cards:cards.map(c=>({id:c.id,name:c.name,localId:c.localId,image:c.image}))}});}if(u.hostname==='assets.tcgdex.net'){const id=u.pathname.includes('/base2/')?'base2-25':'ex15-43';return r.fulfill({contentType:'image/webp',body:fs.readFileSync('tests/fixtures/artwork/'+id+'.webp')});}return r.abort();});
- await page.goto('http://127.0.0.1:'+server.address().port);
+ await page.goto('http://127.0.0.1:'+server.address().port);await page.locator('#onboardingGuest').click();await page.locator('#navSearch').click();await require('./helpers/history-protected.cjs')(page);
  const sentinel=JSON.stringify([{uid:'untouched',name:'Sentinel',qty:7,price:3,language:'EN',listType:'OWNED',condition:'NM',variant:'NORMAL',paidEach:null,addedAt:1}]);
  await page.evaluate(({collectionKey,sentinel})=>localStorage.setItem(collectionKey,sentinel),{collectionKey,sentinel});
  await page.locator('.visiblePreferences [data-value="EN"]').click();
  await page.waitForFunction(()=>window.CardCatalog?.byId('ex15-43','EN')?.image);
  for(const [id,query] of [['ex15-43','Bagon 43 Dragon Frontiers'],['base2-25','Pinsir 25 Jungle']]){
   await page.locator('#quickInput').fill(query);
-  const suggestion=page.locator('.suggestion').filter({hasText:id==='ex15-43'?'Bagon':'Pinsir'}).filter({hasText:'volledige catalogus'}).first();await suggestion.click();
+  const suggestionIndex=await page.locator('.suggestion').evaluateAll((rows,sourceId)=>rows.findIndex(row=>row.holoCard?.source_id===sourceId),id);assert.notEqual(suggestionIndex,-1,`Expected exact catalog result ${id}`);
+  await page.locator('.suggestion').nth(suggestionIndex).click();
   await page.waitForFunction(({key,id})=>JSON.parse(localStorage.getItem(key)||'[]')[0]?.source_id===id,{key,id});
   const saved=await page.evaluate(key=>JSON.parse(localStorage.getItem(key))[0],key);
-  assert.equal(saved.kind,'card');assert.equal(saved.number,fixtures[id].localId);assert.ok(saved.set!=='AUTO');assert.equal(saved.image,fixtures[id].image);assert.equal(saved.language,'EN');assert.ok(saved.url.includes('idProduct=')||saved.url.includes('/Singles/'));assert.equal(saved.cardmarketUrl,saved.url);
+  assert.equal(saved.kind,'card');assert.equal(saved.number,fixtures[id].localId);assert.ok(saved.set!=='AUTO');assert.equal(saved.image,fixtures[id].image);assert.equal(saved.language,'EN');
+  const savedUrl=new URL(saved.url),routeChecks=await page.evaluate(url=>({route:validCardmarketRoute(url),search:validCardmarketSearch(url)}),saved.url);
+  assert.equal(savedUrl.hostname,'www.cardmarket.com');assert.ok(routeChecks.route||routeChecks.search);
+  if(routeChecks.search){assert.equal(saved.exact,false);assert.ok(savedUrl.searchParams.get('searchString'));}else assert.ok(savedUrl.pathname.includes('/Singles/')||savedUrl.searchParams.has('idProduct'));
+  assert.equal(saved.cardmarketUrl,saved.url);
   await page.reload();await page.locator('#navRecent').click();await page.waitForFunction(()=>document.querySelector('#recentList .recentThumb img')?.naturalWidth>0);
   const stored=await page.evaluate(key=>JSON.parse(localStorage.getItem(key))[0],key);assert.deepEqual(stored,saved);
   assert.equal(await page.locator('#recentList .openMini').first().getAttribute('href'),saved.url);
@@ -48,7 +52,7 @@ let checks=0;function pass(s){checks++;console.log('PASS '+s);}
   release();await pending;resolveFinalCardmarketRoute=original;
   return {persisted,rows:JSON.parse(localStorage.getItem(key)),url:openBtn.href};
  },key);
- assert.equal(stale.persisted,true);assert.equal(stale.rows[0].kind,'query');assert.ok(stale.rows.some(c=>c.source_id==='ex15-43'));assert.ok(stale.url.includes('Fresh%20query'));pass('Selection persists before route resolution; stale response cannot overwrite a newer query');
+ assert.equal(stale.persisted,true);assert.equal(stale.rows[0].kind,'query');assert.ok(stale.rows.some(c=>c.source_id==='ex15-43'));assert.equal(new URL(stale.url).searchParams.get('searchString'),'Fresh query');pass('Selection persists before route resolution; stale response cannot overwrite a newer query');
  const restored=await page.evaluate(async()=>{
   const original=window.CardArtwork.lookup;let release;
   window.CardArtwork.lookup=()=>new Promise(r=>release=r);
@@ -63,7 +67,11 @@ let checks=0;function pass(s){checks++;console.log('PASS '+s);}
  assert.equal(await page.locator('#recentList .item').first().locator('img').count(),0);assert.match(await page.locator('#recentList .item').first().innerText(),/Zoekopdracht/);
  assert.deepEqual(await page.evaluate(key=>JSON.parse(localStorage.getItem(key)),key),legacy);pass('Legacy source and unique tuple hydrate in memory; ambiguous AUTO has no guessed art and storage is unchanged');
  const recovered=await page.evaluate(legacy=>legacy.map(c=>window.CardIdentity.normalize(c)),legacy);assert.equal(recovered[1].number,'25');assert.equal(recovered[1].set,'JUNGLE');assert.equal(recovered[2].source_id,'ex15-43');
- assert.match(await page.locator('#recentList .openMini').nth(1).getAttribute('href'),/idProduct=|Products\/Singles\//);
+ const pinsirUrl=await page.locator('#recentList .openMini').nth(1).getAttribute('href');
+ const pinsirRoute=await page.evaluate(url=>({url,search:validCardmarketSearch(url),route:validCardmarketRoute(url)}),pinsirUrl);
+ assert.equal(pinsirRoute.search,true,'Pinsir without a proven exact product identity must use Cardmarket search');
+ assert.match(new URL(pinsirUrl).searchParams.get('searchString')||'',/^Pinsir(?:\s+ju25)?$/i,'The fallback must preserve the Pinsir identity without claiming an exact product');
+ assert.equal(pinsirRoute.route,false,'An unverified Pinsir route must not be presented as exact');
  assert.match(await page.locator('#recentList .openMini').first().getAttribute('href'),/Search\?searchString=Pinsir/);
  assert.equal(await page.evaluate(({id,image})=>window.CardIdentity.normalize({kind:'card',source_id:id,image,language:'EN'}).image,{id:'base2-25',image:fixtures['ex15-43'].image}),fixtures['base2-25'].image);pass('Image recovery prefers source/catalog identity over inconsistent saved image');
  await page.screenshot({path:out+'/recent-390.png',fullPage:true});await page.setViewportSize({width:1280,height:900});await page.screenshot({path:out+'/recent-1280.png',fullPage:true});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);

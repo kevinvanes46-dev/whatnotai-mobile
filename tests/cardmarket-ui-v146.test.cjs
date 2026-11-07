@@ -6,7 +6,6 @@ const fs = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert/strict');
 const root=path.resolve(__dirname,'..');
-const AZU='https://www.cardmarket.com/en/Pokemon/Products/Singles/EX-Delta-Species/Azumarill-Delta-Species-DS19';
 let passed=0;
 const pass=name=>{passed++;console.log('PASS '+name);};
 (async()=>{
@@ -24,23 +23,19 @@ const pass=name=>{passed++;console.log('PASS '+name);};
   await ctx.addInitScript(value=>localStorage.setItem('cardscout_collection_v133',value),savedCollection);
   await ctx.route('**/cardmarket-products-v152.js*',r=>r.fulfill({body:'',contentType:'text/javascript'}));
   const page=await ctx.newPage();
-  const errors=[];let apiCalls=0;
+  const errors=[];const providerCalls=[];
+  const assertNoLegacyProductResolverCalls=()=>assert.equal(providerCalls.some(url=>new URL(url).hostname==='api.pokemontcg.io'),false);
   page.on('pageerror',err=>errors.push(err.message));
   await ctx.route('**/*',async route=>{
    const url=new URL(route.request().url());
    if(url.pathname.endsWith('/cardmarket-products-v152.js'))return route.fulfill({body:'',contentType:'text/javascript'});
    if(url.hostname==='127.0.0.1') return route.continue();
-   if(url.hostname==='api.pokemontcg.io'){
-    apiCalls++;
-    return route.fulfill({json:{data:{id:'ex11-19',name:'Azumarill',number:'19',set:{id:'ex11',name:'Delta Species'},cardmarket:{url:AZU}}}});
-   }
-   if(url.hostname==='api.tcgdex.net'){
-    const isAzumarill=url.pathname==='/v2/en/sets/ex11';
-    return route.fulfill({json:{name:isAzumarill?'EX Delta Species':'Mock set',cards:isAzumarill?[{id:'ex11-19',localId:'19',name:'Azumarill Δ'}]:[]}});
-   }
+   if(url.hostname==='api.pokemontcg.io'||url.hostname==='api.tcgdex.net')providerCalls.push(url.href);
    return route.abort();
   });
   await page.goto(`http://127.0.0.1:${server.address().port}/`);
+  await page.locator('#onboardingGuest').click();
+  await page.locator('#navSearch').click();
   await page.waitForFunction(()=>typeof buildUrl==='function');
   await page.locator('#langSelect').selectOption('EN',{force:true});
   await page.locator('#quickInput').fill('Bagon Delta Species 43 EX Dragon Frontiers');
@@ -64,16 +59,28 @@ const pass=name=>{passed++;console.log('PASS '+name);};
    if(process.env.V146_SCREENSHOT_DIR && [1280,375].includes(width)) await page.screenshot({path:path.join(process.env.V146_SCREENSHOT_DIR,`v146-${width}.png`),fullPage:true});
   }
   await page.setViewportSize({width:1280,height:900});
-  await page.locator('#quickInput').fill('Azumarill 19');
-  const suggestion=page.locator('.suggestion').filter({hasText:'Azumarill'}).filter({hasText:'volledige catalogus'});
-  await suggestion.first().click();
-  await page.waitForFunction(url=>document.querySelector('#openBtn').href.startsWith(url),AZU);
-  assert.equal(apiCalls,1);
+  await page.locator('#manualDetails summary').click();
+  await page.locator('#nameInput').fill('Azumarill');
+  await page.locator('#numberInput').fill('19');
+  await page.locator('#setSelect').selectOption('EX DELTA SPECIES',{force:true});
+  await page.evaluate(()=>{
+   selectCardmarketCard({name:'Azumarill',number:'19',set:'EX DELTA SPECIES',set_name:'EX Delta Species',
+    source_id:'ex11-19',source_set_id:'ex11',language:'EN',condition:'NM',edition:'AUTO',variant:'NORMAL'});
+   void makeLink(false);
+  });
+  await page.waitForFunction(()=>document.querySelector('#openBtn').dataset.cmState==='ready');
+  const initialRoute=new URL(await page.locator('#openBtn').getAttribute('href'));
+  assert.equal(initialRoute.hostname,'www.cardmarket.com');
+  assert.equal(initialRoute.pathname,'/en/Pokemon/Products/Search');
+  assert.equal(initialRoute.searchParams.has('idProduct'),false);
+  assert.equal(initialRoute.searchParams.get('searchString'),'Azumarill 19');
+  assert.equal(await page.locator('#openBtn').getAttribute('data-cm-route'),'SEARCH');
+  assertNoLegacyProductResolverCalls();
   await page.locator('#collectionAddBtn').click();
   const pending=JSON.parse(await page.locator('#collectionEditor').getAttribute('data-pending'));
-  assert.equal(pending.cardmarketUrl.split('?')[0],AZU);assert.equal(pending.sourceId,'ex11-19');
+  assert.equal(pending.cardmarketUrl,initialRoute.href);assert.equal(pending.sourceId,'ex11-19');
   await page.locator('#collectionEditorClose').click();
-  pass('TCGdex selection resolves Azumarill; collection editor receives final URL');
+  pass('Manual EN identity stays a safe number-qualified SEARCH; collection editor receives final URL');
   for(const [id,value,expected] of [['condSelect','EX','minCondition=3'],['editionSelect','1ST','isFirstEd=Y']]){
    await page.locator('#'+id).selectOption(value,{force:true});
    await page.waitForFunction(value=>document.querySelector('#openBtn').href.includes(value),expected);
@@ -81,16 +88,24 @@ const pass=name=>{passed++;console.log('PASS '+name);};
   await page.locator('#langSelect').selectOption('JP',{force:true});
   assert.equal(await page.locator('#openBtn').getAttribute('aria-disabled'),'true');
   await page.locator('#langSelect').selectOption('EN',{force:true});
-  await page.locator('.suggestion').first().click();
-  await page.waitForFunction(url=>document.querySelector('#openBtn').href.startsWith(url),AZU);
-  assert.equal(apiCalls,1);
-  await page.locator('#manualDetails summary').click();
+  await page.evaluate(()=>{
+   selectCardmarketCard({name:'Azumarill',number:'19',set:'EX DELTA SPECIES',set_name:'EX Delta Species',
+    source_id:'ex11-19',source_set_id:'ex11',language:'EN',condition:'EX',edition:'1ST',variant:'NORMAL'});
+   void makeLink(false);
+  });
+  await page.waitForFunction(()=>document.querySelector('#openBtn').dataset.cmState==='ready');
+  const filteredRoute=new URL(await page.locator('#openBtn').getAttribute('href'));
+  assert.equal(filteredRoute.pathname,'/en/Pokemon/Products/Search');
+  assert.equal(filteredRoute.searchParams.get('minCondition'),'3');
+  assert.equal(filteredRoute.searchParams.get('isFirstEd'),'Y');
+  assert.equal(filteredRoute.searchParams.has('idProduct'),false);
+  assertNoLegacyProductResolverCalls();
   await page.locator('#nameInput').fill('Duskull');
   await page.waitForFunction(()=>document.querySelector('#openBtn').href.includes('searchString=Duskull'));
   await page.locator('#numberInput').fill('50');
   await page.locator('#setSelect').selectOption('EX POWER KEEPERS',{force:true});
   await page.waitForFunction(()=>document.querySelector('#matchBox').textContent.includes('EX POWER KEEPERS'));
-  assert.equal(new URL(await page.locator('#openBtn').getAttribute('href')).searchParams.get('searchString'),'Duskull');
+  assert.equal(new URL(await page.locator('#openBtn').getAttribute('href')).searchParams.get('searchString'),'Duskull 50');
   pass('Manual edits rebuild links; language changes require reselection; cache avoids new request');
   const storage=await page.evaluate(()=>localStorage.getItem('cardscout_collection_v133'));
   assert.equal(storage,savedCollection);assert.deepEqual(errors,[]);

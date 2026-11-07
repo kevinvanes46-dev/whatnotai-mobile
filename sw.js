@@ -1,6 +1,6 @@
 'use strict';
 // Bump this version when the shell changes. Never cache remote card data/artwork.
-const CACHE = 'rareworth-shell-v193-cardmarket-nm-prices';
+const CACHE = 'rareworth-shell-v224-mobile-layout';
 const SCOPE = new URL('./', self.registration.scope);
 const INDEX = new URL('index.html', SCOPE).href;
 const ASSETS = [
@@ -26,7 +26,7 @@ const ASSETS = [
   'style-v137-product.css?build=168-product-shell-cleanup',
   'style-v148-polish.css?build=168-product-shell-cleanup',
   'style-v150-minimal.css?build=180-beta-readiness',
-  'style-v153-mobile.css?build=168-product-shell-cleanup',
+  'style-v153-mobile.css?build=224-mobile-layout',
   'cardmarket-products-v152.js?build=152-links-controls',
   'card-identity-v154.js?build=164-jp-set-display-restore',
   'app-v137.js?build=175-en-platinum-hgss-coverage',
@@ -47,7 +47,7 @@ const ASSETS = [
   'ui-v150-experience.js?build=173-holokeep-rebrand',
   'home-v179.js?build=180-beta-readiness',
   'ui-v154-keyboard.js?build=154-keyboard',
-  'ui-v153-mobile.js?build=154-keyboard',
+  'ui-v153-mobile.js?build=224-mobile-layout',
   'cloud-sync-v170.js?build=170b-account-cloud-sync',
   'supabase-config-v170.js?build=170b-account-cloud-sync',
   'supabase-client-v170.js?build=170b-account-cloud-sync',

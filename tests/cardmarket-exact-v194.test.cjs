@@ -27,11 +27,14 @@ test('normal excludes reverse even when only detailed variants disclose reverse'
 test('detail observer preserves library variant ownership and still handles legacy details',()=>{
   let href='https://www.cardmarket.com/en/Pokemon/Products?idProduct=857614&isReverseHolo=Y';
   const link={hidden:false,dataset:{cmVariantOwner:'library'},getAttribute:()=>href,setAttribute:(k,v)=>{href=v;}};
-  const ctx={URL,document:{getElementById:id=>id==='cardSheetLink'?link:null},addEventListener:()=>{}};ctx.window=ctx;
+  const meta={textContent:''};const ctx={URL,document:{getElementById:id=>id==='cardSheetLink'?link:id==='cardSheetMeta'?meta:null},addEventListener:()=>{}};ctx.window=ctx;
   vm.runInNewContext(fs.readFileSync('ui-v183-cardmarket.js','utf8'),ctx);
   assert.equal(new URL(href).searchParams.get('isReverseHolo'),'Y');
   delete link.dataset.cmVariantOwner;ctx.HoloDexCardmarketV183.syncDetail();
-  assert.equal(new URL(href).searchParams.has('isReverseHolo'),false);
+  assert.equal(new URL(href).searchParams.get('isReverseHolo'),'Y','No selected print preserves existing routing');
+  meta.textContent='EN · NORMAL';ctx.HoloDexCardmarketV183.syncDetail();assert.equal(new URL(href).searchParams.get('isReverseHolo'),'N');
+  meta.textContent='EN · REVERSE';ctx.HoloDexCardmarketV183.syncDetail();assert.equal(new URL(href).searchParams.get('isReverseHolo'),'Y');
+  link.dataset.cmVariantOwner='library';meta.textContent='EN · NORMAL';ctx.HoloDexCardmarketV183.syncDetail();assert.equal(new URL(href).searchParams.get('isReverseHolo'),'Y');
 });
 
 test('user-confirmed Aquapolis URLs match exact identity and reject H1, other sets, JP and editions',()=>{

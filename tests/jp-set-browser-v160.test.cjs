@@ -22,7 +22,7 @@ const expected=[['PMCG1','BASE','Expansion Pack'],['PMCG2','JUNGLE','Pokémon Ju
   // A still-valid pre-v160 cache must not keep the old western Gym partition alive.
   await page.addInitScript(()=>{if(!sessionStorage.getItem('seeded')){localStorage.setItem('cardscout_search_catalog_v152_JP',JSON.stringify({savedAt:Date.now(),cards:[{source_id:'PMCG5-036',name:'Old Gym',set:'GYM HEROES',language:'JP'}]}));sessionStorage.setItem('seeded','1');}});
   await page.goto('http://127.0.0.1:'+server.address().port);
-  await page.locator('.visiblePreferences [data-value="JP"]').click();
+  await require('./retained-jp-v199.cjs')(page);
   await page.waitForFunction(()=>window.CardCatalog?.byId('neo4-001','JP'));
   let total=0;
   for(const [source,set,label] of expected){

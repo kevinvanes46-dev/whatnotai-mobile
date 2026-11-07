@@ -12,10 +12,10 @@
         !/^\/en\/Pokemon\/Products(?:\/|$)/.test(u.pathname)
       ) return url;
 
-      if(reverse){
+      if(reverse===true){
         u.searchParams.set('isReverseHolo','Y');
-      }else{
-        u.searchParams.delete('isReverseHolo');
+      }else if(reverse===false){
+        u.searchParams.set('isReverseHolo','N');
       }
 
       return u.href;
@@ -48,7 +48,7 @@
     if(!link)return;
 
     const current=link.getAttribute('href')||link.href||'';
-    const next=cardmarketUrl(current,englishStamped());
+    const next=cardmarketUrl(current,englishStamped()?true:undefined);
 
     if(next&&current!==next){
       link.setAttribute('href',next);
@@ -58,8 +58,10 @@
   function detailStamped(){
     const meta=$('cardSheetMeta')?.textContent||'';
 
-    return /(?:^| · )EN(?: · |$)/.test(meta) &&
-      /(?:^| · )STAMPED(?: · |$)/.test(meta);
+    if(!/(?:^| · )EN(?: · |$)/.test(meta))return undefined;
+    if(/(?:^| · )(?:STAMPED|REVERSE|REVERSE_HOLO)(?: · |$)/.test(meta))return true;
+    if(/(?:^| · )NORMAL(?: · |$)/.test(meta))return false;
+    return undefined;
   }
 
   function syncDetail(){
@@ -87,8 +89,7 @@
 
     ui.cardmarketLink=item=>cardmarketUrl(
       base(item),
-      item?.language==='EN' &&
-      item?.variant==='STAMPED'
+      item?.language==='EN'?(['STAMPED','REVERSE','REVERSE_HOLO'].includes(item?.variant)?true:item?.variant==='NORMAL'?false:undefined):undefined
     );
   }
 
@@ -99,8 +100,7 @@
     if(s&&typeof s.cardmarketUrl==='string'){
       s.cardmarketUrl=cardmarketUrl(
         s.cardmarketUrl,
-        language==='EN' &&
-        s.stamped===true
+        language==='EN'?(s.stamped===true||['REVERSE','REVERSE_HOLO','STAMPED'].includes(s.variant||s.card?.variant)?true:(s.variant||s.card?.variant)==='NORMAL'?false:undefined):undefined
       );
     }
 
@@ -112,6 +112,7 @@
   });
 
   $('stampedToggle')?.addEventListener('click',()=>{
+    if($('langSelect')?.value==='EN'){const link=$('openBtn');if(link)link.setAttribute('href',cardmarketUrl(link.getAttribute('href'),englishStamped()));}
     if(root.queueMicrotask){
       root.queueMicrotask(syncOpen);
     }else{

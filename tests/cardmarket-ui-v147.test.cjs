@@ -4,7 +4,7 @@ const http=require('node:http');
 const fs=require('node:fs');
 const path=require('node:path');
 const assert=require('node:assert/strict');
-const {cards,productUrl,apiResponse}=require('./helpers/cardmarket-catalog.cjs');
+const {cards}=require('./helpers/cardmarket-catalog.cjs');
 const root=path.resolve(__dirname,'..');
 let passed=0;
 const pass=name=>{passed++;console.log('PASS '+name);};
@@ -27,23 +27,19 @@ const pass=name=>{passed++;console.log('PASS '+name);};
   },seed);
   await ctx.route('**/cardmarket-products-v152.js*',r=>r.fulfill({body:'',contentType:'text/javascript'}));
   const page=await ctx.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
-  const requests=new Map(),waiting=new Map();
+  const providerRequests=[];
+  const assertNoLegacyProductResolverCalls=()=>assert.equal(providerRequests.some(url=>new URL(url).hostname==='api.pokemontcg.io'),false);
   await ctx.route('**/*',async route=>{
    const url=new URL(route.request().url());
    if(url.pathname.endsWith('/cardmarket-products-v152.js'))return route.fulfill({body:'',contentType:'text/javascript'});
    if(url.hostname==='127.0.0.1')return route.continue();
-   if(url.hostname==='api.pokemontcg.io'){
-    const id=url.pathname.split('/').pop();requests.set(id,(requests.get(id)||0)+1);
-    const response=await new Promise(resolve=>waiting.set(id,resolve));waiting.delete(id);
-    return route.fulfill(response);
-   }
-   if(url.hostname==='api.tcgdex.net')return route.fulfill({json:{name:'Mock catalog',cards:[]}});
+   if(url.hostname==='api.pokemontcg.io'||url.hostname==='api.tcgdex.net')providerRequests.push(url.href);
    return route.abort();
   });
   await page.goto(`http://127.0.0.1:${server.address().port}/`);
+  await page.locator('#onboardingGuest').click();
+  await page.locator('#navSearch').click();
   await page.waitForFunction(()=>typeof resolveFinalCardmarketRoute==='function');
-  // Isolate the remote stage; legacy verified URL literals are left enabled.
-  await page.evaluate(()=>{DATA.knownCards=[];});
   async function select(card){
    await page.evaluate(card=>{
     for(const [id,value]of Object.entries({nameInput:card.name,numberInput:card.number,setSelect:card.set,langSelect:card.language,condSelect:card.condition,editionSelect:card.edition}))document.getElementById(id).value=value;
@@ -51,56 +47,53 @@ const pass=name=>{passed++;console.log('PASS '+name);};
     selectCardmarketCard(card);updateCustomSelects();void makeLink(false);
    },card);
   }
-  async function waitRequest(id){for(let n=0;n<100&&!waiting.has(id);n++)await new Promise(r=>setTimeout(r,10));assert.ok(waiting.has(id),'request missing '+id);}
-  function respond(card,status=200){waiting.get(card.source_id)({status,json:status===200?{data:apiResponse(card)}:{error:'Not found'}});}
-  const readyCard={...cards[23],verified:true,direct:true,url:productUrl(cards[23])};
+  async function ready(){await page.waitForFunction(()=>document.getElementById('openBtn').dataset.cmState==='ready');}
+  async function expectedRoute(){return page.evaluate(()=>HoloDexLibrary.safeRoute(currentCardmarketCard()));}
   const sample=[cards[20],cards[22],cards[24],cards[16]];
   for(const [index,width] of [1280,390,375,320].entries()){
    await page.setViewportSize({width,height:900});
-   await select(readyCard);await page.waitForFunction(()=>getComputedStyle(document.getElementById('actionDock')).opacity==='1');
+   await select(cards[23]);await ready();await page.waitForFunction(()=>getComputedStyle(document.getElementById('actionDock')).opacity==='1');
    await page.locator('#actionDock').evaluate(dock=>Promise.all(dock.getAnimations().map(animation=>animation.finished)));
    const before=await page.locator('#actionDock').boundingBox();
-   const card=sample[index];await select(card);await waitRequest(card.source_id);
-   const pending=await page.evaluate(()=>{
+   const card=sample[index];await select(card);await ready();
+   const expected=await expectedRoute(),url=new URL(await page.locator('#openBtn').getAttribute('href'));
+   const resolved=await page.evaluate(()=>{
     const open=document.getElementById('openBtn'),dock=document.getElementById('actionDock');
     const visible=e=>{const r=e.getBoundingClientRect();return r.width&&r.height&&getComputedStyle(e).visibility!=='hidden';};
     return {href:open.getAttribute('href'),disabled:open.classList.contains('disabled'),label:open.querySelector('span').textContent,
-     dockVisible:dock.classList.contains('ready'),collectionVisible:!!visible(document.getElementById('collectionAddBtn')),collectionDisabled:document.getElementById('collectionAddBtn').disabled,
+     state:open.dataset.cmState,dockVisible:dock.classList.contains('ready'),collectionVisible:!!visible(document.getElementById('collectionAddBtn')),collectionDisabled:document.getElementById('collectionAddBtn').disabled,
      visibleCM:[...document.querySelectorAll('#makeBtn,#openBtn,#resultOpenBtn')].filter(visible).map(e=>e.id),overflow:document.documentElement.scrollWidth>innerWidth};
    });
-   assert.equal(pending.href,'#');assert.equal(pending.disabled,true);assert.equal(pending.label,'Cardmarket zoeken…');assert.equal(pending.dockVisible,true);assert.equal(pending.collectionVisible,true);assert.equal(pending.collectionDisabled,true);assert.deepEqual(pending.visibleCM,['openBtn']);assert.equal(pending.overflow,false);
-   assert.equal(await page.evaluate(id=>window.routeEvents.filter(e=>e.card.source_id===id).length,card.source_id),0);
+   assert.equal(resolved.href,expected.url);assert.equal(resolved.disabled,false);assert.equal(resolved.state,'ready');assert.equal(resolved.dockVisible,true);assert.equal(resolved.collectionVisible,true);assert.equal(resolved.collectionDisabled,false);assert.deepEqual(resolved.visibleCM,['openBtn']);assert.equal(resolved.overflow,false);
+   assert.equal(url.origin,'https://www.cardmarket.com');assert.equal(expected.identity.source_id,card.source_id);
+   if(!expected.exact)assert.equal(url.searchParams.has('idProduct'),false);
+   assert.equal(await page.evaluate(id=>window.routeEvents.filter(e=>e.card.source_id===id).length,card.source_id),1);
+   assertNoLegacyProductResolverCalls();
    assert.equal(await page.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),seed);
    assert.deepEqual(await page.locator('#actionDock').boundingBox(),before);
-   if(process.env.V147_SCREENSHOT_DIR && [1280,375].includes(width))await page.screenshot({path:path.join(process.env.V147_SCREENSHOT_DIR,`v147-pending-${width}.png`),fullPage:true});
-   respond(card,index%2?404:200);
-   await page.waitForFunction(()=>document.getElementById('openBtn').dataset.cmState==='ready');
-   const url=await page.locator('#openBtn').getAttribute('href');
-   if(index%2)assert.equal(new URL(url).searchParams.get('searchString'),card.name);
-   else assert.equal(url.split('?')[0],productUrl(card));
-   assert.equal(await page.locator('#openBtn span').textContent(),'Open Cardmarket');assert.equal(await page.locator('#collectionAddBtn').isEnabled(),true);
+   assert.equal(await page.locator('#openBtn span').textContent(),'Bekijk zoekresultaten');assert.equal(await page.locator('#collectionAddBtn').isEnabled(),true);
    assert.deepEqual(await page.locator('#actionDock').boundingBox(),before);
    await page.locator('#collectionAddBtn').click();
    const editor=JSON.parse(await page.locator('#collectionEditor').getAttribute('data-pending'));
-   assert.equal(editor.cardmarketUrl,url);await page.locator('#collectionEditorClose').click();
-   pass(`${width}px pending/resolved: one CM button, collection visible/blocked until final, no overflow or layout jump, final editor URL`);
+   assert.equal(editor.cardmarketUrl,expected.url);await page.locator('#collectionEditorClose').click();
+   pass(`${width}px local safe route: one CM button, collection enabled, no overflow/layout jump, final editor URL`);
   }
-  // A slow response must never change the selected card or enable saving its temporary route.
-  const a=cards[10],b=cards[11];await select(a);await waitRequest(a.source_id);await select(b);await waitRequest(b.source_id);respond(b);await page.waitForFunction(url=>document.getElementById('openBtn').href.startsWith(url),productUrl(b));respond(a);
-  await page.waitForFunction(()=>cmPendingRoutes.size===0);
-  assert.equal((await page.locator('#openBtn').getAttribute('href')).split('?')[0],productUrl(b));assert.equal(await page.evaluate(id=>window.routeEvents.some(e=>e.card.source_id===id),a.source_id),false);
-  pass('Stale response ignored by dock and collection selection');
+  // The current EN adapter is synchronous and never publishes an unverified provider ID.
+  const a=cards[10],b=cards[11];await select(a);await ready();await select(b);await ready();
+  const expectedB=await expectedRoute();
+  assert.equal(await page.locator('#openBtn').getAttribute('href'),expectedB.url);
+  assert.equal(await page.evaluate(id=>window.routeEvents.at(-1)?.card.source_id===id,b.source_id),true);
+  assertNoLegacyProductResolverCalls();
+  pass('Rapid selection leaves the local safe route active without legacy product-resolver calls');
   await page.locator('#collectionAddBtn').click();
   await page.locator('[data-editor-list="WISHLIST"]').click();await page.locator('#collectionEditorSave').click();
   const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('cardscout_collection_v133')));
-  assert.deepEqual(saved.find(e=>e.uid==='existing-v147'),oldItem);const added=saved.find(e=>e.uid!=='existing-v147');assert.equal(added.cardmarketUrl.split('?')[0],productUrl(b));assert.equal(added.sourceId,b.source_id);
-  pass('Actual collection save contains final URL; existing purchase/condition/stamped data unchanged');
-  const count=requests.get(b.source_id);await select(readyCard);await select(b);
-  assert.equal(await page.locator('#openBtn').getAttribute('data-cm-state'),'ready');assert.equal(requests.get(b.source_id),count);
-  pass('Cached route immediately active without API request');
-  const c=cards[17];await select(c);await waitRequest(c.source_id);await select(c);assert.equal(requests.get(c.source_id),1);respond(c);await page.waitForFunction(()=>document.getElementById('openBtn').dataset.cmState==='ready');
-  assert.equal(await page.evaluate(id=>window.routeEvents.filter(e=>e.card.source_id===id).length,c.source_id),1);
-  pass('Duplicate selection deduplicates network and final-ready publication');
+  assert.deepEqual(saved.find(e=>e.uid==='existing-v147'),oldItem);const added=saved.find(e=>e.uid!=='existing-v147');assert.equal(added.cardmarketUrl,expectedB.url);assert.equal(added.sourceId,b.source_id);
+  pass('Actual collection save contains the current safe route; existing purchase/condition/stamped data unchanged');
+  const c=cards[17];await select(c);await ready();const expectedC=await expectedRoute();await select(c);await ready();
+  assert.equal(await page.locator('#openBtn').getAttribute('href'),expectedC.url);
+  assertNoLegacyProductResolverCalls();
+  pass('Repeated selection retains its safe route without provider requests');
   assert.deepEqual(errors,[]);pass('No browser runtime errors');
  }finally{if(browser)await browser.close();await new Promise(resolve=>server.close(resolve));}
  console.log(`${passed} v147 browser tests passed`);
