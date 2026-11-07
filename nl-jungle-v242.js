@@ -22,75 +22,69 @@
     '56': ['Meowth', 'Meowth-V1-JU56'],
     '60': ['Pikachu', 'Pikachu-JU60']
   });
+  // Pages opened live on 2026-11-07 (HTTP 200, final URL unchanged, heading "<name> (JU <n>)",
+  // only Dutch NM-or-better offers). Numbers 20-64 except the collector pages are not live verified.
+  const LIVE = Object.freeze({
+    '1': ['Clefable', 'Clefable-V1-JU1'], '2': ['Electrode', 'Electrode-V1-JU2'],
+    '3': ['Flareon', 'Flareon-V1-JU3'], '4': ['Jolteon', 'Jolteon-V1-JU4'],
+    '5': ['Kangaskhan', 'Kangaskhan-V1-JU5'], '6': ['Mr. Mime', 'Mr-Mime-V1-JU6'],
+    '7': ['Nidoqueen', 'Nidoqueen-V1-JU7'], '8': ['Pidgeot', 'Pidgeot-V1-JU8'],
+    '9': ['Pinsir', 'Pinsir-V1-JU9'], '10': ['Scyther', 'Scyther-V1-JU10'],
+    '11': ['Snorlax', 'Snorlax-V1-JU11'], '12': ['Vaporeon', 'Vaporeon-V1-JU12'],
+    '13': ['Venomoth', 'Venomoth-V1-JU13'], '14': ['Victreebel', 'Victreebel-V1-JU14'],
+    '15': ['Vileplume', 'Vileplume-V1-JU15'], '16': ['Wigglytuff', 'Wigglytuff-V1-JU16'],
+    '17': ['Clefable', 'Clefable-V2-JU17'], '18': ['Electrode', 'Electrode-V2-JU18'],
+    '19': ['Flareon', 'Flareon-V2-JU19'], '52': ['Exeggcute', 'Exeggcute-JU52']
+  });
+  // Jungle (base2) identity per number, as served by the existing EN catalogue (library-v185 / TCGdex).
+  const CATALOG = Object.freeze(['Clefable', 'Electrode', 'Flareon', 'Jolteon', 'Kangaskhan', 'Mr. Mime',
+    'Nidoqueen', 'Pidgeot', 'Pinsir', 'Scyther', 'Snorlax', 'Vaporeon', 'Venomoth', 'Victreebel', 'Vileplume',
+    'Wigglytuff', 'Clefable', 'Electrode', 'Flareon', 'Jolteon', 'Kangaskhan', 'Mr. Mime', 'Nidoqueen',
+    'Pidgeot', 'Pinsir', 'Scyther', 'Snorlax', 'Vaporeon', 'Venomoth', 'Victreebel', 'Vileplume', 'Wigglytuff',
+    'Butterfree', 'Dodrio', 'Exeggutor', 'Fearow', 'Gloom', 'Lickitung', 'Marowak', 'Nidorina', 'Parasect',
+    'Persian', 'Primeape', 'Rapidash', 'Rhydon', 'Seaking', 'Tauros', 'Weepinbell', 'Bellsprout', 'Cubone',
+    'Eevee', 'Exeggcute', 'Goldeen', 'Jigglypuff', 'Mankey', 'Meowth', 'Nidoran♀', 'Oddish', 'Paras', 'Pikachu',
+    'Rhyhorn', 'Spearow', 'Venonat', 'Poké Ball']);
+  const sameName = (a, b) => normalize(a) === normalize(b) &&
+    ['♀', '♂'].every(sign => String(a).includes(sign) === String(b).includes(sign));
   const normalize = value => String(value || '').normalize('NFKC').toLowerCase()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
   const validNumber = n => /^[1-9]\d?$/.test(n) && Number(n) <= 64;
 
-  function routeFor(card, options = {}, router) {
+  function routeFor(card, options = {}) {
+    return buildRoute(card, options, '12');
+  }
+
+  // Fails closed: wrong set, id or name never yields a Jungle link. Only the two tables
+  // above may produce an exact page; everything else is a labelled, unverified search.
+  function buildRoute(card, options, language) {
     const n = String(card?.number || ''), name = String(card?.name || '');
-    if (!validNumber(n) || !name.trim()) return {url: '', exact: false};
-    const identityMatches = card.source_id === 'base2-' + n &&
-      (!card.source_set_id || card.source_set_id === 'base2');
-    let url = '', exact = false;
-    const confirmed = CONFIRMED[n];
-    if (identityMatches && confirmed && normalize(name) === normalize(confirmed[0])) {
-      url = CARDMARKET + '/Singles/Jungle/' + confirmed[1];
-      exact = true;
-    } else if (identityMatches && router && typeof router.safeRoute === 'function') {
-      const result = router.safeRoute({
-        source_id: card.source_id, source_set_id: 'base2', set_name: 'Jungle',
-        name, number: n, language: 'EN', condition: 'NM'
-      });
-      if (result?.exact && typeof result.url === 'string') {
-        try {
-          const candidate = new URL(result.url);
-          if (candidate.protocol === 'https:' && candidate.hostname === 'www.cardmarket.com' &&
-              (/^\/en\/Pokemon\/Products\/Singles\/Jungle\//.test(candidate.pathname) ||
-               (candidate.pathname === '/en/Pokemon/Products' && /^[1-9]\d*$/.test(candidate.searchParams.get('idProduct') || '')))) {
-            url = candidate.href;
-            exact = true;
-          }
-        } catch { /* A malformed candidate is not an exact route. */ }
-      }
+    if (!validNumber(n) || !name.trim()) return {url: '', exact: false, verified: ''};
+    if (card.source_id !== 'base2-' + n || (card.source_set_id && card.source_set_id !== 'base2')) {
+      return {url: '', exact: false, verified: ''};
     }
-    if (!url) url = CARDMARKET + '/Search?searchString=' + encodeURIComponent(name + ' JU' + n);
+    if (!sameName(name, CATALOG[Number(n) - 1])) return {url: '', exact: false, verified: ''};
+    const live = LIVE[n], confirmed = CONFIRMED[n], known = live || confirmed;
+    if (known && !sameName(name, known[0])) return {url: '', exact: false, verified: ''};
+    let url, exact = false, verified = '';
+    if (known) {
+      url = CARDMARKET + '/Singles/Jungle/' + known[1];
+      exact = true;
+      verified = live ? 'live' : 'collector';
+    } else {
+      url = CARDMARKET + '/Search?searchString=' + encodeURIComponent(name + ' JU' + n);
+    }
     const result = new URL(url);
-    result.searchParams.set('language', '12');
+    result.searchParams.set('language', language);
     result.searchParams.set('minCondition', CONDITION[options.condition] || CONDITION.NM);
-    result.searchParams.delete('isReverseHolo');
-    result.searchParams.delete('isFirstEd');
     if (options.edition === '1ST') result.searchParams.set('isFirstEd', 'Y');
     if (options.edition === 'UNLIMITED') result.searchParams.set('isFirstEd', 'N');
-    return {url: result.href, exact};
+    return {url: result.href, exact, verified};
   }
 
   // The English route always remains distinct from the Dutch URL.
-  function englishRouteFor(card, options = {}, router) {
-    const n = String(card?.number || ''), name = String(card?.name || '');
-    if (!validNumber(n) || !name.trim() || card.source_id !== 'base2-' + n ||
-        (card.source_set_id && card.source_set_id !== 'base2')) return {url: '', exact: false};
-    let found;
-    try {
-      found = router?.safeRoute?.({
-        source_id: card.source_id, source_set_id: 'base2', set_name: 'Jungle',
-        name, number: n, language: 'EN', condition: 'NM'
-      });
-    } catch { /* Fall back to a clearly labeled English search. */ }
-    let url;
-    try {
-      const candidate = new URL(found?.url || '');
-      if (candidate.protocol === 'https:' && candidate.hostname === 'www.cardmarket.com' &&
-          candidate.pathname.startsWith('/en/Pokemon/Products/')) url = candidate;
-    } catch { /* Ignore invalid URLs. */ }
-    const exact = Boolean(url && found?.exact);
-    if (!url) url = new URL(CARDMARKET + '/Search?searchString=' + encodeURIComponent(name + ' JU' + n));
-    url.searchParams.set('language', '1');
-    url.searchParams.set('minCondition', CONDITION[options.condition] || CONDITION.NM);
-    url.searchParams.delete('isReverseHolo');
-    url.searchParams.delete('isFirstEd');
-    if (options.edition === '1ST') url.searchParams.set('isFirstEd', 'Y');
-    if (options.edition === 'UNLIMITED') url.searchParams.set('isFirstEd', 'N');
-    return {url: url.href, exact};
+  function englishRouteFor(card, options = {}) {
+    return buildRoute(card, options, '1');
   }
 
   function mount(root) {
@@ -190,7 +184,7 @@
         }
         const content = el('div', 'nlJInfo');
         content.append(el('strong', '', '#' + c.number + ' · ' + c.name));
-        const route = routeFor(c, {condition: condition.value, edition: edition.value}, root.HoloDexLibrary);
+        const route = routeFor(c, {condition: condition.value, edition: edition.value});
         const owner = el('label');
         const check = el('input');
         check.type = 'checkbox';
@@ -203,18 +197,23 @@
         };
         owner.append(check, doc.createTextNode('In bezit'));
         content.append(owner);
-        const link = el('a', '', route.exact ? '🇳🇱 NL · kaartpagina' : '🇳🇱 NL · zoekresultaten');
-        link.href = route.url;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        content.append(link);
-        const englishRoute = englishRouteFor(c, {condition: condition.value, edition: edition.value}, root.HoloDexLibrary);
-        const enLink = el('a', '', englishRoute.exact ? '🇬🇧 EN · kaartpagina' : '🇬🇧 EN · zoekresultaten');
-        enLink.href = englishRoute.url;
-        enLink.target = '_blank';
-        enLink.rel = 'noopener noreferrer';
-        enLink.style.marginLeft = '12px';
-        content.append(enLink);
+        const label = (flag, r) => flag + (r.exact ? ' · kaartpagina' : ' · zoekresultaten (niet live geverifieerd)');
+        if (route.url) {
+          const link = el('a', '', label('🇳🇱 NL', route));
+          link.href = route.url;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          content.append(link);
+        } else content.append(el('small', '', 'Geen betrouwbare Cardmarket-link voor deze kaart'));
+        const englishRoute = englishRouteFor(c, {condition: condition.value, edition: edition.value});
+        if (englishRoute.url) {
+          const enLink = el('a', '', label('🇬🇧 EN', englishRoute));
+          enLink.href = englishRoute.url;
+          enLink.target = '_blank';
+          enLink.rel = 'noopener noreferrer';
+          enLink.style.marginLeft = '12px';
+          content.append(enLink);
+        }
         row.append(content);
         grid.append(row);
       }
@@ -243,5 +242,5 @@
     };
     return true;
   }
-  return Object.freeze({routeFor, englishRouteFor, mount});
+  return Object.freeze({routeFor, englishRouteFor, mount, LIVE, CONFIRMED, CATALOG});
 });

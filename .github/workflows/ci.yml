@@ -96,6 +96,8 @@ jobs:
 
       - name: v185 library and retained isolated financial components
         run: node --test --test-concurrency=1 tests/library-v185.test.cjs tests/library-browser-v185.test.cjs tests/market-component-v185.test.cjs tests/history-component-v185.test.cjs tests/portfolio-component-v185.test.cjs tests/price-freshness-component-v185.test.cjs
+      - name: v244 NL Jungle exact routes
+        run: node --test tests/nl-jungle-routes-v244.test.cjs
 
       - name: Historical routing with exact contextual EN condition checks
         run: node --test tests/cardmarket-engine-v147.test.cjs
