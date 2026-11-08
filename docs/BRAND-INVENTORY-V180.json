@@ -9825,7 +9825,16 @@
     },
     {
       "file": "tests/nl-jungle-v245-browser.test.cjs",
-      "line": 112,
+      "line": 116,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "243dfdb108102c040df7ee191afb8e765f9b137408a7fc647b60e4e5c8977bd1"
+    },
+    {
+      "file": "tests/nl-jungle-v245-browser.test.cjs",
+      "line": 138,
       "names": [
         "holokeep"
       ],
@@ -9834,12 +9843,48 @@
     },
     {
       "file": "tests/nl-jungle-v245-browser.test.cjs",
-      "line": 113,
+      "line": 139,
       "names": [
         "cardscout"
       ],
       "category": "TEST_HISTORY",
       "sha256": "8c725d55ff4b6d616bf78ed29c7b7fa2a9d0f8781e1986a536546ace9adc37a9"
+    },
+    {
+      "file": "tests/nl-jungle-v245-browser.test.cjs",
+      "line": 162,
+      "names": [
+        "holokeep"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "c9f3e8ac6da705b34d49693e3f06955e30d877096a0b3bfab8ff5fd84ebed654"
+    },
+    {
+      "file": "tests/nl-jungle-v245-browser.test.cjs",
+      "line": 164,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "54f2b72a10ffdd968450220a3f96183412739547c92cac0538baabd9a5c75cc4"
+    },
+    {
+      "file": "tests/nl-jungle-v245-browser.test.cjs",
+      "line": 173,
+      "names": [
+        "holokeep"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "42a5d4c66ef7f98b4eb4f0bc77eed65263f090d0d0edbb8e8b475d461b1a93c0"
+    },
+    {
+      "file": "tests/nl-jungle-v245-browser.test.cjs",
+      "line": 177,
+      "names": [
+        "holokeep"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "c9f3e8ac6da705b34d49693e3f06955e30d877096a0b3bfab8ff5fd84ebed654"
     },
     {
       "file": "tests/nl-jungle-v245.test.cjs",
@@ -11101,7 +11146,16 @@
     },
     {
       "file": "ui-v137-focus.js",
-      "line": 907,
+      "line": 628,
+      "names": [
+        "HoloKeep"
+      ],
+      "category": "TECHNICAL_COMPATIBILITY",
+      "sha256": "a05bee7e46888601510780317d8005f59c2f849056b3ac90da9011023a24a291"
+    },
+    {
+      "file": "ui-v137-focus.js",
+      "line": 917,
       "names": [
         "cardscout"
       ],
@@ -11110,7 +11164,7 @@
     },
     {
       "file": "ui-v137-focus.js",
-      "line": 909,
+      "line": 919,
       "names": [
         "cardscout"
       ],
@@ -11119,7 +11173,7 @@
     },
     {
       "file": "ui-v137-focus.js",
-      "line": 913,
+      "line": 923,
       "names": [
         "cardscout"
       ],
@@ -11128,7 +11182,7 @@
     },
     {
       "file": "ui-v137-focus.js",
-      "line": 915,
+      "line": 925,
       "names": [
         "cardscout"
       ],
@@ -11137,7 +11191,7 @@
     },
     {
       "file": "ui-v137-focus.js",
-      "line": 916,
+      "line": 926,
       "names": [
         "cardscout"
       ],
