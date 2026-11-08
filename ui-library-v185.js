@@ -57,11 +57,11 @@
   const showSets=button('Meer sets tonen',()=>{setLimit+=24;renderSets(false)});browser.append(heading,intro,filters,count,grid,showSets,details);
   host.append(tools,status,more,browser);$('smartSuggestions').before(host);
   const collectionLink=button('Blader door de kaartbibliotheek',()=>{$('navSearch').click();browser.hidden=false;toggle.setAttribute('aria-expanded','true');renderSets();host.scrollIntoView({block:'start'});});collectionLink.className='libraryCollectionLink';$('collectionSets').before(collectionLink);
-  let library,snapshot,seq=0,page=1,timer,setLimit=24,detailSeq=0,currentSet=null,cardPage=0,ownership='all',routeSeq=0,productIndexPromise;
+  let library,snapshot,seq=0,page=1,timer,setLimit=24,detailSeq=0,currentSet=null,cardPage=0,ownership='all',cardSearch='',routeSeq=0,productIndexPromise;
   const cardDetails=new Map();
   const active=()=>document.documentElement.dataset.activeTab==='search';
   const lang=()=>$('langSelect').value==='JP'?'JP':'EN';
-  const ownedIds=(l,setId)=>new Set(window.cardscoutCollectionUI.items().filter(x=>{
+  const ownedIds=(l,setId)=>new Set(window.cardscoutCollectionUI.catalogItems().filter(x=>{
     const source=String(x.sourceId||''),explicit=x.source_set_id||x.sourceSetId;
     return x.language===l&&x.listType==='OWNED'&&source.startsWith(setId+'-')&&(!explicit||explicit===setId);
   }).map(x=>x.sourceId));
@@ -157,15 +157,19 @@
       b.append(el('small',s.seriesName||s.series),el('strong',s.name),el('span',s.id+' · '+l),el('small',s.available?s.available+' kaarten in bronmeting':'Kaartgegevens ontbreken'));grid.append(b);}
     showSets.hidden=sets.length<=setLimit;
   }
-  async function openSet(s,l){const token=++detailSeq;details.replaceChildren(el('h3',s.name),el('p','Kaarten laden…'));details.scrollIntoView({block:'start'});try{const result=await library.loadSet(l,s.id);if(token!==detailSeq)return;CardCatalog.importLibrary(result.cards);currentSet={set:s,lang:l,result};cardPage=0;ownership='all';renderCards();}catch(e){if(token!==detailSeq)return;details.append(el('p','Kaartgegevens niet beschikbaar. '+(navigator.onLine?'Probeer opnieuw.':'Je bent offline.')),button('Opnieuw proberen',()=>openSet(s,l)));}}
+  async function openSet(s,l){const token=++detailSeq;details.replaceChildren(el('h3',s.name),el('p','Kaarten laden…'));details.scrollIntoView({block:'start'});try{const result=await library.loadSet(l,s.id);if(token!==detailSeq)return;CardCatalog.importLibrary(result.cards);currentSet={set:s,lang:l,result};cardPage=0;ownership='all';cardSearch='';renderCards();}catch(e){if(token!==detailSeq)return;details.append(el('p','Kaartgegevens niet beschikbaar. '+(navigator.onLine?'Probeer opnieuw.':'Je bent offline.')),button('Opnieuw proberen',()=>openSet(s,l)));}}
   function renderCards(){const {set,lang:l,result}=currentSet,mine=ownedIds(l,set.id);details.replaceChildren(el('h3',set.name));
     if(l==='NL')details.append(el('p','Nederlandse Jungle · 64 kaartidentiteiten. Afbeeldingen zijn Engelse referentiebeelden, niet Nederlandse kaartafbeeldingen.','libraryStatus'));
     const owned=result.cards.filter(c=>mine.has(c.source_id)).length;
-    details.append(el('p',set.name+': '+result.cards.length+' beschikbare kaarten · '+owned+' in bezit · '+(result.cards.length-owned)+' niet in bezit binnen deze set'));
+    details.append(el('p',set.name+': '+result.cards.length+' beschikbare kaarten · '+owned+' in bezit · '+(result.cards.length-owned)+' niet als bezit herkend'));
+    details.append(el('p','Alleen collectie-items met een eenduidige bronidentiteit tellen mee; andere items blijven bewaard.','libraryStatus'));
     details.append(el('p',result.complete&&!result.stale?'Brondekking compleet: '+result.total+' kaartidentiteiten. Uitvoeringen tellen niet apart.':'Onvolledige of verouderde brondekking; geen volledige setvoortgang.', 'libraryStatus'));
     if(result.stale)details.append(el('p','Offline/eerdere cache: '+result.error,'libraryStatus'));
     const filter=el('div',null,'libraryFilters');for(const [key,label] of [['all','Alle kaarten'],['owned','In bezit'],['missing','Ontbreekt']]){const b=button(label,()=>{ownership=key;cardPage=0;renderCards()});b.setAttribute('aria-pressed',String(key===ownership));filter.append(b);}details.append(filter);
-    const cards=result.cards.filter(c=>ownership==='all'||(ownership==='owned')===mine.has(c.source_id)),cardGrid=el('div',null,'libraryCardGrid');
+    const search=el('input');search.type='search';search.placeholder='Zoek naam of nummer in deze set';search.setAttribute('aria-label','Zoek binnen deze set');search.value=cardSearch;
+    search.addEventListener('input',()=>{cardSearch=search.value;cardPage=0;renderCards();const next=details.querySelector('[aria-label="Zoek binnen deze set"]');next.focus();next.setSelectionRange(cardSearch.length,cardSearch.length);});details.append(search);
+    const terms=HoloDexLibrary.normalize(cardSearch).split(' ').filter(Boolean);
+    const cards=result.cards.filter(c=>(ownership==='all'||(ownership==='owned')===mine.has(c.source_id))&&terms.every(t=>HoloDexLibrary.normalize(c.name+' '+c.number+' '+c.source_id).includes(t))),cardGrid=el('div',null,'libraryCardGrid');
     for(const c of cards.slice(cardPage*24,cardPage*24+24)){const b=button('',()=>openLibraryCard(c,l));b.className='libraryCard';imageCard(c,b);b.append(el('strong',c.name),el('small',(c.number?'#'+c.number+' · ':'')+c.source_id),el('span',mine.has(c.source_id)?'In bezit':'Ontbreekt'));cardGrid.append(b);}details.append(cardGrid);
     if(!cards.length)details.append(el('p','Geen kaarten beschikbaar in dit filter.'));
     const nav=el('div',null,'libraryToolbar'),prev=button('Vorige kaarten',()=>{cardPage--;renderCards()}),next=button('Volgende kaarten',()=>{cardPage++;renderCards()});prev.disabled=cardPage===0;next.disabled=(cardPage+1)*24>=cards.length;nav.append(prev,el('span',(cardPage+1)+' / '+Math.max(1,Math.ceil(cards.length/24))),next);details.append(nav);

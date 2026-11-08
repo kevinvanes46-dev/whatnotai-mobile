@@ -213,29 +213,41 @@
     async function once(key,fn){if(!inflight.has(key))inflight.set(key,Promise.resolve().then(fn).finally(()=>inflight.delete(key)));return inflight.get(key);}
     function getSets(lang){code(lang);return sets.get(lang);}
     function convert(raw,set,lang){return cards(raw,set,lang).map(c=>legacyCard(c));}
+    function cachedResult(value,set,lang,savedAt,stale){
+      const converted=convert(value.cards,set,lang);
+      const complete=value.complete===true&&Number.isSafeInteger(value.total)&&value.total>0&&
+        converted.length===value.total&&converted.length===value.cards.length;
+      return {...value,cards:converted,complete,cached:true,stale,validatedAt:savedAt};
+    }
     async function loadSet(lang,id,{refresh=false}={}){code(lang);const set=getSets(lang).find(s=>s.id===id);if(!set)throw Error('Set niet ontdekt');const key=lang+'-set-'+id;
       return once(key,async()=>{const cached=read(key);const old=cached&&Array.isArray(cached.value.cards)?cached.value:null;
-        if(old&&!refresh&&now()-cached.savedAt<TTL){const result={...old,cards:convert(old.cards,set,lang),cached:true,stale:false};state.set(key,result);return result;}
+        if(old&&!refresh&&now()-cached.savedAt<TTL){const result=cachedResult(old,set,lang,cached.savedAt,false);state.set(key,result);return result;}
         try{const data=await json(code(lang)+'/sets/'+encodeURIComponent(id));if(data?.id!==id||!Array.isArray(data.cards))throw Error('Ongeldige setrespons');
           const accepted=cards(data.cards,set,lang);if(!accepted.length&&old?.cards.length)throw Error('Lege respons; eerdere kaarten behouden');
           const total=Number.isSafeInteger(data.cardCount?.total)&&data.cardCount.total>=0?data.cardCount.total:null;
-          const complete=total!==null&&accepted.length===total&&data.cards.length===accepted.length;
+          const complete=total!==null&&total>0&&accepted.length===total&&data.cards.length===accepted.length;
           // An incomplete refresh must never discard previously validated identities.
           const merged=new Map((old?.cards||[]).map(c=>[c.id,c]));for(const c of accepted)merged.set(c.source_id,{id:c.source_id,localId:c.number,name:c.name,image:c.image});
           const raw=complete?accepted.map(c=>({id:c.source_id,localId:c.number,name:c.name,image:c.image})):[...merged.values()];
           const value={cards:raw,total,complete,received:accepted.length};const persisted=write(key,value);
-          const result={...value,cards:convert(raw,set,lang),cached:false,stale:false,persisted};state.set(key,result);return result;
-        }catch(error){if(old){const result={...old,cards:convert(old.cards,set,lang),cached:true,stale:true,error:error.message};state.set(key,result);return result;}throw error;}
+          const result={...value,cards:convert(raw,set,lang),cached:false,stale:false,persisted,validatedAt:now()};state.set(key,result);return result;
+        }catch(error){if(old){const result={...cachedResult(old,set,lang,cached.savedAt,true),error:error.message};state.set(key,result);return result;}throw error;}
       });
     }
     async function discover(lang){const key=lang+'-sets';code(lang);const previous=getSets(lang);if(lang==='NL')return {sets:previous,unclassified:0,curated:true};try{const data=await json(code(lang)+'/sets');if(!Array.isArray(data)||!data.length)throw Error('Ongeldige setlijst');
+      const counts=new Map();for(const s of data)if(validId(s?.id))counts.set(s.id,(counts.get(s.id)||0)+1);
+      const conflicts=new Set([...counts].filter(([,count])=>count>1).map(([id])=>id));
+      if(previous.some(s=>conflicts.has(s.id)))throw Error('Dubbele set-ID in bron; bestaande setlijst behouden');
       const next=previous.map(s=>{const live=data.find(x=>x.id===s.id);return live?{...s,name:live.name||s.name,logo:artwork(live.logo),cardCount:live.cardCount||s.cardCount}:s;});
-      const extra=data.filter(s=>validId(s.id)&&s.name&&!previous.some(x=>x.id===s.id));
-      let index=0,unclassified=0;await Promise.all(Array.from({length:Math.min(4,extra.length)},async()=>{while(index<extra.length){const s=extra[index++];try{const d=await json(code(lang)+'/sets/'+encodeURIComponent(s.id));if(d.id!==s.id||!d.serie?.id)throw Error('Serie ontbreekt');if(d.serie.id==='tcgp')continue;next.push({...s,logo:artwork(s.logo),series:d.serie.id,seriesName:d.serie.name||d.serie.id,available:cards(d.cards,s,lang).length});}catch{unclassified++;}}}));
+      const extra=data.filter(s=>validId(s.id)&&s.name&&!conflicts.has(s.id)&&!previous.some(x=>x.id===s.id));
+      let index=0,unclassified=conflicts.size;await Promise.all(Array.from({length:Math.min(4,extra.length)},async()=>{while(index<extra.length){const s=extra[index++];try{const d=await json(code(lang)+'/sets/'+encodeURIComponent(s.id));if(d.id!==s.id||!d.serie?.id||d.name!==s.name)throw Error('Setidentiteit ontbreekt of is tegenstrijdig');if(d.serie.id==='tcgp')continue;next.push({...s,logo:artwork(s.logo),series:d.serie.id,seriesName:d.serie.name||d.serie.id,available:cards(d.cards,s,lang).length});}catch{unclassified++;}}}));
       sets.set(lang,next);write(key,next);return {sets:next,unclassified};
     }catch(error){return {sets:previous,error:error.message};}}
     function restore(){const restored=[];for(const lang of ['EN','JP','NL']){const meta=read(lang+'-sets');if(lang!=='NL'&&Array.isArray(meta?.value))sets.set(lang,meta.value.filter(s=>validId(s.id)&&s.name&&s.series&&s.series!=='tcgp'));
-      for(const s of getSets(lang)){const cached=read(lang+'-set-'+s.id);if(Array.isArray(cached?.value?.cards))restored.push(...convert(cached.value.cards,s,lang));}}
+      for(const s of getSets(lang)){const key=lang+'-set-'+s.id,cached=read(key);if(Array.isArray(cached?.value?.cards)){
+        const result=cachedResult(cached.value,s,lang,cached.savedAt,now()-cached.savedAt>=TTL);
+        state.set(key,result);restored.push(...result.cards);
+      }}}
       return restored;
     }
     async function search(lang,query,page=1){code(lang);if(!Number.isSafeInteger(page)||page<1)throw Error('Ongeldige pagina');const q=normalize(query);if(q.length<2)return {cards:[],more:false};
@@ -255,7 +267,8 @@
         const result={cards:accepted,more:data.length===80,incomplete:accepted.length!==data.length};write(key,result);return result;
       }catch(error){if(cached)return {...cached.value,cards:cached.value.cards.map(legacyCard),stale:true,error:error.message};throw error;}
     }
-    return {getSets,loadSet,discover,search,state,restore};
+    function coverage(lang,id){const result=state.get(lang+'-set-'+id);return result?{...result,stale:result.stale||now()-result.validatedAt>=TTL}:null;}
+    return {getSets,loadSet,discover,search,state,coverage,restore};
   }
   return Object.freeze({create,cards,normalize,artwork,cardmarketRoute,cardmarketOptions,offerUrl,ambiguousLegacy,confirmedRoute,safeRoute,TTL});
 });

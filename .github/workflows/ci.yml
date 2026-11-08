@@ -100,6 +100,8 @@ jobs:
         run: node --test tests/nl-jungle-routes-v244.test.cjs
       - name: v245 NL Jungle library, collection, import and mobile regressions
         run: node --test tests/nl-jungle-v245.test.cjs tests/nl-jungle-v245-browser.test.cjs
+      - name: v246 set coverage audit and catalog regressions
+        run: node --test tests/set-coverage-v246.test.cjs
 
       - name: Historical routing with exact contextual EN condition checks
         run: node --test tests/cardmarket-engine-v147.test.cjs
