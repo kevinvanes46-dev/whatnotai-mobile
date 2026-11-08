@@ -18,9 +18,16 @@
   $('cardSheetMeta').textContent=[x.setName||x.set,x.number&&'#'+x.number,x.language,x.condition,x.variant,x.edition==='1ST'?'1st Edition':''].filter(Boolean).join(' · ');
   $('cardSheetArt').classList.toggle('owned',!!uid);$('cardSheetArt').replaceChildren();window.CardArtwork.mount(c,$('cardSheetArt'));
   $('cardSheetPrice').textContent='';$('cardSheetNote').textContent='Marktindicatie ophalen…';
-  let url=s.cardmarketUrl||(x.language==='EN'&&window.HoloDexLibrary?.safeRoute?window.HoloDexLibrary.safeRoute(x).url:'');try{url=url||ui().cardmarketLink(x);const parsed=new URL(url);if(parsed.protocol!=='https:'||parsed.hostname!=='www.cardmarket.com')url='';}catch{url='';}
+  let url,route;
+  if(x.language==='EN'&&window.HoloDexLibrary?.safeRoute){
+   const card={...c,...x,source_id:c.source_id||x.sourceId,sourceId:c.sourceId||x.sourceId,
+    set_name:c.set_name||x.setName,setName:c.setName||x.setName};
+   route=window.HoloDexLibrary.safeRoute(card);url=route.url;
+  }else url=s.cardmarketUrl||ui().cardmarketLink(x);
+  try{const parsed=new URL(url);if(parsed.protocol!=='https:'||parsed.hostname!=='www.cardmarket.com')url='';}catch{url='';}
   delete $('cardSheetLink').dataset.cmVariantOwner;
   $('cardSheetLink').hidden=!url;if(url)$('cardSheetLink').href=url;
+  $('cardSheetLink').textContent=route?(route.exact?'Bekijk exacte kaart op Cardmarket':'Zoek op Cardmarket · controleer set en nummer'):'Bekijk op Cardmarket';
   $('cardSheetAction').textContent=uid?'Kaart bewerken':'Aan map toevoegen';
   $('cardSheetAction').onclick=()=>{detail.close();uid?ui().openItem(uid):ui().openAddFor(s);};
   if(!detail.open)detail.showModal();$('cardSheetClose').focus();

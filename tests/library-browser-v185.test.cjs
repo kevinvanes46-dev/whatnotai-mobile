@@ -160,6 +160,106 @@ test('shared complete set shows progress only after unique source identity valid
   assert.equal(await p.locator('.binderSlot').count(),1);
 });
 test('unified search finds modern combined match, pages broad results and keeps exact identity when adding and reloading',async t=>{const {p}=await setup(t);await p.locator('#quickInput').fill('Charizard 199 151');await p.locator('.suggestion').filter({hasText:'Charizard ex #199'}).waitFor();assert.equal(await p.locator('.suggestion').count(),1);await p.locator('.suggestion').first().click();await p.locator('#selectedCardOpen').click();assert.match(await p.locator('#cardSheetNote').innerText(),/uitgeschakeld/);await p.locator('#cardSheetAction').click();await p.locator('#collectionEditorSave').click();let items=await p.evaluate(()=>JSON.parse(localStorage.getItem('cardscout_collection_v133')));assert.equal(items.length,1);assert.equal(items[0].sourceId,'sv03.5-199');assert.equal(items[0].source_set_id,'sv03.5');assert.equal(items[0].language,'EN');const original=JSON.stringify(items);await p.reload();assert.equal(await p.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),original);await p.locator('#navSearch').click();await p.locator('#quickInput').fill('Charizard');await p.locator('#libraryMore').waitFor({state:'visible'});await p.locator('#libraryMore').click();await p.waitForFunction(()=>document.getElementById('libraryStatus').textContent.includes('pagina 2'));assert.ok(await p.locator('.suggestion').count()>=80);});
+test('151 Charizard 199 uses the same exact route in search, detail, collection and binder',async t=>{
+  const {p}=await setup(t),expected='/en/Pokemon/Products/Singles/151/Charizard-ex-V3-MEW199';
+  await p.locator('#quickInput').fill('Charizard 199 151');
+  await p.locator('.suggestion').filter({hasText:'Charizard ex #199'}).click();
+  assert.equal(new URL(await p.locator('#openBtn').getAttribute('href')).pathname,expected);
+  await p.locator('#selectedCardOpen').click();
+  assert.equal(new URL(await p.locator('#cardSheetLink').getAttribute('href')).pathname,expected);
+  await p.locator('#cardSheetAction').click();
+  await p.locator('#collectionEditorSave').click();
+  const saved=await p.evaluate(()=>localStorage.getItem('cardscout_collection_v133'));
+  await p.locator('#navCollection').click();
+  await p.waitForFunction(()=>document.querySelector('.collectionCard a[target="_blank"]'));
+  assert.equal(new URL(await p.locator('.collectionCard a[target="_blank"]').getAttribute('href')).pathname,expected);
+  await p.locator('#collectionSets .holoSet').filter({hasText:'151'}).click();
+  await p.locator('#binder [data-filter="owned"]').click();
+  await p.locator('#binder .binderSlot.owned').click();
+  assert.equal(new URL(await p.locator('#cardSheetLink').getAttribute('href')).pathname,expected);
+  assert.equal(await p.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),saved);
+});
+test('detail does not reuse an exact 151 link for an unverified stamped or 1st Edition selection',async t=>{
+  const {p}=await setup(t);
+  const base={source_id:'sv03.5-199',source_set_id:'sv03.5',set:'TCGDEX EN sv03.5',set_name:'151',
+    name:'Charizard ex',number:'199',language:'EN',catalogOnly:true};
+  for(const [stamped,edition] of [[true,'AUTO'],[false,'1ST']]){
+    await p.evaluate(({card,stamped,edition})=>HoloDexRedesign.open({card,condition:'NM',edition,stamped,
+      cardmarketUrl:'https://www.cardmarket.com/en/Pokemon/Products/Singles/151/Charizard-ex-V3-MEW199'}),{card:base,stamped,edition});
+    assert.equal(new URL(await p.locator('#cardSheetLink').getAttribute('href')).pathname,'/en/Pokemon/Products/Search');
+    assert.match(await p.locator('#cardSheetLink').innerText(),/Zoek op Cardmarket · controleer set en nummer/);
+    await p.locator('#cardSheetClose').click();
+  }
+});
+test('151 exact route remains available in the offline binder without changing stored cards',async t=>{
+  const {p,context}=await setup(t);
+  await p.evaluate(()=>navigator.serviceWorker.ready);
+  await p.waitForFunction(()=>navigator.serviceWorker.controller);
+  await p.locator('#quickInput').fill('Charizard 199 151');
+  await p.locator('.suggestion').filter({hasText:'Charizard ex #199'}).click();
+  await p.locator('#selectedCardOpen').click();
+  await p.locator('#cardSheetAction').click();
+  await p.locator('#collectionEditorSave').click();
+  const saved=await p.evaluate(()=>localStorage.getItem('cardscout_collection_v133'));
+  await context.setOffline(true);
+  await p.reload();
+  await p.locator('#navHome').click();
+  await p.locator('#homeSets .holoSet').filter({hasText:'151'}).click();
+  await p.locator('#binder [data-filter="owned"]').click();
+  await p.locator('#binder .binderSlot.owned').click();
+  assert.equal(new URL(await p.locator('#cardSheetLink').getAttribute('href')).pathname,'/en/Pokemon/Products/Singles/151/Charizard-ex-V3-MEW199');
+  assert.equal(await p.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),saved);
+});
+test('verified EN Jungle route is identical in search, detail, collection and binder',async t=>{
+  const {p}=await setup(t),expected='/en/Pokemon/Products/Singles/Jungle/Scyther-V2-JU26';
+  await p.route('https://api.tcgdex.net/v2/en/sets/base2',r=>r.fulfill({json:{
+    id:'base2',name:'Jungle',cardCount:{total:1},cards:[{id:'base2-26',localId:'26',name:'Scyther'}]
+  }}));
+  await p.locator('#libraryToggle').click();
+  await p.getByLabel('Filter sets',{exact:true}).fill('Jungle');
+  await p.locator('[data-set-id="base2"]').click();
+  await p.locator('.libraryCard').click();
+  await p.locator('#libraryCmChoices191').filter({hasText:'Bestaande productkoppeling'}).waitFor();
+  assert.equal(new URL(await p.locator('#cardSheetLink').getAttribute('href')).pathname,expected);
+  await p.locator('#cardSheetAction').click();
+  await p.locator('#collectionEditorSave').click();
+  const saved=await p.evaluate(()=>localStorage.getItem('cardscout_collection_v133'));
+  await p.locator('#navCollection').click();
+  await p.waitForFunction(()=>document.querySelector('.collectionCard a[target="_blank"]'));
+  assert.equal(new URL(await p.locator('.collectionCard a[target="_blank"]').getAttribute('href')).pathname,expected);
+  await p.locator('#collectionSets .holoSet').filter({hasText:'Jungle'}).click();
+  await p.locator('#binder [data-filter="owned"]').click();
+  await p.locator('#binder .binderSlot.owned').click();
+  assert.equal(new URL(await p.locator('#cardSheetLink').getAttribute('href')).pathname,expected);
+  await p.locator('#cardSheetClose').click();
+  await p.locator('#navSearch').click();
+  await p.locator('#quickInput').fill('Scyther 26 Jungle');
+  await p.locator('.suggestion').filter({hasText:'Scyther #26'}).first().click();
+  assert.equal(new URL(await p.locator('#openBtn').getAttribute('href')).pathname,expected);
+  assert.equal(await p.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),saved);
+});
+test('EN collection labels exact and search links even when no URL was stored',async t=>{
+  const {p}=await setup(t);
+  const rows=[
+    {uid:'exact',name:'Charizard ex',number:'199',set:'TCGDEX EN sv03.5',setName:'151',sourceId:'sv03.5-199',source_set_id:'sv03.5'},
+    {uid:'search',name:'Unknown Card',number:'999',set:'TCGDEX EN sv03.5',setName:'151',sourceId:'sv03.5-999',source_set_id:'sv03.5'},
+    {uid:'unavailable',name:'',number:'999',set:'TCGDEX EN sv03.5',setName:'151',sourceId:'sv03.5-999',source_set_id:'sv03.5',cardmarketUrl:'https://www.cardmarket.com/en/Pokemon/Products/Singles/151/Charizard-ex-V3-MEW199'}
+  ].map(row=>({...row,language:'EN',listType:'OWNED',condition:'NM',variant:'NORMAL',edition:'AUTO',qty:1,addedAt:1}));
+  await p.evaluate(rows=>localStorage.setItem('cardscout_collection_v133',JSON.stringify(rows)),rows);
+  const before=await p.evaluate(()=>localStorage.getItem('cardscout_collection_v133'));
+  await p.locator('#navCollection').click();
+  await p.locator('[data-collection-view="list"]').click();
+  const exact=p.locator('.collectionCard[data-id="exact"] a[target="_blank"]');
+  const search=p.locator('.collectionCard[data-id="search"] a[target="_blank"]');
+  await exact.waitFor();await search.waitFor();
+  assert.match(await exact.innerText(),/Exacte kaart/);
+  assert.equal(new URL(await exact.getAttribute('href')).pathname,'/en/Pokemon/Products/Singles/151/Charizard-ex-V3-MEW199');
+  assert.match(await search.innerText(),/Zoek op Cardmarket/);
+  assert.equal(new URL(await search.getAttribute('href')).pathname,'/en/Pokemon/Products/Search');
+  await p.locator('.collectionCard[data-id="unavailable"]').waitFor();
+  assert.equal(await p.locator('.collectionCard[data-id="unavailable"] a[target="_blank"]').count(),0);
+  assert.equal(await p.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),before);
+});
 test('set browser filters coverage and ownership at all mobile widths and desktop without overflow',async t=>{const {p}=await setup(t);await p.locator('#libraryToggle').click();await p.getByLabel('Filter sets',{exact:true}).fill('151');await p.locator('[data-set-id="sv03.5"]').click();await p.waitForFunction(()=>document.getElementById('librarySetDetail').textContent.includes('207 beschikbare'));assert.equal(await p.locator('.libraryCard').count(),24);await p.getByRole('button',{name:'Volgende kaarten',exact:true}).click();await p.getByRole('button',{name:'In bezit',exact:true}).click();assert.equal(await p.locator('.libraryCard').count(),0);await p.getByRole('button',{name:'Alle kaarten',exact:true}).click();for(const width of [320,375,390,430,1365]){await p.setViewportSize({width,height:width===1365?900:844});assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);fs.mkdirSync('docs/review-v185',{recursive:true});await p.screenshot({path:'docs/review-v185/library-'+width+'.png',fullPage:true});}await p.getByLabel('Bibliotheektaal').selectOption('JP');await p.locator('[data-set-id="SV2a"]').click();await p.waitForFunction(()=>document.getElementById('librarySetDetail').textContent.includes('210 beschikbare'));assert.equal(await p.locator('.libraryCard').count(),24);});
 test('production policy suppresses legacy cache and raw prices without mutating collection, cache, costs or history',async t=>{const {p,requests}=await setup(t);const item={...F.item,uid:'preserve',edition:'UNLIMITED',price:999,priceSource:'legacy',costBasis:{version:177,status:'KNOWN',unitCost:12,currency:'EUR',updatedAt:'2026-10-20T10:00:00.000Z'}},entry=Market.observe(F.card,item,{requestedLanguage:'en'});const cache={version:176,entries:{[Market.key(item)]:entry}};await p.evaluate(({item,cache})=>{localStorage.setItem('cardscout_collection_v133',JSON.stringify([item]));localStorage.setItem('holokeep_market_cache_v176',JSON.stringify(cache));localStorage.setItem('holodex_history_v183','preserved-marker');},{item,cache});const before=await p.evaluate(()=>({...localStorage}));requests.length=0;await p.locator('#navCollection').click();await p.evaluate(()=>cardscoutCollectionUI.refreshPrices(true));await p.locator('#navHome').click();assert.equal(await p.locator('#homeMarket').innerText(),'—');assert.match(await p.locator('.homeChartNote').innerText(),/uitgeschakeld/);assert.equal(await p.locator('#homeComparisonPanel svg').count(),0);assert.equal(await p.evaluate(()=>HoloKeepMarket.display(null,{price:999}).value),null);assert.equal(requests.filter(u=>/\/cards\//.test(u)).length,0);const after=await p.evaluate(()=>({...localStorage}));for(const key of ['cardscout_collection_v133','holokeep_market_cache_v176','holodex_history_v183'])assert.equal(after[key],before[key]);});
 test('verified Cardmarket page opens directly; missing JP logos show honest placeholders',async t=>{

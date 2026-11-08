@@ -102,6 +102,8 @@ jobs:
         run: node --test tests/nl-jungle-v245.test.cjs tests/nl-jungle-v245-browser.test.cjs
       - name: v246 set coverage audit and catalog regressions
         run: node --test tests/set-coverage-v246.test.cjs
+      - name: v247 Cardmarket audit and exact route regressions
+        run: node --test tests/cardmarket-audit-v247.test.cjs tests/cardmarket-v247-charizard.test.cjs tests/cardmarket-v247-jungle.test.cjs tests/cardmarket-exact-v194.test.cjs tests/cardmarket-curated-v195.test.cjs
 
       - name: Historical routing with exact contextual EN condition checks
         run: node --test tests/cardmarket-engine-v147.test.cjs

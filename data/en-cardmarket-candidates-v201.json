@@ -1,0 +1,2549 @@
+{
+  "schema": 201,
+  "status": "CANDIDATE_NOT_LIVE_VERIFIED",
+  "source": "https://raw.githubusercontent.com/northproxy/pokemon-card-wishlist/main/data/fixtures/primal-clash/mapping-review.csv",
+  "sourceGitBlob": "721c12ffacb18995c86c807469c895a8cc8a36f3",
+  "checkedAgainst": "V199 EN audit + bundled Cardmarket product catalog",
+  "counts": {
+    "canonical": 164,
+    "links": 167,
+    "single": 161,
+    "multi": 3,
+    "exceptions": 10
+  },
+  "cards": [
+    {
+      "cardId": "xy5-1",
+      "name": "Weedle",
+      "number": "1",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273532,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Weedle-PRC1",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-2",
+      "name": "Kakuna",
+      "number": "2",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273533,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Kakuna-PRC2",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-3",
+      "name": "Beedrill",
+      "number": "3",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273534,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Beedrill-PRC3",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-4",
+      "name": "Tangela",
+      "number": "4",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273535,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Tangela-PRC4",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-5",
+      "name": "Tangrowth",
+      "number": "5",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273536,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Tangrowth-PRC5",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-6",
+      "name": "Treecko",
+      "number": "6",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273537,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Treecko-PRC6",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-7",
+      "name": "Grovyle",
+      "number": "7",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273538,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Grovyle-PRC7",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-8",
+      "name": "Sceptile",
+      "number": "8",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273539,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Sceptile-PRC8",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-9",
+      "name": "Sceptile",
+      "number": "9",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273540,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Sceptile-PRC9",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-10",
+      "name": "Lotad",
+      "number": "10",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273541,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Lotad-PRC10",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-11",
+      "name": "Lombre",
+      "number": "11",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273542,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Lombre-PRC11",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-12",
+      "name": "Ludicolo",
+      "number": "12",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273543,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Ludicolo-PRC12",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-13",
+      "name": "Surskit",
+      "number": "13",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273544,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Surskit-PRC13",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-14",
+      "name": "Masquerain",
+      "number": "14",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273545,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Masquerain-PRC14",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-15",
+      "name": "Shroomish",
+      "number": "15",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273546,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Shroomish-PRC15",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-16",
+      "name": "Breloom",
+      "number": "16",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273547,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Breloom-PRC16",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-17",
+      "name": "Volbeat",
+      "number": "17",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273548,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Volbeat-PRC17",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-18",
+      "name": "Illumise",
+      "number": "18",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273549,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Illumise-PRC18",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-19",
+      "name": "Trevenant EX",
+      "number": "19",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273550,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Trevenant-EX-PRC19",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-20",
+      "name": "Vulpix",
+      "number": "20",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273551,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Vulpix-V1-PRC20",
+          "version": "V1",
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        },
+        {
+          "idProduct": 886899,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Vulpix-V2-PRC1",
+          "version": "V2",
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-21",
+      "name": "Ninetales",
+      "number": "21",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273552,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Ninetales-PRC21",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-22",
+      "name": "Slugma",
+      "number": "22",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273553,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Slugma-PRC22",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-23",
+      "name": "Magcargo",
+      "number": "23",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273554,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Magcargo-PRC23",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-24",
+      "name": "Magcargo",
+      "number": "24",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273555,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Magcargo-PRC24",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-25",
+      "name": "Torchic",
+      "number": "25",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273556,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Torchic-PRC25",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-26",
+      "name": "Torchic",
+      "number": "26",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273557,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Torchic-PRC26",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-27",
+      "name": "Combusken",
+      "number": "27",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273558,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Combusken-PRC27",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-28",
+      "name": "Blaziken",
+      "number": "28",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273559,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Blaziken-PRC28",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-29",
+      "name": "Camerupt EX",
+      "number": "29",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273560,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Camerupt-EX-PRC29",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-30",
+      "name": "Horsea",
+      "number": "30",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273561,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Horsea-PRC30",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-31",
+      "name": "Seadra",
+      "number": "31",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273562,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Seadra-PRC31",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-32",
+      "name": "Staryu",
+      "number": "32",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273563,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Staryu-PRC32",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-33",
+      "name": "Mudkip",
+      "number": "33",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273564,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Mudkip-PRC33",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-34",
+      "name": "Marshtomp",
+      "number": "34",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273565,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Marshtomp-PRC34",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-35",
+      "name": "Swampert",
+      "number": "35",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273566,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Swampert-PRC35",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-36",
+      "name": "Swampert",
+      "number": "36",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273567,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Swampert-PRC36",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-37",
+      "name": "Ludicolo",
+      "number": "37",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273568,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Ludicolo-PRC37",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-38",
+      "name": "Wailord EX",
+      "number": "38",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273569,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Wailord-EX-PRC38",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-39",
+      "name": "Barboach",
+      "number": "39",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273570,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Barboach-PRC39",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-40",
+      "name": "Whiscash",
+      "number": "40",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273571,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Whiscash-PRC40",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-41",
+      "name": "Whiscash",
+      "number": "41",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273572,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Whiscash-PRC41",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-42",
+      "name": "Corphish",
+      "number": "42",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273573,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Corphish-PRC42",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-43",
+      "name": "Feebas",
+      "number": "43",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273574,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Feebas-PRC43",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-44",
+      "name": "Milotic",
+      "number": "44",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273575,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Milotic-PRC44",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-45",
+      "name": "Spheal",
+      "number": "45",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273576,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Spheal-PRC45",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-46",
+      "name": "Spheal",
+      "number": "46",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273577,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Spheal-PRC46",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-47",
+      "name": "Sealeo",
+      "number": "47",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273578,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Sealeo-PRC47",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-48",
+      "name": "Walrein",
+      "number": "48",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273579,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Walrein-PRC48",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-49",
+      "name": "Clamperl",
+      "number": "49",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273580,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Clamperl-PRC49",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-50",
+      "name": "Huntail",
+      "number": "50",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273581,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Huntail-PRC50",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-51",
+      "name": "Gorebyss",
+      "number": "51",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273582,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Gorebyss-PRC51",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-52",
+      "name": "Gorebyss",
+      "number": "52",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273583,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Gorebyss-PRC52",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-53",
+      "name": "Kyogre",
+      "number": "53",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273584,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Kyogre-PRC53",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-54",
+      "name": "Kyogre EX",
+      "number": "54",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273585,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Kyogre-EX-V1-PRC54",
+          "version": "V1",
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-55",
+      "name": "Primal Kyogre EX",
+      "number": "55",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273586,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Primal-Kyogre-EX-V1-PRC55",
+          "version": "V1",
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        },
+        {
+          "idProduct": 363665,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Primal-Kyogre-EX-V2-OS",
+          "version": "V2",
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-56",
+      "name": "Manaphy",
+      "number": "56",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273587,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Manaphy-PRC56",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-57",
+      "name": "Chinchou",
+      "number": "57",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273588,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Chinchou-PRC57",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-58",
+      "name": "Lanturn",
+      "number": "58",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273589,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Lanturn-PRC58",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-59",
+      "name": "Electrike",
+      "number": "59",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273590,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Electrike-PRC59",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-60",
+      "name": "Electrike",
+      "number": "60",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273591,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Electrike-PRC60",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-61",
+      "name": "Manectric",
+      "number": "61",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273592,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Manectric-PRC61",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-62",
+      "name": "Tynamo",
+      "number": "62",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273593,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Tynamo-PRC62",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-63",
+      "name": "Eelektrik",
+      "number": "63",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273594,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Eelektrik-PRC63",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-64",
+      "name": "Eelektrik",
+      "number": "64",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273595,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Eelektrik-PRC64",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-65",
+      "name": "Eelektross",
+      "number": "65",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273596,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Eelektross-PRC65",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-66",
+      "name": "Nidoran♀",
+      "number": "66",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273597,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Nidoran-PRC66",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-67",
+      "name": "Nidorina",
+      "number": "67",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273598,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Nidorina-PRC67",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-68",
+      "name": "Nidoqueen",
+      "number": "68",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273599,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Nidoqueen-PRC68",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-69",
+      "name": "Nidoqueen",
+      "number": "69",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273600,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Nidoqueen-PRC69",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-70",
+      "name": "Tentacool",
+      "number": "70",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273601,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Tentacool-PRC70",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-71",
+      "name": "Tentacool",
+      "number": "71",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273602,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Tentacool-PRC71",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-72",
+      "name": "Tentacruel",
+      "number": "72",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273603,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Tentacruel-PRC72",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-73",
+      "name": "Starmie",
+      "number": "73",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273604,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Starmie-PRC73",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-74",
+      "name": "Rhyhorn",
+      "number": "74",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273605,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Rhyhorn-PRC74",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-75",
+      "name": "Rhydon",
+      "number": "75",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273606,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Rhydon-PRC75",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-76",
+      "name": "Rhyperior",
+      "number": "76",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273607,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Rhyperior-PRC76",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-77",
+      "name": "Rhyperior",
+      "number": "77",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273608,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Rhyperior-PRC77",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-78",
+      "name": "Nosepass",
+      "number": "78",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273609,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Nosepass-PRC78",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-79",
+      "name": "Meditite",
+      "number": "79",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273610,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Meditite-PRC79",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-80",
+      "name": "Medicham",
+      "number": "80",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273611,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Medicham-PRC80",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-81",
+      "name": "Medicham",
+      "number": "81",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273612,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Medicham-PRC81",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-82",
+      "name": "Trapinch",
+      "number": "82",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273613,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Trapinch-PRC82",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-83",
+      "name": "Solrock",
+      "number": "83",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273614,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Solrock-PRC83",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-84",
+      "name": "Groudon",
+      "number": "84",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273615,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Groudon-PRC84",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-85",
+      "name": "Groudon EX",
+      "number": "85",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273616,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Groudon-EX-PRC85",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-86",
+      "name": "Primal Groudon EX",
+      "number": "86",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273617,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Primal-Groudon-EX-V1-PRC86",
+          "version": "V1",
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        },
+        {
+          "idProduct": 363664,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Primal-Groudon-EX-V2-PRC86",
+          "version": "V2",
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-87",
+      "name": "Hippopotas",
+      "number": "87",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273618,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Hippopotas-PRC87",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-88",
+      "name": "Hippowdon",
+      "number": "88",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273619,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Hippowdon-PRC88",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-89",
+      "name": "Drilbur",
+      "number": "89",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273620,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Drilbur-PRC89",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-90",
+      "name": "Diggersby",
+      "number": "90",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273621,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Diggersby-PRC90",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-91",
+      "name": "Sharpedo EX",
+      "number": "91",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273622,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Sharpedo-EX-PRC91",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-92",
+      "name": "Crawdaunt",
+      "number": "92",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273623,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Crawdaunt-PRC92",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-93",
+      "name": "Aggron EX",
+      "number": "93",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273624,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Aggron-EX-V1-PRC93",
+          "version": "V1",
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-94",
+      "name": "M Aggron EX",
+      "number": "94",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273625,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/MAggron-EX-PRC94",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-95",
+      "name": "Probopass",
+      "number": "95",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273626,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Probopass-PRC95",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-96",
+      "name": "Excadrill",
+      "number": "96",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273627,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Excadrill-PRC96",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-97",
+      "name": "Excadrill",
+      "number": "97",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273628,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Excadrill-PRC97",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-98",
+      "name": "Honedge",
+      "number": "98",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273629,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Honedge-PRC98",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-99",
+      "name": "Doublade",
+      "number": "99",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273630,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Doublade-PRC99",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-100",
+      "name": "Aegislash",
+      "number": "100",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273631,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Aegislash-PRC100",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-101",
+      "name": "Mr. Mime",
+      "number": "101",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273632,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Mr-Mime-PRC101",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-102",
+      "name": "Marill",
+      "number": "102",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273633,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Marill-PRC102",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-103",
+      "name": "Azumarill",
+      "number": "103",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273634,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Azumarill-PRC103",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-104",
+      "name": "Azumarill",
+      "number": "104",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273635,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Azumarill-PRC104",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-105",
+      "name": "Gardevoir EX",
+      "number": "105",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273636,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Gardevoir-EX-PRC105",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-106",
+      "name": "M Gardevoir EX",
+      "number": "106",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273637,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/MGardevoir-EX-PRC106",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-107",
+      "name": "Kingdra",
+      "number": "107",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273638,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Kingdra-PRC107",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-108",
+      "name": "Kingdra",
+      "number": "108",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273639,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Kingdra-PRC108",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-109",
+      "name": "Vibrava",
+      "number": "109",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273640,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Vibrava-PRC109",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-110",
+      "name": "Flygon",
+      "number": "110",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273641,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Flygon-PRC110",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-111",
+      "name": "Zigzagoon",
+      "number": "111",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273642,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Zigzagoon-PRC111",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-112",
+      "name": "Linoone",
+      "number": "112",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273643,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Linoone-PRC112",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-113",
+      "name": "Skitty",
+      "number": "113",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273644,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Skitty-PRC113",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-114",
+      "name": "Delcatty",
+      "number": "114",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273645,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Delcatty-PRC114",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-115",
+      "name": "Spinda",
+      "number": "115",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273646,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Spinda-PRC115",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-116",
+      "name": "Bidoof",
+      "number": "116",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273647,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Bidoof-PRC116",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-117",
+      "name": "Bidoof",
+      "number": "117",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273648,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Bidoof-PRC117",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-118",
+      "name": "Bibarel",
+      "number": "118",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273649,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Bibarel-PRC118",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-119",
+      "name": "Bouffalant",
+      "number": "119",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273650,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Bouffalant-PRC119",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-120",
+      "name": "Bunnelby",
+      "number": "120",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273651,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Bunnelby-PRC120",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-121",
+      "name": "Bunnelby",
+      "number": "121",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273652,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Bunnelby-PRC121",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-122",
+      "name": "Acro Bike",
+      "number": "122",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273653,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Acro-Bike-PRC122",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-123",
+      "name": "Aggron Spirit Link",
+      "number": "123",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273654,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Aggron-Spirit-Link-PRC123",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-124",
+      "name": "Archie's Ace in the Hole",
+      "number": "124",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273655,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Archies-Ace-in-the-Hole-PRC124",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-125",
+      "name": "Dive Ball",
+      "number": "125",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273656,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Dive-Ball-PRC125",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-126",
+      "name": "Energy Retrieval",
+      "number": "126",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273657,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Energy-Retrieval-PRC126",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-127",
+      "name": "Escape Rope",
+      "number": "127",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273658,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Escape-Rope-PRC127",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-128",
+      "name": "Exp. Share",
+      "number": "128",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273659,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Exp-Share-PRC128",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-129",
+      "name": "Fresh Water Set",
+      "number": "129",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273660,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Fresh-Water-Set-PRC129",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-130",
+      "name": "Gardevoir Spirit Link",
+      "number": "130",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273661,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Gardevoir-Spirit-Link-PRC130",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-131",
+      "name": "Groudon Spirit Link",
+      "number": "131",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273662,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Groudon-Spirit-Link-PRC131",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-132",
+      "name": "Kyogre Spirit Link",
+      "number": "132",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273663,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Kyogre-Spirit-Link-PRC132",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-133",
+      "name": "Maxie's Hidden Ball Trick",
+      "number": "133",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273664,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Maxies-Hidden-Ball-Trick-PRC133",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-134",
+      "name": "Professor Birch's Observations",
+      "number": "134",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273665,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Professor-Birchs-Observations-PRC134",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-135",
+      "name": "Rare Candy",
+      "number": "135",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273666,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Rare-Candy-PRC135",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-136",
+      "name": "Repeat Ball",
+      "number": "136",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273667,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Repeat-Ball-PRC136",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-137",
+      "name": "Rough Seas",
+      "number": "137",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273668,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Rough-Seas-PRC137",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-138",
+      "name": "Scorched Earth",
+      "number": "138",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273669,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Scorched-Earth-PRC138",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-139",
+      "name": "Shrine of Memories",
+      "number": "139",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273670,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Shrine-of-Memories-PRC139",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-140",
+      "name": "Silent Lab",
+      "number": "140",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273671,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Silent-Lab-PRC140",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-141",
+      "name": "Teammates",
+      "number": "141",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273672,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Teammates-PRC141",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-142",
+      "name": "Weakness Policy",
+      "number": "142",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273673,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Weakness-Policy-PRC142",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-143",
+      "name": "Shield Energy",
+      "number": "143",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273674,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Shield-Energy-PRC143",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-144",
+      "name": "Wonder Energy",
+      "number": "144",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273675,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Wonder-Energy-PRC144",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-145",
+      "name": "Trevenant EX",
+      "number": "145",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273676,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Trevenant-EX-PRC145",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-146",
+      "name": "Camerupt EX",
+      "number": "146",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273677,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Camerupt-EX-PRC146",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-147",
+      "name": "Wailord EX",
+      "number": "147",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273678,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Wailord-EX-PRC147",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-148",
+      "name": "Kyogre EX",
+      "number": "148",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273679,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Kyogre-EX-V2-PRC148",
+          "version": "V2",
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-149",
+      "name": "Primal Kyogre EX",
+      "number": "149",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273680,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Primal-Kyogre-EX-V2-PRC149",
+          "version": "V2",
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-150",
+      "name": "Groudon EX",
+      "number": "150",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273681,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Groudon-EX-PRC150",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-151",
+      "name": "Primal Groudon EX",
+      "number": "151",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273682,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Primal-Groudon-EX-V2-PRC151",
+          "version": "V2",
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-152",
+      "name": "Sharpedo EX",
+      "number": "152",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273683,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Sharpedo-EX-PRC152",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-153",
+      "name": "Aggron EX",
+      "number": "153",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273684,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Aggron-EX-V2-PRC153",
+          "version": "V2",
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-154",
+      "name": "M Aggron EX",
+      "number": "154",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273685,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/MAggron-EX-PRC154",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-155",
+      "name": "Gardevoir EX",
+      "number": "155",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273686,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Gardevoir-EX-PRC155",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-156",
+      "name": "M Gardevoir EX",
+      "number": "156",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273687,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/MGardevoir-EX-PRC156",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-157",
+      "name": "Archie's Ace in the Hole",
+      "number": "157",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273688,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Archies-Ace-in-the-Hole-PRC157",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-158",
+      "name": "Maxie's Hidden Ball Trick",
+      "number": "158",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273689,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Maxies-Hidden-Ball-Trick-PRC158",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-159",
+      "name": "Professor Birch's Observations",
+      "number": "159",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273690,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Professor-Birchs-Observations-PRC159",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-160",
+      "name": "Teammates",
+      "number": "160",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273691,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Teammates-PRC160",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-161",
+      "name": "Dive Ball",
+      "number": "161",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273692,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Dive-Ball-PRC161",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-162",
+      "name": "Enhanced Hammer",
+      "number": "162",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273693,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Enhanced-Hammer-PRC162",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-163",
+      "name": "Switch",
+      "number": "163",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273694,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Switch-PRC163",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    },
+    {
+      "cardId": "xy5-164",
+      "name": "Weakness Policy",
+      "number": "164",
+      "setId": "xy5",
+      "links": [
+        {
+          "idProduct": 273695,
+          "url": "https://www.cardmarket.com/en/Pokemon/Products/Singles/Primal-Clash/Weakness-Policy-PRC164",
+          "version": null,
+          "evidence": "third-party historical listing-page extraction",
+          "officialExpansionId": 1585
+        }
+      ]
+    }
+  ],
+  "unmappedProducts": [
+    {
+      "status": "unmatched_duplicate_candidate",
+      "id": "295269",
+      "reason": "Product is not referenced by a successful listing URL and matches a directly mapped sibling in every inspected field except idProduct and dateAdded."
+    },
+    {
+      "status": "unmatched_duplicate_candidate",
+      "id": "295286",
+      "reason": "Product is not referenced by a successful listing URL and matches a directly mapped sibling in every inspected field except idProduct and dateAdded."
+    },
+    {
+      "status": "unmatched_duplicate_candidate",
+      "id": "295292",
+      "reason": "Product is not referenced by a successful listing URL and matches a directly mapped sibling in every inspected field except idProduct and dateAdded."
+    },
+    {
+      "status": "excluded",
+      "id": "300914",
+      "reason": "Online Code Card is outside MVP catalogue scope."
+    },
+    {
+      "status": "excluded",
+      "id": "300919",
+      "reason": "Online Code Card is outside MVP catalogue scope."
+    },
+    {
+      "status": "excluded",
+      "id": "300971",
+      "reason": "Online Code Card is outside MVP catalogue scope."
+    },
+    {
+      "status": "excluded",
+      "id": "300972",
+      "reason": "Online Code Card is outside MVP catalogue scope."
+    },
+    {
+      "status": "unmatched_duplicate_candidate",
+      "id": "312211",
+      "reason": "Product is not referenced by a successful listing URL and matches a directly mapped sibling in every inspected field except idProduct and dateAdded."
+    },
+    {
+      "status": "unmatched_duplicate_candidate",
+      "id": "312239",
+      "reason": "Product is not referenced by a successful listing URL and matches a directly mapped sibling in every inspected field except idProduct and dateAdded."
+    },
+    {
+      "status": "unmatched_duplicate_candidate",
+      "id": "312267",
+      "reason": "Product is not referenced by a successful listing URL and matches a directly mapped sibling in every inspected field except idProduct and dateAdded."
+    }
+  ]
+}
