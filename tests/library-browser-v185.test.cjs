@@ -20,6 +20,145 @@ test('v192 starts searches in English and preserves explicit language choices ac
   await p.locator('#navSearch').click();
   assert.equal(await p.locator('#langSelect').inputValue(),'EN');
 });
+test('mobile set search filters by name and number and keeps the selected source identity',async t=>{
+  const {p}=await setup(t);
+  await p.locator('#libraryToggle').click();
+  await p.getByLabel('Filter sets',{exact:true}).fill('151');
+  await p.locator('[data-set-id="sv03.5"]').click();
+  await p.locator('.libraryCard').first().waitFor();
+  const input=p.getByLabel('Zoek binnen deze set');
+  await input.fill('Charizard 199');
+  assert.equal(await p.locator('.libraryCard').count(),1);
+  assert.match(await p.locator('.libraryCard').innerText(),/sv03\.5-199/);
+  await p.locator('.libraryCard').click();
+  assert.match(await p.locator('#cardSheetMeta').innerText(),/151.*#199.*EN/);
+  assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+});
+test('incomplete set keeps its binder accessible without a completion percentage',async t=>{
+  const {p}=await setup(t);
+  await p.route('https://api.tcgdex.net/v2/en/sets/sv03.5',r=>r.fulfill({json:{
+    id:'sv03.5',cardCount:{total:207},cards:[{id:'sv03.5-199',localId:'199',name:'Charizard ex'}]
+  }}));
+  await p.locator('#libraryToggle').click();
+  await p.getByLabel('Filter sets',{exact:true}).fill('151');
+  await p.locator('[data-set-id="sv03.5"]').click();
+  await p.locator('.libraryCard').click();
+  await p.locator('#cardSheetAction').click();
+  await p.locator('#collectionEditorSave').click();
+  await p.evaluate(()=>{const key='cardscout_collection_v133',rows=JSON.parse(localStorage.getItem(key));rows.push({...rows[0],uid:'saved-outside-partial',sourceId:'sv03.5-198',name:'Saved second card',number:'198'});localStorage.setItem(key,JSON.stringify(rows));});
+  await p.locator('#navHome').click();
+  const row=p.locator('#homeSets .holoSet');
+  assert.match(await row.innerText(),/Setvoortgang onbekend/);
+  assert.equal(await row.locator('progress').count(),0);
+  assert.match(await p.locator('#homeSets').innerText(),/Sets met onbekende voortgang/);
+  await row.click();
+  assert.match(await p.locator('#binder').innerText(),/geen betrouwbare setvoortgang/);
+  assert.equal(await p.locator('#binder .binderSlot.owned').count(),2);
+  assert.match(await p.locator('#binder').innerText(),/Saved second card/);
+});
+test('offline cold catalog keeps saved EN, JP and NL sets and variants accessible without data loss',async t=>{
+  const {p,context}=await setup(t);
+  await p.evaluate(()=>navigator.serviceWorker.ready);
+  await p.waitForFunction(()=>navigator.serviceWorker.controller);
+  const base={listType:'OWNED',condition:'EX',variant:'STAMPED',edition:'AUTO',qty:2,paidEach:3,addedAt:1,future:{preserved:true}};
+  const rows=[
+    {...base,uid:'en',name:'Saved EN',number:'1',set:'TCGDEX EN me06',setName:'Saved EN set',language:'EN',sourceId:'me06-1',source_set_id:'me06'},
+    {...base,uid:'en-second',name:'Saved EN',number:'1',set:'TCGDEX EN me06',setName:'Saved EN set',language:'EN',sourceId:'me06-1',source_set_id:'me06',edition:'1ST'},
+    {...base,uid:'jp',name:'Saved JP',number:'',set:'TCGDEX JP WCS23',setName:'Saved JP set',language:'JP',sourceId:'WCS23-1',source_set_id:'WCS23'},
+    {...base,uid:'nl',name:'Saved NL',number:'7',set:'JUNGLE',setName:'Jungle',language:'NL',sourceId:'base2-7',source_set_id:'base2'},
+    {...base,uid:'wishlist',name:'Wishlist only',number:'1',set:'OTHER',setName:'Wishlist set',language:'EN',sourceId:'wishlist-1',source_set_id:'wishlist',listType:'WISHLIST'},
+    {...base,uid:'conflict',name:'Conflicting identity',number:'2',set:'OTHER',setName:'Conflicting set',language:'EN',sourceId:'wrong-2',source_set_id:'other'},
+    {...base,uid:'empty-id',name:'Incomplete identity',number:'',set:'OTHER',setName:'Invalid set',language:'EN',sourceId:'invalid-',source_set_id:'invalid'}
+  ];
+  await context.setOffline(true);
+  await p.route('https://api.tcgdex.net/**',r=>r.abort());
+  await p.evaluate(rows=>{
+    for(const key of Object.keys(localStorage))if(key.startsWith('holodex_library_v185_')||key.startsWith('cardscout_search_catalog_v152_'))localStorage.removeItem(key);
+    localStorage.setItem('cardscout_collection_v133',JSON.stringify(rows));
+  },rows);
+  const before=await p.evaluate(()=>localStorage.getItem('cardscout_collection_v133'));
+  await p.reload();
+  await p.waitForFunction(()=>window.HoloDexLibraryUI?.library&&window.CardCatalog);
+  await p.locator('#navHome').click();
+  assert.deepEqual(await p.evaluate(()=>[['EN','me06'],['JP','WCS23'],['NL','base2']].map(([l,id])=>CardCatalog.setCards(id,l).length)),[0,0,0]);
+  assert.equal(await p.locator('#homeSets .holoSet').count(),3);
+  assert.equal(await p.locator('#homeSets progress').count(),0);
+  for(const [name,language,card] of [['Saved EN set','EN','Saved EN'],['Saved JP set','JP','Saved JP'],['Jungle','NL','Saved NL']]){
+    const set=p.locator('#homeSets .holoSet').filter({hasText:name});
+    assert.match(await set.innerText(),new RegExp(language+' · Setvoortgang onbekend'));
+    await set.click();
+    assert.match(await p.locator('#binder').innerText(),/Onvolledige setinhoud · geen betrouwbare setvoortgang · opgeslagen eigen kaarten/);
+    assert.equal(await p.locator('#binder .binderSlot.owned').count(),1);
+    assert.match(await p.locator('#binder .binderSlot.owned').innerText(),new RegExp(card));
+    await p.locator('#binder [data-filter="missing"]').click();
+    assert.equal(await p.locator('#binder .binderSlot').count(),0);
+    await p.locator('#binder [data-filter="owned"]').click();
+    if(language==='EN'){
+      await p.locator('#binder .binderSlot').click();
+      assert.equal(await p.locator('.binderVariants button').count(),2);
+      await p.locator('.binderVariants button').filter({hasText:'1st Edition'}).click();
+      assert.match(await p.locator('#cardSheetMeta').innerText(),/EN · EX · STAMPED · 1st Edition/);
+      await p.locator('#cardSheetClose').click();
+    }else await p.locator('#binder').getByRole('button',{name:'Sluiten',exact:true}).click();
+  }
+  assert.equal(await p.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),before);
+  await p.reload();
+  assert.equal(await p.locator('#homeSets .holoSet').count(),3);
+  assert.equal(await p.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),before);
+});
+test('all saved sets appear on Home without the former ten-set cap',async t=>{
+  const {p}=await setup(t);
+  const rows=Array.from({length:12},(_,i)=>({uid:'owned-'+i,listType:'OWNED',name:'Saved card '+i,number:'1',
+    set:'Saved set '+i,setName:'Saved set '+i,language:'EN',sourceId:'saved'+i+'-1',source_set_id:'saved'+i,
+    condition:'NM',variant:'NORMAL',edition:'AUTO',qty:1,paidEach:null,addedAt:1}));
+  await p.evaluate(rows=>{localStorage.setItem('cardscout_collection_v133',JSON.stringify(rows));document.getElementById('navHome').click();},rows);
+  assert.equal(await p.locator('#homeSets .holoSet').count(),12);
+  assert.equal(await p.locator('#homeSets progress').count(),0);
+});
+test('set ownership ignores inferred or conflicting identities without changing collection data',async t=>{
+  const {p}=await setup(t);
+  const item={listType:'OWNED',name:'Charizard ex',number:'199',set:'TCGDEX EN sv03.5',setName:'151',
+    language:'EN',condition:'NM',variant:'NORMAL',edition:'AUTO',qty:1,paidEach:null,addedAt:1};
+  const rows=[{...item,uid:'no-source',set:'JUNGLE',setName:'Jungle',number:'7'},
+    {...item,uid:'conflict',sourceId:'sv03.5-199',source_id:'sv03.5-198',source_set_id:'sv03.5'},
+    {...item,uid:'wrong-set',sourceId:'sv03.5-199',source_set_id:'base1'},
+    {...item,uid:'wishlist',sourceId:'sv03.5-199',source_set_id:'sv03.5',listType:'WISHLIST'}];
+  await p.evaluate(rows=>localStorage.setItem('cardscout_collection_v133',JSON.stringify(rows)),rows);
+  const before=await p.evaluate(()=>localStorage.getItem('cardscout_collection_v133'));
+  assert.deepEqual(await p.evaluate(()=>cardscoutCollectionUI.catalogItems().map(x=>x.uid)),['wishlist']);
+  await p.locator('#libraryToggle').click();
+  await p.getByLabel('Filter sets',{exact:true}).fill('151');
+  await p.locator('[data-set-id="sv03.5"]').click();
+  await p.locator('.libraryCard').first().waitFor();
+  assert.match(await p.locator('#librarySetDetail').innerText(),/0 in bezit/);
+  assert.equal(await p.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),before);
+});
+test('shared partial set with a dotted ID never implies full coverage',async t=>{
+  const {p,context}=await setup(t);
+  await context.route('https://api.tcgdex.net/v2/en/sets/sv03.5',r=>r.fulfill({json:{
+    id:'sv03.5',cardCount:{total:207},cards:[{id:'sv03.5-199',localId:'199',name:'Charizard ex'}]
+  }}));
+  const payload=Buffer.from(JSON.stringify({v:1,set:'sv03.5',language:'EN',owned:['sv03.5-199']})).toString('base64');
+  await p.goto(origin+'/share-v181.html#'+payload);
+  await p.locator('#status').filter({hasText:'setdekking onvolledig'}).waitFor();
+  assert.doesNotMatch(await p.locator('#status').innerText(),/1 \/ 1/);
+  assert.equal(await p.locator('.binderSlot.owned').count(),1);
+});
+test('shared complete set shows progress only after unique source identity validation',async t=>{
+  const {p,context}=await setup(t);
+  const row={id:'sv03.5-199',localId:'199',name:'Charizard ex'};
+  let duplicate=false;
+  await context.route('https://api.tcgdex.net/v2/en/sets/sv03.5',r=>r.fulfill({json:{
+    id:'sv03.5',cardCount:{total:1},cards:duplicate?[row,row]:[row]
+  }}));
+  const payload=Buffer.from(JSON.stringify({v:1,set:'sv03.5',language:'EN',owned:['sv03.5-199']})).toString('base64');
+  await p.goto(origin+'/share-v181.html#'+payload);
+  await p.locator('#status').filter({hasText:'1 / 1'}).waitFor();
+  duplicate=true;
+  await p.reload();
+  await p.locator('#status').filter({hasText:'setdekking onvolledig'}).waitFor();
+  assert.equal(await p.locator('.binderSlot').count(),1);
+});
 test('unified search finds modern combined match, pages broad results and keeps exact identity when adding and reloading',async t=>{const {p}=await setup(t);await p.locator('#quickInput').fill('Charizard 199 151');await p.locator('.suggestion').filter({hasText:'Charizard ex #199'}).waitFor();assert.equal(await p.locator('.suggestion').count(),1);await p.locator('.suggestion').first().click();await p.locator('#selectedCardOpen').click();assert.match(await p.locator('#cardSheetNote').innerText(),/uitgeschakeld/);await p.locator('#cardSheetAction').click();await p.locator('#collectionEditorSave').click();let items=await p.evaluate(()=>JSON.parse(localStorage.getItem('cardscout_collection_v133')));assert.equal(items.length,1);assert.equal(items[0].sourceId,'sv03.5-199');assert.equal(items[0].source_set_id,'sv03.5');assert.equal(items[0].language,'EN');const original=JSON.stringify(items);await p.reload();assert.equal(await p.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),original);await p.locator('#navSearch').click();await p.locator('#quickInput').fill('Charizard');await p.locator('#libraryMore').waitFor({state:'visible'});await p.locator('#libraryMore').click();await p.waitForFunction(()=>document.getElementById('libraryStatus').textContent.includes('pagina 2'));assert.ok(await p.locator('.suggestion').count()>=80);});
 test('set browser filters coverage and ownership at all mobile widths and desktop without overflow',async t=>{const {p}=await setup(t);await p.locator('#libraryToggle').click();await p.getByLabel('Filter sets',{exact:true}).fill('151');await p.locator('[data-set-id="sv03.5"]').click();await p.waitForFunction(()=>document.getElementById('librarySetDetail').textContent.includes('207 beschikbare'));assert.equal(await p.locator('.libraryCard').count(),24);await p.getByRole('button',{name:'Volgende kaarten',exact:true}).click();await p.getByRole('button',{name:'In bezit',exact:true}).click();assert.equal(await p.locator('.libraryCard').count(),0);await p.getByRole('button',{name:'Alle kaarten',exact:true}).click();for(const width of [320,375,390,430,1365]){await p.setViewportSize({width,height:width===1365?900:844});assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);fs.mkdirSync('docs/review-v185',{recursive:true});await p.screenshot({path:'docs/review-v185/library-'+width+'.png',fullPage:true});}await p.getByLabel('Bibliotheektaal').selectOption('JP');await p.locator('[data-set-id="SV2a"]').click();await p.waitForFunction(()=>document.getElementById('librarySetDetail').textContent.includes('210 beschikbare'));assert.equal(await p.locator('.libraryCard').count(),24);});
 test('production policy suppresses legacy cache and raw prices without mutating collection, cache, costs or history',async t=>{const {p,requests}=await setup(t);const item={...F.item,uid:'preserve',edition:'UNLIMITED',price:999,priceSource:'legacy',costBasis:{version:177,status:'KNOWN',unitCost:12,currency:'EUR',updatedAt:'2026-10-20T10:00:00.000Z'}},entry=Market.observe(F.card,item,{requestedLanguage:'en'});const cache={version:176,entries:{[Market.key(item)]:entry}};await p.evaluate(({item,cache})=>{localStorage.setItem('cardscout_collection_v133',JSON.stringify([item]));localStorage.setItem('holokeep_market_cache_v176',JSON.stringify(cache));localStorage.setItem('holodex_history_v183','preserved-marker');},{item,cache});const before=await p.evaluate(()=>({...localStorage}));requests.length=0;await p.locator('#navCollection').click();await p.evaluate(()=>cardscoutCollectionUI.refreshPrices(true));await p.locator('#navHome').click();assert.equal(await p.locator('#homeMarket').innerText(),'—');assert.match(await p.locator('.homeChartNote').innerText(),/uitgeschakeld/);assert.equal(await p.locator('#homeComparisonPanel svg').count(),0);assert.equal(await p.evaluate(()=>HoloKeepMarket.display(null,{price:999}).value),null);assert.equal(requests.filter(u=>/\/cards\//.test(u)).length,0);const after=await p.evaluate(()=>({...localStorage}));for(const key of ['cardscout_collection_v133','holokeep_market_cache_v176','holodex_history_v183'])assert.equal(after[key],before[key]);});

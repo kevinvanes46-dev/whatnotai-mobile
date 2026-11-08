@@ -110,6 +110,16 @@
     const sourceId=item.sourceId||item.source_id||(item.language==='EN'&&ids.length===1&&item.number?ids[0]+'-'+String(item.number).split('/')[0].replace(/^0+(?=\d)/,''):'');
     return {...item,sourceId,source_set_id:item.source_set_id||item.sourceSetId||(ids.length===1&&item.language==='EN'?ids[0]:sourceId.slice(0,sourceId.lastIndexOf('-')))};
   }
+  function catalogItems(){
+    return read().map(normalizeItem).filter(item=>{
+      if(!item)return false;
+      const source=item.sourceId||item.source_id;
+      if(typeof source!=='string'||!source||(item.sourceId&&item.source_id&&item.sourceId!==item.source_id)||
+        (item.source_set_id&&item.sourceSetId&&item.source_set_id!==item.sourceSetId))return false;
+      const mapped=marketItem(item);
+      return typeof mapped.source_set_id==='string'&&mapped.source_set_id&&source.startsWith(mapped.source_set_id+'-');
+    }).map(marketItem);
+  }
   const marketEntry=x=>Market.get(localStorage,marketItem(x));
   const stalePrice=x=>Market.due(marketEntry(x));
   const priceIdentity=x=>Market.key(marketItem(x));
@@ -793,7 +803,7 @@
     if(a.some(stalePrice))refreshPrices(false);
   });
 
-  window.cardscoutCollectionUI={openAddFor:openAddEditor,items:()=>read().map(normalizeItem).filter(Boolean).map(marketItem),cardmarketLink:collectionLink,openAttention(){filterState={list:'ALL',language:'',variant:''};searchEl.value='';conditionFilter.value='';setFilter.value='';syncQuickFilterButtons();$('collectionAttention').click();},openItem(id){const item=read().map(normalizeItem).find(x=>x?.uid===id);if(item)openEditEditor(item);},lookupCard:resolveCard,priceFrom,render,refreshOnePrice,refreshPrices};
+  window.cardscoutCollectionUI={openAddFor:openAddEditor,items:()=>read().map(normalizeItem).filter(Boolean).map(marketItem),catalogItems,cardmarketLink:collectionLink,openAttention(){filterState={list:'ALL',language:'',variant:''};searchEl.value='';conditionFilter.value='';setFilter.value='';syncQuickFilterButtons();$('collectionAttention').click();},openItem(id){const item=read().map(normalizeItem).find(x=>x?.uid===id);if(item)openEditEditor(item);},lookupCard:resolveCard,priceFrom,render,refreshOnePrice,refreshPrices};
   migrate();
   syncQuickFilterButtons();
   render();
