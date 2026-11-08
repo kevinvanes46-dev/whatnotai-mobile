@@ -223,7 +223,7 @@
         window.HoloKeepDutchJungle?.routeFor(c,{condition:'NM'}).url).map(c=>[String(c.number),c]));
       if(!result.complete||cards.size!==64)throw Error('De Nederlandse Jungle-identiteiten zijn niet volledig beschikbaar');
       const current=read().map(normalizeItem).filter(Boolean);
-      const existing=new Set(current.filter(x=>x.language==='NL'&&
+      const existing=new Set(current.filter(x=>x.listType==='OWNED'&&x.language==='NL'&&
         (x.source_set_id==='base2'||String(x.sourceId||x.source_id||'').startsWith('base2-'))).map(x=>x.sourceId||x.source_id));
       const added=[];
       for(const number of numbers){

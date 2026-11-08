@@ -96,6 +96,32 @@ test('NL Jungle works in the standard set browser, collection, Cardmarket, and m
   }
 });
 
+test('a loaded NL Jungle suggestion opens the NL detail and saves its identity as owned',async t=>{
+  const {page}=await setup(t);
+  await page.locator('#libraryToggle').click();
+  await page.getByLabel('Bibliotheektaal').selectOption('NL');
+  await page.locator('[data-set-id="base2"]').click();
+  await page.locator('.libraryCard').first().waitFor();
+  await page.locator('#libraryToggle').click();
+  await page.locator('#quickInput').fill('Nidoqueen 7');
+  const suggestion=page.locator('#smartSuggestions .suggestion').filter({hasText:'Nidoqueen #7'}).filter({hasText:'NL'});
+  await suggestion.click();
+  assert.equal(await page.locator('#cardSheet').evaluate(el=>el.open),true);
+  assert.match(await page.locator('#cardSheetMeta').innerText(),/Jungle.*#7.*NL/);
+  assert.equal(new URL(await page.locator('#cardSheetLink').getAttribute('href')).searchParams.get('language'),'12');
+  assert.equal(await page.locator('#langSelect').inputValue(),'EN');
+  await page.locator('#cardSheetAction').click();
+  assert.match(await page.locator('#collectionEditorMeta').innerText(),/NL/);
+  await page.locator('#collectionEditorSave').click();
+  const items=await page.evaluate(()=>JSON.parse(localStorage.getItem('cardscout_collection_v133')||'[]'));
+  assert.equal(items.length,1);
+  assert.equal(items[0].listType,'OWNED');
+  assert.equal(items[0].language,'NL');
+  assert.equal(items[0].sourceId,'base2-7');
+  assert.equal(items[0].source_set_id,'base2');
+  assert.equal(new URL(items[0].cardmarketUrl).searchParams.get('language'),'12');
+});
+
 test('legacy Jungle checks require consent, import as NL without replacing data, and remain stored',async t=>{
   const enItem={uid:'keep-en',listType:'OWNED',name:'Nidoqueen',number:'7',set:'JUNGLE',setName:'Jungle',
     sourceId:'base2-7',source_set_id:'base2',language:'EN',condition:'EX',variant:'NORMAL',edition:'AUTO',qty:2,paidEach:4,addedAt:1};
@@ -121,6 +147,35 @@ test('legacy Jungle checks require consent, import as NL without replacing data,
   await page.reload();
   await page.locator('#navCollection').click();
   assert.equal(await page.locator('#collectionImportLegacyJungle').isVisible(),false);
+});
+
+test('legacy import preserves wishlist and existing owned records and remains idempotent on retry',async t=>{
+  const wish={uid:'wish-nl',listType:'WISHLIST',name:'Nidoqueen',number:'7',set:'JUNGLE',setName:'Jungle',
+    sourceId:'base2-7',source_set_id:'base2',language:'NL',condition:'EX',variant:'NORMAL',edition:'AUTO',qty:2,paidEach:null,addedAt:1};
+  const owned={uid:'owned-nl',listType:'OWNED',name:'Vaporeon',number:'12',set:'JUNGLE',setName:'Jungle',
+    sourceId:'base2-12',source_set_id:'base2',language:'NL',condition:'EX',variant:'NORMAL',edition:'AUTO',qty:3,paidEach:8,addedAt:2};
+  const ownedWish={...owned,uid:'also-wished',listType:'WISHLIST',paidEach:null};
+  const {page}=await setup(t,{[collectionKey]:[wish,owned,ownedWish],[legacyKey]:['7','12']});
+  page.on('dialog',dialog=>dialog.accept());
+  await page.locator('#navCollection').click();
+  await page.locator('#collectionImportLegacyJungle').click();
+  await page.waitForFunction(()=>Boolean(localStorage.getItem('holokeep_nl_jungle_beurs_import_v245')));
+  const check=async()=>{
+    const items=await page.evaluate(()=>JSON.parse(localStorage.getItem('cardscout_collection_v133')));
+    assert.deepEqual(items.find(item=>item.uid==='wish-nl'),wish);
+    assert.deepEqual(items.find(item=>item.uid==='owned-nl'),owned);
+    assert.deepEqual(items.find(item=>item.uid==='also-wished'),ownedWish);
+    assert.equal(items.filter(item=>item.listType==='OWNED'&&item.language==='NL'&&item.sourceId==='base2-7').length,1);
+    assert.equal(items.filter(item=>item.listType==='OWNED'&&item.language==='NL'&&item.sourceId==='base2-12').length,1);
+    assert.equal(items.length,4);
+  };
+  await check();
+  await page.evaluate(()=>localStorage.removeItem('holokeep_nl_jungle_beurs_import_v245'));
+  await page.reload();
+  await page.locator('#navCollection').click();
+  await page.locator('#collectionImportLegacyJungle').click();
+  await page.waitForFunction(()=>Boolean(localStorage.getItem('holokeep_nl_jungle_beurs_import_v245')));
+  await check();
 });
 
 test('cached NL Jungle cards remain openable when the API is unavailable after reload',async t=>{

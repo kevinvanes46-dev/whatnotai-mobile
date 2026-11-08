@@ -620,6 +620,15 @@
       if(betaSearch?.number(card))btn.querySelector('.suggestionMeta').textContent += ' · Pokédex '+betaSearch.number(card);
       if(window.CardArtwork){const art=document.createElement('span');art.className='suggestionArt';btn.prepend(art);window.CardArtwork.mount(card,art);}
       btn.addEventListener('click', () => {
+        if(lang==='NL'){
+          if(typeof invalidateCardmarketSelection==='function')invalidateCardmarketSelection();
+          smartSuggestions.hidden=true;
+          smartSuggestions.innerHTML='';
+          const condition=condSelect?.value||'NM';
+          const route=window.HoloKeepDutchJungle.routeFor(card,{condition,edition:'AUTO'});
+          window.HoloDexRedesign.open({card,condition,edition:'AUTO',stamped:false,cardmarketUrl:route?.url||''});
+          return;
+        }
         nameInput.value = displayName;
         // TCGdex Japanese records use a cross-language set mapping. Do not pretend that number is the
         // printed Japanese collector/Pokedex number; authentic local JP records still keep their real number.
@@ -671,7 +680,8 @@
     if((!tokens.length && !stampedOnly && !querySet) || !catalog.length){ smartSuggestions.hidden = true; smartSuggestions.innerHTML=''; return; }
 
     const results = catalog
-      .filter(c => (c.language || 'EN') === (langSelect?.value || 'EN'))
+      .filter(c => (c.language || 'EN') === (langSelect?.value || 'EN') ||
+        ((langSelect?.value || 'EN') === 'EN' && c.language === 'NL' && c.source_set_id === 'base2'))
       .filter(c => !querySet || c.set === querySet.key)
       .filter(c => !stampedOnly || ((c.language || 'EN') === 'EN' && STAMPED_SET_KEYS.has(c.set)))
       .map(c => ({card:c, score:tokens.length ? suggestionScore(c,tokens,fullQuery) : 10}))

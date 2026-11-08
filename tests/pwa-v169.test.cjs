@@ -11,8 +11,8 @@ const registration=fs.readFileSync('pwa-v169.js','utf8');
 const base='e4369f65646c6f547a21bc304891313916a83f8e';
 const scope='https://example.test/whatnotai-mobile/';
 const v245SourceHashes={
-  'ui-v137-collection.js':'d4469befa692b9957555fedced87655aba160e8e3f1e19972e22055c3d0008aa',
-  'ui-v137-focus.js':'118d5ae87baf9c345381d4f3ada01b7ac4c5fbac1ca495f79c87348109cbfa05'
+  'ui-v137-collection.js':'9607f2c1cb28f264a310746cc3353904138afec43626456974e0c75a7c7de7a2',
+  'ui-v137-focus.js':'fd427465fc4e37cea38cb89f1752e2d94bc882c105d9c87edabaf828538eae2c'
 };
 function workerContext(extra={}) {
   const handlers={};
