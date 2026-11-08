@@ -9392,16 +9392,34 @@
     },
     {
       "file": "tests/library-browser-v185.test.cjs",
-      "line": 65,
+      "line": 48,
       "names": [
         "cardscout"
       ],
       "category": "TEST_HISTORY",
-      "sha256": "03056c2a16bd63eb3cf24d9e1fea03c5c44afd1e3ad14c73e43440a183657f18"
+      "sha256": "0e948bef16ff1c4c71971f4145db991d579267a3d019c15bf8431ef4f9af73fa"
     },
     {
       "file": "tests/library-browser-v185.test.cjs",
-      "line": 66,
+      "line": 76,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "46dbd99a889fc1315266c4c2c2b79df5d2205cc654a3299f03c6e27b80530f30"
+    },
+    {
+      "file": "tests/library-browser-v185.test.cjs",
+      "line": 77,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "0cdf328f9b1542da5c558db5146272dca113628da432338663e1c38f4acecaf5"
+    },
+    {
+      "file": "tests/library-browser-v185.test.cjs",
+      "line": 79,
       "names": [
         "cardscout"
       ],
@@ -9410,16 +9428,7 @@
     },
     {
       "file": "tests/library-browser-v185.test.cjs",
-      "line": 67,
-      "names": [
-        "cardscout"
-      ],
-      "category": "TEST_HISTORY",
-      "sha256": "e803c54d88bdf3bfc25bbe8c443f4a4a28f44f2389006884815360a195225f74"
-    },
-    {
-      "file": "tests/library-browser-v185.test.cjs",
-      "line": 73,
+      "line": 104,
       "names": [
         "cardscout"
       ],
@@ -9428,7 +9437,61 @@
     },
     {
       "file": "tests/library-browser-v185.test.cjs",
-      "line": 101,
+      "line": 107,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "f843eb16e3378e30ea02e051686503566d0d958047afef6fee2a84f49a1080a9"
+    },
+    {
+      "file": "tests/library-browser-v185.test.cjs",
+      "line": 114,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "3db21a47412f825cfe0eeb75f04c3f9e81f46c8183e1b19cf14356fd3615cf06"
+    },
+    {
+      "file": "tests/library-browser-v185.test.cjs",
+      "line": 126,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "03056c2a16bd63eb3cf24d9e1fea03c5c44afd1e3ad14c73e43440a183657f18"
+    },
+    {
+      "file": "tests/library-browser-v185.test.cjs",
+      "line": 127,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "523cf7e8cf0dda3fc2b651eca7b94cad5f328142623ad00c4eb56239a9841eed"
+    },
+    {
+      "file": "tests/library-browser-v185.test.cjs",
+      "line": 128,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "e803c54d88bdf3bfc25bbe8c443f4a4a28f44f2389006884815360a195225f74"
+    },
+    {
+      "file": "tests/library-browser-v185.test.cjs",
+      "line": 134,
+      "names": [
+        "cardscout"
+      ],
+      "category": "TEST_HISTORY",
+      "sha256": "f843eb16e3378e30ea02e051686503566d0d958047afef6fee2a84f49a1080a9"
+    },
+    {
+      "file": "tests/library-browser-v185.test.cjs",
+      "line": 162,
       "names": [
         "cardscout"
       ],
@@ -9437,7 +9500,7 @@
     },
     {
       "file": "tests/library-browser-v185.test.cjs",
-      "line": 103,
+      "line": 164,
       "names": [
         "cardscout",
         "holokeep",
@@ -9448,7 +9511,7 @@
     },
     {
       "file": "tests/library-browser-v185.test.cjs",
-      "line": 133,
+      "line": 194,
       "names": [
         "cardscout"
       ],
@@ -9457,7 +9520,7 @@
     },
     {
       "file": "tests/library-browser-v185.test.cjs",
-      "line": 164,
+      "line": 225,
       "names": [
         "cardscout"
       ],
@@ -9466,7 +9529,7 @@
     },
     {
       "file": "tests/library-browser-v185.test.cjs",
-      "line": 165,
+      "line": 226,
       "names": [
         "cardscout"
       ],
@@ -9475,7 +9538,7 @@
     },
     {
       "file": "tests/library-browser-v185.test.cjs",
-      "line": 170,
+      "line": 231,
       "names": [
         "cardscout"
       ],
@@ -11633,7 +11696,7 @@
     },
     {
       "file": "ui-v181-redesign.js",
-      "line": 62,
+      "line": 67,
       "names": [
         "HoloKeep"
       ],
@@ -11642,7 +11705,7 @@
     },
     {
       "file": "ui-v181-redesign.js",
-      "line": 64,
+      "line": 69,
       "names": [
         "RareWorth"
       ],
@@ -11651,7 +11714,7 @@
     },
     {
       "file": "ui-v181-redesign.js",
-      "line": 107,
+      "line": 112,
       "names": [
         "cardscout"
       ],

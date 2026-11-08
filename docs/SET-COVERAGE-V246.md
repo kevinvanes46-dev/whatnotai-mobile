@@ -35,6 +35,26 @@ setnamen. Deze conflicten zijn niet als betrouwbare setidentiteit opgenomen.
 Setrecords zonder volledige kaartdekking kunnen worden geopend, maar tonen
 geen volledig setpercentage.
 
+### Onvolledige sets per bron-ID
+
+- EN: `wp` 0/7, `jumbo` 0/160, `sp` 0/10, `rc` 0/25,
+  `tk-sm-l` 18/30 en `mfb` 34/48.
+- JP: `web1` 47/48 en `WCS23` 1/30. De volgende 80 sets bevatten
+  0 bronrecords: `ADV1`, `ADV2`, `ADV3`, `ADV4`, `ADV5`, `PCG10`,
+  `L1b`, `L1a`, `L2`, `LL`, `L3`, `XY1b`, `XY1a`, `XY2`, `XY3`,
+  `XY4`, `XY5a`, `XY5b`, `XY6`, `XY7`, `XY8a`, `XY8b`, `XY9`,
+  `CP3`, `XY10`, `CP4`, `XY11b`, `XY11a`, `CP5`, `CP6`, `SM0`,
+  `SM1+`, `sm2+`, `SM3+`, `SM4+`, `SM5+`, `SMP2`, `S1W`, `S1H`,
+  `S1a`, `S2`, `S3`, `S3a`, `CS3.5`, `CS2.5`, `CS2b`, `CS4a`,
+  `CS1.5`, `CSA`, `CS3D`, `CS3a`, `CS1b`, `CS2a`, `CS3b`, `CS4Da`,
+  `CS1a`, `CS4b`, `CS4`, `S7R`, `S10D`, `S8a`, `S5a`, `S6a`,
+  `S4`, `S2a`, `S4a`, `S10b`, `BW1b`, `BW1a`, `BW2`, `BW4`, `DS`,
+  `BW5a`, `BW5b`, `BW6b`, `BW6a`, `BW7`, `SC`, `BW9`, `EBB`.
+  De conflicterende `BW3a` en `BW8a` zijn afzonderlijk uitgesloten.
+- NL-bron: `base1` 0/102, `base2` 0/64 en `base3` 0/62.
+  Dit beschrijft de Nederlandse bron, niet de behouden v245-Junglecatalogus
+  met 64 gecontroleerde referentie-identiteiten.
+
 ## Nederlands
 
 TCGdex `/v2/nl/sets` noemt Basis Set, Jungle en Fossiel, maar de
@@ -49,7 +69,9 @@ de Engelse referentieafbeeldingen blijven duidelijk gelabeld.
 - Een bron-ID en bronnummer zijn niet automatisch een gedrukt Japans
   kaartnummer. De bestaande JP-bronidentiteit en zoeksemantiek blijven leidend.
 - Onvolledige of verouderde setinhoud geeft geen betrouwbaar totaal;
-  de binder blijft bereikbaar met een expliciete melding.
+  Home en de binder blijven bereikbaar met een expliciete melding. Ontbreken
+  cataloguskaarten, dan toont de binder ook de eenduidig geïdentificeerde
+  opgeslagen eigen kaarten, zonder volledige setdekking te suggereren.
 - Collectieregels zonder expliciete of met tegenstrijdige bronidentiteit
   blijven ongewijzigd bewaard, maar tellen niet mee in setvoortgang.
 - Ontbrekende afbeeldingen gebruiken een zichtbare fallback.
@@ -72,6 +94,12 @@ de Engelse referentieafbeeldingen blijven duidelijk gelabeld.
 Na de laatste wijziging aan collectie-identiteiten zijn opnieuw 424
 catalogus- en per-setcontroles, 54 NL-, binder-, mobiele Chromium- en
 PWA-regressies en 169 collectie-, marktwaarde- en cloudregressies geslaagd.
+
+Na de offline-cold-startreparatie zijn 71 Home-, binder- en mobiele
+browserregressies, 450 NL-, PWA-, library- en setcontroles en 199 collectie-,
+markt-, cloud- en Cardmarket-controles geslaagd. JavaScript-syntaxcontrole
+voor 227 bestanden, 41 merk- en regeleindcontroles en 72 JP-kernregressies
+zijn geslaagd.
 
 De eerste brede browserrun had zes fouten doordat sets met onbekende
 voortgang niet meer vanaf Home bereikbaar waren. Na herstel bleven de

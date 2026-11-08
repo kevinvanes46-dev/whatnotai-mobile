@@ -49,13 +49,18 @@
  new MutationObserver(()=>{if(!searchActive()){for(const {row,key} of queue.splice(0))if(seen.get(row)===key)seen.delete(row);}else{document.querySelectorAll('#smartSuggestions .suggestion').forEach(row=>{observer.unobserve(row);observer.observe(row);});}}).observe(document.documentElement,{attributes:true,attributeFilter:['data-active-tab']});
  document.querySelectorAll('#condSelect,#editionSelect,#langSelect').forEach(n=>n.addEventListener('change',()=>{document.querySelectorAll('.suggestion').forEach(row=>{seen.delete(row);observer.unobserve(row);observer.observe(row);});}));
  $('stampedToggle')?.addEventListener('click',()=>{document.querySelectorAll('.suggestion').forEach(row=>{seen.delete(row);observer.unobserve(row);observer.observe(row);});});
- const home=el('section',null,'holoSets');home.id='homeSets';home.append(el('h3','Bijna compleet'));document.querySelector('[data-view="home"]').append(home);
+ const home=el('section',null,'holoSets');home.id='homeSets';home.append(el('h3','Jouw sets'));document.querySelector('[data-view="home"]').append(home);
  const collection=el('section',null,'holoSets');collection.id='collectionSets';collection.append(el('h3','Sets en voortgang'));document.querySelector('[data-view="collection"]').prepend(collection);
  const binder=el('dialog',null,'holoBinder');binder.id='binder';binder.setAttribute('aria-labelledby','binderTitle');document.body.append(binder);let current=null,page=0,filter='all';
- function groups(){const map=new Map();for(const x of ui().catalogItems().filter(x=>x.listType==='OWNED')){const id=x.source_set_id||x.sourceId?.slice(0,x.sourceId.lastIndexOf('-'));if(!id||!x.sourceId)continue;const key=x.language+':'+id;if(!map.has(key))map.set(key,{id,language:x.language,name:x.setName||x.set,owned:new Map()});const g=map.get(key);if(!g.owned.has(x.sourceId))g.owned.set(x.sourceId,x);}
+ const validSourcePart=s=>typeof s==='string'&&s.length>0&&s.length<100&&!/[\s/\\?#]/.test(s);
+ function groups(){const map=new Map();for(const x of ui().catalogItems().filter(x=>x.listType==='OWNED')){const id=x.source_set_id||x.sourceId?.slice(0,x.sourceId.lastIndexOf('-'));if(!validSourcePart(id)||!x.sourceId.startsWith(id+'-')||!validSourcePart(x.sourceId.slice(id.length+1)))continue;const key=x.language+':'+id;if(!map.has(key))map.set(key,{id,language:x.language,name:x.setName||x.set,owned:new Map()});const g=map.get(key);if(!g.owned.has(x.sourceId))g.owned.set(x.sourceId,x);}
   return [...map.values()].map(g=>{const coverage=window.HoloDexLibraryUI?.library?.coverage(g.language,g.id);
    const complete=coverage?.complete===true&&!coverage.stale;
-   return {...g,complete,cards:complete?coverage.cards:(window.CardCatalog?.setCards(g.id,g.language)||[])};});}
+   const cards=complete?coverage.cards:[...(window.CardCatalog?.setCards(g.id,g.language)||[])];
+   if(!complete){const ids=new Set(cards.map(c=>c.source_id));for(const x of g.owned.values())if(!ids.has(x.sourceId)){
+    cards.push({source_id:x.sourceId,source_set_id:g.id,language:g.language,name:x.name,number:x.number,set:x.set,set_name:x.setName,catalogOnly:true});
+   }}
+   return {...g,complete,cards};});}
  function progress(g){const exact=new Set(g.cards.map(c=>c.source_id));return [Array.from(g.owned.keys()).filter(id=>exact.has(id)).length,g.complete?exact.size:0];}
  function directArt(c,target){
   // Presentation only: never start a price/card-detail request for Home or binder.
@@ -72,9 +77,9 @@
  function renderSets(){const list=groups();for(const target of [home,collection]){
   target.querySelectorAll('.holoSet,.holoEmpty,.holoUnknownHeading').forEach(n=>n.remove());
   if(!list.length)target.append(el('p','Voeg je eerste kaart toe om je sets te bekijken.','holoEmpty'));
-  const known=nearlyComplete(list).slice(0,10),unknown=list.filter(g=>!g.complete&&g.cards.length);
+  const known=nearlyComplete(list),unknown=list.filter(g=>!g.complete),other=list.filter(g=>g.complete&&!known.includes(g));
   if(target===home&&!known.length&&list.length)target.append(el('p','Geen onvoltooide sets met bekende setinhoud.','holoEmpty'));
-  const shown=target===home?[...known,...unknown]:list;let unknownHeading=false;
+  const shown=target===home?[...known,...other,...unknown]:list;let unknownHeading=false;
   for(const g of shown){
    if(target===home&&!g.complete&&!unknownHeading){target.append(el('h4','Sets met onbekende voortgang','holoUnknownHeading'));unknownHeading=true;}
    const [owned,total]=progress(g),b=button('',()=>{current=g;page=0;filter='all';renderBinder();binder.showModal();});b.className='holoSet homeStack';
@@ -86,7 +91,7 @@
  }}
  function renderBinder(){
   const g=current; binder.replaceChildren();binder.append(button('Sluiten',()=>binder.close()));
-  const title=el('h2',g.name||g.id);title.id='binderTitle';const [owned,total]=progress(g);binder.append(title,el('p',g.language+' · '+(total?owned+' / '+total+' unieke kaarten':'Onvolledige setinhoud · geen betrouwbare setvoortgang')));
+  const title=el('h2',g.name||g.id);title.id='binderTitle';const [owned,total]=progress(g);binder.append(title,el('p',g.language+' · '+(total?owned+' / '+total+' unieke kaarten':'Onvolledige setinhoud · geen betrouwbare setvoortgang · opgeslagen eigen kaarten en beschikbare cataloguskaarten')));
   const ownRows=ui().catalogItems().filter(x=>x.listType==='OWNED'&&x.language===g.language),first=c=>ownRows.some(x=>x.sourceId===c.source_id&&x.edition==='1ST');
   const filters=el('div',null,'binderFilters');filters.setAttribute('aria-label','Kaarten filteren');
   for(const [key,label] of [['all','Alle'],['owned','In bezit'],['missing','Ontbreekt'],...(g.cards.some(first)?[['first','1st Ed.']]:[])]){const b=button(label,()=>{filter=key;page=0;renderBinder();binder.querySelector('[data-filter="'+key+'"]').focus();});b.dataset.filter=key;b.setAttribute('aria-pressed',String(key===filter));filters.append(b);}binder.append(filters);

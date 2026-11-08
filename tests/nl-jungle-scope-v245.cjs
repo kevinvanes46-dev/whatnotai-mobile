@@ -12,7 +12,7 @@ const EXPECTED={
   'ui-library-v185.js':'be7bcab44caa87b3cfc2546c7b8b30ff637446204c53714b0b79ef51434288d5',
   'ui-v137-collection.js':'dbef0b35ab5198927c9e8a4eae0151c400b5f85d2bb880247ec20c5bc44d25eb',
   'ui-v137-focus.js':'fd427465fc4e37cea38cb89f1752e2d94bc882c105d9c87edabaf828538eae2c',
-  'ui-v181-redesign.js':'fe75551215c27bcce10b2d1d7f62a40590ed73157cd3ecd8f500f0f4d4251db1'
+  'ui-v181-redesign.js':'2e093031332d3a04f1e432d4f2a9daa43dc2359a21d2f8df1041c5e0635a40ea'
 };
 
 module.exports=(file,code)=>{

@@ -45,6 +45,7 @@ test('incomplete set keeps its binder accessible without a completion percentage
   await p.locator('.libraryCard').click();
   await p.locator('#cardSheetAction').click();
   await p.locator('#collectionEditorSave').click();
+  await p.evaluate(()=>{const key='cardscout_collection_v133',rows=JSON.parse(localStorage.getItem(key));rows.push({...rows[0],uid:'saved-outside-partial',sourceId:'sv03.5-198',name:'Saved second card',number:'198'});localStorage.setItem(key,JSON.stringify(rows));});
   await p.locator('#navHome').click();
   const row=p.locator('#homeSets .holoSet');
   assert.match(await row.innerText(),/Setvoortgang onbekend/);
@@ -52,7 +53,67 @@ test('incomplete set keeps its binder accessible without a completion percentage
   assert.match(await p.locator('#homeSets').innerText(),/Sets met onbekende voortgang/);
   await row.click();
   assert.match(await p.locator('#binder').innerText(),/geen betrouwbare setvoortgang/);
-  assert.equal(await p.locator('#binder .binderSlot.owned').count(),1);
+  assert.equal(await p.locator('#binder .binderSlot.owned').count(),2);
+  assert.match(await p.locator('#binder').innerText(),/Saved second card/);
+});
+test('offline cold catalog keeps saved EN, JP and NL sets and variants accessible without data loss',async t=>{
+  const {p,context}=await setup(t);
+  await p.evaluate(()=>navigator.serviceWorker.ready);
+  await p.waitForFunction(()=>navigator.serviceWorker.controller);
+  const base={listType:'OWNED',condition:'EX',variant:'STAMPED',edition:'AUTO',qty:2,paidEach:3,addedAt:1,future:{preserved:true}};
+  const rows=[
+    {...base,uid:'en',name:'Saved EN',number:'1',set:'TCGDEX EN me06',setName:'Saved EN set',language:'EN',sourceId:'me06-1',source_set_id:'me06'},
+    {...base,uid:'en-second',name:'Saved EN',number:'1',set:'TCGDEX EN me06',setName:'Saved EN set',language:'EN',sourceId:'me06-1',source_set_id:'me06',edition:'1ST'},
+    {...base,uid:'jp',name:'Saved JP',number:'',set:'TCGDEX JP WCS23',setName:'Saved JP set',language:'JP',sourceId:'WCS23-1',source_set_id:'WCS23'},
+    {...base,uid:'nl',name:'Saved NL',number:'7',set:'JUNGLE',setName:'Jungle',language:'NL',sourceId:'base2-7',source_set_id:'base2'},
+    {...base,uid:'wishlist',name:'Wishlist only',number:'1',set:'OTHER',setName:'Wishlist set',language:'EN',sourceId:'wishlist-1',source_set_id:'wishlist',listType:'WISHLIST'},
+    {...base,uid:'conflict',name:'Conflicting identity',number:'2',set:'OTHER',setName:'Conflicting set',language:'EN',sourceId:'wrong-2',source_set_id:'other'},
+    {...base,uid:'empty-id',name:'Incomplete identity',number:'',set:'OTHER',setName:'Invalid set',language:'EN',sourceId:'invalid-',source_set_id:'invalid'}
+  ];
+  await context.setOffline(true);
+  await p.route('https://api.tcgdex.net/**',r=>r.abort());
+  await p.evaluate(rows=>{
+    for(const key of Object.keys(localStorage))if(key.startsWith('holodex_library_v185_')||key.startsWith('cardscout_search_catalog_v152_'))localStorage.removeItem(key);
+    localStorage.setItem('cardscout_collection_v133',JSON.stringify(rows));
+  },rows);
+  const before=await p.evaluate(()=>localStorage.getItem('cardscout_collection_v133'));
+  await p.reload();
+  await p.waitForFunction(()=>window.HoloDexLibraryUI?.library&&window.CardCatalog);
+  await p.locator('#navHome').click();
+  assert.deepEqual(await p.evaluate(()=>[['EN','me06'],['JP','WCS23'],['NL','base2']].map(([l,id])=>CardCatalog.setCards(id,l).length)),[0,0,0]);
+  assert.equal(await p.locator('#homeSets .holoSet').count(),3);
+  assert.equal(await p.locator('#homeSets progress').count(),0);
+  for(const [name,language,card] of [['Saved EN set','EN','Saved EN'],['Saved JP set','JP','Saved JP'],['Jungle','NL','Saved NL']]){
+    const set=p.locator('#homeSets .holoSet').filter({hasText:name});
+    assert.match(await set.innerText(),new RegExp(language+' · Setvoortgang onbekend'));
+    await set.click();
+    assert.match(await p.locator('#binder').innerText(),/Onvolledige setinhoud · geen betrouwbare setvoortgang · opgeslagen eigen kaarten/);
+    assert.equal(await p.locator('#binder .binderSlot.owned').count(),1);
+    assert.match(await p.locator('#binder .binderSlot.owned').innerText(),new RegExp(card));
+    await p.locator('#binder [data-filter="missing"]').click();
+    assert.equal(await p.locator('#binder .binderSlot').count(),0);
+    await p.locator('#binder [data-filter="owned"]').click();
+    if(language==='EN'){
+      await p.locator('#binder .binderSlot').click();
+      assert.equal(await p.locator('.binderVariants button').count(),2);
+      await p.locator('.binderVariants button').filter({hasText:'1st Edition'}).click();
+      assert.match(await p.locator('#cardSheetMeta').innerText(),/EN · EX · STAMPED · 1st Edition/);
+      await p.locator('#cardSheetClose').click();
+    }else await p.locator('#binder').getByRole('button',{name:'Sluiten',exact:true}).click();
+  }
+  assert.equal(await p.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),before);
+  await p.reload();
+  assert.equal(await p.locator('#homeSets .holoSet').count(),3);
+  assert.equal(await p.evaluate(()=>localStorage.getItem('cardscout_collection_v133')),before);
+});
+test('all saved sets appear on Home without the former ten-set cap',async t=>{
+  const {p}=await setup(t);
+  const rows=Array.from({length:12},(_,i)=>({uid:'owned-'+i,listType:'OWNED',name:'Saved card '+i,number:'1',
+    set:'Saved set '+i,setName:'Saved set '+i,language:'EN',sourceId:'saved'+i+'-1',source_set_id:'saved'+i,
+    condition:'NM',variant:'NORMAL',edition:'AUTO',qty:1,paidEach:null,addedAt:1}));
+  await p.evaluate(rows=>{localStorage.setItem('cardscout_collection_v133',JSON.stringify(rows));document.getElementById('navHome').click();},rows);
+  assert.equal(await p.locator('#homeSets .holoSet').count(),12);
+  assert.equal(await p.locator('#homeSets progress').count(),0);
 });
 test('set ownership ignores inferred or conflicting identities without changing collection data',async t=>{
   const {p}=await setup(t);
