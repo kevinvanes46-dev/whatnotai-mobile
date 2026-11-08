@@ -88,13 +88,24 @@ data, resolver, app, Jungle-module en het auditscript.
 ## Lokale testresultaten
 
 - `node scripts\check-ci.cjs core`: 72 geslaagd.
-- Alle 61 testbestanden uit de huidige CI-workflow en aanvullende
+- Voor de CI-diagnose: alle 61 testbestanden uit de huidige CI-workflow en aanvullende
   v247-resolver-/audittests samen, met `--test-concurrency=1`: 1.672 geslaagd,
   0 mislukt. Dit omvat mobiele Chromium-, collectie-, prijs-, NL-, offline
   PWA- en Cardmarket-regressies en de controle van alle 21.432 kaartidentiteiten.
 - Syntaxcontrole: 231 bestanden geslaagd. JP-manifest en audit: 780 records,
   waarvan 397 EXACT en 383 SEARCH, geslaagd.
 - Merkinventaris: generator `--check` en `git diff --cached --check` geslaagd.
+- Na de CI-diagnose: de volledige v185 library-/componenten-CI-stap,
+  inclusief mobiele Chromium en een geforceerde garbage-collection-proef:
+  49 geslaagd.
+
+De eerste twee GitHub-CI-runs faalden bij `page.evaluate` tijdens een
+prijsverversing met `Resulting promise was garbage collected`, terwijl dezelfde
+test lokaal slaagde. De testharness bewaart nu de lopende browseroperatie en
+wacht op haar resultaat zonder de CDP-promise rechtstreeks te laten wachten;
+fouten en time-outs blijven expliciet. De bestaande prijs- en collectieasserties
+zijn behouden. De onderliggende oorzaak van de CI-fout is niet onafhankelijk
+vastgesteld; alleen een nieuwe CI-run kan de wijziging daar toetsen.
 
 De historische `tests/cardmarket-routing.test.cjs` faalt ook op de ongewijzigde
 v246-mainbasis: de test verlangt exacte gelijkheid van `EMBEDDED_DATA` met een
