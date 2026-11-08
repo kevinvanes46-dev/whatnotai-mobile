@@ -3,6 +3,8 @@
 (() => {
   const $=id=>document.getElementById(id);
   const KEY='cardscout_collection_v133';
+  const LEGACY_NL_JUNGLE_KEY='holokeep_nl_jungle_beurs_v241';
+  const LEGACY_NL_JUNGLE_IMPORT_KEY='holokeep_nl_jungle_beurs_import_v245';
   const Market=window.HoloKeepMarket;
   const Cost=window.HoloKeepCostBasis;
   const Insights=window.HoloKeepPortfolioInsights;
@@ -154,6 +156,7 @@
     const sourceId=item.sourceId||(item.language==='EN'&&ids?.length===1?ids[0]+'-'+String(item.number).replace(/^0+(?=\d)/,''):'');
     const product=window.CM_PRODUCT_CATALOG?.[sourceId];
     const card={...item,source_id:sourceId,set_name:item.setName};
+    if(item.language==='NL'&&item.source_set_id==='base2')return window.HoloKeepDutchJungle?.routeFor(card,{condition:item.condition,edition:item.edition})?.url||'';
     // Re-resolve saved JP links so pre-v163 Western URLs cannot return on reload.
     if(item.language==='JP'&&window.JPCardmarketNative)return window.JPCardmarketNative.route(card).url;
     if(item.language==='EN'&&product&&typeof matchesCardmarketApiCard==='function'&&matchesCardmarketApiCard(card,product))return withFilters('https://www.cardmarket.com/en/Pokemon/Products?idProduct='+product.product,item.language,item.condition,item.edition);
@@ -172,7 +175,8 @@
     x.listType=LISTS.includes(String(x.listType||'').toUpperCase())?String(x.listType).toUpperCase():'OWNED';
     x.condition=CONDITIONS.includes(String(x.condition||'').toUpperCase())?String(x.condition).toUpperCase():'NM';
     x.variant=VARIANTS.includes(String(x.variant||'').toUpperCase())?String(x.variant).toUpperCase():'NORMAL';
-    x.language=String(x.language||'EN').toUpperCase()==='JP'?'JP':'EN';
+    const language=String(x.language||'EN').toUpperCase();
+    x.language=['JP','NL'].includes(language)?language:'EN';
     const jpSet=window.JPSetCatalog?.identity(x);
     if(jpSet){x.set=jpSet.key;x.setName=jpSet.label;}
     x.qty=Math.max(1,Number(x.qty)||1);
@@ -186,6 +190,66 @@
     const arr=read().map(normalizeItem).filter(Boolean);
     write(arr);
   }
+
+  const legacyImportBtn=document.createElement('button');
+  legacyImportBtn.type='button';
+  legacyImportBtn.id='collectionImportLegacyJungle';
+  legacyImportBtn.hidden=true;
+  const collectionToolbar=refreshBtn?.parentElement;
+  if(collectionToolbar)collectionToolbar.insertBefore(legacyImportBtn,refreshBtn);
+  function legacyJungleNumbers(){
+    try{
+      const saved=JSON.parse(localStorage.getItem(LEGACY_NL_JUNGLE_KEY)||'[]');
+      return [...new Set(Array.isArray(saved)?saved.map(String).filter(n=>/^[1-9]\d?$/.test(n)&&Number(n)<=64):[])];
+    }catch{return []}
+  }
+  function syncLegacyImportButton(){
+    let imported=false;
+    try{imported=Boolean(localStorage.getItem(LEGACY_NL_JUNGLE_IMPORT_KEY));}catch{}
+    const numbers=legacyJungleNumbers();
+    legacyImportBtn.hidden=imported||!numbers.length;
+    legacyImportBtn.textContent='Importeer oude Jungle-vinkjes ('+numbers.length+')';
+  }
+  async function importLegacyJungle(){
+    const numbers=legacyJungleNumbers();
+    if(!numbers.length)return;
+    if(!confirm('Importeer '+numbers.length+' oude Jungle-vinkjes als Nederlandse kaarten in Mijn collectie? Bestaande collectie-items blijven ongewijzigd. De oude vinkjes worden bewaard.'))return;
+    legacyImportBtn.disabled=true;
+    try{
+      const library=window.HoloDexLibraryUI?.library;
+      if(!library)throw Error('Kaartbibliotheek niet beschikbaar');
+      const result=await library.loadSet('NL','base2');
+      const cards=new Map((result.cards||[]).filter(c=>c.language==='NL'&&c.source_set_id==='base2'&&
+        window.HoloKeepDutchJungle?.routeFor(c,{condition:'NM'}).url).map(c=>[String(c.number),c]));
+      if(!result.complete||cards.size!==64)throw Error('De Nederlandse Jungle-identiteiten zijn niet volledig beschikbaar');
+      const current=read().map(normalizeItem).filter(Boolean);
+      const existing=new Set(current.filter(x=>x.listType==='OWNED'&&x.language==='NL'&&
+        (x.source_set_id==='base2'||String(x.sourceId||x.source_id||'').startsWith('base2-'))).map(x=>x.sourceId||x.source_id));
+      const added=[];
+      for(const number of numbers){
+        const card=cards.get(number);
+        if(!card||existing.has(card.source_id))continue;
+        const route=window.HoloKeepDutchJungle.routeFor(card,{condition:'NM'});
+        added.push(normalizeItem({uid:uid(),listType:'OWNED',name:card.name,number:card.number,
+          set:'JUNGLE',setName:'Jungle',sourceId:card.source_id,source_id:card.source_id,
+          source_set_id:'base2',language:'NL',condition:'NM',variant:'NORMAL',edition:'AUTO',
+          qty:1,paidEach:null,addedAt:Date.now(),image:card.image,cardmarketUrl:route.url}));
+        existing.add(card.source_id);
+      }
+      if(added.length&&!write([...current,...added]))throw Error('Opslaan in Mijn collectie is mislukt');
+      let markerSaved=true;
+      try{localStorage.setItem(LEGACY_NL_JUNGLE_IMPORT_KEY,new Date().toISOString());}
+      catch{markerSaved=false;}
+      render();
+      syncLegacyImportButton();
+      toast(markerSaved
+        ?added.length+' Nederlandse Jungle-kaarten geïmporteerd; bestaande items en oude vinkjes behouden'
+        :'Kaarten toegevoegd; eenmalige importstatus kon niet worden opgeslagen');
+    }catch(error){toast(error.message||'Importeren van Jungle-vinkjes mislukt');}
+    finally{legacyImportBtn.disabled=false;}
+  }
+  legacyImportBtn.addEventListener('click',importLegacyJungle);
+  syncLegacyImportButton();
 
   function currentFallback(){
     const name=$('nameInput')?.value?.trim();
@@ -281,7 +345,7 @@
     editorDelete.hidden=true;
     editor.dataset.pending=JSON.stringify({
       name:cleanVisibleCardName(c.name,c.number)||c.name,number:String(c.number||''),set:c.set||'AUTO',setName:c.set_name||c.set||'AUTO',
-      language:c.language||langSelect?.value||'EN',edition:sel.edition||editionSelect?.value||'AUTO',
+      language:c.language||langSelect?.value||'EN',edition:sel.edition||editionSelect?.value||'AUTO',image:c.image||'',
       sourceId:c.source_id||'',...(given?.card&&c.source_set_id?{source_set_id:c.source_set_id}:{}),...(c.language==='EN' && /^(dp[1-7]|dpp|pop[1-9]|pl[1-4]|hgss[1-4]|col1|hgssp)$/.test(c.source_set_id||'') ? {source_set_id:c.source_set_id} : {}),cardmarketUrl:sel.cardmarketUrl||c.url||openBtn?.getAttribute('href')||''
     });
     showEditor();
@@ -617,6 +681,7 @@
   }
   async function resolveCard(item){
     const lang=item.language==='JP'?'ja':'en';
+    if(item.language==='NL')return null;
     if(item.sourceId){
       try{return await fetchJson(`${API}/${lang}/cards/${encodeURIComponent(item.sourceId)}`)}catch(_){}
     }
@@ -635,12 +700,14 @@
   }
   function priceFrom(card,item){
     if(Market.enabled===false)return null;
+    if(item.language==='NL')return Market.observe(null,marketItem(item),{requestedLanguage:'nl'});
     return Market.observe(card,marketItem(item),{requestedLanguage:item.language==='JP'?'ja':'en'});
   }
   async function refreshOnePrice(uid){
     if(Market.enabled===false)return 'disabled';
     const initial=read().map(normalizeItem).filter(Boolean).find(x=>x.uid===uid);
     if(!initial||initial.listType!=='OWNED')return;
+    if(initial.language==='NL')return 'disabled';
     const requestKey=priceIdentity(initial);
     if(priceRequests.has(requestKey))return priceRequests.get(requestKey);
     const request=Promise.resolve().then(async()=>{try{
@@ -676,8 +743,10 @@
     if(Market.enabled===false){if(priceStatus)priceStatus.textContent='Marktprijzen uitgeschakeld · geen toegestane prijsbron';return;}
     if(refreshingPrices)return;
     const arr=read().map(normalizeItem).filter(Boolean);
-    const owned=arr.filter(x=>x.listType==='OWNED');
-    if(!owned.length){toast('Collectie is leeg');return}
+    const allOwned=arr.filter(x=>x.listType==='OWNED');
+    const owned=allOwned.filter(x=>x.language!=='NL');
+    if(!allOwned.length){toast('Collectie is leeg');return}
+    if(!owned.length){if(priceStatus)priceStatus.textContent='Geen geverifieerde Cardmarket-prijsbron voor NL; er wordt geen EN-prijs gebruikt';return}
     refreshingPrices=true;
     if(refreshBtn)refreshBtn.disabled=true;
     if(priceStatus)priceStatus.textContent='Prijsdata ophalen…';

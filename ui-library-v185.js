@@ -51,7 +51,7 @@
   const heading=el('h2','Ontdek je volgende set'),intro=el('p','Van de eerste uitbreidingen tot recente sets. Alleen fysieke kaarten; ontbrekende brondata blijft zichtbaar.');
   const filters=el('div',null,'libraryFilters'),setFilter=el('input');setFilter.type='search';setFilter.placeholder='Zoek een set of serie';setFilter.setAttribute('aria-label','Filter sets');
   const series=el('select');series.setAttribute('aria-label','Filter serie');
-  const language=el('select');language.setAttribute('aria-label','Bibliotheektaal');for(const [v,t] of [['EN','Engels'],['JP','Japans']])language.add(new Option(t,v));
+  const language=el('select');language.setAttribute('aria-label','Bibliotheektaal');for(const [v,t] of [['EN','Engels'],['JP','Japans'],['NL','Nederlands']])language.add(new Option(t,v));
   const refreshSets=button('Controleer nieuwe sets',async()=>{refreshSets.disabled=true;count.textContent='Setlijst controleren…';try{const r=await library.discover(language.value);renderSets();count.textContent+=' · '+(r.error?'Offline: eerdere setlijst behouden':r.unclassified?r.unclassified+' nieuwe sets nog niet verifieerbaar':'Setlijst gecontroleerd');}finally{refreshSets.disabled=false;}});
   filters.append(language,series,setFilter,refreshSets);const count=el('p',null,'libraryStatus'),grid=el('div',null,'librarySetGrid'),details=el('section',null,'librarySetDetail');details.id='librarySetDetail';
   const showSets=button('Meer sets tonen',()=>{setLimit+=24;renderSets(false)});browser.append(heading,intro,filters,count,grid,showSets,details);
@@ -129,7 +129,9 @@
   }
   function openLibraryCard(c,l){
     c={...c,condition:$('condSelect').value||'NM'};
-    const route=HoloDexLibrary.safeRoute(c,card=>window.JPCardmarketNative?.route(card));
+    const route=l==='NL'?window.HoloKeepDutchJungle.routeFor(c,{condition:c.condition,edition:'AUTO'}):
+      l==='EN'&&c.source_set_id==='base2'?window.HoloKeepDutchJungle.englishRouteFor(c,{condition:c.condition,edition:'AUTO'}):
+        HoloDexLibrary.safeRoute(c,card=>window.JPCardmarketNative?.route(card));
     window.HoloDexRedesign.open({card:c,condition:$('condSelect').value||'NM',edition:'AUTO',stamped:false,cardmarketUrl:route?.url||''});
     if(l==='EN')void resolveCardmarket(c,route||{url:'',exact:false},routeSeq);
   }
@@ -144,9 +146,12 @@
     return art;
   }
   function renderSets(reset=true){if(!library)return;if(reset)setLimit=24;const l=language.value,all=library.getSets(l);
+    intro.textContent=l==='NL'?'Nederlandse Jungle · 64 kaartidentiteiten. Afbeeldingen zijn Engelse referentiebeelden, niet Nederlandse kaartafbeeldingen.':'Van de eerste uitbreidingen tot recente sets. Alleen fysieke kaarten; ontbrekende brondata blijft zichtbaar.';
     if(series.dataset.language!==l){series.replaceChildren(new Option('Alle series',''));for(const id of [...new Set(all.map(s=>s.series))])series.add(new Option(all.find(s=>s.series===id).seriesName||id,id));series.dataset.language=l;}
     const q=HoloDexLibrary.normalize(setFilter.value),sets=all.filter(s=>(!series.value||s.series===series.value)&&HoloDexLibrary.normalize(s.name+' '+s.id+' '+s.seriesName).includes(q));
-    count.textContent=sets.length+' sets · bronmeting '+new Date(snapshot.measuredAt).toLocaleDateString('nl-NL');grid.replaceChildren();
+    count.textContent=l==='NL'
+      ?sets.map(s=>s.name+' · '+s.available+' EN-bronidentiteiten').join(' · ')||'Geen Nederlandse set beschikbaar in de bestaande bron'
+      :sets.length+' sets · bronmeting '+new Date(snapshot.measuredAt).toLocaleDateString('nl-NL');grid.replaceChildren();
     for(const s of sets.slice(0,setLimit)){const b=button('',()=>openSet(s,l));b.className='librarySet';b.dataset.setId=s.id;
       b.append(setArt(s));
       b.append(el('small',s.seriesName||s.series),el('strong',s.name),el('span',s.id+' · '+l),el('small',s.available?s.available+' kaarten in bronmeting':'Kaartgegevens ontbreken'));grid.append(b);}
@@ -154,6 +159,7 @@
   }
   async function openSet(s,l){const token=++detailSeq;details.replaceChildren(el('h3',s.name),el('p','Kaarten laden…'));details.scrollIntoView({block:'start'});try{const result=await library.loadSet(l,s.id);if(token!==detailSeq)return;CardCatalog.importLibrary(result.cards);currentSet={set:s,lang:l,result};cardPage=0;ownership='all';renderCards();}catch(e){if(token!==detailSeq)return;details.append(el('p','Kaartgegevens niet beschikbaar. '+(navigator.onLine?'Probeer opnieuw.':'Je bent offline.')),button('Opnieuw proberen',()=>openSet(s,l)));}}
   function renderCards(){const {set,lang:l,result}=currentSet,mine=ownedIds(l,set.id);details.replaceChildren(el('h3',set.name));
+    if(l==='NL')details.append(el('p','Nederlandse Jungle · 64 kaartidentiteiten. Afbeeldingen zijn Engelse referentiebeelden, niet Nederlandse kaartafbeeldingen.','libraryStatus'));
     const owned=result.cards.filter(c=>mine.has(c.source_id)).length;
     details.append(el('p',set.name+': '+result.cards.length+' beschikbare kaarten · '+owned+' in bezit · '+(result.cards.length-owned)+' niet in bezit binnen deze set'));
     details.append(el('p',result.complete&&!result.stale?'Brondekking compleet: '+result.total+' kaartidentiteiten. Uitvoeringen tellen niet apart.':'Onvolledige of verouderde brondekking; geen volledige setvoortgang.', 'libraryStatus'));
