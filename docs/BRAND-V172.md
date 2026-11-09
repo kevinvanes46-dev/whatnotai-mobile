@@ -244,7 +244,7 @@ G = PWA/manifest; H = tests/docs. Multiple categories can apply within one file.
 | tests/market-value-browser-v176.test.cjs | B, C, E, H | 12, 16, 20, 23, 42 | no |
 | tests/market-value-trust-v176.test.cjs | B, H | 43 | no |
 | tests/nl-jungle-v245-browser.test.cjs | E, H | 43 | no |
-| tests/nl-jungle-v245.test.cjs | B, H | 96 | no |
+| tests/nl-jungle-v245.test.cjs | B, H | 114 | no |
 | tests/onboarding-product-v171.test.cjs | B, C, H | 44, 52, 53, 54, 68, 72, 75, 78, 79, 83, 88, 111, 112 | no |
 | tests/parity-browser-v182.test.cjs | E, H | 7 | no |
 | tests/portfolio-component-v185.test.cjs | B, C, E, H | 8, 9, 17, 46 | no |
