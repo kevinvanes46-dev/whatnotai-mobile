@@ -129,10 +129,13 @@
   }
   function openLibraryCard(c,l){
     c={...c,condition:$('condSelect').value||'NM'};
-    const route=l==='NL'?window.HoloKeepDutchJungle.routeFor(c,{condition:c.condition,edition:'AUTO'}):
-      l==='EN'&&c.source_set_id==='base2'?window.HoloKeepDutchJungle.englishRouteFor(c,{condition:c.condition,edition:'AUTO'}):
+    // Respect the chosen edition for Western Jungle. Japanese cards must not
+    // inherit a Western 1st Edition setting from the search form.
+    const edition=c.source_set_id==='base2'&&(l==='NL'||l==='EN')&&$('editionSelect')?.value==='1ST'?'1ST':'AUTO';
+    const route=l==='NL'?window.HoloKeepDutchJungle.routeFor(c,{condition:c.condition,edition}):
+      l==='EN'&&c.source_set_id==='base2'?window.HoloKeepDutchJungle.englishRouteFor(c,{condition:c.condition,edition}):
         HoloDexLibrary.safeRoute(c,card=>window.JPCardmarketNative?.route(card));
-    window.HoloDexRedesign.open({card:c,condition:$('condSelect').value||'NM',edition:'AUTO',stamped:false,cardmarketUrl:route?.url||''});
+    window.HoloDexRedesign.open({card:c,condition:c.condition,edition,stamped:false,cardmarketUrl:route?.url||''});
     if(l==='EN')void resolveCardmarket(c,route||{url:'',exact:false},routeSeq);
   }
   function imageCard(c,parent){if(c.image){const img=el('img');img.loading='lazy';img.alt=c.name;const choices=[c.image+'/low.webp',c.image+'/low.png'];let index=0;img.src=choices[index];img.onerror=()=>{if(++index<choices.length)img.src=choices[index];else{img.remove();parent.prepend(el('span','Afbeelding ontbreekt','libraryNoArt'));}};parent.append(img);}else parent.append(el('span','Afbeelding ontbreekt','libraryNoArt'));}

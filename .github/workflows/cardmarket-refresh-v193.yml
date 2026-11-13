@@ -126,9 +126,12 @@ jobs:
           echo '::error::Pages has not published the exact tested manifest within five minutes.'
           exit 1
       - uses: actions/upload-artifact@v4
-        if: always()
+        # Successful snapshots are already committed and published. Uploading a
+        # second full copy on every daily run consumes the account's 0.5 GB
+        # Actions artifact allowance; keep a short-lived copy only for failures.
+        if: failure()
         with:
           name: official-cardmarket-snapshot-candidate
           path: ${{ runner.temp }}/cardmarket-v193
-          retention-days: 3
+          retention-days: 1
           if-no-files-found: warn

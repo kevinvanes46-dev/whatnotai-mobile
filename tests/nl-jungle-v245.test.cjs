@@ -86,6 +86,24 @@ test('v244 Cardmarket routing keeps language, condition and verification labels'
   assert.equal(new URL(search.url).pathname,'/en/Pokemon/Products/Search');
 });
 
+test('NL/EN Jungle 1st Edition is an explicit filter and unverified numbers stay searches',()=>{
+  const card={source_id:'base2-26',source_set_id:'base2',number:'26',name:'Scyther'};
+  const first=jungle.routeFor(card,{condition:'NM',edition:'1ST'});
+  const unlimited=jungle.routeFor(card,{condition:'NM',edition:'UNLIMITED'});
+  assert.match(new URL(first.url).pathname,/\/Singles\/Jungle\/Scyther-V2-JU26$/);
+  assert.equal(new URL(first.url).searchParams.get('language'),'12');
+  assert.equal(new URL(first.url).searchParams.get('isFirstEd'),'Y');
+  assert.equal(new URL(unlimited.url).searchParams.get('isFirstEd'),'N');
+  const unverified=jungle.routeFor({source_id:'base2-20',source_set_id:'base2',number:'20',name:'Jolteon'},
+    {edition:'1ST'});
+  assert.equal(unverified.exact,false);
+  assert.equal(new URL(unverified.url).searchParams.get('isFirstEd'),'Y');
+  const wrong=jungle.routeFor({...card,name:'Pinsir'},{edition:'1ST'});
+  assert.equal(wrong.url,'');
+  const ui=fs.readFileSync(path.join(__dirname,'..','ui-library-v185.js'),'utf8');
+  assert.match(ui,/\$\('editionSelect'\)\?\.value==='1ST'/);
+});
+
 test('the legacy checklist is retained as data but its standalone UI is removed',()=>{
   const source=fs.readFileSync(path.join(__dirname,'..','nl-jungle-v242.js'),'utf8');
   const html=fs.readFileSync(path.join(__dirname,'..','index.html'),'utf8');
