@@ -93,5 +93,5 @@ test('the legacy checklist is retained as data but its standalone UI is removed'
   assert.doesNotMatch(source,/Jungle beurslijst|nlJunglePanel|nlJungleToggle/);
   assert.doesNotMatch(html,/Jungle beurslijst|nlJunglePanel|nlJungleToggle/);
   assert.match(fs.readFileSync(path.join(__dirname,'..','ui-v137-collection.js'),'utf8'),/collectionImportLegacyJungle/);
-  assert.match(fs.readFileSync(path.join(__dirname,'..','sw.js'),'utf8'),/rareworth-shell-v246-set-coverage/);
+  assert.match(fs.readFileSync(path.join(__dirname,'..','sw.js'),'utf8'),/rareworth-shell-v247-cardmarket-exact/);
 });

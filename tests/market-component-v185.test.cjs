@@ -22,11 +22,39 @@ async function setup(t,items=[fixture.item]){
  return {page,context,count:()=>count,fail:()=>{fail=true;},response:c=>{response=c;}};
 }
 const snapshot=p=>p.evaluate(()=>{const raw=localStorage.getItem('cardscout_collection_v133');return {raw,signature:RareWorthCloudSync.createLocalSnapshot(JSON.parse(raw)).signature};});
+async function refreshPrices(page){
+ await page.evaluate(()=>{
+  const result=window.__v185Refresh={state:'pending',error:''};
+  result.promise=cardscoutCollectionUI.refreshPrices(true);
+  result.promise.then(()=>{result.state='done';},error=>{result.state='failed';result.error=String(error?.stack||error);});
+ });
+ try{
+  await page.waitForFunction(()=>window.__v185Refresh.state!=='pending');
+  const result=await page.evaluate(()=>({state:window.__v185Refresh.state,error:window.__v185Refresh.error}));
+  assert.equal(result.state,'done',result.error);
+ }finally{await page.evaluate(()=>{delete window.__v185Refresh;});}
+}
 
 test('fixture component deduplicates concurrent price refreshes and preserves collection',async t=>{
  const {page,count}=await setup(t),before=await snapshot(page);
  const results=await page.evaluate(()=>Promise.all([cardscoutCollectionUI.refreshOnePrice('market-test'),cardscoutCollectionUI.refreshOnePrice('market-test')]));
  assert.deepEqual(results,['updated','updated']);assert.equal(count(),1);assert.deepEqual(await snapshot(page),before);
+});
+test('a pending refresh completes and preserves collection after Chromium garbage collection', {timeout:15000},async t=>{
+ const {page,context}=await setup(t),before=await snapshot(page);
+ let release,requested;
+ const blocked=new Promise(resolve=>{release=resolve;}),started=new Promise(resolve=>{requested=resolve;});
+ t.after(()=>release());
+ await page.route('**/v2/en/cards/base1-4',async route=>{
+  requested();await blocked;await route.fulfill({json:fixture.card});
+ });
+ const refresh=refreshPrices(page);
+ await started;
+ const cdp=await context.newCDPSession(page);
+ await cdp.send('HeapProfiler.collectGarbage');
+ release();await refresh;
+ assert.ok(await page.evaluate(()=>localStorage.getItem(HoloKeepMarket.KEY)));
+ assert.deepEqual(await snapshot(page),before);
 });
 test('real refresh preserves exact collection and cloud signature; labels, failures and mobile',async t=>{
  const {page,fail,count,response}=await setup(t);const before=await snapshot(page);
@@ -35,9 +63,9 @@ test('real refresh preserves exact collection and cloud signature; labels, failu
  assert.match(await page.locator('#collectionMarket').innerText(),/50/);assert.match(await page.locator('#collectionPriceCoverage').innerText(),/2 van 2 exemplaren/);assert.match(await page.locator('#collectionPaidCoverage').innerText(),/0 van 2 exemplaren/);
  assert.match(await page.locator('#collectionList').innerText(),/Algemene marktindicatie/);assert.match(await page.locator('#collectionList').innerText(),/Conditie niet verwerkt/);assert.match(await page.locator('#collectionList').innerText(),/Cardmarket trend/);
  for(const width of [320,375,390,430]){await page.setViewportSize({width,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),String(width));assert.ok(await page.locator('#collectionMarket').isVisible());}
- const c=structuredClone(fixture.card);delete c.pricing.cardmarket['trend-holo'];response(c);await page.evaluate(()=>cardscoutCollectionUI.refreshPrices(true));assert.match(await page.locator('#collectionList').innerText(),/7-daags gemiddelde/);assert.doesNotMatch(await page.locator('#collectionList').innerText(),/Cardmarket trend/);
- delete c.pricing.cardmarket['avg7-holo'];response(c);await page.evaluate(()=>cardscoutCollectionUI.refreshPrices(true));assert.match(await page.locator('#collectionList').innerText(),/30-daags gemiddelde/);
- const cached=await page.evaluate(()=>localStorage.getItem(HoloKeepMarket.KEY));fail();await page.evaluate(()=>cardscoutCollectionUI.refreshPrices(true));
+ const c=structuredClone(fixture.card);delete c.pricing.cardmarket['trend-holo'];response(c);await refreshPrices(page);assert.match(await page.locator('#collectionList').innerText(),/7-daags gemiddelde/);assert.doesNotMatch(await page.locator('#collectionList').innerText(),/Cardmarket trend/);
+ delete c.pricing.cardmarket['avg7-holo'];response(c);await refreshPrices(page);assert.match(await page.locator('#collectionList').innerText(),/30-daags gemiddelde/);
+ const cached=await page.evaluate(()=>localStorage.getItem(HoloKeepMarket.KEY));fail();await refreshPrices(page);
  assert.equal(await page.evaluate(()=>localStorage.getItem(HoloKeepMarket.KEY)),cached);assert.deepEqual(await snapshot(page),before);assert.match(await page.locator('.priceFreshness').innerText(),/Vernieuwen mislukt/);assert.match(await page.locator('#collectionMarket').innerText(),/46/);
  assert.doesNotMatch(await page.locator('[data-view="collection"]').innerText(),/ROI|Live waarde|Exacte waarde/);
  assert.equal(await page.locator('#collectionDifference').innerText(),'—');
@@ -45,18 +73,18 @@ test('real refresh preserves exact collection and cloud signature; labels, failu
 test('legacy excluded; special variants unavailable; quantity and cost coverage; duplicate requests deduplicated',async t=>{
  const items=[fixture.item,{...fixture.item,uid:'stamped',qty:3,variant:'STAMPED',paidEach:null},{...fixture.item,uid:'second',qty:1,condition:'PL',paidEach:0}];const {page,count}=await setup(t,items);
  assert.equal(await page.locator('#collectionMarket').textContent(),'—');assert.match(await page.locator('#collectionList').textContent(),/Oudere prijs/);const before=await snapshot(page);
- await page.evaluate(()=>cardscoutCollectionUI.refreshPrices(true));assert.equal(count(),1);assert.deepEqual(await snapshot(page),before);
+ await refreshPrices(page);assert.equal(count(),1);assert.deepEqual(await snapshot(page),before);
  assert.equal(await page.locator('#collectionPriceCoverage').textContent(),'Prijs voor 3 van 6 exemplaren');assert.match(await page.locator('#collectionPaidCoverage').textContent(),/0 van 6/);assert.match(await page.locator('#collectionList').textContent(),/Geen betrouwbare stamped-prijs/);
  await page.evaluate(()=>{const a=JSON.parse(localStorage.getItem('cardscout_collection_v133'));a[0].edition='1ST';localStorage.setItem('cardscout_collection_v133',JSON.stringify(a));cardscoutCollectionUI.render();});
  assert.match(await page.locator('#collectionList').textContent(),/Geen passende 1st Edition-prijs/);
 });
 test('real service worker offline reload retains validated cache, provenance, user data and same-origin assets',async t=>{
- const {page,context}=await setup(t);await page.evaluate(()=>cardscoutCollectionUI.refreshPrices(true));await page.evaluate(()=>navigator.serviceWorker.ready);await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
+ const {page,context}=await setup(t);await refreshPrices(page);await page.evaluate(()=>navigator.serviceWorker.ready);await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
  const before=await snapshot(page),cached=await page.evaluate(()=>localStorage.getItem(HoloKeepMarket.KEY));
  await context.setOffline(true);await page.reload();await page.locator('#navCollection').click();
  assert.match(await page.locator('#collectionMarket').textContent(),/50/);assert.match(await page.locator('#collectionList').textContent(),/Cardmarket trend/);assert.match(await page.locator('#collectionList').textContent(),/Bijgewerkt/);
  assert.deepEqual(await snapshot(page),before);assert.equal(await page.evaluate(()=>localStorage.getItem(HoloKeepMarket.KEY)),cached);
- const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v246-set-coverage')).keys()).map(r=>r.url));assert.ok(urls.some(u=>u.includes('market-v176.js?build=176-market-value-trust')));assert.ok(urls.every(u=>new URL(u).origin===origin));
+ const urls=await page.evaluate(async()=> (await (await caches.open('rareworth-shell-v247-cardmarket-exact')).keys()).map(r=>r.url));assert.ok(urls.some(u=>u.includes('market-v176.js?build=176-market-value-trust')));assert.ok(urls.every(u=>new URL(u).origin===origin));
 });
 test('mismatched response and in-flight identity change cannot attach wrong price',async t=>{
  const {page,response}=await setup(t);const c=structuredClone(fixture.card);c.id='base2-4';response(c);const before=await snapshot(page);

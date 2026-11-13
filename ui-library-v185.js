@@ -17,9 +17,9 @@
   const ui=root.cardscoutCollectionUI;
   if(ui?.cardmarketLink){
     const original=ui.cardmarketLink.bind(ui);
+    const englishRoute=item=>library.safeRoute({...item,source_id:item.source_id||item.sourceId,set_name:item.set_name||item.setName});
     ui.cardmarketLink=function(item){
-      const card={...item,source_id:item.sourceId||item.source_id,set_name:item.setName||item.set_name};
-      if(card.language==='EN')return library.safeRoute(card).url;
+      if(item.language==='EN')return englishRoute(item).url;
       return original(item);
     };
     // Legacy collection rendering closes over its private link builder. Adapt
@@ -29,9 +29,23 @@
       const sync=()=>{
         const items=new Map(ui.items().map(item=>[item.uid,item]));
         for(const row of list.querySelectorAll('.collectionCard[data-id]')){
-          const item=items.get(row.dataset.id),link=row.querySelector('a[target="_blank"]');
-          if(!item||!link)continue;
-          const url=ui.cardmarketLink(item);if(url&&link.getAttribute('href')!==url)link.setAttribute('href',url);
+          const item=items.get(row.dataset.id);
+          if(!item)continue;
+          let link=row.querySelector('a[target="_blank"]');
+          if(item.language==='EN'){
+            const route=englishRoute(item);
+            if(!route.url){if(link)link.remove();continue;}
+            if(!link){
+              const edit=row.querySelector('.collectionCardRow .editMiniBtn');
+              if(!edit)continue;
+              link=root.document.createElement('a');link.target='_blank';link.rel='noopener';edit.before(link);
+            }
+            if(link.getAttribute('href')!==route.url)link.setAttribute('href',route.url);
+            const label=route.exact?'Exacte kaart op Cardmarket ↗':'Zoek op Cardmarket ↗';
+            if(link.textContent!==label)link.textContent=label;
+          }else if(link){
+            const url=ui.cardmarketLink(item);if(url&&link.getAttribute('href')!==url)link.setAttribute('href',url);
+          }
         }
       };
       new root.MutationObserver(sync).observe(list,{childList:true,subtree:true});sync();
@@ -130,8 +144,7 @@
   function openLibraryCard(c,l){
     c={...c,condition:$('condSelect').value||'NM'};
     const route=l==='NL'?window.HoloKeepDutchJungle.routeFor(c,{condition:c.condition,edition:'AUTO'}):
-      l==='EN'&&c.source_set_id==='base2'?window.HoloKeepDutchJungle.englishRouteFor(c,{condition:c.condition,edition:'AUTO'}):
-        HoloDexLibrary.safeRoute(c,card=>window.JPCardmarketNative?.route(card));
+      HoloDexLibrary.safeRoute(c,card=>window.JPCardmarketNative?.route(card));
     window.HoloDexRedesign.open({card:c,condition:$('condSelect').value||'NM',edition:'AUTO',stamped:false,cardmarketUrl:route?.url||''});
     if(l==='EN')void resolveCardmarket(c,route||{url:'',exact:false},routeSeq);
   }

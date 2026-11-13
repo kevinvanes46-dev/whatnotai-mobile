@@ -19,9 +19,24 @@
   });
   function confirmedRoute(card={}){
     const id=card.source_id||card.sourceId,known=confirmedLinks[id];
+    if(id==='sv03.5-199'){
+      if(card.language!=='EN'||normalize(card.name)!=='charizard ex'||!['199','199/165'].includes(String(card.number).trim())||
+        (card.source_id&&card.sourceId&&card.source_id!==card.sourceId)||
+        (card.source_set_id&&card.source_set_id!=='sv03.5')||
+        (card.sourceSetId&&card.sourceSetId!=='sv03.5')||
+        (card.set_name&&normalize(card.set_name)!=='151')||
+        (card.setName&&normalize(card.setName)!=='151')||
+        (card.set&&!['151','TCGDEX EN sv03.5'].includes(card.set))||
+        (card.subtype&&card.subtype!=='unlimited')||
+        !['','AUTO','UNLIMITED'].includes(String(card.edition||'').toUpperCase())||
+        !['','NORMAL','HOLO'].includes(String(card.variant||'').toUpperCase())||
+        !['','M','MT','MINT','NM','EX','GD','LP','PL','PO'].includes(String(card.condition||'').toUpperCase()))return null;
+      return {url:offerUrl('https://www.cardmarket.com/en/Pokemon/Products/Singles/151/Charizard-ex-V3-MEW199',card),exact:true,confirmed:true};
+    }
     if(!known||card.language!=='EN'||normalize(card.name)!==normalize(known[0])||
       String(card.number)!==known[1]||(card.source_set_id&&card.source_set_id!=='ecard2')||
       (card.set_name&&normalize(card.set_name)!=='aquapolis')||
+      (card.set&&normalize(card.set)!=='aquapolis'&&card.set!=='TCGDEX EN ecard2')||
       !['','AUTO','UNLIMITED'].includes(String(card.edition||'').toUpperCase())||
       !['','NORMAL','REVERSE','REVERSE_HOLO','STAMPED'].includes(String(card.variant||'').toUpperCase())||
       !['','M','MT','MINT','NM','EX','GD','LP','PL','PO'].includes(String(card.condition||'').toUpperCase()))return null;
@@ -76,9 +91,28 @@
   function safeRoute(input={},jpRoute){
     const card={...input,source_id:input.source_id||input.sourceId,set_name:input.set_name||input.setName};
     if(card.language==='JP')return jpRoute?jpRoute(card):{url:'',exact:false,kind:'UNAVAILABLE'};
+    card.source_set_id=input.source_set_id||input.sourceSetId;
     const name=String(card.name||'').trim();
     if(!name)return {url:'',exact:false,kind:'UNAVAILABLE'};
+    if((input.source_id&&input.sourceId&&input.source_id!==input.sourceId)||
+      (input.source_set_id&&input.sourceSetId&&input.source_set_id!==input.sourceSetId)||
+      (input.set_name&&input.setName&&normalize(input.set_name)!==normalize(input.setName))||
+      (card.source_id&&card.source_set_id&&!card.source_id.startsWith(card.source_set_id+'-'))){
+      return {url:searchLink(name),exact:false,kind:'BROAD_SEARCH',note:'Tegenstrijdige bronidentiteit · controleer set en nummer'};
+    }
     const confirmed=confirmedRoute(card);if(confirmed)return {...confirmed,kind:'EXACT'};
+    if(card.language==='EN'&&card.source_id?.startsWith('base2-')&&
+      (!input.source_id||!input.sourceId||input.source_id===input.sourceId)&&
+      (!card.source_set_id||card.source_set_id==='base2')&&(!card.sourceSetId||card.sourceSetId==='base2')&&
+      (!card.set||['JUNGLE','TCGDEX EN base2'].includes(card.set))&&
+      (!card.set_name||normalize(card.set_name)==='jungle')&&
+      (!input.set_name||!input.setName||normalize(input.set_name)===normalize(input.setName))&&
+      ['','AUTO','1ST','UNLIMITED'].includes(String(card.edition||'').toUpperCase())&&
+      ['','NORMAL'].includes(String(card.variant||'').toUpperCase())&&
+      ['','NM','EX','GD','LP','PL','PO'].includes(String(card.condition||'').toUpperCase())){
+      const jungle=globalThis.HoloKeepDutchJungle?.englishRouteFor(card,{condition:card.condition||'NM',edition:card.edition||'AUTO'});
+      if(jungle?.url)return {...jungle,kind:jungle.exact?'EXACT':'TARGETED_SEARCH',jungle:true};
+    }
     const curated=curatedRoute(card);if(curated)return curated;
     const number=String(card.number||''),sourceSet=card.source_id?.slice(0,card.source_id.lastIndexOf('-'));
     const setId=card.source_set_id||sourceSet||Object.keys(searchSets).find(id=>searchSets[id].slice(1).some(label=>normalize(label)===normalize(card.set_name||card.set)));
